@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     
     <style>
-        /* 1. 全局重置：确保无默认边距 */
+        /* 1. 全局重置 */
         * {
             margin: 0;
             padding: 0;
@@ -23,19 +23,19 @@
         }
 
         :root {
-            /* 极简主题色：低饱和青蓝+白，无多余色彩 */
             --primary: #9ae2e5;
             --primary-light: #e8f8f9;
+            --primary-dark: #7cccd0;
             --text-main: #333;
             --text-secondary: #666;
             --bg-card: #fff;
             --border: #eee;
-            /* 等大布局核心变量 */
-            --option-height: 60px; /* 固定选项高度，确保大小相等 */
+            /* 核心布局变量 */
+            --option-height: 60px;
             --radius: 10px;
             --shadow: 0 3px 10px rgba(0,0,0,0.05);
-            --transition: all 0.2s ease;
-            --gap: 12px; /* 统一间距，确保布局规整 */
+            --transition: all 0.3s ease;
+            --gap: 12px;
         }
 
         body {
@@ -60,9 +60,10 @@
             max-width: 100%;
             height: auto;
             border-radius: 50%;
+            object-fit: cover; /* 防止头像拉伸变形 */
         }
 
-        /* 2. 容器：居中适配 */
+        /* 2. 容器居中 */
         #wrapper {
             width: 100%;
             max-width: 800px;
@@ -70,7 +71,7 @@
             padding: 0 15px;
         }
 
-        /* 3. 主体卡片：统一容器样式 */
+        /* 3. 主体卡片 */
         #main {
             background: var(--bg-card);
             border-radius: var(--radius);
@@ -79,19 +80,47 @@
             text-align: center;
         }
 
-        /* 头部：精简到核心信息 */
+        /* 头部：重点美化头像 */
         #main header {
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 1px solid var(--border);
         }
 
-        .avatar {
-            width: 90px;
-            height: 90px;
+        /* 头像容器：加背景圆+双层边框，增强层次感 */
+        .avatar-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
             margin: 0 auto 15px;
-            border: 3px solid var(--primary-light);
-            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border: 4px solid #fff; /* 内层白色边框，隔离头像与背景 */
+            box-shadow: 0 0 0 2px var(--primary), 0 4px 8px rgba(154, 226, 229, 0.3); /* 外层主题色边框+淡阴影 */
+            transition: var(--transition);
+        }
+
+        /* 头像背景圆：淡色底，突出头像 */
+        .avatar-container::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110px;
+            height: 110px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            z-index: -1; /* 置于头像下层 */
+        }
+
+        /* 头像hover动画：轻量旋转+缩放，不突兀 */
+        .avatar:hover {
+            transform: rotate(5deg) scale(1.05);
+            box-shadow: 0 0 0 2px var(--primary-dark), 0 6px 12px rgba(124, 204, 208, 0.4);
         }
 
         #main header h1 {
@@ -107,9 +136,9 @@
             margin-bottom: 12px;
         }
 
-        /* 书签提示：极简文本，无多余图标 */
+        /* 书签提示 */
         .bookmark-tip {
-            background: linear-gradient(120deg, var(--primary), #7cccd0);
+            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
             color: #fff;
             padding: 10px;
             border-radius: var(--radius);
@@ -117,18 +146,15 @@
             margin-bottom: 15px;
         }
 
-        /* 4. 选项区：核心优化——等大布局 */
-        /* 选项列表：grid确保列宽相等，行高统一 */
+        /* 4. 等大选项区 */
         .option-list {
             list-style: none;
             display: grid;
-            /* 多设备等列适配：PC3列/平板2列/手机1列 */
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: var(--gap);
             margin-bottom: 25px;
         }
 
-        /* 选项卡片：固定高度+居中对齐，确保大小完全相等 */
         .option-list li {
             height: var(--option-height);
             background: var(--primary-light);
@@ -147,14 +173,13 @@
             box-shadow: 0 5px 12px rgba(154, 226, 229, 0.2);
         }
 
-        /* 选项文字：居中无多余元素 */
         .option-list li a {
             font-size: 14px;
             font-weight: 500;
             padding: 0 5px;
         }
 
-        /* 5. 底部：仅保留核心信息 */
+        /* 5. 底部：删除IP后仅保留版权，简洁干净 */
         #footer {
             text-align: center;
             color: #999;
@@ -166,33 +191,39 @@
             list-style: none;
         }
 
-        .copyright li {
-            margin-bottom: 5px;
-        }
-
-        /* 6. 响应式：确保各设备选项等大 */
+        /* 6. 响应式适配 */
         @media only screen and (max-width: 768px) {
-            /* 平板端2列，选项高度不变 */
             .option-list {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .avatar-container {
+                width: 90px;
+                height: 90px;
+            }
+            .avatar-container::before {
+                width: 100px;
+                height: 100px;
             }
         }
 
         @media only screen and (max-width: 480px) {
-            /* 手机端1列，选项宽度100%，高度不变 */
             .option-list {
                 grid-template-columns: 1fr;
             }
-            .avatar {
+            .avatar-container {
                 width: 80px;
                 height: 80px;
+            }
+            .avatar-container::before {
+                width: 90px;
+                height: 90px;
             }
             #main header h1 {
                 font-size: 24px;
             }
         }
 
-        /* 雪花特效：保留功能，不影响布局 */
+        /* 雪花特效 */
         .snow-container {
             position: fixed !important;
             top: 0;
@@ -209,18 +240,18 @@
     <div id="wrapper">
         <section id="main">
             <header>
-                <!-- 头像：仅保留核心元素 -->
-                <span class="avatar">
-                    <img src="http://avatar.coolapk.com/data/003/38/56/29_avatar_big.jpg" alt="兮心">
-                </span>
+                <!-- 美化后的头像：带背景圆+双层边框 -->
+                <div class="avatar-container">
+                    <img class="avatar" src="http://avatar.coolapk.com/data/003/38/56/29_avatar_big.jpg" alt="兮心">
+                </div>
                 <!-- 核心标题与提示 -->
                 <h1>兮心</h1>
                 <p>缘起缘落，一念平生 · 密码默认 momo</p>
-                <!-- 极简书签提示 -->
+                <!-- 书签提示 -->
                 <div class="bookmark-tip">建议添加书签，防止失联</div>
             </header>
 
-            <!-- 选项区：等大无图标，仅文字入口 -->
+            <!-- 等大选项区 -->
             <ul class="option-list">
                 <li><a href="https://moshanging.lanzout.com/b01jab65i" title="凉墨">凉墨</a></li>
                 <li><a href="https://moshanging.lanzout.com/b01jak5de" title="挖沙">挖沙</a></li>
@@ -233,17 +264,15 @@
             </ul>
         </section>
 
-        <!-- 底部：仅保留IP与版权 -->
+        <!-- 底部：彻底删除IP相关代码，仅保留版权 -->
         <footer id="footer">
             <ul class="copyright">
-                <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
-                <li>当前IP: <script>document.write(returnCitySN["cip"])</script></li>
                 <li>© 2015-2024 兮心</li>
             </ul>
         </footer>
     </div>
 
-    <!-- 保留核心脚本，无多余代码 -->
+    <!-- 核心脚本 -->
     <script>
         if ('addEventListener' in window) {
             window.addEventListener('load', () => {
@@ -252,7 +281,7 @@
         }
     </script>
 
-    <!-- 雪花特效：保留原功能，无冗余 -->
+    <!-- 雪花特效 -->
     <script src="js/jquery.min.js"></script>
     <script src="js/su.js"></script>
     <script src="js/snowy.js"></script>
