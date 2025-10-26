@@ -3,7 +3,384 @@
 document.oncontextmenu=new Function("event.returnValue=false");
 document.onselectstart=new Function("event.returnValue=false");
 </script>
-        
+        /* 1. 全局重置与基础变量（统一风格+方便维护） */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+:root {
+  /* 主题色：莫兰迪粉（适配「Momo」软萌/清新定位） */
+  --primary: #f096a8;
+  --primary-light: #ffe6ec;
+  --primary-dark: #d87588;
+  /* 中性色：避免刺眼，提升阅读感 */
+  --text-main: #333333;
+  --text-secondary: #666666;
+  --text-light: #999999;
+  --bg-main: #ffffff;
+  --bg-secondary: #fafafa;
+  --border: #eeeeee;
+  /* 尺寸变量：统一间距/圆角 */
+  --radius: 12px;
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
+  /* 过渡：所有交互统一丝滑感 */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background-color: var(--bg-secondary);
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+}
+
+/* 2. 布局容器（居中+响应式） */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gap-md);
+}
+
+/* 3. 导航栏（固定+滚动变化，提升辨识度） */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px); /* 毛玻璃效果，高级感拉满 */
+  box-shadow: var(--shadow);
+  z-index: 999;
+  transition: var(--transition);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.nav-logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+
+/* 导航图标（可选，原站有图标可保留） */
+.nav-logo::before {
+  content: "🌸";
+  font-size: 24px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: var(--gap-lg);
+}
+
+.nav-item {
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.nav-item:hover {
+  color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+/* 移动端汉堡菜单（适配小屏幕） */
+.nav-hamburger {
+  display: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+/* 4. 英雄区（Hero）：突出主题，第一眼抓注意力 */
+.hero {
+  margin-top: 64px; /* 避开导航栏 */
+  padding: var(--gap-lg) 0;
+  background: linear-gradient(120deg, var(--primary-light), #fff0f4);
+  border-radius: 0 0 var(--radius) var(--radius);
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: var(--gap-sm);
+  line-height: 1.2;
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto var(--gap-md);
+}
+
+/* 按钮样式（CTA 突出） */
+.hero-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 8px rgba(240, 150, 168, 0.3);
+  transition: var(--transition);
+}
+
+.hero-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(240, 150, 168, 0.4);
+}
+
+/* 5. 内容区（卡片化+层次分明，适配原站列表/文章） */
+.content {
+  padding: var(--gap-lg) 0;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: var(--gap-md);
+  padding-left: 8px;
+  border-left: 4px solid var(--primary); /* 左侧小竖线，强化标题感 */
+}
+
+/* 卡片布局（适配文章/项目/链接列表） */
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--gap-md);
+}
+
+.card {
+  background-color: var(--bg-main);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* 卡片图片（原站有图则用，无图可隐藏） */
+.card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: var(--gap-md);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: var(--gap-sm);
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.card:hover .card-title {
+  color: var(--primary);
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: var(--gap-md);
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 最多显示2行，避免内容过长 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* 6. 底部（简洁+呼应主题） */
+.footer {
+  padding: var(--gap-md) 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-lg);
+  margin-bottom: var(--gap-sm);
+}
+
+.footer-link {
+  transition: var(--transition);
+}
+
+.footer-link:hover {
+  color: var(--primary);
+}
+
+/* 7. 响应式适配（手机/平板友好） */
+@media (max-width: 768px) {
+  /* 导航菜单折叠 */
+  .nav-menu {
+    position: fixed;
+    top: 64px;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--bg-main);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+    width: 200px;
+    height: calc(100vh - 64px);
+    padding: var(--gap-md);
+    gap: var(--gap-md);
+    transform: translateX(100%); /* 初始隐藏 */
+    transition: var(--transition);
+  }
+
+  .nav-menu.active {
+    transform: translateX(0); /* 点击汉堡展开 */
+  }
+
+  .nav-hamburger {
+    display: block;
+  }
+
+  /* 英雄区标题缩小 */
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+  }
+
+  /* 卡片布局：移动端1列 */
+  .card-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 8. 细节优化（提升精致度的小技巧） */
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* 图片懒加载骨架屏（可选，原站有图可加） */
+.card-img-skeleton {
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* 文字渐入动画（页面加载时） */
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fade-in 0.6s forwards;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 给不同模块加延迟，营造层次感 */
+.hero-title {
+  animation-delay: 0.1s;
+}
+
+.hero-desc {
+  animation-delay: 0.3s;
+}
+
+.hero-btn {
+  animation-delay: 0.5s;
+}
+
+.card {
+  animation-delay: calc(0.1s * var(--index)); /* 卡片依次渐入 */
+}
+
          <title>兮心 - 官网</title>
          <meta name="description" content="记录生活点滴的所思所想。">
          <meta name="keywords" content="引导页源码|博客引导单页|单页|引导页|引导页单页|单页源码">
