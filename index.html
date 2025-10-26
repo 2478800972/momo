@@ -1,483 +1,327 @@
 <!doctype html>
-<!--本源码来自IG云科技，请访问www.9skj.com--><!DOCTYPE html><html><head><meta charset="utf-8"><script language="Javascript">
-document.oncontextmenu=new Function("event.returnValue=false");
-document.onselectstart=new Function("event.returnValue=false");
-</script>
-        /* 1. 全局重置与基础变量（统一风格+方便维护） */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
-}
-
-:root {
-  /* 主题色：莫兰迪粉（适配「Momo」软萌/清新定位） */
-  --primary: #f096a8;
-  --primary-light: #ffe6ec;
-  --primary-dark: #d87588;
-  /* 中性色：避免刺眼，提升阅读感 */
-  --text-main: #333333;
-  --text-secondary: #666666;
-  --text-light: #999999;
-  --bg-main: #ffffff;
-  --bg-secondary: #fafafa;
-  --border: #eeeeee;
-  /* 尺寸变量：统一间距/圆角 */
-  --radius: 12px;
-  --gap-sm: 8px;
-  --gap-md: 16px;
-  --gap-lg: 24px;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.08);
-  /* 过渡：所有交互统一丝滑感 */
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body {
-  background-color: var(--bg-secondary);
-  color: var(--text-main);
-  line-height: 1.6;
-  font-size: 16px;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: var(--transition);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-button,
-input {
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 16px;
-}
-
-/* 2. 布局容器（居中+响应式） */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--gap-md);
-}
-
-/* 3. 导航栏（固定+滚动变化，提升辨识度） */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px); /* 毛玻璃效果，高级感拉满 */
-  box-shadow: var(--shadow);
-  z-index: 999;
-  transition: var(--transition);
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 64px;
-}
-
-.nav-logo {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  gap: var(--gap-sm);
-}
-
-/* 导航图标（可选，原站有图标可保留） */
-.nav-logo::before {
-  content: "🌸";
-  font-size: 24px;
-}
-
-.nav-menu {
-  display: flex;
-  gap: var(--gap-lg);
-}
-
-.nav-item {
-  font-size: 15px;
-  color: var(--text-secondary);
-  font-weight: 500;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
-
-.nav-item:hover {
-  color: var(--primary);
-  background-color: var(--primary-light);
-}
-
-/* 移动端汉堡菜单（适配小屏幕） */
-.nav-hamburger {
-  display: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: var(--text-main);
-}
-
-/* 4. 英雄区（Hero）：突出主题，第一眼抓注意力 */
-.hero {
-  margin-top: 64px; /* 避开导航栏 */
-  padding: var(--gap-lg) 0;
-  background: linear-gradient(120deg, var(--primary-light), #fff0f4);
-  border-radius: 0 0 var(--radius) var(--radius);
-  text-align: center;
-}
-
-.hero-title {
-  font-size: 42px;
-  font-weight: 800;
-  color: var(--primary-dark);
-  margin-bottom: var(--gap-sm);
-  line-height: 1.2;
-}
-
-.hero-desc {
-  font-size: 18px;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto var(--gap-md);
-}
-
-/* 按钮样式（CTA 突出） */
-.hero-btn {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: var(--primary);
-  color: #fff;
-  font-weight: 600;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 8px rgba(240, 150, 168, 0.3);
-  transition: var(--transition);
-}
-
-.hero-btn:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(240, 150, 168, 0.4);
-}
-
-/* 5. 内容区（卡片化+层次分明，适配原站列表/文章） */
-.content {
-  padding: var(--gap-lg) 0;
-}
-
-.section-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: var(--gap-md);
-  padding-left: 8px;
-  border-left: 4px solid var(--primary); /* 左侧小竖线，强化标题感 */
-}
-
-/* 卡片布局（适配文章/项目/链接列表） */
-.card-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--gap-md);
-}
-
-.card {
-  background-color: var(--bg-main);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: var(--transition);
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-}
-
-/* 卡片图片（原站有图则用，无图可隐藏） */
-.card-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.card-content {
-  padding: var(--gap-md);
-}
-
-.card-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: var(--gap-sm);
-  color: var(--text-main);
-  transition: var(--transition);
-}
-
-.card:hover .card-title {
-  color: var(--primary);
-}
-
-.card-desc {
-  font-size: 14px;
-  color: var(--text-light);
-  margin-bottom: var(--gap-md);
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* 最多显示2行，避免内容过长 */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  color: var(--text-light);
-}
-
-/* 6. 底部（简洁+呼应主题） */
-.footer {
-  padding: var(--gap-md) 0;
-  border-top: 1px solid var(--border);
-  text-align: center;
-  color: var(--text-light);
-  font-size: 14px;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: var(--gap-lg);
-  margin-bottom: var(--gap-sm);
-}
-
-.footer-link {
-  transition: var(--transition);
-}
-
-.footer-link:hover {
-  color: var(--primary);
-}
-
-/* 7. 响应式适配（手机/平板友好） */
-@media (max-width: 768px) {
-  /* 导航菜单折叠 */
-  .nav-menu {
-    position: fixed;
-    top: 64px;
-    right: 0;
-    flex-direction: column;
-    background-color: var(--bg-main);
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
-    width: 200px;
-    height: calc(100vh - 64px);
-    padding: var(--gap-md);
-    gap: var(--gap-md);
-    transform: translateX(100%); /* 初始隐藏 */
-    transition: var(--transition);
-  }
-
-  .nav-menu.active {
-    transform: translateX(0); /* 点击汉堡展开 */
-  }
-
-  .nav-hamburger {
-    display: block;
-  }
-
-  /* 英雄区标题缩小 */
-  .hero-title {
-    font-size: 32px;
-  }
-
-  .hero-desc {
-    font-size: 16px;
-  }
-
-  /* 卡片布局：移动端1列 */
-  .card-list {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* 8. 细节优化（提升精致度的小技巧） */
-/* 滚动条美化 */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary-light);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
-}
-
-/* 图片懒加载骨架屏（可选，原站有图可加） */
-.card-img-skeleton {
-  width: 100%;
-  height: 160px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
-}
-
-@keyframes skeleton-loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-/* 文字渐入动画（页面加载时） */
-.fade-in {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fade-in 0.6s forwards;
-}
-
-@keyframes fade-in {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 给不同模块加延迟，营造层次感 */
-.hero-title {
-  animation-delay: 0.1s;
-}
-
-.hero-desc {
-  animation-delay: 0.3s;
-}
-
-.hero-btn {
-  animation-delay: 0.5s;
-}
-
-.card {
-  animation-delay: calc(0.1s * var(--index)); /* 卡片依次渐入 */
-}
-
-         <title>兮心 - 官网</title>
-         <meta name="description" content="记录生活点滴的所思所想。">
-         <meta name="keywords" content="引导页源码|博客引导单页|单页|引导页|引导页单页|单页源码">
-         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-         <meta name="viewport" content="width=device-width, initial-scale=1">
-         <link rel="stylesheet" href="css/main.css">
-
-         <style>
-             .mom {
-                 display: none;
-             }
-
-             @media only screen and (max-width:450px) {
-                 .mom {
-                     display: block;
-                 }
-
-                 .cn {
-                     color: #f00;
-                     font-weight: bold;
-                 }
-         </style>
-
-         <!-- Wrapper -->
-         </head><body><div id="wrapper">
-
-             <!-- Main -->
-             <section id="main">
-                 <header>
-                     <span class="avatar"><img src="http://avatar.coolapk.com/data/003/38/56/29_avatar_big.jpg" alt=""></a></span>
-                     <a href="#">
-                         <h1>兮心</h1>
-                     </a>
-                     <p>缘起缘落，一念平生。</p>
-                     <p>所有密码都默认momo</p>
-                     <form name="form1">
-
-
-                         <a href="#">
-                             <div align="center" style="background-color:#9ae2e5;">
-
-请把此网址添加浏览器书签 方便您下次访问 以防失联
-                             </div>
-
-
-                         </a>
-                         <div class="cn" title="所有的日久生情都是蓄谋已久的一见钟情。">所有的日久生情都是蓄谋已久的一见钟情。</div>
-                     </form>
-
-                 </header>
-
-                 <footer>
-                     <ul class="icons">
-                     
-                     
-                 <li><a href="https://moshanging.lanzout.com/b01jab65i" title="凉墨">凉墨</a></li>
-                 <li><a href="https://moshanging.lanzout.com/b01jak5de" title="挖沙">挖沙</a></li>
-                 <li><a href="https://moshanging.lanzout.com/b01jbpbzi" title="起点">起点</a></li>
-                 <li><a target="_blank" href="https://jq.qq.com/?_wv=1027&k=H0rvXKNp" title="官方Q群">官方Q群</a></li>
-                 <li><a href="https://pd.qq.com/s/bvoffd5a5" title="QQ频道">QQ频道</a></li>
-                 <li><a href="https://moshanging.lanzout.com/b01ioiucj" title="本地阅读器">本地阅读器</a></li>
-                 <li><a href="https://flowus.cn/share/ec181f56-f71e-4407-b7db-3b1045311476"阅读主题">阅读主题</a></li>
-                 <li><a href="https://moshanging.lanzout.com/b01hj5bfe"阅读书源">阅读书源</a></li>
-                 
-                     </ul>
-
-                 </footer>
-
-             </section>
-             <!-- Footer -->
-             <footer id="footer">
-                 <ul class="copyright">
-                     <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
-            <span style="color:#ffffff;">当前IP:<script>
-                    document.write(returnCitySN["cip"])
-                   </script></span>
-                         <li>© 2015-2024 .兮心</li>
-
-                 </ul>
-             </footer>
-
-         </div>
-
-         <script>
-             if ('addEventListener' in window) {
-                 window.addEventListener('load', function() {
-                     document.body.className = document.body.className.replace(/\bis-loading\b/, '');
-                 });
-                 document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
-             }
-         </script>
-         <script src="js/jquery.min.js"></script>
-         <script src="js/su.js"></script>
-	<!-- 雪花特效 -->
-	<script src="js/snowy.js"></script>
-	<style type="text/css">
-	.snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100001;}
-	</style>
-	<div class="snow-container"></div>
-     </body></html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <script language="Javascript">
+        // 保留原功能：禁用右键和选中
+        document.oncontextmenu = new Function("event.returnValue=false");
+        document.onselectstart = new Function("event.returnValue=false");
+    </script>
+    
+    <title>兮心 - 官网</title>
+    <meta name="description" content="记录生活点滴的所思所想。">
+    <meta name="keywords" content="引导页源码|博客引导单页|单页|引导页|引导页单页|单页源码">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- 引入字体图标（新增，优化图标显示） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        /* 1. 全局重置与基础变量（统一风格） */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", "SimSun", serif;
+        }
+
+        :root {
+            /* 主题色：低饱和青蓝+米白，贴合文艺感 */
+            --primary: #9ae2e5;
+            --primary-dark: #7cccd0;
+            --primary-light: #e8f8f9;
+            --text-main: #333;
+            --text-secondary: #666;
+            --text-light: #999;
+            --bg-main: #fdfdfd;
+            --bg-card: #fff;
+            --border: #eee;
+            /* 尺寸与交互变量 */
+            --radius: 16px;
+            --shadow: 0 4px 15px rgba(0,0,0,0.05);
+            --shadow-hover: 0 6px 20px rgba(154, 226, 229, 0.2);
+            --transition: all 0.3s ease;
+            --gap-sm: 8px;
+            --gap-md: 16px;
+            --gap-lg: 24px;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+                url("https://picsum.photos/id/1000/1920/1080"); /* 淡色背景图，增强文艺感 */
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%; /* 头像圆形化 */
+        }
+
+        /* 2. 容器布局（居中+卡片化） */
+        #wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--gap-md);
+        }
+
+        /* 3. 主体内容区（核心美化） */
+        #main {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: var(--gap-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 头部区域：头像+标题+简介 */
+        #main header {
+            margin-bottom: var(--gap-lg);
+            padding-bottom: var(--gap-md);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .avatar {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            margin-bottom: var(--gap-md);
+            border: 4px solid var(--primary-light);
+            box-shadow: 0 0 0 2px var(--primary);
+            transition: var(--transition);
+        }
+
+        .avatar:hover {
+            transform: rotate(5deg) scale(1.05); /* 头像hover微动 */
+        }
+
+        #main header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: var(--gap-sm);
+            letter-spacing: 2px;
+        }
+
+        #main header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: var(--gap-md);
+        }
+
+        /* 书签提示栏（优化样式） */
+        #main header .bookmark-tip {
+            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: var(--gap-md);
+            box-shadow: 0 3px 8px rgba(154, 226, 229, 0.3);
+        }
+
+        /* 文艺语录（优化颜色和排版） */
+        .cn {
+            color: var(--primary-dark);
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 0;
+            border-top: 1px dashed var(--border);
+            border-bottom: 1px dashed var(--border);
+            margin-bottom: var(--gap-lg);
+            letter-spacing: 1px;
+        }
+
+        /* 4. 链接区（卡片化+网格布局） */
+        .icons {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: var(--gap-md);
+            margin-bottom: var(--gap-lg);
+        }
+
+        .icons li {
+            background-color: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 16px 10px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .icons li:hover {
+            background-color: var(--primary);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .icons li a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--gap-sm);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .icons li a i {
+            font-size: 20px; /* 图标放大，增强识别性 */
+        }
+
+        /* 5. 底部区域（IP+版权） */
+        #footer {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 12px;
+            padding: var(--gap-md) 0;
+        }
+
+        .copyright {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-sm);
+        }
+
+        .copyright span {
+            color: var(--primary-dark) !important; /* IP颜色优化 */
+            font-weight: 500;
+        }
+
+        /* 6. 响应式适配（移动端优化） */
+        @media only screen and (max-width: 450px) {
+            #main {
+                padding: var(--gap-md);
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            #main header h1 {
+                font-size: 26px;
+            }
+
+            .icons {
+                grid-template-columns: repeat(2, 1fr); /* 移动端2列布局 */
+                gap: var(--gap-sm);
+            }
+
+            .icons li {
+                padding: 12px 8px;
+            }
+
+            .icons li a {
+                font-size: 13px;
+            }
+
+            .bookmark-tip {
+                font-size: 13px;
+            }
+        }
+
+        /* 7. 雪花特效层级调整（避免遮挡内容） */
+        .snow-container {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999 !important; /* 低于主体内容 */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- 主体内容 -->
+        <section id="main">
+            <header>
+                <!-- 头像 -->
+                <span class="avatar">
+                    <img src="http://avatar.coolapk.com/data/003/38/56/29_avatar_big.jpg" alt="兮心头像">
+                </span>
+                <!-- 标题与简介 -->
+                <a href="#">
+                    <h1>兮心</h1>
+                </a>
+                <p>缘起缘落，一念平生。</p>
+                <p>所有密码都默认 <span style="color: var(--primary-dark); font-weight: 600;">momo</span></p>
+                
+                <!-- 书签提示（优化结构） -->
+                <div class="bookmark-tip">
+                    <<i class="fa fa-bookmark-o" aria-hidden="true"></</i> 请把此网址添加浏览器书签，方便您下次访问，以防失联
+                </div>
+                
+                <!-- 文艺语录 -->
+                <div class="cn" title="所有的日久生情都是蓄谋已久的一见钟情。">
+                    所有的日久生情都是蓄谋已久的一见钟情。
+                </div>
+            </header>
+
+            <!-- 链接列表（新增图标，优化布局） -->
+            <footer>
+                <ul class="icons">
+                    <li><a href="https://moshanging.lanzout.com/b01jab65i" title="凉墨"><<i class="fa fa-cloud-download" aria-hidden="true"></</i> 凉墨</a></li>
+                    <li><a href="https://moshanging.lanzout.com/b01jak5de" title="挖沙"><<i class="fa fa-cloud-download" aria-hidden="true"></</i> 挖沙</a></li>
+                    <li><a href="https://moshanging.lanzout.com/b01jbpbzi" title="起点"><<i class="fa fa-cloud-download" aria-hidden="true"></</i> 起点</a></li>
+                    <li><a target="_blank" href="https://jq.qq.com/?_wv=1027&k=H0rvXKNp" title="官方Q群"><<i class="fa fa-qq" aria-hidden="true"></</i> 官方Q群</a></li>
+                    <li><a href="https://pd.qq.com/s/bvoffd5a5" title="QQ频道"><<i class="fa fa-comments" aria-hidden="true"></</i> QQ频道</a></li>
+                    <li><a href="https://moshanging.lanzout.com/b01ioiucj" title="本地阅读器"><<i class="fa fa-book" aria-hidden="true"></</i> 本地阅读器</a></li>
+                    <li><a href="https://flowus.cn/share/ec181f56-f71e-4407-b7db-3b1045311476" title="阅读主题"><<i class="fa fa-paint-brush" aria-hidden="true"></</i> 阅读主题</a></li>
+                    <li><a href="https://moshanging.lanzout.com/b01hj5bfe" title="阅读书源"><<i class="fa fa-list" aria-hidden="true"></</i> 阅读书源</a></li>
+                </ul>
+            </footer>
+        </section>
+
+        <!-- 底部信息 -->
+        <footer id="footer">
+            <ul class="copyright">
+                <!-- IP显示（保留原功能，优化颜色） -->
+                <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+                <li>当前IP: <script>document.write(returnCitySN["cip"])</script></li>
+                <li>© 2015-2024 兮心 | 缘起缘落，一念平生</li>
+            </ul>
+        </footer>
+    </div>
+
+    <!-- 原有脚本（保留功能，调整层级） -->
+    <script>
+        if ('addEventListener' in window) {
+            window.addEventListener('load', function() {
+                document.body.className = document.body.className.replace(/\bis-loading\b/, '');
+            });
+            document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+        }
+    </script>
+
+    <!-- 雪花特效（保留原功能，优化层级） -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/su.js"></script>
+    <script src="js/snowy.js"></script>
+    <div class="snow-container"></div>
+</body>
+</html>
