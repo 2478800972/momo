@@ -1,133 +1,280 @@
 <html>
-    <head>
-        <meta charset="utf-8"></meta>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
-        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-        <title>陨落星</title>
-        <meta name="Description" content="Home Page of iissnan"></meta>
-        <meta name="color-scheme" content="dark light"></meta>
-        <script>
-            (function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)
-        </script>
-        <link rel="stylesheet" type="text/css" href="assets/css/main.css"></link>
-    </head>
-    <body>
-        <div class="vi">
-            <h1 class="animate-slide-in-down" style="opacity: 1; top: 0px;">陨落星</h1>
-            <div class="quote">
-                <span class="quote-line quote-line-start animate-slide-in-left" style="left: 0px;"></span>
-                <span class="quote-icon quote-icon-start animate-slide-in-down" style="opacity: 1; top: 0px;">
-                    <i class="icon icon-quotes-left"></i>
-                </span>
-                <p class="quote-content animate-slide-in-down" style="opacity: 1; top: 0px;">不积跬步，无以至千里。不积小流，无以成江海。</p>
-                <p class="quote-author animate-slide-in-down" style="opacity: 1; top: 0px;">
-                    《劝学篇》—— 
-                    <em>荀子</em>
-                </p>
-                <span class="quote-icon quote-icon-end animate-slide-in-up" style="opacity: 1; bottom: 0px;">
-                    <i class="icon icon-quotes-right"></i>
-                </span>
-                <span class="quote-line quote-line-end animate-slide-in-right" style="right: 0px;"></span>
-            </div>
-            <div class="links">
-                <a href="https://wp.en.icu/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Blog</a>
-                <a href="https://wp.en.icu/index.php/note/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Moments</a>
-                <a href="https://alist.en.icu/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Alist</a>
-                <a href="https://qiu.icu" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Nav</a>
-            </div>
-            <div class="location">
-                <span class="location-icon animate-slide-in-up" style="opacity: 1; bottom: 0px;">
-                    <i class="icon icon-map-pin"></i>
-                </span>
-                <span class="location-text animate-slide-in-down" style="opacity: 1; top: 0px;">ZheJiang - China 浙ICP备2021004450号-4</span>
-            </div>
-            <div class="relocating">
-                
- Navigating to: 
-                <span class="relocate-location"></span>
-                ... 
-            </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>陨落星</title>
+    <meta name="Description" content="Home Page of iissnan">
+    <meta name="color-scheme" content="dark light">
+    <script>
+        (function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        body { 
+            min-height: 100vh; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); 
+            background-image: radial-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .vi {
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+        }
+        /* 标题样式 */
+        h1.animate-slide-in-down {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.05em;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+            opacity: 0;
+            position: relative;
+            top: 20px;
+        }
+        /* 名言区样式 */
+        .quote {
+            position: relative;
+            margin: 3rem 0;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .quote-line {
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 1px;
+            background: #6366f1;
+            opacity: 0;
+        }
+        .quote-line-start { left: -20px; }
+        .quote-line-end { right: -20px; }
+        .quote-icon {
+            position: absolute;
+            color: #6366f1;
+            font-size: 1.5rem;
+            opacity: 0;
+        }
+        .quote-icon-start { top: -12px; left: 20px; }
+        .quote-icon-end { bottom: -12px; right: 20px; }
+        .quote-content {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            opacity: 0;
+            position: relative;
+            top: 20px;
+        }
+        .quote-author {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-style: normal;
+            opacity: 0;
+            position: relative;
+            top: 20px;
+        }
+        .quote-author em { color: #6366f1; font-style: italic; }
+        /* 链接样式 */
+        .links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+        }
+        .links a {
+            text-decoration: none;
+            color: #e2e8f0;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            background: rgba(30, 41, 59, 0.4);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            opacity: 0;
+            position: relative;
+            top: 20px;
+        }
+        .links a:hover {
+            background: #6366f1;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(99, 102, 241, 0.3);
+        }
+        /* 定位区样式 */
+        .location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        .location-icon {
+            color: #6366f1;
+            font-size: 1.1rem;
+            opacity: 0;
+            position: relative;
+            bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        .location-text {
+            opacity: 0;
+            position: relative;
+            top: 20px;
+        }
+        /* 跳转提示样式 */
+        .relocating {
+            margin-top: 1.5rem;
+            color: #6366f1;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        /* 动画关键帧 */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            h1.animate-slide-in-down { font-size: 3rem; }
+            .quote-content { font-size: 1.1rem; }
+            .links { gap: 1rem; }
+            .links a { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="vi">
+        <h1 class="animate-slide-in-down" style="opacity: 1; top: 0px;">陨落星</h1>
+        <div class="quote">
+            <span class="quote-line quote-line-start animate-slide-in-left" style="left: 0px;"></span>
+            <span class="quote-icon quote-icon-start animate-slide-in-down" style="opacity: 1; top: 0px;">
+                <<i class="icon icon-quotes-left">“</</i>
+            </span>
+            <p class="quote-content animate-slide-in-down" style="opacity: 1; top: 0px; animation: typing 1.5s steps(30); overflow: hidden; white-space: nowrap;">不积跬步，无以至千里。不积小流，无以成江海。</p>
+            <p class="quote-author animate-slide-in-down" style="opacity: 1; top: 0px;">
+                《劝学篇》—— 
+                <em>荀子</em>
+            </p>
+            <span class="quote-icon quote-icon-end animate-slide-in-up" style="opacity: 1; bottom: 0px;">
+                <<i class="icon icon-quotes-right">”</</i>
+            </span>
+            <span class="quote-line quote-line-end animate-slide-in-right" style="right: 0px;"></span>
         </div>
-        <script src="assets/vendors/jquery-3.3.1.min.js"></script>
-        <script>
-            
-    $(function () {
-      var SLIDE_IN_DOWN = { opacity: 1, top: 0 };
-      var SLIDE_IN_UP = { opacity: 1, bottom: 0 };
-      var SLIDE_IN_LEFT = { left: 0 };
-      var SLIDE_IN_RIGHT = { right: 0 };
+        <div class="links">
+            <a href="https://wp.en.icu/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Blog</a>
+            <a href="https://wp.en.icu/index.php/note/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Moments</a>
+            <a href="https://alist.en.icu/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Alist</a>
+            <a href="https://qiu.icu" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Nav</a>
+        </div>
+        <div class="location">
+            <span class="location-icon animate-slide-in-up" style="opacity: 1; bottom: 0px;">
+                <<i class="icon icon-map-pin">📍</</i>
+            </span>
+            <span class="location-text animate-slide-in-down" style="opacity: 1; top: 0px;">ZheJiang - China 浙ICP备2021004450号-4</span>
+        </div>
+        <div class="relocating">
+            Navigating to: 
+            <span class="relocate-location"></span>
+            ... 
+        </div>
+    </div>
+    <script src="assets/vendors/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            var SLIDE_IN_DOWN = { opacity: 1, top: 0 };
+            var SLIDE_IN_UP = { opacity: 1, bottom: 0 };
+            var SLIDE_IN_LEFT = { left: 0 };
+            var SLIDE_IN_RIGHT = { right: 0 };
+            var ANIM_OPT = { duration: 800, easing: 'ease-out' }; // 动画优化：更自然的缓动
 
-      registerCheatCode();
-      executeAnimations();
+            registerCheatCode();
+            executeAnimations();
 
-      function executeAnimations() {
-        $.when()
-          .then(animateTitle)
-          .then(animateQuote)
-          .then(animateLinks)
-          .then(animateLocation);
-      }
+            function executeAnimations() {
+                $.when()
+                    .then(animateTitle)
+                    .then(animateQuote)
+                    .then(animateLinks)
+                    .then(animateLocation);
+            }
 
-      function animateTitle() {
-        return animate('h1', SLIDE_IN_DOWN);
-      }
+            function animateTitle() {
+                return animate('h1', SLIDE_IN_DOWN, 100, ANIM_OPT);
+            }
 
-      function animateQuote() {
-        return $.when(
-          animate('.quote-line-start', SLIDE_IN_LEFT),
-          animate('.quote-line-end',SLIDE_IN_RIGHT),
-          animate('.quote-icon-start', SLIDE_IN_DOWN),
-          animate('.quote-icon-end', SLIDE_IN_UP)
-        )
-          .then(function () {
-            return animate('.quote-content', SLIDE_IN_DOWN);
-          })
-          .then(function () {
-            return animate('.quote-author', SLIDE_IN_DOWN);
-          });
-      }
+            function animateQuote() {
+                return $.when(
+                    animate('.quote-line-start', SLIDE_IN_LEFT, 300, ANIM_OPT),
+                    animate('.quote-line-end', SLIDE_IN_RIGHT, 300, ANIM_OPT),
+                    animate('.quote-icon-start', SLIDE_IN_DOWN, 400, ANIM_OPT),
+                    animate('.quote-icon-end', SLIDE_IN_UP, 400, ANIM_OPT)
+                )
+                .then(function () {
+                    return animate('.quote-content', SLIDE_IN_DOWN, 200, ANIM_OPT);
+                })
+                .then(function () {
+                    return animate('.quote-author', SLIDE_IN_DOWN, 150, ANIM_OPT);
+                });
+            }
 
-      function animateLinks() {
-        var DELAY_STEP = 200;
-        var elements = $('.links a');
-        var concurrent = $.makeArray(elements)
-          .map(function (element, index) {
-            return animate(element, SLIDE_IN_DOWN, index * DELAY_STEP);
-          });
+            function animateLinks() {
+                var DELAY_STEP = 150; // 链接延迟缩短，更紧凑
+                var elements = $('.links a');
+                var concurrent = $.makeArray(elements)
+                    .map(function (element, index) {
+                        return animate(element, SLIDE_IN_DOWN, index * DELAY_STEP, ANIM_OPT);
+                    });
+                return $.when.apply($, concurrent);
+            }
 
-        return $.when.apply($, concurrent);
-      }
+            function animateLocation() {
+                return $.when(
+                    animate('.location-icon', SLIDE_IN_UP, 200, ANIM_OPT),
+                    animate('.location-text', SLIDE_IN_DOWN, 200, ANIM_OPT)
+                );
+            }
 
-      function animateLocation() {
-        return $.when(
-          animate('.location-icon', SLIDE_IN_UP),
-          animate('.location-text', SLIDE_IN_DOWN)
-        );
-      }
+            function animate(selector, properties, delay, options) {
+                delay = delay || 0;
+                return $(selector).delay(delay)
+                    .animate(properties, options)
+                    .promise();
+            }
 
-      function animate(selector, properties, delay, options) {
-        delay = delay || 0;
-        return $(selector).delay(delay)
-          .animate(properties, options)
-          .promise();
-      }
-
-      function registerCheatCode() {
-        $(document.body).on('keydown', function (event) {
-          var KEY_B = 66;
-
-          if (event.which === KEY_B) {
-            $('.relocate-location').text('Bookmark Page');
-            $('.relocating').css('opacity', 1);
-
-            window.setTimeout(function () {
-              window.location.href = '/bookmarks.html';
-            }, 1000);
-          }
+            function registerCheatCode() {
+                $(document.body).on('keydown', function (event) {
+                    var KEY_B = 66;
+                    if (event.which === KEY_B) {
+                        $('.relocate-location').text('Bookmark Page');
+                        $('.relocating').css('opacity', 1);
+                        // 跳转时加过渡动画
+                        $('.vi').animate({ opacity: 0.7, transform: 'scale(0.98)' }, 300);
+                        window.setTimeout(function () {
+                            window.location.href = '/bookmarks.html';
+                        }, 1000);
+                    }
+                });
+            }
         });
-      }
-    });
-  
-        </script>
-    </body>
+    </script>
+</body>
 </html>
