@@ -3,58 +3,47 @@
 <head>
     <meta charset="utf-8">
     <script language="Javascript">
-        // 保留原功能：禁用右键和选中
+        // 保留核心功能：禁用右键和选中
         document.oncontextmenu = new Function("event.returnValue=false");
         document.onselectstart = new Function("event.returnValue=false");
     </script>
     
     <title>兮心 - 官网</title>
     <meta name="description" content="记录生活点滴的所思所想。">
-    <meta name="keywords" content="引导页源码|博客引导单页|单页|引导页|引导页单页|单页源码">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!-- 引入字体图标（新增，优化图标显示） -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     
     <style>
-        /* 1. 全局重置与基础变量（统一风格） */
+        /* 1. 全局重置：确保无默认边距 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "PingFang SC", "Microsoft YaHei", "SimSun", serif;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
         }
 
         :root {
-            /* 主题色：低饱和青蓝+米白，贴合文艺感 */
+            /* 极简主题色：低饱和青蓝+白，无多余色彩 */
             --primary: #9ae2e5;
-            --primary-dark: #7cccd0;
             --primary-light: #e8f8f9;
             --text-main: #333;
             --text-secondary: #666;
-            --text-light: #999;
-            --bg-main: #fdfdfd;
             --bg-card: #fff;
             --border: #eee;
-            /* 尺寸与交互变量 */
-            --radius: 16px;
-            --shadow: 0 4px 15px rgba(0,0,0,0.05);
-            --shadow-hover: 0 6px 20px rgba(154, 226, 229, 0.2);
-            --transition: all 0.3s ease;
-            --gap-sm: 8px;
-            --gap-md: 16px;
-            --gap-lg: 24px;
+            /* 等大布局核心变量 */
+            --option-height: 60px; /* 固定选项高度，确保大小相等 */
+            --radius: 10px;
+            --shadow: 0 3px 10px rgba(0,0,0,0.05);
+            --transition: all 0.2s ease;
+            --gap: 12px; /* 统一间距，确保布局规整 */
         }
 
         body {
-            background-color: var(--bg-main);
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
-                url("https://picsum.photos/id/1000/1920/1080"); /* 淡色背景图，增强文艺感 */
+            background-color: #fdfdfd;
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+                              url("https://picsum.photos/id/1000/1920/1080");
             background-size: cover;
             background-attachment: fixed;
-            color: var(--text-main);
-            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -65,184 +54,145 @@
         a {
             text-decoration: none;
             color: inherit;
-            transition: var(--transition);
         }
 
         img {
             max-width: 100%;
             height: auto;
-            border-radius: 50%; /* 头像圆形化 */
+            border-radius: 50%;
         }
 
-        /* 2. 容器布局（居中+卡片化） */
+        /* 2. 容器：居中适配 */
         #wrapper {
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            padding: 0 var(--gap-md);
+            padding: 0 15px;
         }
 
-        /* 3. 主体内容区（核心美化） */
+        /* 3. 主体卡片：统一容器样式 */
         #main {
-            background-color: var(--bg-card);
+            background: var(--bg-card);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            padding: var(--gap-lg);
+            padding: 25px 15px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* 头部区域：头像+标题+简介 */
+        /* 头部：精简到核心信息 */
         #main header {
-            margin-bottom: var(--gap-lg);
-            padding-bottom: var(--gap-md);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
             border-bottom: 1px solid var(--border);
         }
 
         .avatar {
-            display: inline-block;
-            width: 120px;
-            height: 120px;
-            margin-bottom: var(--gap-md);
-            border: 4px solid var(--primary-light);
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
+            border: 3px solid var(--primary-light);
             box-shadow: 0 0 0 2px var(--primary);
-            transition: var(--transition);
-        }
-
-        .avatar:hover {
-            transform: rotate(5deg) scale(1.05); /* 头像hover微动 */
         }
 
         #main header h1 {
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 600;
             color: var(--text-main);
-            margin-bottom: var(--gap-sm);
-            letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
         #main header p {
-            font-size: 16px;
+            font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: var(--gap-md);
+            margin-bottom: 12px;
         }
 
-        /* 书签提示栏（优化样式） */
-        #main header .bookmark-tip {
-            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+        /* 书签提示：极简文本，无多余图标 */
+        .bookmark-tip {
+            background: linear-gradient(120deg, var(--primary), #7cccd0);
             color: #fff;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: var(--gap-md);
-            box-shadow: 0 3px 8px rgba(154, 226, 229, 0.3);
+            padding: 10px;
+            border-radius: var(--radius);
+            font-size: 13px;
+            margin-bottom: 15px;
         }
 
-        /* 文艺语录（优化颜色和排版） */
-        .cn {
-            color: var(--primary-dark);
-            font-weight: 500;
-            font-size: 14px;
-            padding: 8px 0;
-            border-top: 1px dashed var(--border);
-            border-bottom: 1px dashed var(--border);
-            margin-bottom: var(--gap-lg);
-            letter-spacing: 1px;
-        }
-
-        /* 4. 链接区（卡片化+网格布局） */
-        .icons {
+        /* 4. 选项区：核心优化——等大布局 */
+        /* 选项列表：grid确保列宽相等，行高统一 */
+        .option-list {
             list-style: none;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: var(--gap-md);
-            margin-bottom: var(--gap-lg);
+            /* 多设备等列适配：PC3列/平板2列/手机1列 */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--gap);
+            margin-bottom: 25px;
         }
 
-        .icons li {
-            background-color: var(--primary-light);
+        /* 选项卡片：固定高度+居中对齐，确保大小完全相等 */
+        .option-list li {
+            height: var(--option-height);
+            background: var(--primary-light);
             border-radius: var(--radius);
-            padding: 16px 10px;
-            transition: var(--transition);
             box-shadow: var(--shadow);
-        }
-
-        .icons li:hover {
-            background-color: var(--primary);
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .icons li a {
+            transition: var(--transition);
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: var(--gap-sm);
+            justify-content: center;
+        }
+
+        .option-list li:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(154, 226, 229, 0.2);
+        }
+
+        /* 选项文字：居中无多余元素 */
+        .option-list li a {
             font-size: 14px;
             font-weight: 500;
+            padding: 0 5px;
         }
 
-        .icons li a i {
-            font-size: 20px; /* 图标放大，增强识别性 */
-        }
-
-        /* 5. 底部区域（IP+版权） */
+        /* 5. 底部：仅保留核心信息 */
         #footer {
             text-align: center;
-            color: var(--text-light);
+            color: #999;
             font-size: 12px;
-            padding: var(--gap-md) 0;
+            padding: 10px 0;
         }
 
         .copyright {
             list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: var(--gap-sm);
         }
 
-        .copyright span {
-            color: var(--primary-dark) !important; /* IP颜色优化 */
-            font-weight: 500;
+        .copyright li {
+            margin-bottom: 5px;
         }
 
-        /* 6. 响应式适配（移动端优化） */
-        @media only screen and (max-width: 450px) {
-            #main {
-                padding: var(--gap-md);
+        /* 6. 响应式：确保各设备选项等大 */
+        @media only screen and (max-width: 768px) {
+            /* 平板端2列，选项高度不变 */
+            .option-list {
+                grid-template-columns: repeat(2, 1fr);
             }
+        }
 
+        @media only screen and (max-width: 480px) {
+            /* 手机端1列，选项宽度100%，高度不变 */
+            .option-list {
+                grid-template-columns: 1fr;
+            }
             .avatar {
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
             }
-
             #main header h1 {
-                font-size: 26px;
-            }
-
-            .icons {
-                grid-template-columns: repeat(2, 1fr); /* 移动端2列布局 */
-                gap: var(--gap-sm);
-            }
-
-            .icons li {
-                padding: 12px 8px;
-            }
-
-            .icons li a {
-                font-size: 13px;
-            }
-
-            .bookmark-tip {
-                font-size: 13px;
+                font-size: 24px;
             }
         }
 
-        /* 7. 雪花特效层级调整（避免遮挡内容） */
+        /* 雪花特效：保留功能，不影响布局 */
         .snow-container {
             position: fixed !important;
             top: 0;
@@ -250,75 +200,59 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 999 !important; /* 低于主体内容 */
+            z-index: 999 !important;
         }
     </style>
 </head>
 
 <body>
     <div id="wrapper">
-        <!-- 主体内容 -->
         <section id="main">
             <header>
-                <!-- 头像 -->
+                <!-- 头像：仅保留核心元素 -->
                 <span class="avatar">
-                    <img src="http://avatar.coolapk.com/data/003/38/56/29_avatar_big.jpg" alt="兮心头像">
+                    <img src="http://avatar.coolapk.com/data/003/38/56/29_avatar_big.jpg" alt="兮心">
                 </span>
-                <!-- 标题与简介 -->
-                <a href="#">
-                    <h1>兮心</h1>
-                </a>
-                <p>缘起缘落，一念平生。</p>
-                <p>所有密码都默认 <span style="color: var(--primary-dark); font-weight: 600;">momo</span></p>
-                
-                <!-- 书签提示（优化结构） -->
-                <div class="bookmark-tip">
-                    <<i class="fa fa-bookmark-o" aria-hidden="true"></</i> 请把此网址添加浏览器书签，方便您下次访问，以防失联
-                </div>
-                
-                <!-- 文艺语录 -->
-                <div class="cn" title="所有的日久生情都是蓄谋已久的一见钟情。">
-                    所有的日久生情都是蓄谋已久的一见钟情。
-                </div>
+                <!-- 核心标题与提示 -->
+                <h1>兮心</h1>
+                <p>缘起缘落，一念平生 · 密码默认 momo</p>
+                <!-- 极简书签提示 -->
+                <div class="bookmark-tip">建议添加书签，防止失联</div>
             </header>
 
-            <!-- 链接列表（新增图标，优化布局） -->
-            <footer>
-                <ul class="icons">
-                    <li><a href="https://moshanging.lanzout.com/b01jab65i" title="凉墨"><<i class="fa fa-cloud-download" aria-hidden="true"></</i> 凉墨</a></li>
-                    <li><a href="https://moshanging.lanzout.com/b01jak5de" title="挖沙"><<i class="fa fa-cloud-download" aria-hidden="true"></</i> 挖沙</a></li>
-                    <li><a href="https://moshanging.lanzout.com/b01jbpbzi" title="起点"><<i class="fa fa-cloud-download" aria-hidden="true"></</i> 起点</a></li>
-                    <li><a target="_blank" href="https://jq.qq.com/?_wv=1027&k=H0rvXKNp" title="官方Q群"><<i class="fa fa-qq" aria-hidden="true"></</i> 官方Q群</a></li>
-                    <li><a href="https://pd.qq.com/s/bvoffd5a5" title="QQ频道"><<i class="fa fa-comments" aria-hidden="true"></</i> QQ频道</a></li>
-                    <li><a href="https://moshanging.lanzout.com/b01ioiucj" title="本地阅读器"><<i class="fa fa-book" aria-hidden="true"></</i> 本地阅读器</a></li>
-                    <li><a href="https://flowus.cn/share/ec181f56-f71e-4407-b7db-3b1045311476" title="阅读主题"><<i class="fa fa-paint-brush" aria-hidden="true"></</i> 阅读主题</a></li>
-                    <li><a href="https://moshanging.lanzout.com/b01hj5bfe" title="阅读书源"><<i class="fa fa-list" aria-hidden="true"></</i> 阅读书源</a></li>
-                </ul>
-            </footer>
+            <!-- 选项区：等大无图标，仅文字入口 -->
+            <ul class="option-list">
+                <li><a href="https://moshanging.lanzout.com/b01jab65i" title="凉墨">凉墨</a></li>
+                <li><a href="https://moshanging.lanzout.com/b01jak5de" title="挖沙">挖沙</a></li>
+                <li><a href="https://moshanging.lanzout.com/b01jbpbzi" title="起点">起点</a></li>
+                <li><a target="_blank" href="https://jq.qq.com/?_wv=1027&k=H0rvXKNp" title="官方Q群">官方Q群</a></li>
+                <li><a href="https://pd.qq.com/s/bvoffd5a5" title="QQ频道">QQ频道</a></li>
+                <li><a href="https://moshanging.lanzout.com/b01ioiucj" title="本地阅读器">本地阅读器</a></li>
+                <li><a href="https://flowus.cn/share/ec181f56-f71e-4407-b7db-3b1045311476" title="阅读主题">阅读主题</a></li>
+                <li><a href="https://moshanging.lanzout.com/b01hj5bfe" title="阅读书源">阅读书源</a></li>
+            </ul>
         </section>
 
-        <!-- 底部信息 -->
+        <!-- 底部：仅保留IP与版权 -->
         <footer id="footer">
             <ul class="copyright">
-                <!-- IP显示（保留原功能，优化颜色） -->
                 <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
                 <li>当前IP: <script>document.write(returnCitySN["cip"])</script></li>
-                <li>© 2015-2024 兮心 | 缘起缘落，一念平生</li>
+                <li>© 2015-2024 兮心</li>
             </ul>
         </footer>
     </div>
 
-    <!-- 原有脚本（保留功能，调整层级） -->
+    <!-- 保留核心脚本，无多余代码 -->
     <script>
         if ('addEventListener' in window) {
-            window.addEventListener('load', function() {
+            window.addEventListener('load', () => {
                 document.body.className = document.body.className.replace(/\bis-loading\b/, '');
             });
-            document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
         }
     </script>
 
-    <!-- 雪花特效（保留原功能，优化层级） -->
+    <!-- 雪花特效：保留原功能，无冗余 -->
     <script src="js/jquery.min.js"></script>
     <script src="js/su.js"></script>
     <script src="js/snowy.js"></script>
