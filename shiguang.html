@@ -3,58 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>拾光絮语 | 文艺聊天室</title>
+    <title>拾光絮语 | 文艺天气+聊天室</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Noto Serif SC", "Microsoft YaHei", serif;
+            font-family: "Noto Serif SC", "Source Han Serif CN", "Microsoft YaHei", serif;
+            letter-spacing: 0.5px;
         }
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
+            background-color: #f8f9fa;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.414 1.414a2 2 0 112.828 0L10 6.586a2 2 0 11-2.828 2.828L3.414 4.242a2 2 0 010-2.828z' fill='%23d8dce3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E"),
+                linear-gradient(145deg, #fafbfc 0%, #f1f5f9 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
         }
+
         .chat-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            max-width: 780px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(165, 177, 194, 0.12);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(224, 228, 235, 0.5);
         }
+
         .chat-header {
-            background: linear-gradient(45deg, #6a85b6 0%, #bac8e0 100%);
+            background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
             color: #fff;
-            padding: 18px;
+            padding: 20px;
             text-align: center;
-            letter-spacing: 2px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
         }
         .chat-header h2 {
             font-weight: 400;
-            font-size: 22px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(100, 116, 139, 0.2);
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
         }
+        .chat-header h2::after {
+            content: "";
+            display: block;
+            width: 60%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.6);
+            margin: 8px auto 0;
+            border-radius: 0.5px;
+        }
+
         .chat-messages {
-            height: 500px;
+            height: 520px;
             padding: 25px;
             overflow-y: auto;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23bac8e0' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0V0zm2 2v16h16V2H2z' fill='%23e2e8f0' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
         .chat-messages::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: #bac8e0;
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(226, 232, 240, 0.3);
             border-radius: 3px;
         }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #7c8ba1;
+        }
+
+        .system-message {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #7c8ba1;
+        }
+        .system-message span {
+            background: rgba(226, 232, 240, 0.4);
+            padding: 6px 16px;
+            border-radius: 18px;
+            border: 1px dashed rgba(148, 163, 184, 0.3);
+            font-style: italic;
+        }
+
         .message {
-            margin-bottom: 20px;
-            max-width: 70%;
-            line-height: 1.6;
+            margin-bottom: 22px;
+            max-width: 72%;
+            line-height: 1.7;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         .message.left {
             margin-right: auto;
@@ -63,85 +114,155 @@
             margin-left: auto;
         }
         .message-content {
-            padding: 12px 18px;
-            border-radius: 18px;
+            padding: 14px 20px;
+            border-radius: 20px;
             position: relative;
+            box-shadow: 0 2px 8px rgba(165, 177, 194, 0.1);
         }
-        .left .message-content {
-            background: #e4eaf5;
-            color: #333;
-            border-bottom-left-radius: 5px;
-        }
+
+        /* 彻底修复用户消息不可见：改用实色深色背景+纯白字体，无干扰元素 */
         .right .message-content {
-            background: #6a85b6;
-            color: #fff;
-            border-bottom-right-radius: 5px;
+            background: #505f79; /* 深灰蓝实色，确保足够深 */
+            color: #ffffff; /* 纯白字体，100%对比度 */
+            border-bottom-right-radius: 8px;
         }
+
+        /* 统一左侧消息气泡颜色 */
+        .left .message-content,
+        .weather-message .message-content {
+            background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: #334155;
+            border-bottom-left-radius: 8px;
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v10H0V0zm1 1v8h8V1H1z' fill='%23ffffff' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        .weather-message .message-content {
+            border-left: 3px solid #60a5fa;
+            padding: 16px 22px;
+        }
+
+        .weather-item {
+            display: block;
+            margin: 6px 0;
+            font-size: 14px;
+            color: #334155;
+        }
+        .weather-item span {
+            font-weight: 500;
+            color: #60a5fa;
+            width: 85px;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+        .weather-item i {
+            margin-right: 8px;
+            font-size: 15px;
+            vertical-align: middle;
+            color: #60a5fa;
+        }
+        .weather-header {
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #60a5fa;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .weather-icon {
+            margin-right: 10px;
+            font-size: 18px;
+            vertical-align: middle;
+        }
+
         .message-time {
-            font-size: 12px;
-            margin-top: 5px;
-            opacity: 0.7;
+            font-size: 11px;
+            margin-top: 6px;
+            opacity: 0.8;
             text-align: right;
+            font-style: italic;
+            letter-spacing: 0;
         }
         .left .message-time {
             padding-left: 20px;
+            color: #7c8ba1;
         }
         .right .message-time {
             padding-right: 20px;
+            color: rgba(255, 255, 255, 0.9);
         }
+
         .chat-input {
             display: flex;
-            padding: 20px;
-            border-top: 1px solid rgba(186, 200, 224, 0.3);
-            background: rgba(255, 255, 255, 0.95);
+            padding: 18px 25px;
+            border-top: 1px solid rgba(224, 228, 235, 0.6);
+            background: rgba(255, 255, 255, 0.98);
         }
         #message-input {
             flex: 1;
-            padding: 12px 18px;
-            border: 1px solid #bac8e0;
-            border-radius: 25px;
+            padding: 14px 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 28px;
             outline: none;
             font-size: 15px;
-            color: #333;
-            background: rgba(245, 247, 250, 0.8);
+            color: #334155;
+            background: rgba(248, 250, 252, 0.8);
             transition: all 0.3s ease;
+            box-shadow: inset 0 1px 3px rgba(165, 177, 194, 0.05);
         }
         #message-input:focus {
-            border-color: #6a85b6;
-            box-shadow: 0 0 0 2px rgba(106, 133, 182, 0.2);
+            border-color: #94a3b8;
+            box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15), inset 0 1px 3px rgba(165, 177, 194, 0.05);
+            background: #fff;
         }
+        #message-input::placeholder {
+            color: #a5b4c7;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
         #send-btn {
-            margin-left: 12px;
-            padding: 12px 24px;
+            margin-left: 14px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 25px;
-            background: linear-gradient(45deg, #6a85b6 0%, #8a9fc2 100%);
+            border-radius: 28px;
+            background: #505f79; /* 与用户消息背景同色，统一风格 */
             color: #fff;
             font-size: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             letter-spacing: 1px;
+            box-shadow: 0 3px 8px rgba(80, 95, 121, 0.2);
         }
         #send-btn:hover {
-            background: linear-gradient(45deg, #5a75a6 0%, #7a8fba 100%);
+            background: #404e66;
             transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(80, 95, 121, 0.3);
         }
         #send-btn:active {
             transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(80, 95, 121, 0.2);
         }
-        .system-message {
-            text-align: center;
-            margin: 15px 0;
-            font-size: 13px;
-            color: #8a9fc2;
+
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 10px 16px;
+            background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 18px;
+            border-bottom-left-radius: 8px;
+            width: fit-content;
+            box-shadow: 0 2px 8px rgba(165, 177, 194, 0.1);
         }
-        .system-message span {
-            background: rgba(186, 200, 224, 0.2);
-            padding: 5px 12px;
-            border-radius: 12px;
+        .typing-indicator span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #94a3b8;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.5); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
         }
     </style>
-    <!-- 引入中文字体 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -153,83 +274,217 @@
             <div class="system-message">
                 <span>2025年春 · 我们在此相遇</span>
             </div>
-            <div class="message left">
+            <div class="message left show">
                 <div class="message-content">
-                    你好，这里是「拾光絮语」聊天室
+                    你好呀～ 想查天气说“地名+天气”，想聊天直接说就好，我在听呢
                 </div>
                 <div class="message-time">14:25</div>
             </div>
-            <div class="message right">
-                <div class="message-content">
-                    终于找到一个安静的角落，可以好好说话了
-                </div>
-                <div class="message-time">14:26</div>
-            </div>
         </div>
         <div class="chat-input">
-            <input type="text" id="message-input" placeholder="输入想说的话...">
+            <input type="text" id="message-input" placeholder="和我聊天，或查天气（例：长春天气）...">
             <button id="send-btn">发送</button>
         </div>
     </div>
 
     <script>
-        // 获取DOM元素
         const chatMessages = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
         const sendBtn = document.getElementById('send-btn');
 
-        // 发送消息函数
-        function sendMessage() {
-            const message = messageInput.value.trim();
-            if (!message) return;
+        // 接口配置
+        const WEATHER_API = "https://api.icofun.cn/api/xztq.php";
+        const CHAT_API = "https://api.icofun.cn/api/zpai.php";
+        const FIXED_QQ = "123456";
+        const IMG_TEXT_TO_REMOVE = "±img=https://s1.sencdn.com/web/icons/black/0@1x.png±";
 
-            // 获取当前时间
-            const now = new Date();
-            const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-
-            // 创建消息元素
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message right';
-            messageElement.innerHTML = `
-                <div class="message-content">${message}</div>
-                <div class="message-time">${time}</div>
-            `;
-
-            // 添加到聊天区并滚动到底部
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // 清空输入框
-            messageInput.value = '';
-
-            // 模拟对方回复（随机延迟）
-            setTimeout(() => {
-                const replies = [
-                    "原来如此，很有意思的想法",
-                    "我也这么觉得，共鸣了",
-                    "慢慢说，我在听",
-                    "这句话戳中我了",
-                    "能感受到你的心意",
-                    "真好，这样的交流很温暖"
-                ];
-                const randomReply = replies[Math.floor(Math.random() * replies.length)];
-                
-                const replyElement = document.createElement('div');
-                replyElement.className = 'message left';
-                replyElement.innerHTML = `
-                    <div class="message-content">${randomReply}</div>
-                    <div class="message-time">${time}</div>
-                `;
-                
-                chatMessages.appendChild(replyElement);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 800 + Math.random() * 1000);
+        // 基础工具函数
+        function getSoftTimeContext() {
+            const hour = new Date().getHours();
+            return hour >=6 && hour<10 ? "晨雾未散时" :
+                   hour >=10 && hour<12 ? "晨光漫窗时" :
+                   hour >=12 && hour<15 ? "暖阳午后" :
+                   hour >=15 && hour<18 ? "暮色初临时" :
+                   hour >=18 && hour<21 ? "灯影渐起时" : "星子点亮时";
         }
 
-        // 绑定发送事件
-        sendBtn.addEventListener('click', sendMessage);
-        messageInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') sendMessage();
+        function getWeatherIcon(weatherText) {
+            if (weatherText.includes("晴")) return "☀️";
+            if (weatherText.includes("雨")) return "🌧️";
+            if (weatherText.includes("阴")) return "🌥️";
+            if (weatherText.includes("雪")) return "❄️";
+            if (weatherText.includes("风")) return "🌬️";
+            return "☁️";
+        }
+
+        function getRealUpdateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hour = String(now.getHours()).padStart(2, '0');
+            const minute = String(now.getMinutes()).padStart(2, '0');
+            return `${year}年${month}月${day}日 ${hour}:${minute}`;
+        }
+
+        // 天气功能
+        function getPureCity(userMsg) {
+            const match = userMsg.match(/([^天气]+)天气/);
+            if (!match) return null;
+            const city = match[1].replace(/[查|的|一下|查询|问下|看看]/g, "").trim();
+            return city || null;
+        }
+
+        function extractValidWeather(rawData, city) {
+            let cleanData = rawData.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
+            const weatherItems = [];
+            const updateTime = getRealUpdateTime();
+
+            weatherItems.push(`<span>查询地名</span>：<<i>📍</</i>${city}`);
+            weatherItems.push(`<span>更新时间</span>：<<i>⏰</</i>${updateTime}`);
+
+            const weatherStatusMatch = cleanData.match(/(晴|阴|雨|雪|多云|少云|雾)/);
+            if (weatherStatusMatch) {
+                weatherItems.push(`<span>当前天气</span>：<<i>${getWeatherIcon(weatherStatusMatch[1])}</</i>${weatherStatusMatch[1]}`);
+            }
+
+            const tempMatch = cleanData.match(/(-?\d+)℃/);
+            if (tempMatch) {
+                weatherItems.push(`<span>实时气温</span>：<<i>🌡️</</i>${tempMatch[1]}℃`);
+            }
+
+            const feelTempMatch = cleanData.match(/体感(温度)?：?(-?\d+)℃/);
+            if (feelTempMatch) {
+                weatherItems.push(`<span>体感温度</span>：<<i>🥵</</i>${feelTempMatch[2]}℃`);
+            }
+
+            const windDirMatch = cleanData.match(/(东|南|西|北|东北|东南|西北|西南)风/);
+            const windLevelMatch = cleanData.match(/(\d+)级风/);
+            if (windDirMatch && windLevelMatch) {
+                weatherItems.push(`<span>风向风力</span>：<<i>🌬️</</i>${windDirMatch[1]}风 ${windLevelMatch[1]}级`);
+            }
+
+            const tomorrowWeatherMatch = cleanData.match(/明日.*?(晴|阴|雨|雪)/);
+            const tomorrowTempMatch = cleanData.match(/明日.*?最高温(-?\d+)℃/);
+            if (tomorrowWeatherMatch || tomorrowTempMatch) {
+                let tomorrowInfo = [];
+                if (tomorrowWeatherMatch) tomorrowInfo.push(tomorrowWeatherMatch[1]);
+                if (tomorrowTempMatch) tomorrowInfo.push(`最高${tomorrowTempMatch[1]}℃`);
+                weatherItems.push(`<span>明日预报</span>：<<i>📅</</i>${tomorrowInfo.join("，")}`);
+            }
+
+            let dressAdvice = "根据气温合理搭配衣物~";
+            if (tempMatch) {
+                const tempNum = parseInt(tempMatch[1]);
+                dressAdvice = tempNum <= 0 ? "穿羽绒服+围巾，注意保暖" :
+                             tempNum <= 10 ? "穿毛衣+外套，早晚添衣" :
+                             tempNum <= 20 ? "穿卫衣+薄外套，舒适为主" :
+                             "穿T恤+薄裤，注意防晒";
+            }
+            weatherItems.push(`<span>穿衣建议</span>：<<i>👕</</i>${dressAdvice}`);
+
+            return weatherItems;
+        }
+
+        async function fetchWeather(city) {
+            const requestUrl = `${WEATHER_API}?msg=${encodeURIComponent(city)}`;
+            try {
+                const response = await fetch(requestUrl);
+                if (!response.ok) throw new Error();
+                const rawData = await response.text();
+                const weatherItems = extractValidWeather(rawData, city);
+                const itemLines = weatherItems.map(item => `<div class="weather-item">${item}</div>`).join("");
+                const icon = getWeatherIcon(rawData);
+                return `
+                    <div class="weather-header">${getSoftTimeContext()}${icon} ${city}实时天气</div>
+                    ${itemLines}
+                `;
+            } catch (error) {
+                return `
+                    <div class="weather-header">${getSoftTimeContext()}☁️ 天气查询提示</div>
+                    <div class="weather-item"><span>查询地名</span>：<<i>📍</</i>${city}</div>
+                    <div class="weather-item"><span>更新时间</span>：<<i>⏰</</i>${getRealUpdateTime()}</div>
+                    <div class="weather-item"><span>当前状态</span>：<<i>⚠️</</i>暂未查到天气数据</div>
+                    <div class="weather-item"><span>温馨建议</span>：<<i>💡</</i>换个地名或稍后再试~</div>
+                `;
+            }
+        }
+
+        // 聊天功能
+        async function fetchChatReply(msg) {
+            const prompt = `你是「拾光絮语」的温柔陪伴者，回复短而有画面感（≤2句），开头可加${getSoftTimeContext()}，像朋友聊天，语气轻柔：${msg}`;
+            const requestUrl = `${CHAT_API}?msg=${encodeURIComponent(prompt)}&qq=${FIXED_QQ}&type=text`;
+
+            try {
+                const response = await fetch(requestUrl);
+                if (!response.ok) throw new Error();
+                let reply = await response.text();
+                reply = reply.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
+                return reply.replace(/\n+/g, "");
+            } catch (error) {
+                const fallbacks = [
+                    `${getSoftTimeContext()}风在慢慢读你的话，再讲一遍吧～`,
+                    `${getSoftTimeContext()}此刻很静，你愿意多分享一点吗？`
+                ];
+                return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+            }
+        }
+
+        // 统一发送逻辑
+        async function sendMessage() {
+            const userMsg = messageInput.value.trim();
+            if (!userMsg) return;
+
+            const timeStr = new Date().toTimeString().slice(0, 5);
+            const userMsgEl = document.createElement("div");
+            userMsgEl.className = "message right";
+            userMsgEl.innerHTML = `
+                <div class="message-content">${userMsg}</div>
+                <div class="message-time">${timeStr}</div>
+            `;
+            chatMessages.appendChild(userMsgEl);
+            setTimeout(() => userMsgEl.classList.add("show"), 50);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            messageInput.value = "";
+
+            const typingEl = document.createElement("div");
+            typingEl.className = "message left typing-indicator";
+            typingEl.innerHTML = "<span></span><span></span><span></span>";
+            chatMessages.appendChild(typingEl);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            let reply;
+            if (userMsg.includes("天气")) {
+                const city = getPureCity(userMsg);
+                reply = city ? await fetchWeather(city) : `
+                    <div class="weather-header">${getSoftTimeContext()}☁️ 天气查询提示</div>
+                    <div class="weather-item"><span>温馨建议</span>：<<i>💡</</i>请告诉我地名呀，比如“长春天气”~</div>
+                `;
+            } else {
+                reply = await fetchChatReply(userMsg);
+            }
+
+            chatMessages.removeChild(typingEl);
+            const replyEl = document.createElement("div");
+            const isWeather = userMsg.includes("天气");
+            
+            replyEl.className = `message left ${isWeather ? "weather-message" : ""}`;
+            replyEl.innerHTML = `
+                <div class="message-content">${reply}</div>
+                <div class="message-time">${timeStr}</div>
+            `;
+            chatMessages.appendChild(replyEl);
+            setTimeout(() => replyEl.classList.add("show"), 50);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 绑定事件
+        sendBtn.addEventListener("click", sendMessage);
+        messageInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
         });
     </script>
 </body>
