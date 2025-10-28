@@ -1,133 +1,236 @@
-<html>
-    <head>
-        <meta charset="utf-8"></meta>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
-        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-        <title>陨落星</title>
-        <meta name="Description" content="Home Page of iissnan"></meta>
-        <meta name="color-scheme" content="dark light"></meta>
-        <script>
-            (function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)
-        </script>
-        <link rel="stylesheet" type="text/css" href="assets/css/main.css"></link>
-    </head>
-    <body>
-        <div class="vi">
-            <h1 class="animate-slide-in-down" style="opacity: 1; top: 0px;">陨落星</h1>
-            <div class="quote">
-                <span class="quote-line quote-line-start animate-slide-in-left" style="left: 0px;"></span>
-                <span class="quote-icon quote-icon-start animate-slide-in-down" style="opacity: 1; top: 0px;">
-                    <i class="icon icon-quotes-left"></i>
-                </span>
-                <p class="quote-content animate-slide-in-down" style="opacity: 1; top: 0px;">不积跬步，无以至千里。不积小流，无以成江海。</p>
-                <p class="quote-author animate-slide-in-down" style="opacity: 1; top: 0px;">
-                    《劝学篇》—— 
-                    <em>荀子</em>
-                </p>
-                <span class="quote-icon quote-icon-end animate-slide-in-up" style="opacity: 1; bottom: 0px;">
-                    <i class="icon icon-quotes-right"></i>
-                </span>
-                <span class="quote-line quote-line-end animate-slide-in-right" style="right: 0px;"></span>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾光絮语 | 文艺聊天室</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Noto Serif SC", "Microsoft YaHei", serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .chat-header {
+            background: linear-gradient(45deg, #6a85b6 0%, #bac8e0 100%);
+            color: #fff;
+            padding: 18px;
+            text-align: center;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .chat-header h2 {
+            font-weight: 400;
+            font-size: 22px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .chat-messages {
+            height: 500px;
+            padding: 25px;
+            overflow-y: auto;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23bac8e0' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #bac8e0;
+            border-radius: 3px;
+        }
+        .message {
+            margin-bottom: 20px;
+            max-width: 70%;
+            line-height: 1.6;
+        }
+        .message.left {
+            margin-right: auto;
+        }
+        .message.right {
+            margin-left: auto;
+        }
+        .message-content {
+            padding: 12px 18px;
+            border-radius: 18px;
+            position: relative;
+        }
+        .left .message-content {
+            background: #e4eaf5;
+            color: #333;
+            border-bottom-left-radius: 5px;
+        }
+        .right .message-content {
+            background: #6a85b6;
+            color: #fff;
+            border-bottom-right-radius: 5px;
+        }
+        .message-time {
+            font-size: 12px;
+            margin-top: 5px;
+            opacity: 0.7;
+            text-align: right;
+        }
+        .left .message-time {
+            padding-left: 20px;
+        }
+        .right .message-time {
+            padding-right: 20px;
+        }
+        .chat-input {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid rgba(186, 200, 224, 0.3);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        #message-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 1px solid #bac8e0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 15px;
+            color: #333;
+            background: rgba(245, 247, 250, 0.8);
+            transition: all 0.3s ease;
+        }
+        #message-input:focus {
+            border-color: #6a85b6;
+            box-shadow: 0 0 0 2px rgba(106, 133, 182, 0.2);
+        }
+        #send-btn {
+            margin-left: 12px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #6a85b6 0%, #8a9fc2 100%);
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        #send-btn:hover {
+            background: linear-gradient(45deg, #5a75a6 0%, #7a8fba 100%);
+            transform: translateY(-2px);
+        }
+        #send-btn:active {
+            transform: translateY(0);
+        }
+        .system-message {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 13px;
+            color: #8a9fc2;
+        }
+        .system-message span {
+            background: rgba(186, 200, 224, 0.2);
+            padding: 5px 12px;
+            border-radius: 12px;
+        }
+    </style>
+    <!-- 引入中文字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>拾光絮语</h2>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="system-message">
+                <span>2025年春 · 我们在此相遇</span>
             </div>
-            <div class="links">
-                <a href="https://wp.en.icu/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Blog</a>
-                <a href="https://wp.en.icu/index.php/note/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Moments</a>
-                <a href="https://alist.en.icu/" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Alist</a>
-                <a href="https://qiu.icu" class="animate-slide-in-down" style="opacity: 1; top: 0px;">Nav</a>
+            <div class="message left">
+                <div class="message-content">
+                    你好，这里是「拾光絮语」聊天室
+                </div>
+                <div class="message-time">14:25</div>
             </div>
-            <div class="location">
-                <span class="location-icon animate-slide-in-up" style="opacity: 1; bottom: 0px;">
-                    <i class="icon icon-map-pin"></i>
-                </span>
-                <span class="location-text animate-slide-in-down" style="opacity: 1; top: 0px;">ZheJiang - China 浙ICP备2021004450号-4</span>
-            </div>
-            <div class="relocating">
-                
- Navigating to: 
-                <span class="relocate-location"></span>
-                ... 
+            <div class="message right">
+                <div class="message-content">
+                    终于找到一个安静的角落，可以好好说话了
+                </div>
+                <div class="message-time">14:26</div>
             </div>
         </div>
-        <script src="assets/vendors/jquery-3.3.1.min.js"></script>
-        <script>
-            
-    $(function () {
-      var SLIDE_IN_DOWN = { opacity: 1, top: 0 };
-      var SLIDE_IN_UP = { opacity: 1, bottom: 0 };
-      var SLIDE_IN_LEFT = { left: 0 };
-      var SLIDE_IN_RIGHT = { right: 0 };
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="输入想说的话...">
+            <button id="send-btn">发送</button>
+        </div>
+    </div>
 
-      registerCheatCode();
-      executeAnimations();
+    <script>
+        // 获取DOM元素
+        const chatMessages = document.getElementById('chat-messages');
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
 
-      function executeAnimations() {
-        $.when()
-          .then(animateTitle)
-          .then(animateQuote)
-          .then(animateLinks)
-          .then(animateLocation);
-      }
+        // 发送消息函数
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
 
-      function animateTitle() {
-        return animate('h1', SLIDE_IN_DOWN);
-      }
+            // 获取当前时间
+            const now = new Date();
+            const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
 
-      function animateQuote() {
-        return $.when(
-          animate('.quote-line-start', SLIDE_IN_LEFT),
-          animate('.quote-line-end',SLIDE_IN_RIGHT),
-          animate('.quote-icon-start', SLIDE_IN_DOWN),
-          animate('.quote-icon-end', SLIDE_IN_UP)
-        )
-          .then(function () {
-            return animate('.quote-content', SLIDE_IN_DOWN);
-          })
-          .then(function () {
-            return animate('.quote-author', SLIDE_IN_DOWN);
-          });
-      }
+            // 创建消息元素
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message right';
+            messageElement.innerHTML = `
+                <div class="message-content">${message}</div>
+                <div class="message-time">${time}</div>
+            `;
 
-      function animateLinks() {
-        var DELAY_STEP = 200;
-        var elements = $('.links a');
-        var concurrent = $.makeArray(elements)
-          .map(function (element, index) {
-            return animate(element, SLIDE_IN_DOWN, index * DELAY_STEP);
-          });
+            // 添加到聊天区并滚动到底部
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
 
-        return $.when.apply($, concurrent);
-      }
+            // 清空输入框
+            messageInput.value = '';
 
-      function animateLocation() {
-        return $.when(
-          animate('.location-icon', SLIDE_IN_UP),
-          animate('.location-text', SLIDE_IN_DOWN)
-        );
-      }
+            // 模拟对方回复（随机延迟）
+            setTimeout(() => {
+                const replies = [
+                    "原来如此，很有意思的想法",
+                    "我也这么觉得，共鸣了",
+                    "慢慢说，我在听",
+                    "这句话戳中我了",
+                    "能感受到你的心意",
+                    "真好，这样的交流很温暖"
+                ];
+                const randomReply = replies[Math.floor(Math.random() * replies.length)];
+                
+                const replyElement = document.createElement('div');
+                replyElement.className = 'message left';
+                replyElement.innerHTML = `
+                    <div class="message-content">${randomReply}</div>
+                    <div class="message-time">${time}</div>
+                `;
+                
+                chatMessages.appendChild(replyElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 800 + Math.random() * 1000);
+        }
 
-      function animate(selector, properties, delay, options) {
-        delay = delay || 0;
-        return $(selector).delay(delay)
-          .animate(properties, options)
-          .promise();
-      }
-
-      function registerCheatCode() {
-        $(document.body).on('keydown', function (event) {
-          var KEY_B = 66;
-
-          if (event.which === KEY_B) {
-            $('.relocate-location').text('Bookmark Page');
-            $('.relocating').css('opacity', 1);
-
-            window.setTimeout(function () {
-              window.location.href = '/bookmarks.html';
-            }, 1000);
-          }
+        // 绑定发送事件
+        sendBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') sendMessage();
         });
-      }
-    });
-  
-        </script>
-    </body>
+    </script>
+</body>
 </html>
