@@ -120,14 +120,12 @@
             box-shadow: 0 2px 8px rgba(165, 177, 194, 0.1);
         }
 
-        /* 彻底修复用户消息不可见：改用实色深色背景+纯白字体，无干扰元素 */
         .right .message-content {
-            background: #505f79; /* 深灰蓝实色，确保足够深 */
-            color: #ffffff; /* 纯白字体，100%对比度 */
+            background: #505f79;
+            color: #ffffff;
             border-bottom-right-radius: 8px;
         }
 
-        /* 统一左侧消息气泡颜色 */
         .left .message-content,
         .weather-message .message-content {
             background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
@@ -140,16 +138,21 @@
             padding: 16px 22px;
         }
 
+        /* 仅保留实时天气样式，删除3天预报相关样式 */
         .weather-item {
             display: block;
-            margin: 6px 0;
+            margin: 7px 0;
             font-size: 14px;
             color: #334155;
+        }
+        .weather-item.core {
+            font-weight: 500;
+            color: #1e40af; /* 核心字段（实时天气/气温）突出 */
         }
         .weather-item span {
             font-weight: 500;
             color: #60a5fa;
-            width: 85px;
+            width: 90px;
             display: inline-block;
             letter-spacing: 1px;
         }
@@ -160,7 +163,7 @@
             color: #60a5fa;
         }
         .weather-header {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 16px;
             color: #60a5fa;
             font-weight: 400;
@@ -223,7 +226,7 @@
             padding: 14px 28px;
             border: none;
             border-radius: 28px;
-            background: #505f79; /* 与用户消息背景同色，统一风格 */
+            background: #505f79;
             color: #fff;
             font-size: 15px;
             cursor: pointer;
@@ -276,7 +279,7 @@
             </div>
             <div class="message left show">
                 <div class="message-content">
-                    你好呀～ 想查天气说“地名+天气”，想聊天直接说就好，我在听呢
+                    你好呀～ 想查实时天气说“地名+天气”就好（例：长春天气）
                 </div>
                 <div class="message-time">14:25</div>
             </div>
@@ -292,11 +295,11 @@
         const messageInput = document.getElementById('message-input');
         const sendBtn = document.getElementById('send-btn');
 
-        // 接口配置
+        // 严格按xztq API文档配置（仅保留实时天气）
         const WEATHER_API = "https://api.icofun.cn/api/xztq.php";
         const CHAT_API = "https://api.icofun.cn/api/zpai.php";
         const FIXED_QQ = "123456";
-        const IMG_TEXT_TO_REMOVE = "±img=https://s1.sencdn.com/web/icons/black/0@1x.png±";
+        const IMG_TEXT_TO_REMOVE = "±img=https://s1.sencdn.com/web/icons/black/[0-9]+@1x.png±";
 
         // 基础工具函数
         function getSoftTimeContext() {
@@ -314,98 +317,88 @@
             if (weatherText.includes("阴")) return "🌥️";
             if (weatherText.includes("雪")) return "❄️";
             if (weatherText.includes("风")) return "🌬️";
-            return "☁️";
+            if (weatherText.includes("云")) return "☁️";
+            return "🌤️";
         }
 
-        function getRealUpdateTime() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const hour = String(now.getHours()).padStart(2, '0');
-            const minute = String(now.getMinutes()).padStart(2, '0');
-            return `${year}年${month}月${day}日 ${hour}:${minute}`;
+        // --------------------------
+        // 核心：仅保留实时天气逻辑，删除3天预报相关代码
+        // --------------------------
+        /**
+         * 解析用户输入：仅提取地名（无3天判断）
+         */
+        function parseUserWeatherInput(userMsg) {
+            // 提取纯地名（去除“天气”“查”等冗余词）
+            const cityMatch = userMsg.match(/([^天气查]+)/);
+            const city = cityMatch ? cityMatch[1].replace(/[的|一下|查询|问下|看看]/g, "").trim() : null;
+            return { city };
         }
 
-        // 天气功能
-        function getPureCity(userMsg) {
-            const match = userMsg.match(/([^天气]+)天气/);
-            if (!match) return null;
-            const city = match[1].replace(/[查|的|一下|查询|问下|看看]/g, "").trim();
-            return city || null;
-        }
-
-        function extractValidWeather(rawData, city) {
-            let cleanData = rawData.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
-            const weatherItems = [];
-            const updateTime = getRealUpdateTime();
-
-            weatherItems.push(`<span>查询地名</span>：<<i>📍</</i>${city}`);
-            weatherItems.push(`<span>更新时间</span>：<<i>⏰</</i>${updateTime}`);
-
-            const weatherStatusMatch = cleanData.match(/(晴|阴|雨|雪|多云|少云|雾)/);
-            if (weatherStatusMatch) {
-                weatherItems.push(`<span>当前天气</span>：<<i>${getWeatherIcon(weatherStatusMatch[1])}</</i>${weatherStatusMatch[1]}`);
-            }
-
-            const tempMatch = cleanData.match(/(-?\d+)℃/);
-            if (tempMatch) {
-                weatherItems.push(`<span>实时气温</span>：<<i>🌡️</</i>${tempMatch[1]}℃`);
-            }
-
-            const feelTempMatch = cleanData.match(/体感(温度)?：?(-?\d+)℃/);
-            if (feelTempMatch) {
-                weatherItems.push(`<span>体感温度</span>：<<i>🥵</</i>${feelTempMatch[2]}℃`);
-            }
-
-            const windDirMatch = cleanData.match(/(东|南|西|北|东北|东南|西北|西南)风/);
-            const windLevelMatch = cleanData.match(/(\d+)级风/);
-            if (windDirMatch && windLevelMatch) {
-                weatherItems.push(`<span>风向风力</span>：<<i>🌬️</</i>${windDirMatch[1]}风 ${windLevelMatch[1]}级`);
-            }
-
-            const tomorrowWeatherMatch = cleanData.match(/明日.*?(晴|阴|雨|雪)/);
-            const tomorrowTempMatch = cleanData.match(/明日.*?最高温(-?\d+)℃/);
-            if (tomorrowWeatherMatch || tomorrowTempMatch) {
-                let tomorrowInfo = [];
-                if (tomorrowWeatherMatch) tomorrowInfo.push(tomorrowWeatherMatch[1]);
-                if (tomorrowTempMatch) tomorrowInfo.push(`最高${tomorrowTempMatch[1]}℃`);
-                weatherItems.push(`<span>明日预报</span>：<<i>📅</</i>${tomorrowInfo.join("，")}`);
-            }
-
-            let dressAdvice = "根据气温合理搭配衣物~";
-            if (tempMatch) {
-                const tempNum = parseInt(tempMatch[1]);
-                dressAdvice = tempNum <= 0 ? "穿羽绒服+围巾，注意保暖" :
-                             tempNum <= 10 ? "穿毛衣+外套，早晚添衣" :
-                             tempNum <= 20 ? "穿卫衣+薄外套，舒适为主" :
-                             "穿T恤+薄裤，注意防晒";
-            }
-            weatherItems.push(`<span>穿衣建议</span>：<<i>👕</</i>${dressAdvice}`);
-
-            return weatherItems;
-        }
-
+        /**
+         * 调用xztq API：仅请求实时天气（不传递type=3）
+         */
         async function fetchWeather(city) {
-            const requestUrl = `${WEATHER_API}?msg=${encodeURIComponent(city)}`;
+            // 按文档构造请求参数：仅传msg和hh（换行），不传递type（默认实时）
+            const requestParams = new URLSearchParams({
+                msg: city,
+                hh: "\n" // 文档默认换行符号，便于解析
+            });
+            const requestUrl = `${WEATHER_API}?${requestParams.toString()}`;
+
             try {
                 const response = await fetch(requestUrl);
-                if (!response.ok) throw new Error();
-                const rawData = await response.text();
-                const weatherItems = extractValidWeather(rawData, city);
-                const itemLines = weatherItems.map(item => `<div class="weather-item">${item}</div>`).join("");
-                const icon = getWeatherIcon(rawData);
+                if (!response.ok) throw new Error("天气接口请求失败");
+                
+                let rawText = await response.text();
+                // 过滤图标标识文本
+                rawText = rawText.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
+                if (!rawText) throw new Error("无有效天气数据");
+
+                // 解析实时天气字段（匹配API返回示例）
+                const dataLines = rawText.split("\n").filter(line => line.trim());
+                const weatherData = {};
+                dataLines.forEach(line => {
+                    const [key, value] = line.split("：").map(item => item.trim());
+                    if (key && value) weatherData[key] = value;
+                });
+
+                // 提取实时天气核心字段
+                const { 
+                    "城市名": cityName = city,
+                    "详细地名": detailAddr = "未获取详细地址",
+                    "实时天气": realtimeWeather = "未知",
+                    "实时气温": realtimeTemp = "未提及",
+                    "更新时间": updateTime = new Date().toLocaleString("zh-CN", { 
+                        year: 'numeric', month: '2-digit', day: '2-digit', 
+                        hour: '2-digit', minute: '2-digit', second: '2-digit' 
+                    })
+                } = weatherData;
+
+                // 仅组装实时天气显示项（无3天预报）
+                const weatherItems = [
+                    `<span>城市名</span>：<<<i>📍</</</i>${cityName}`,
+                    `<span>详细地名</span>：<<<i>🗺️</</</i>${detailAddr}`,
+                    `<span>实时天气</span>：<<<i>${getWeatherIcon(realtimeWeather)}</</</i>${realtimeWeather}`,
+                    `<span>实时气温</span>：<<<i>🌡️</</</i>${realtimeTemp.replace("°", "℃")}`,
+                    `<span>更新时间</span>：<<<i>⏰</</</i>${updateTime}`
+                ];
+
+                // 生成文艺回复
+                const icon = getWeatherIcon(realtimeWeather);
+                const itemLines = weatherItems.map((item, index) => 
+                    `<div class="weather-item ${index >=2 && index <=3 ? 'core' : ''}">${item}</div>`
+                ).join("");
+
                 return `
-                    <div class="weather-header">${getSoftTimeContext()}${icon} ${city}实时天气</div>
+                    <div class="weather-header">${getSoftTimeContext()}${icon} ${cityName}实时天气</div>
                     ${itemLines}
                 `;
             } catch (error) {
                 return `
                     <div class="weather-header">${getSoftTimeContext()}☁️ 天气查询提示</div>
-                    <div class="weather-item"><span>查询地名</span>：<<i>📍</</i>${city}</div>
-                    <div class="weather-item"><span>更新时间</span>：<<i>⏰</</i>${getRealUpdateTime()}</div>
-                    <div class="weather-item"><span>当前状态</span>：<<i>⚠️</</i>暂未查到天气数据</div>
-                    <div class="weather-item"><span>温馨建议</span>：<<i>💡</</i>换个地名或稍后再试~</div>
+                    <div class="weather-item"><span>查询地名</span>：<<<i>📍</</</i>${city}</div>
+                    <div class="weather-item"><span>当前状态</span>：<<<i>⚠️</</</i>暂未获取到实时天气数据</div>
+                    <div class="weather-item"><span>温馨建议</span>：<<<i>💡</</i>请确认地名正确（例：长春天气）~</div>
                 `;
             }
         }
@@ -417,7 +410,6 @@
 
             try {
                 const response = await fetch(requestUrl);
-                if (!response.ok) throw new Error();
                 let reply = await response.text();
                 reply = reply.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
                 return reply.replace(/\n+/g, "");
@@ -430,11 +422,12 @@
             }
         }
 
-        // 统一发送逻辑
+        // 统一发送逻辑（无3天预报分流）
         async function sendMessage() {
             const userMsg = messageInput.value.trim();
             if (!userMsg) return;
 
+            // 显示用户消息
             const timeStr = new Date().toTimeString().slice(0, 5);
             const userMsgEl = document.createElement("div");
             userMsgEl.className = "message right";
@@ -447,23 +440,26 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
             messageInput.value = "";
 
+            // 显示输入动效
             const typingEl = document.createElement("div");
             typingEl.className = "message left typing-indicator";
             typingEl.innerHTML = "<span></span><span></span><span></span>";
             chatMessages.appendChild(typingEl);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
+            // 分流处理：仅实时天气/聊天
             let reply;
             if (userMsg.includes("天气")) {
-                const city = getPureCity(userMsg);
+                const { city } = parseUserWeatherInput(userMsg);
                 reply = city ? await fetchWeather(city) : `
                     <div class="weather-header">${getSoftTimeContext()}☁️ 天气查询提示</div>
-                    <div class="weather-item"><span>温馨建议</span>：<<i>💡</</i>请告诉我地名呀，比如“长春天气”~</div>
+                    <div class="weather-item"><span>温馨建议</span>：<<<i>💡</</i>请告诉我地名呀，比如“长春天气”~</div>
                 `;
             } else {
                 reply = await fetchChatReply(userMsg);
             }
 
+            // 显示回复
             chatMessages.removeChild(typingEl);
             const replyEl = document.createElement("div");
             const isWeather = userMsg.includes("天气");
