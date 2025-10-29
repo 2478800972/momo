@@ -4,46 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>拾光絮语 | 文艺天气+聊天室</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Noto Serif SC", "Source Han Serif CN", "Microsoft YaHei", serif;
-            letter-spacing: 0.5px;
+            font-family: "Noto Serif SC", serif;
+            letter-spacing: 0.3px;
         }
 
+        /* 原始背景恢复 */
         body {
-            background-color: #f8f9fa;
+            background-color: #f5f7fa;
             background-image: 
                 url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.414 1.414a2 2 0 112.828 0L10 6.586a2 2 0 11-2.828 2.828L3.414 4.242a2 2 0 010-2.828z' fill='%23d8dce3' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E"),
-                linear-gradient(145deg, #fafbfc 0%, #f1f5f9 100%);
+                linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
             min-height: 100vh;
-            padding: 15px;
+            padding: 2vw;
         }
 
+        /* 自适应容器 */
         .chat-container {
+            width: 90%;
             max-width: 780px;
-            margin: 20px auto;
+            margin: 2vw auto;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(165, 177, 194, 0.12);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
             overflow: hidden;
             border: 1px solid rgba(224, 228, 235, 0.5);
         }
 
+        /* 头部样式恢复：灰蓝渐变+手写字体（灰蓝渐变时期样式） */
         .chat-header {
             background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
-            color: #fff;
-            padding: 20px;
+            color: #fff; /* 头部文字颜色保持白色，与灰蓝背景适配 */
+            padding: 1.5vw;
             text-align: center;
-            position: relative;
             border-bottom: 1px solid rgba(255, 255, 255, 0.4);
         }
         .chat-header h2 {
+            font-family: "Ma Shan Zheng", cursive; /* 灰蓝渐变时期的手写字体 */
             font-weight: 400;
-            font-size: 24px;
-            text-shadow: 1px 1px 3px rgba(100, 116, 139, 0.2);
+            font-size: clamp(1.5rem, 3vw, 24px);
+            text-shadow: 1px 1px 2px rgba(100, 116, 139, 0.2); /* 灰蓝时期的细微阴影 */
             letter-spacing: 3px;
             position: relative;
             display: inline-block;
@@ -53,14 +58,15 @@
             display: block;
             width: 60%;
             height: 1px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.6); /* 灰蓝时期的白色下划线 */
             margin: 8px auto 0;
             border-radius: 0.5px;
         }
 
+        /* 消息区样式 */
         .chat-messages {
-            height: 520px;
-            padding: 25px;
+            height: clamp(300px, 60vh, 520px);
+            padding: 3vw;
             overflow-y: auto;
             background-image: 
                 url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0V0zm2 2v16h16V2H2z' fill='%23e2e8f0' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
@@ -83,8 +89,8 @@
 
         .system-message {
             text-align: center;
-            margin: 20px 0;
-            font-size: 13px;
+            margin: 2vw 0;
+            font-size: clamp(12px, 1.5vw, 13px);
             color: #7c8ba1;
         }
         .system-message span {
@@ -93,19 +99,17 @@
             border-radius: 18px;
             border: 1px dashed rgba(148, 163, 184, 0.3);
             font-style: italic;
+            letter-spacing: 0.5px;
         }
 
+        /* 核心：提问消息与API回复字体颜色统一为 #334155 */
         .message {
-            margin-bottom: 22px;
+            margin-bottom: 2vw;
             max-width: 72%;
             line-height: 1.7;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             opacity: 0;
-            transform: translateY(8px);
-        }
-        .message.show {
-            opacity: 1;
-            transform: translateY(0);
+            transform: translateY(10px) scale(0.98);
         }
         .message.left {
             margin-right: auto;
@@ -113,98 +117,114 @@
         .message.right {
             margin-left: auto;
         }
+        .message.show {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
         .message-content {
-            padding: 14px 20px;
+            padding: clamp(12px, 2vw, 14px) clamp(18px, 2.5vw, 20px);
             border-radius: 20px;
             position: relative;
             box-shadow: 0 2px 8px rgba(165, 177, 194, 0.1);
+            font-size: clamp(14px, 2vw, 15px);
+            color: #334155; /* 统一字体颜色：灰蓝系常用深色，适配双背景 */
         }
 
+        /* 自己发送的提问消息：浅灰蓝背景（确保#334155字体清晰） */
         .right .message-content {
-            background: #505f79;
-            color: #ffffff;
-            border-bottom-right-radius: 8px;
-        }
-
-        .left .message-content,
-        .weather-message .message-content {
-            background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
-            color: #334155;
-            border-bottom-left-radius: 8px;
+            background: linear-gradient(145deg, #e4eaf5 0%, #d1d9e6 100%); /* 浅灰蓝背景，适配统一字体色 */
+            border-bottom-right-radius: 5px;
             background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v10H0V0zm1 1v8h8V1H1z' fill='%23ffffff' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
-        .weather-message .message-content {
-            border-left: 3px solid #60a5fa;
-            padding: 16px 22px;
+
+        /* API回复消息：浅灰蓝背景（与提问消息字体颜色一致） */
+        .left .message-content {
+            background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-bottom-left-radius: 5px;
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v10H0V0zm1 1v8h8V1H1z' fill='%23ffffff' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
 
-        /* 仅保留实时天气样式，删除3天预报相关样式 */
+        /* 天气模块：保持风格统一 */
+        .weather-message .message-content {
+            background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-left: 3px solid #60a5fa;
+            color: #334155; /* 天气模块字体也统一为#334155 */
+        }
         .weather-item {
             display: block;
-            margin: 7px 0;
-            font-size: 14px;
-            color: #334155;
+            margin: 6px 0;
+            font-size: clamp(13px, 1.8vw, 14px);
         }
-        .weather-item.core {
+        .weather-item.api-core {
             font-weight: 500;
-            color: #1e40af; /* 核心字段（实时天气/气温）突出 */
+            color: #1e40af;
         }
         .weather-item span {
             font-weight: 500;
             color: #60a5fa;
-            width: 90px;
+            width: 85px;
             display: inline-block;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
         }
         .weather-item i {
-            margin-right: 8px;
-            font-size: 15px;
+            margin-right: 7px;
+            font-size: clamp(14px, 1.8vw, 15px);
             vertical-align: middle;
             color: #60a5fa;
         }
         .weather-header {
-            margin-bottom: 10px;
-            font-size: 16px;
+            margin-bottom: 8px;
+            font-size: clamp(15px, 2vw, 16px);
             color: #60a5fa;
-            font-weight: 400;
+            font-weight: 300;
             letter-spacing: 1px;
         }
-        .weather-icon {
-            margin-right: 10px;
-            font-size: 18px;
-            vertical-align: middle;
-        }
 
+        /* 时间与元信息：适配统一字体色 */
         .message-time {
-            font-size: 11px;
-            margin-top: 6px;
-            opacity: 0.8;
+            font-size: clamp(10px, 1.2vw, 11px);
+            margin-top: 5px;
+            opacity: 0.7;
             text-align: right;
             font-style: italic;
             letter-spacing: 0;
+            color: #7c8ba1; /* 辅助色不冲突主字体色 */
         }
         .left .message-time {
-            padding-left: 20px;
-            color: #7c8ba1;
+            padding-left: 16px;
         }
         .right .message-time {
-            padding-right: 20px;
-            color: rgba(255, 255, 255, 0.9);
+            padding-right: 16px;
+        }
+        .message-meta {
+            font-size: clamp(9px, 1vw, 10px);
+            margin-top: 2px;
+            opacity: 0;
+            text-align: right;
+            font-style: italic;
+            transition: opacity 0.6s ease 0.2s;
+            color: #7c8ba1;
+        }
+        .message.show .message-meta {
+            opacity: 0.5;
         }
 
+        /* 输入区：适配整体风格 */
         .chat-input {
             display: flex;
-            padding: 18px 25px;
+            padding: clamp(16px, 2vw, 18px) clamp(20px, 2.5vw, 25px);
             border-top: 1px solid rgba(224, 228, 235, 0.6);
             background: rgba(255, 255, 255, 0.98);
+            gap: 12px;
         }
         #message-input {
             flex: 1;
-            padding: 14px 20px;
+            padding: clamp(12px, 1.8vw, 14px) clamp(18px, 2.2vw, 20px);
             border: 1px solid #e2e8f0;
             border-radius: 28px;
             outline: none;
-            font-size: 15px;
+            font-size: clamp(14px, 2vw, 15px);
             color: #334155;
             background: rgba(248, 250, 252, 0.8);
             transition: all 0.3s ease;
@@ -221,52 +241,68 @@
             letter-spacing: 0.5px;
         }
 
+        /* 发送按钮：灰蓝渐变时期样式 */
         #send-btn {
-            margin-left: 14px;
-            padding: 14px 28px;
+            padding: clamp(12px, 1.8vw, 14px) clamp(22px, 2.5vw, 28px);
             border: none;
             border-radius: 28px;
-            background: #505f79;
+            background: linear-gradient(145deg, #6a85b6 0%, #8a9fc2 100%);
             color: #fff;
-            font-size: 15px;
+            font-family: "Ma Shan Zheng", cursive;
+            font-size: clamp(14px, 2vw, 15px);
             cursor: pointer;
             transition: all 0.3s ease;
             letter-spacing: 1px;
-            box-shadow: 0 3px 8px rgba(80, 95, 121, 0.2);
+            white-space: nowrap;
         }
         #send-btn:hover {
-            background: #404e66;
+            background: linear-gradient(145deg, #5a75a6 0%, #7a8fba 100%);
             transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(80, 95, 121, 0.3);
+            box-shadow: 0 5px 12px rgba(106, 133, 182, 0.3);
         }
         #send-btn:active {
             transform: translateY(0);
-            box-shadow: 0 2px 6px rgba(80, 95, 121, 0.2);
+            box-shadow: 0 2px 6px rgba(106, 133, 182, 0.2);
         }
 
+        /* 正在输入动效 */
         .typing-indicator {
             display: flex;
-            gap: 5px;
-            padding: 10px 16px;
+            gap: 4px;
+            padding: clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 16px);
             background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
             border-radius: 18px;
-            border-bottom-left-radius: 8px;
+            border-bottom-left-radius: 5px;
             width: fit-content;
             box-shadow: 0 2px 8px rgba(165, 177, 194, 0.1);
         }
         .typing-indicator span {
-            width: 9px;
-            height: 9px;
+            width: clamp(8px, 1.2vw, 9px);
+            height: clamp(8px, 1.2vw, 9px);
             border-radius: 50%;
             background: #94a3b8;
-            animation: typing 1.4s infinite ease-in-out both;
+            animation: typing 1.5s infinite ease-in-out both;
         }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes typing {
-            0%, 80%, 100% { transform: scale(0.5); opacity: 0.5; }
-            40% { transform: scale(1); opacity: 1; }
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 0.8; }
+        }
+
+        /* 小屏幕适配 */
+        @media (max-width: 480px) {
+            .message {
+                max-width: 85%;
+            }
+            .weather-item span {
+                width: 70px;
+            }
+            .chat-input {
+                padding: 12px 15px;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="chat-container">
@@ -275,18 +311,19 @@
         </div>
         <div class="chat-messages" id="chat-messages">
             <div class="system-message">
-                <span>2025年春 · 我们在此相遇</span>
+                <span>二零二五年春 · 我们在此相遇</span>
             </div>
             <div class="message left show">
                 <div class="message-content">
-                    你好呀～ 想查实时天气说“地名+天气”就好（例：长春天气）
+                    你好呀～ 想查天气说“地名+天气”，也能和我随便聊聊
                 </div>
                 <div class="message-time">14:25</div>
+                <div class="message-meta">絮语18字 · 心意6字</div>
             </div>
         </div>
         <div class="chat-input">
             <input type="text" id="message-input" placeholder="和我聊天，或查天气（例：长春天气）...">
-            <button id="send-btn">发送</button>
+            <button id="send-btn">送信</button>
         </div>
     </div>
 
@@ -295,179 +332,186 @@
         const messageInput = document.getElementById('message-input');
         const sendBtn = document.getElementById('send-btn');
 
-        // 严格按xztq API文档配置（仅保留实时天气）
+        // 接口配置
         const WEATHER_API = "https://api.icofun.cn/api/xztq.php";
         const CHAT_API = "https://api.icofun.cn/api/zpai.php";
-        const FIXED_QQ = "123456";
         const IMG_TEXT_TO_REMOVE = "±img=https://s1.sencdn.com/web/icons/black/[0-9]+@1x.png±";
 
-        // 基础工具函数
+        // 文艺化工具函数
         function getSoftTimeContext() {
             const hour = new Date().getHours();
-            return hour >=6 && hour<10 ? "晨雾未散时" :
-                   hour >=10 && hour<12 ? "晨光漫窗时" :
-                   hour >=12 && hour<15 ? "暖阳午后" :
-                   hour >=15 && hour<18 ? "暮色初临时" :
-                   hour >=18 && hour<21 ? "灯影渐起时" : "星子点亮时";
+            const timeMetaphors = [
+                [6,10,"晨雾裹着微光时"],
+                [10,12,"阳光跳上窗沿时"],
+                [12,15,"风携着暖意时"],
+                [15,18,"晚霞染粉天际时"],
+                [18,21,"灯影漫过街角时"],
+                [21,24,"星子缀满夜空时"],
+                [0,6,"月色浸着寂静时"]
+            ];
+            return timeMetaphors.find(([start, end, text]) => hour >= start && hour < end)[2];
         }
 
-        function getWeatherIcon(weatherText) {
-            if (weatherText.includes("晴")) return "☀️";
-            if (weatherText.includes("雨")) return "🌧️";
-            if (weatherText.includes("阴")) return "🌥️";
-            if (weatherText.includes("雪")) return "❄️";
-            if (weatherText.includes("风")) return "🌬️";
-            if (weatherText.includes("云")) return "☁️";
-            return "🌤️";
+        function getWeatherIconAndDesc(weatherStatus) {
+            const weatherMap = {
+                "晴": { icon: "☀️", desc: "晴光满庭" },
+                "阴": { icon: "🌥️", desc: "云絮轻笼" },
+                "雨": { icon: "🌧️", desc: "雨丝漫洒" },
+                "雪": { icon: "❄️", desc: "雪落无声" },
+                "多云": { icon: "☁️", desc: "云朵漫卷" },
+                "少云": { icon: "🌤️", desc: "云隙漏光" },
+                "雾": { icon: "🌫️", desc: "薄雾轻遮" },
+                "雷": { icon: "⛈️", desc: "雷声轻滚" }
+            };
+            return weatherMap[weatherStatus] || { icon: "🌤️", desc: weatherStatus };
         }
 
-        // --------------------------
-        // 核心：仅保留实时天气逻辑，删除3天预报相关代码
-        // --------------------------
-        /**
-         * 解析用户输入：仅提取地名（无3天判断）
-         */
+        // 天气功能：基于API数据优化
         function parseUserWeatherInput(userMsg) {
-            // 提取纯地名（去除“天气”“查”等冗余词）
-            const cityMatch = userMsg.match(/([^天气查]+)/);
+            const cityMatch = userMsg.match(/([^天气查]+)天气/);
             const city = cityMatch ? cityMatch[1].replace(/[的|一下|查询|问下|看看]/g, "").trim() : null;
             return { city };
         }
 
-        /**
-         * 调用xztq API：仅请求实时天气（不传递type=3）
-         */
         async function fetchWeather(city) {
-            // 按文档构造请求参数：仅传msg和hh（换行），不传递type（默认实时）
-            const requestParams = new URLSearchParams({
-                msg: city,
-                hh: "\n" // 文档默认换行符号，便于解析
-            });
+            const requestParams = new URLSearchParams({ msg: city, hh: "\n" });
             const requestUrl = `${WEATHER_API}?${requestParams.toString()}`;
 
             try {
                 const response = await fetch(requestUrl);
-                if (!response.ok) throw new Error("天气接口请求失败");
-                
-                let rawText = await response.text();
-                // 过滤图标标识文本
-                rawText = rawText.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
-                if (!rawText) throw new Error("无有效天气数据");
+                if (!response.ok) throw new Error();
+                let rawData = await response.text().replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
+                if (!rawData) throw new Error();
 
-                // 解析实时天气字段（匹配API返回示例）
-                const dataLines = rawText.split("\n").filter(line => line.trim());
-                const weatherData = {};
+                const dataLines = rawData.split("\n").filter(line => line.trim());
+                const apiResult = {};
                 dataLines.forEach(line => {
                     const [key, value] = line.split("：").map(item => item.trim());
-                    if (key && value) weatherData[key] = value;
+                    if (key && value) apiResult[key] = value;
                 });
 
-                // 提取实时天气核心字段
-                const { 
-                    "城市名": cityName = city,
-                    "详细地名": detailAddr = "未获取详细地址",
-                    "实时天气": realtimeWeather = "未知",
-                    "实时气温": realtimeTemp = "未提及",
-                    "更新时间": updateTime = new Date().toLocaleString("zh-CN", { 
+                const {
+                    "城市名": apiCity = city,
+                    "详细地名": apiDetailAddr = "未获取详细地址",
+                    "实时天气": apiRealtimeWeather = "未知",
+                    "实时气温": apiRealtimeTemp = "未提及",
+                    "更新时间": apiUpdateTime = new Date().toLocaleString("zh-CN", { 
                         year: 'numeric', month: '2-digit', day: '2-digit', 
                         hour: '2-digit', minute: '2-digit', second: '2-digit' 
                     })
-                } = weatherData;
+                } = apiResult;
 
-                // 仅组装实时天气显示项（无3天预报）
+                const { icon: weatherIcon, desc: weatherDesc } = getWeatherIconAndDesc(apiRealtimeWeather);
+                const formattedTemp = apiRealtimeTemp.replace("°", "℃");
+
                 const weatherItems = [
-                    `<span>城市名</span>：<<<i>📍</</</i>${cityName}`,
-                    `<span>详细地名</span>：<<<i>🗺️</</</i>${detailAddr}`,
-                    `<span>实时天气</span>：<<<i>${getWeatherIcon(realtimeWeather)}</</</i>${realtimeWeather}`,
-                    `<span>实时气温</span>：<<<i>🌡️</</</i>${realtimeTemp.replace("°", "℃")}`,
-                    `<span>更新时间</span>：<<<i>⏰</</</i>${updateTime}`
+                    `<span>城市名</span>：<<<<i>📍</</</</i>${apiCity}`,
+                    `<span>详细地名</span>：<<<<i>🗺️</</</</i>${apiDetailAddr}`,
+                    `<span>实时天气</span>：<<<<i>${weatherIcon}</</</</i>${weatherDesc}`,
+                    `<span>实时气温</span>：<<<<i>🌡️</</</</i>${formattedTemp}`,
+                    `<span>更新时间</span>：<<<<i>⏰</</</</i>${apiUpdateTime}`
                 ];
 
-                // 生成文艺回复
-                const icon = getWeatherIcon(realtimeWeather);
-                const itemLines = weatherItems.map((item, index) => 
-                    `<div class="weather-item ${index >=2 && index <=3 ? 'core' : ''}">${item}</div>`
-                ).join("");
+                const itemLines = weatherItems.map((item, index) => {
+                    const isApiCore = index >= 2 && index <= 4;
+                    return `<div class="weather-item ${isApiCore ? 'api-core' : ''}">${item}</div>`;
+                }).join("");
 
-                return `
-                    <div class="weather-header">${getSoftTimeContext()}${icon} ${cityName}实时天气</div>
-                    ${itemLines}
-                `;
+                return {
+                    content: `
+                        <div class="weather-header">${getSoftTimeContext()}${weatherIcon} ${apiCity}天气</div>
+                        ${itemLines}
+                    `,
+                    meta: "天候数据来自心知天气API"
+                };
             } catch (error) {
-                return `
-                    <div class="weather-header">${getSoftTimeContext()}☁️ 天气查询提示</div>
-                    <div class="weather-item"><span>查询地名</span>：<<<i>📍</</</i>${city}</div>
-                    <div class="weather-item"><span>当前状态</span>：<<<i>⚠️</</</i>暂未获取到实时天气数据</div>
-                    <div class="weather-item"><span>温馨建议</span>：<<<i>💡</</i>请确认地名正确（例：长春天气）~</div>
-                `;
+                return {
+                    content: `
+                        <div class="weather-header">${getSoftTimeContext()}☁️ 天候查询提示</div>
+                        <div class="weather-item"><span>查询城市</span>：<<<<i>📍</</</</i>${city}</div>
+                        <div class="weather-item"><span>API状态</span>：<<<<i>⚠️</</</i>暂未获取到天气数据</div>
+                        <div class="weather-item"><span>建议</span>：<<<<i>💡</</</i>确认地名后重试（例：长春天气）</div>
+                    `,
+                    meta: "天气API请求暂未成功"
+                };
             }
         }
 
         // 聊天功能
-        async function fetchChatReply(msg) {
-            const prompt = `你是「拾光絮语」的温柔陪伴者，回复短而有画面感（≤2句），开头可加${getSoftTimeContext()}，像朋友聊天，语气轻柔：${msg}`;
-            const requestUrl = `${CHAT_API}?msg=${encodeURIComponent(prompt)}&qq=${FIXED_QQ}&type=text`;
+        async function fetchChatReply(userMsg) {
+            const systemPrompt = `借春草、云絮、风、花等自然意象，每句≤12字、共≤2句，开头嵌时间语境（如${getSoftTimeContext()}），像轻声絮语般温暖自然。`;
+            const finalMsg = `${systemPrompt}\n友人说：${userMsg}`;
+            const requestParams = new URLSearchParams({
+                msg: encodeURIComponent(finalMsg),
+                type: "json"
+            });
+            const requestUrl = `${CHAT_API}?${requestParams.toString()}`;
 
             try {
                 const response = await fetch(requestUrl);
-                let reply = await response.text();
-                reply = reply.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
-                return reply.replace(/\n+/g, "");
+                if (!response.ok) throw new Error();
+                const { status, content, usage } = await response.json();
+                if (status !== "success") throw new Error();
+                const cleanContent = content.trim().replace(/\n+/g, " ").replace(/。/g, "。 ");
+                const metaText = usage 
+                    ? `絮语${usage.completion_tokens}字 · 心意${usage.prompt_tokens}字` 
+                    : "絮语暂未记字";
+                return { content: cleanContent, meta: metaText };
             } catch (error) {
                 const fallbacks = [
-                    `${getSoftTimeContext()}风在慢慢读你的话，再讲一遍吧～`,
-                    `${getSoftTimeContext()}此刻很静，你愿意多分享一点吗？`
+                    `${getSoftTimeContext()}风把絮语吹轻了，再说说吧～`,
+                    `${getSoftTimeContext()}云影遮了回复，再和我讲呀～`,
+                    `${getSoftTimeContext()}月色漫了字句，重新告诉我吧～`
                 ];
-                return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+                return { content: fallbacks[Math.floor(Math.random() * 3)], meta: "絮语暂未完整" };
             }
         }
 
-        // 统一发送逻辑（无3天预报分流）
+        // 发送逻辑
         async function sendMessage() {
             const userMsg = messageInput.value.trim();
             if (!userMsg) return;
 
-            // 显示用户消息
             const timeStr = new Date().toTimeString().slice(0, 5);
             const userMsgEl = document.createElement("div");
             userMsgEl.className = "message right";
             userMsgEl.innerHTML = `
                 <div class="message-content">${userMsg}</div>
                 <div class="message-time">${timeStr}</div>
+                <div class="message-meta">心意已寄</div>
             `;
             chatMessages.appendChild(userMsgEl);
             setTimeout(() => userMsgEl.classList.add("show"), 50);
             chatMessages.scrollTop = chatMessages.scrollHeight;
             messageInput.value = "";
 
-            // 显示输入动效
             const typingEl = document.createElement("div");
             typingEl.className = "message left typing-indicator";
             typingEl.innerHTML = "<span></span><span></span><span></span>";
             chatMessages.appendChild(typingEl);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // 分流处理：仅实时天气/聊天
-            let reply;
+            let replyData;
             if (userMsg.includes("天气")) {
                 const { city } = parseUserWeatherInput(userMsg);
-                reply = city ? await fetchWeather(city) : `
-                    <div class="weather-header">${getSoftTimeContext()}☁️ 天气查询提示</div>
-                    <div class="weather-item"><span>温馨建议</span>：<<<i>💡</</i>请告诉我地名呀，比如“长春天气”~</div>
-                `;
+                replyData = city ? await fetchWeather(city) : {
+                    content: `
+                        <div class="weather-header">${getSoftTimeContext()}☁️ 天候查询提示</div>
+                        <div class="weather-item"><span>建议</span>：<<<<i>💡</</</i>请告诉我地名（例：长春天气）</div>
+                    `,
+                    meta: "未获取查询地名"
+                };
             } else {
-                reply = await fetchChatReply(userMsg);
+                replyData = await fetchChatReply(userMsg);
             }
 
-            // 显示回复
             chatMessages.removeChild(typingEl);
             const replyEl = document.createElement("div");
-            const isWeather = userMsg.includes("天气");
-            
-            replyEl.className = `message left ${isWeather ? "weather-message" : ""}`;
+            replyEl.className = `message left ${userMsg.includes("天气") ? "weather-message" : ""}`;
             replyEl.innerHTML = `
-                <div class="message-content">${reply}</div>
+                <div class="message-content">${replyData.content}</div>
                 <div class="message-time">${timeStr}</div>
+                <div class="message-meta">${replyData.meta}</div>
             `;
             chatMessages.appendChild(replyEl);
             setTimeout(() => replyEl.classList.add("show"), 50);
