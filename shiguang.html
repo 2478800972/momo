@@ -138,7 +138,7 @@
             background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10v10H0V0zm1 1v8h8V1H1z' fill='%23ffffff' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
 
-        /* 天气回复优化：更贴合API数据结构，字段展示更精准 */
+        /* 天气回复：确保API数据完整展示 */
         .weather-message .message-content {
             background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
             border-left: 3px solid #60a5fa;
@@ -147,25 +147,26 @@
         }
         .weather-item {
             display: block;
-            margin: clamp(5px, 1vw, 7px) 0;
+            margin: clamp(6px, 1.2vw, 8px) 0;
             font-size: clamp(13px, 1.8vw, 14px);
             line-height: 1.6;
         }
-        /* API核心字段（实时天气/气温/更新时间）强化展示，区分非核心字段 */
-        .weather-item.api-core {
+        /* 核心API数据（实时天气/气温）强制显示，加视觉强调 */
+        .weather-item.api-key {
             font-weight: 500;
             color: #1e40af;
             padding-left: 4px;
             border-left: 2px solid #60a5fa;
         }
-        .weather-item.api-normal {
+        /* 辅助API数据（城市/地址/时间）强制显示，不隐藏 */
+        .weather-item.api-aux {
             color: #334155;
-            opacity: 0.9;
+            opacity: 1; /* 取消透明，确保可见 */
         }
         .weather-item span {
             font-weight: 500;
             color: #60a5fa;
-            width: clamp(75px, 10vw, 85px); /* 自适应字段名宽度，避免小屏拥挤 */
+            width: clamp(75px, 10vw, 85px);
             display: inline-block;
             letter-spacing: 0.8px;
         }
@@ -325,7 +326,7 @@
             </div>
         </div>
         <div class="chat-input">
-            <input type="text" id="message-input" placeholder="和我聊天，或查天气（例：长春天气）...">
+            <input type="text" id="message-input" placeholder="和我聊天，或查天气（例：长春天气 / 今天看见花开了）...">
             <button id="send-btn">送信</button>
         </div>
     </div>
@@ -335,158 +336,177 @@
         const messageInput = document.getElementById('message-input');
         const sendBtn = document.getElementById('send-btn');
 
-        // 接口配置（xztq.php API文档标准字段：城市名、详细地名、实时天气、实时气温、更新时间）
+        // 接口配置（确保API请求参数正确）
         const WEATHER_API = "https://api.icofun.cn/api/xztq.php";
         const CHAT_API = "https://api.icofun.cn/api/zpai.php";
         const IMG_TEXT_TO_REMOVE = "±img=https://s1.sencdn.com/web/icons/black/[0-9]+@1x.png±";
 
-        // 文艺化工具函数（基于API字段动态生成内容）
-        function getSoftTimeContext() {
+        function getCoreInfo(userMsg) {
+            const match = userMsg.match(/(开心|难过|累|烦|花|雨|雪|加班|上学|周末|今天|明天)/);
+            return match ? match[0] : "";
+        }
+
+        function getTimeContext() {
             const hour = new Date().getHours();
-            const timeMetaphors = [
-                [6,10,"晨雾裹着微光时"],
-                [10,12,"阳光跳上窗沿时"],
-                [12,15,"风携着暖意时"],
-                [15,18,"晚霞染粉天际时"],
-                [18,21,"灯影漫过街角时"],
-                [21,24,"星子缀满夜空时"],
-                [0,6,"月色浸着寂静时"]
+            const contexts = [
+                [6,10,"晨雾轻轻漫过窗沿时"],
+                [10,12,"阳光悄悄跳上桌面时"],
+                [12,15,"风携着暖意拂过肩头时"],
+                [15,18,"晚霞把天际染成粉橘色时"],
+                [18,21,"灯影慢慢漫过街角时"],
+                [21,24,"星子缀满墨色夜空时"],
+                [0,6,"月色静静浸着房间时"]
             ];
-            return timeMetaphors.find(([start, end, text]) => hour >= start && hour < end)[2];
+            return contexts.find(([s, e, ctx]) => hour >= s && hour < e)[2];
         }
 
-        // 精准匹配API返回的“实时天气”字段，避免硬编码，确保与API数据同步
-        function getWeatherIconAndDesc(weatherStatusFromApi) {
-            // 严格对应API可能返回的天气状态值（如“晴”“多云”“小雨”“阴”等）
-            const weatherMap = {
-                "晴": { icon: "☀️", desc: "晴光满庭" },
-                "多云": { icon: "☁️", desc: "云朵漫卷" },
-                "少云": { icon: "🌤️", desc: "云隙漏光" },
-                "阴": { icon: "🌥️", desc: "云絮轻笼" },
-                "小雨": { icon: "🌧️", desc: "细雨轻洒" },
-                "中雨": { icon: "🌧️", desc: "雨丝绵绵" },
-                "大雨": { icon: "🌧️", desc: "雨势渐急" },
-                "小雪": { icon: "❄️", desc: "细雪纷飞" },
-                "中雪": { icon: "❄️", desc: "雪落无声" },
-                "大雪": { icon: "❄️", desc: "雪覆天地" },
-                "雾": { icon: "🌫️", desc: "薄雾轻遮" },
-                "雷阵雨": { icon: "⛈️", desc: "雷声伴雨" }
-            };
-            // 若API返回未匹配的状态（如“暴雨”），直接使用原始值，不篡改数据
-            const matched = Object.keys(weatherMap).find(key => weatherStatusFromApi.includes(key));
-            return matched ? weatherMap[matched] : { icon: "🌤️", desc: weatherStatusFromApi };
-        }
-
-        // --------------------------
-        // 核心优化：天气查询回复完全基于API返回数据，精准、无冗余
-        // --------------------------
-        function parseUserWeatherInput(userMsg) {
-            // 精准提取地名（仅保留“XX天气”中的“XX”，过滤无关词，确保API请求参数准确）
-            const cityMatch = userMsg.match(/([^天气查]+)天气/);
-            const city = cityMatch 
-                ? cityMatch[1].replace(/[的|一下|查询|问下|看看|帮我|查一下]/g, "").trim() 
+        // 1. 修正地名解析：确保能提取到正确地名，避免API请求参数为空
+        function parseCity(userMsg) {
+            // 放宽匹配规则，确保“查XX天气”“XX的天气”都能提取地名
+            const cityMatch = userMsg.match(/([^天气查]+)(?:天气|的天气)/);
+            return cityMatch 
+                ? cityMatch[1].replace(/[查|一下|问下|看看|帮我]/g, "").trim() 
                 : null;
-            return { city };
         }
 
+        // 2. 修正天气状态匹配：确保所有API返回状态都能展示
+        function formatWeather(weatherFromApi) {
+            const weatherMap = {
+                "晴": { icon: "☀️", desc: "晴光满庭，阳光正好" },
+                "多云": { icon: "☁️", desc: "云朵漫卷，天朗气清" },
+                "少云": { icon: "🌤️", desc: "云隙漏光，微风正好" },
+                "阴": { icon: "🌥️", desc: "云絮轻笼，天色微凉" },
+                "小雨": { icon: "🌧️", desc: "细雨轻洒，需带雨具" },
+                "中雨": { icon: "🌧️", desc: "雨丝绵绵，出门防雨" },
+                "大雨": { icon: "🌧️", desc: "雨势渐急，建议待室内" },
+                "小雪": { icon: "❄️", desc: "细雪纷飞，路面易滑" },
+                "中雪": { icon: "❄️", desc: "雪落无声，注意保暖" },
+                "大雪": { icon: "❄️", desc: "雪覆天地，出行谨慎" },
+                "雾": { icon: "🌫️", desc: "薄雾轻遮，能见度低" },
+                "雷阵雨": { icon: "⛈️", desc: "雷声伴雨，远离户外" },
+                "霾": { icon: "🌫️", desc: "轻霾笼罩，注意防护" },
+                "暴雨": { icon: "🌧️", desc: "暴雨来袭，尽量不出门" },
+                "冰雹": { icon: "冰雹", desc: "冰雹预警，注意安全" }
+            };
+            // 优先匹配完整状态，无匹配则直接显示API原始值
+            const matchedKey = Object.keys(weatherMap).find(key => weatherFromApi === key);
+            return matchedKey ? weatherMap[matchedKey] : { 
+                icon: "🌤️", 
+                desc: weatherFromApi // 强制显示API返回的原始天气状态
+            };
+        }
+
+        // 3. 核心修正：确保API返回的所有数据都能完整提取并展示
         async function fetchWeather(city) {
-            // 1. 按API文档构造请求：仅传必填参数msg（地名）和hh（换行符，便于解析返回数据）
-            const requestParams = new URLSearchParams({
-                msg: city,
-                hh: "\n" // 遵循xztq.php API文档要求，确保返回数据按行分割
-            });
-            const requestUrl = `${WEATHER_API}?${requestParams.toString()}`;
-
-            try {
-                const response = await fetch(requestUrl);
-                // 2. 处理API请求状态：非200状态码直接抛错
-                if (!response.ok) throw new Error(`API请求失败（状态码：${response.status}）`);
-                
-                // 3. 解析API返回数据：先过滤图标文本（±img=...±），再按行分割
-                let rawApiData = await response.text();
-                rawApiData = rawApiData.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
-                // 若API返回空数据（如地名无效），抛错处理
-                if (!rawApiData) throw new Error("API返回空数据");
-
-                // 4. 按API返回格式（“字段名：字段值”）精准提取核心字段
-                const apiFieldMap = {};
-                rawApiData.split("\n").forEach(line => {
-                    const [fieldName, fieldValue] = line.split("：").map(item => item.trim());
-                    // 仅保留API文档明确的5个核心字段，过滤无关字段（若有）
-                    if (["城市名", "详细地名", "实时天气", "实时气温", "更新时间"].includes(fieldName) && fieldValue) {
-                        apiFieldMap[fieldName] = fieldValue;
-                    }
-                });
-
-                // 5. 提取API字段值：优先使用API返回数据，无数据时标注“未获取”（不编造数据）
-                const {
-                    "城市名": apiCity = `未识别城市（输入：${city}）`,
-                    "详细地名": apiDetailAddr = "未获取详细地址",
-                    "实时天气": apiRealtimeWeather = "未获取实时天气",
-                    "实时气温": apiRealtimeTemp = "未获取实时气温",
-                    "更新时间": apiUpdateTime = new Date().toLocaleString("zh-CN", { 
-                        year: 'numeric', month: '2-digit', day: '2-digit', 
-                        hour: '2-digit', minute: '2-digit' 
-                    }) // 仅当API未返回更新时间时，才生成当前时间
-                } = apiFieldMap;
-
-                // 6. 基于API“实时天气”字段动态生成图标和文艺描述（不脱离API数据）
-                const { icon: weatherIcon, desc: weatherDesc } = getWeatherIconAndDesc(apiRealtimeWeather);
-                // 统一气温单位（API可能返回“-5°”“10℃”，统一为“℃”单位，不改变数值）
-                const formattedTemp = apiRealtimeTemp.includes("℃") 
-                    ? apiRealtimeTemp 
-                    : apiRealtimeTemp.replace("°", "℃");
-
-                // 7. 按“核心字段（突出）+非核心字段（常规）”排版，贴合用户关注点
-                const weatherItems = [
-                    // 非核心字段：城市名、详细地名（常规展示）
-                    `<div class="weather-item api-normal"><span>城市名</span>：<<<<i>📍</</</</i>${apiCity}</div>`,
-                    `<div class="weather-item api-normal"><span>详细地名</span>：<<<<i>🗺️</</</</i>${apiDetailAddr}</div>`,
-                    // 核心字段：实时天气、实时气温、更新时间（强化展示，加边框和深色）
-                    `<div class="weather-item api-core"><span>实时天气</span>：<<<<i>${weatherIcon}</</</</i>${weatherDesc}</div>`,
-                    `<div class="weather-item api-core"><span>实时气温</span>：<<<<i>🌡️</</</</i>${formattedTemp}</div>`,
-                    `<div class="weather-item api-core"><span>更新时间</span>：<<<<i>⏰</</</i>${apiUpdateTime}</div>`
-                ];
-
-                // 8. 生成最终回复：完全基于API数据，无多余引导文本
-                return {
-                    content: `
-                        <div class="weather-header">
-                            <span class="weather-icon">${weatherIcon}</span>
-                            ${getSoftTimeContext()} ${apiCity}天气
-                        </div>
-                        ${weatherItems.join("")}
-                    `,
-                    meta: `数据来源：心知天气API | 字段数：${Object.keys(apiFieldMap).length}/5` // 标注API数据完整性
-                };
-
-            } catch (error) {
-                // 9. 异常处理：基于错误类型精准提示，不模糊
-                let errorMsg = "暂未获取到天气数据";
-                if (error.message.includes("状态码")) errorMsg = "API请求异常";
-                if (error.message.includes("空数据")) errorMsg = "API返回空数据（可能地名无效）";
-
+            // 若未提取到地名，直接返回提示，避免空请求
+            if (!city) {
                 return {
                     content: `
                         <div class="weather-header">
                             <span class="weather-icon">⚠️</span>
-                            ${getSoftTimeContext()} 天气查询提示
+                            ${getTimeContext()} 天气查询提示
                         </div>
-                        <div class="weather-item api-normal"><span>查询地名</span>：<<<<i>📍</</</</i>${city || "未输入地名"}</div>
-                        <div class="weather-item api-normal"><span>异常原因</span>：<<<<i>❌</</</i>${errorMsg}</div>
-                        <div class="weather-item api-normal"><span>建议</span>：<<<<i>💡</</</i>请输入正确地名（例：北京天气、上海天气）</div>
+                        <div class="weather-item api-aux"><span>当前问题</span>： <<<i>❌</</i> 未识别到查询地名</div>
+                        <div class="weather-item api-aux"><span>正确格式</span>： <<<i>💡</</i> 例：北京天气、上海的天气</div>
                     `,
-                    meta: `天气API请求失败：${error.message.slice(0, 20)}...`
+                    meta: "未获取查询地名"
+                };
+            }
+
+            const requestParams = new URLSearchParams({ msg: city, hh: "\n" });
+            const requestUrl = `${WEATHER_API}?${requestParams.toString()}`;
+
+            try {
+                const response = await fetch(requestUrl);
+                if (!response.ok) throw new Error(`状态码：${response.status}`);
+                
+                // 确保API返回文本完整获取
+                let apiDataText = await response.text();
+                // 过滤图标标识，但保留所有字段文本
+                apiDataText = apiDataText.replace(new RegExp(IMG_TEXT_TO_REMOVE, "g"), "").trim();
+                if (!apiDataText) throw new Error("API返回空文本");
+
+                // 解析API返回的所有字段（按“字段名：值”格式）
+                const apiData = {};
+                apiDataText.split("\n").forEach(line => {
+                    const lineTrim = line.trim();
+                    if (lineTrim.includes("：")) {
+                        const [key, val] = lineTrim.split("：").map(item => item.trim());
+                        // 保留所有非空字段，不限制字段名，确保不遗漏API数据
+                        if (key && val) apiData[key] = val;
+                    }
+                });
+
+                // 提取核心字段，无数据时显示“暂未获取”，但不隐藏字段
+                const apiCity = apiData["城市名"] || city;
+                const apiAddr = apiData["详细地名"] || "暂未获取详细地址";
+                const apiWeather = apiData["实时天气"] || "暂未获取天气状态";
+                const apiTemp = apiData["实时气温"] || "暂未获取气温数据";
+                const apiTime = apiData["更新时间"] || new Date().toLocaleString("zh-CN", { 
+                    year: 'numeric', month: '2-digit', day: '2-digit', 
+                    hour: '2-digit', minute: '2-digit', second: '2-digit'
+                });
+
+                // 生成天气信息，确保所有字段都被渲染
+                const { icon: weatherIcon, desc: weatherDesc } = formatWeather(apiWeather);
+                const formatTemp = apiTemp.includes("℃") ? apiTemp : `${apiTemp}℃`; // 强制添加单位，避免显示异常
+
+                // 天气项模板：确保每个API字段都对应一个项，无遗漏
+                const weatherItems = [
+                    `<div class="weather-item api-key"><span>实时天气</span>： <<<i>${weatherIcon}</</i> ${weatherDesc}</div>`,
+                    `<div class="weather-item api-key"><span>实时气温</span>： <<<i>🌡️</</i> ${formatTemp}</div>`,
+                    `<div class="weather-item api-aux"><span>城市名</span>： <<<i>📍</</i> ${apiCity}</div>`,
+                    `<div class="weather-item api-aux"><span>详细地名</span>： <<<i>🗺️</</i> ${apiAddr}</div>`,
+                    `<div class="weather-item api-aux"><span>更新时间</span>： <<<i>⏰</</i> ${apiTime}</div>`
+                ];
+
+                // 额外显示API返回的其他字段（如“风向”“湿度”），避免遗漏
+                Object.keys(apiData).forEach(key => {
+                    if (!["城市名", "详细地名", "实时天气", "实时气温", "更新时间"].includes(key)) {
+                        weatherItems.push(`<div class="weather-item api-aux"><span>${key}</span>： <<<i>📌</</i> ${apiData[key]}</div>`);
+                    }
+                });
+
+                return {
+                    content: `
+                        <div class="weather-header">
+                            <span class="weather-icon">${weatherIcon}</span>
+                            ${getTimeContext()} ${apiCity}天气
+                        </div>
+                        ${weatherItems.join("")}
+                    `,
+                    meta: `数据来源：心知天气API | 已获取字段：${Object.keys(apiData).length}个`
+                };
+
+            } catch (error) {
+                // 异常时仍显示查询的地名和错误原因，确保有数据展示
+                return {
+                    content: `
+                        <div class="weather-header">
+                            <span class="weather-icon">⚠️</span>
+                            ${getTimeContext()} 天气查询异常
+                        </div>
+                        <div class="weather-item api-aux"><span>查询地名</span>： <<<i>📍</</i> ${city}</div>
+                        <div class="weather-item api-aux"><span>错误原因</span>： <<<i>❌</</i> ${error.message}</div>
+                        <div class="weather-item api-aux"><span>重试建议</span>： <<<i>💡</</i> 检查地名是否正确，稍后再试</div>
+                    `,
+                    meta: `天气API请求失败`
                 };
             }
         }
 
-        // 聊天功能（保持原有文艺风格，不改动）
         async function fetchChatReply(userMsg) {
-            const systemPrompt = `借春草、云絮、风、花等自然意象，每句≤12字、共≤2句，开头嵌时间语境（如${getSoftTimeContext()}），像轻声絮语般温暖自然。`;
-            const finalMsg = `${systemPrompt}\n友人说：${userMsg}`;
+            const timeCtx = getTimeContext();
+            const core = getCoreInfo(userMsg);
+            const prompt = `
+                用自然的聊天语气回应，开头加“${timeCtx}”，
+                若提到${core}就围绕它说，用风、云、花、月这类意象，
+                1-3句话，像朋友聊天，不生硬，不套话。
+                友人说：${userMsg}
+            `.replace(/\n+/g, "").trim();
+
             const requestParams = new URLSearchParams({
-                msg: encodeURIComponent(finalMsg),
+                msg: encodeURIComponent(prompt),
                 type: "json"
             });
             const requestUrl = `${CHAT_API}?${requestParams.toString()}`;
@@ -494,38 +514,39 @@
             try {
                 const response = await fetch(requestUrl);
                 if (!response.ok) throw new Error();
-                const { status, content, usage } = await response.json();
+                const { status, content } = await response.json();
                 if (status !== "success") throw new Error();
-                const cleanContent = content.trim().replace(/\n+/g, " ").replace(/。/g, "。 ");
-                const metaText = usage 
-                    ? `絮语${usage.completion_tokens}字 · 心意${usage.prompt_tokens}字` 
-                    : "絮语暂未记字";
-                return { content: cleanContent, meta: metaText };
+
+                return { 
+                    content: content.trim().replace(/\n+/g, " "), 
+                    meta: "絮语已寄" 
+                };
+
             } catch (error) {
                 const fallbacks = [
-                    `${getSoftTimeContext()}风把絮语吹轻了，再说说吧～`,
-                    `${getSoftTimeContext()}云影遮了回复，再和我讲呀～`,
-                    `${getSoftTimeContext()}月色漫了字句，重新告诉我吧～`
+                    `${timeCtx}刚才没听清你的话，再和我说说吧～`,
+                    `${timeCtx}风好像把你的絮语吹轻了，重新告诉我呀～`,
+                    `${timeCtx}刚没接住你的话，再讲一次好不好～`
                 ];
                 return { content: fallbacks[Math.floor(Math.random() * 3)], meta: "絮语暂未完整" };
             }
         }
 
-        // 发送逻辑（保持原有交互，不改动）
+        // 发送逻辑：确保天气回复能正常触发
         async function sendMessage() {
             const userMsg = messageInput.value.trim();
             if (!userMsg) return;
 
             const timeStr = new Date().toTimeString().slice(0, 5);
-            const userMsgEl = document.createElement("div");
-            userMsgEl.className = "message right";
-            userMsgEl.innerHTML = `
+            const userEl = document.createElement("div");
+            userEl.className = "message right";
+            userEl.innerHTML = `
                 <div class="message-content">${userMsg}</div>
                 <div class="message-time">${timeStr}</div>
                 <div class="message-meta">心意已寄</div>
             `;
-            chatMessages.appendChild(userMsgEl);
-            setTimeout(() => userMsgEl.classList.add("show"), 50);
+            chatMessages.appendChild(userEl);
+            setTimeout(() => userEl.classList.add("show"), 50);
             chatMessages.scrollTop = chatMessages.scrollHeight;
             messageInput.value = "";
 
@@ -535,9 +556,10 @@
             chatMessages.appendChild(typingEl);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
+            // 确保包含“天气”关键词就触发天气回复
             let replyData;
             if (userMsg.includes("天气")) {
-                const { city } = parseUserWeatherInput(userMsg);
+                const city = parseCity(userMsg);
                 replyData = await fetchWeather(city);
             } else {
                 replyData = await fetchChatReply(userMsg);
@@ -556,7 +578,7 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // 绑定事件
+        // 绑定事件：确保按钮和回车都能触发发送
         sendBtn.addEventListener("click", sendMessage);
         messageInput.addEventListener("keydown", (e) => {
             if (e.key === "Enter" && !e.shiftKey) {
