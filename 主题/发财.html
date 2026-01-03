@@ -7,8 +7,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: "华康圆体", "Microsoft YaHei", sans-serif; }
         body { background: #f5f5f5; color: #333; line-height: 1.8; padding: 20px; max-width: 1200px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 30px; padding: 25px 0; background: linear-gradient(180deg, #fff 0%, #fff5f8 100%); border-radius: 12px; border: 1px solid #ffccd5; }
-        .back-btn { position: absolute; left: 20px; top: 40px; background: #ffeeee; color: #e53e3e; padding: 8px 16px; border-radius: 20px; font-size: 1rem; text-decoration: none; transition: all 0.3s ease; }
+        header { text-align: center; margin-bottom: 30px; margin-top: 20px; /* 新增：拉开与返回按钮的距离 */ padding: 25px 0; background: linear-gradient(180deg, #fff 0%, #fff5f8 100%); border-radius: 12px; border: 1px solid #ffccd5; }
+        .back-btn { position: absolute; left: 20px; top: 30px; /* 修改：从20px改为30px，增加顶部间距 */ background: #ffeeee; color: #e53e3e; padding: 8px 16px; border-radius: 20px; font-size: 1rem; text-decoration: none; transition: all 0.3s ease; }
         .back-btn:hover { background: #ffe0e9; color: #c53030; transform: translateY(-2px); }
         h1 { color: #e53e3e; font-size: 2.8rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 15px; }
         h1 span { font-size: 3rem; }
@@ -41,8 +41,7 @@
     </style>
 </head>
 <body>
-    <a href="https://2478800972.github.io/momo/zhuti.html" class="theme-card">← 返回主题合集</a>
-
+    <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">← 返回主题合集</a>
     <header>
         <h1>阅读主题 <span>發財</span></h1>
         <p class="subtitle">纸质护眼模式 | 招财进宝氛围感 | 原创设计</p>
@@ -65,7 +64,7 @@
 }
         </div>
         <div class="theme-download">
-            <a href="https://moshanging.lanzout.com/iuHVO052zi6h" target="_blank" class="download-btn">📥 立即下载发财主题</a>
+            <a href="https://moshanging.lanzout.com/" target="_blank" class="download-btn">📥 立即下载发财主题</a>
         </div>
         <div class="tip">
             <strong>使用提示：</strong>主题适配所有阅读场景，「發財」文字为特色装饰元素，开启纸质护眼模式后色彩更柔和，阅读更舒适～
@@ -80,4 +79,10 @@
                 <img src="https://picsum.photos/seed/fortune2/800/500" alt="发财主题预览图2" title="书籍列表展示">
                 <p>书籍列表页面展示（多本书籍排版效果）</p>
             </div>
-            <d
+        </div>
+    </section>
+    <footer>
+        <p>兮心阅读 &copy; 2026 原创主题设计</p>
+    </footer>
+</body>
+</html>
