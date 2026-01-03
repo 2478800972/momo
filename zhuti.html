@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兮心阅读主题合集（全部分类可折叠版）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border border-box;
+            font-family: "华康圆体", "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.8;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fef7fb 100%);
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: "📒";
+            margin-right: 10px;
+        }
+        .night-theme h2::before { content: "📓"; }
+        .background h2::before { content: "📜"; }
+        .links h2::before { content: "🔗"; }
+        .note h2::before { content: "⚠️"; }
+        /* 折叠按钮样式（全局统一） */
+        .collapse-btn {
+            margin-left: auto;
+            background: transparent;
+            border: none;
+            color: #718096;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        .collapse-btn:hover {
+            color: #2b6cb0;
+            background: #f0f8fb;
+        }
+        /* 折叠容器通用样式（主题标签+资源链接共用） */
+        .collapse-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.3s ease;
+            max-height: 2000px; /* 初始展开高度 */
+            opacity: 1;
+        }
+        /* 折叠状态 */
+        .collapse-container.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+        }
+        /* 统一所有标签大小（主题标签+资源链接标签） */
+        .tag, .resource-tag {
+            background: #f8f9fa;
+            color: #4a5568;
+            padding: 8px 16px; /* 统一内边距 */
+            border-radius: 20px;
+            font-size: 1rem; /* 统一字体大小 */
+            transition: all 0.3s ease;
+            border: 1px solid #e8e8e8;
+            display: inline-block;
+        }
+        .tag:hover, .resource-tag:hover {
+            background: #f0f8fb;
+            color: #2b6cb0;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            text-decoration: none;
+        }
+        .tag.has-both {
+            background: #fef7fb;
+            color: #9f7aea;
+            border-color: #fce7f3;
+        }
+        .tag.has-both:hover {
+            background: #fcf1f7;
+            color: #805ad5;
+        }
+        /* 标签链接样式：去除下划线，继承标签样式 */
+        .tag-link, .resource-link {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        /* 资源链接组样式调整（适配折叠容器） */
+        .links .collapse-container {
+            flex-direction: column; /* 资源链接垂直排列，保持原有分组结构 */
+            gap: 25px; /* 分组之间间距 */
+        }
+        .link-group {
+            margin-bottom: 0; /* 取消原有底部间距，由折叠容器gap控制 */
+            width: 100%;
+        }
+        .link-title {
+            color: #4a5568;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        /* 资源链接列表：统一布局和间距 */
+        .group-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px; /* 与主题标签间距一致 */
+        }
+        /* 资源链接标签：与主题标签样式统一 */
+        .group-list .resource-tag {
+            margin: 0;
+        }
+        .note-content {
+            background: #fffaf0;
+            border-left: 4px solid #ed8936;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+        .tip {
+            background: #e8f4f8;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        .tip strong {
+            color: #2b6cb0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #718096;
+            font-size: 0.9rem;
+            padding: 20px 0;
+            border-top: 1px solid #f0f0f0;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .section {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .tag, .resource-tag {
+                padding: 6px 12px;
+                font-size: 0.9rem; /* 响应式统一大小 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>兮心阅读主题合集（全部分类可折叠版）</h1>
+        <p class="subtitle">纸质护眼模式优化 | 全部分类可折叠 | 点击跳转+标签统一</p>
+    </header>
+    <section class="section note">
+        <h2>注意事项</h2>
+        <div class="note-content">
+            <p>✅ 所有主题均在<span style="color:#e53e3e">纸质护眼模式</span>下制作，开启系统护眼模式体验更佳</p>
+            <p>✅ 部分背景图未展示预览，建议下载主题查看完整内容</p>
+            <p>✅ 本页面由墨殇整理（酷安@墨迹染流年），主题和背景均为原创制作</p>
+        </div>
+        <div class="tip">
+            <strong>温馨提示：</strong>预览图从「执子之手」主题开始不再存放于Flowus（会员到期），完整预览可查看主题总预览链接
+        </div>
+    </section>
+
+    <!-- 日间主题（可折叠+可点击） -->
+    <section class="section day-theme">
+        <h2>
+            日间主题
+            <button class="collapse-btn" data-target="day-container">▼</button>
+        </h2>
+        <p class="link-title">（标色为同时拥有夜间主题）</p>
+        <div id="day-container" class="collapse-container">
+            <a href="https://download.xixin/theme/发财" class="tag tag-link" target="_blank">发财</a>
+            <a href="https://download.xixin/theme/落日" class="tag tag-link" target="_blank">落日</a>
+            <a href="https://download.xixin/theme/宠爱" class="tag tag-link" target="_blank">宠爱</a>
+            <a href="https://download.xixin/theme/红狐" class="tag tag-link" target="_blank">红狐</a>
+            <a href="https://download.xixin/theme/烦恼" class="tag tag-link" target="_blank">烦恼</a>
+            <a href="https://download.xixin/theme/别怕" class="tag tag-link" target="_blank">别怕</a>
+            <a href="https://download.xixin/theme/生活" class="tag tag-link" target="_blank">生活</a>
+            <a href="https://download.xixin/theme/好好生活" class="tag tag-link" target="_blank">好好生活</a>
+            <a href="https://download.xixin/theme/小被子·黑猫" class="tag tag-link" target="_blank">小被子·黑猫</a>
+            <a href="https://download.xixin/theme/小被子·白猫" class="tag tag-link" target="_blank">小被子·白猫</a>
+            <a href="https://download.xixin/theme/远方" class="tag tag-link" target="_blank">远方</a>
+            <a href="https://download.xixin/theme/红梅" class="tag tag-link" target="_blank">红梅</a>
+            <a href="https://download.xixin/theme/雨" class="tag tag-link" target="_blank">雨</a>
+            <a href="https://download.xixin/theme/红衣" class="tag tag-link" target="_blank">红衣</a>
+            <a href="https://download.xixin/theme/旅行" class="tag tag-link" target="_blank">旅行</a>
+            <a href="https://download.xixin/theme/山月" class="tag tag-link" target="_blank">山月</a>
+            <a href="https://download.xixin/theme/佳人" class="tag tag-link" target="_blank">佳人</a>
+            <a href="https://download.xixin/theme/归宿" class="tag tag-link" target="_blank">归宿</a>
+            <a href="https://download.xixin/theme/双蝶" class="tag tag-link" target="_blank">双蝶</a>
+            <a href="https://download.xixin/theme/雾石" class="tag tag-link" target="_blank">雾石</a>
+            <a href="https://download.xixin/theme/仙人掌" class="tag tag-link" target="_blank">仙人掌</a>
+            <a href="https://download.xixin/theme/相思" class="tag tag-link" target="_blank">相思</a>
+            <a href="https://download.xixin/theme/花开半夏" class="tag tag-link" target="_blank">花开半夏</a>
+            <a href="https://download.xixin/theme/鹤归" class="tag tag-link" target="_blank">鹤归</a>
+            <a href="https://download.xixin/theme/夕落" class="tag tag-link" target="_blank">夕落</a>
+            <a href="https://download.xixin/theme/缘起" class="tag tag-link" target="_blank">缘起</a>
+            <a href="https://download.xixin/theme/野性" class="tag has-both tag-link" target="_blank">野性</a>
+            <a href="https://download.xixin/theme/紫玲" class="tag tag-link" target="_blank">紫玲</a>
+            <a href="https://download.xixin/theme/京花·平滑" class="tag tag-link" target="_blank">京花·平滑</a>
+            <a href="https://download.xixin/theme/京花·纸质" class="tag tag-link" target="_blank">京花·纸质</a>
+            <a href="https://download.xixin/theme/虚度" class="tag tag-link" target="_blank">虚度</a>
+            <a href="https://download.xixin/theme/春风" class="tag tag-link" target="_blank">春风</a>
+            <a href="https://download.xixin/theme/真理" class="tag tag-link" target="_blank">真理</a>
+            <a href="https://download.xixin/theme/朝阳（明月配套）" class="tag has-both tag-link" target="_blank">朝阳（明月配套）</a>
+            <a href="https://download.xixin/theme/竹" class="tag tag-link" target="_blank">竹</a>
+            <a href="https://download.xixin/theme/幸运" class="tag tag-link" target="_blank">幸运</a>
+            <a href="https://download.xixin/theme/落梅" class="tag has-both tag-link" target="_blank">落梅</a>
+            <a href="https://download.xixin/theme/青艾" class="tag tag-link" target="_blank">青艾</a>
+            <a href="https://download.xixin/theme/吻" class="tag tag-link" target="_blank">吻</a>
+            <a href="https://download.xixin/theme/奶白" class="tag tag-link" target="_blank">奶白</a>
+            <a href="https://download.xixin/theme/梨花渡" class="tag tag-link" target="_blank">梨花渡</a>
+            <a href="https://download.xixin/theme/云归鹤" class="tag tag-link" target="_blank">云归鹤</a>
+            <a href="https://download.xixin/theme/绿厥" class="tag tag-link" target="_blank">绿厥</a>
+            <a href="https://download.xixin/theme/立秋" class="tag tag-link" target="_blank">立秋</a>
+            <a href="https://download.xixin/theme/竹雀" class="tag has-both tag-link" target="_blank">竹雀</a>
+            <a href="https://download.xixin/theme/渐冷" class="tag tag-link" target="_blank">渐冷</a>
+            <a href="https://://download.xixin/theme/艾叶" class="tag tag-link" target="_blank">艾叶</a>
+            <a href="https://download.xixin/theme/墨迹" class="tag has-both tag-link" target="_blank">墨迹</a>
+            <a href="https://download.xixin/theme/青叶竹" class="tag tag-link" target="_blank">青叶竹</a>
+            <a href="https://download.xixin/theme/墨竹" class="tag tag-link" target="_blank">墨竹</a>
+            <a href="https://download.xixin/theme/梨花香" class="tag tag-link" target="_blank">梨花香</a>
+            <a href="https://download.xixin/theme/灯火" class="tag tag-link" target="_blank">灯火</a>
+            <a href="https://download.xixin/theme/墨绿" class="tag tag-link" target="_blank">墨绿</a>
+            <a href="https://download.xixin/theme/花鸿" class="tag tag-link" target="_blank">花鸿</a>
+            <a href="https://download.xixin/theme/叶子" class="tag tag-link" target="_blank">叶子</a>
+            <a href="https://download.xixin/theme/萧瑟" class="tag tag-link" target="_blank">萧瑟</a>
+            <a href="https://download.xixin/theme/望月途" class="tag tag-link" target="_blank">望月途</a>
+            <a href="https://download.xixin/theme/雾起" class="tag tag-link" target="_blank">雾起</a>
+            <a href="https://download.xixin/theme/青寻" class="tag tag-link" target="_blank">青寻</a>
+            <a href="https://download.xixin/theme/青山" class="tag tag-link" target="_blank">青山</a>
+            <a href="https://download.xixin/theme/山水" class="tag tag-link" target="_blank">山水</a>
+            <a href="https://download.xixin/theme/桥往" class="tag tag-link" target="_blank">桥往</a>
+            <a href="https://download.xixin/theme/迷失·雾" class="tag tag-link" target="_blank">迷失·雾</a>
+            <a href="https://download.xixin/theme/迷失·粉" class="tag tag-link" target="_blank">迷失·粉</a>
+            <a href="https://download.xixin/theme/诗月花酒" class="tag tag-link" target="_blank">诗月花酒</a>
+            <a href="https://download.xixin/theme/草莓奶昔" class="tag tag-link" target="_blank">草莓奶昔</a>
+            <a href="https://download.xixin/theme/凌霄" class="tag tag-link" target="_blank">凌霄</a>
+            <a href="https://download.xixin/theme/孤舟" class="tag tag-link" target="_blank">孤舟</a>
+            <a href="https://download.xixin/theme/福" class="tag tag-link" target="_blank">福</a>
+            <a href="https://download.xixin/theme/青竹" class="tag tag-link" target="_blank">青竹</a>
+            <a href="https://download.xixin/theme/奶茶" class="tag tag-link" target="_blank">奶茶</a>
+            <a href="https://download.xixin/theme/隐山青" class="tag tag-link" target="_blank">隐山青</a>
+            <a href="https://download.xixin/theme/白莲" class="tag tag-link" target="_blank">白莲</a>
+            <a href="https://download.xixin/theme/仗剑" class="tag tag-link" target="_blank">仗剑</a>
+            <a href="https://download.xixin/theme/唯绿叶" class="tag tag-link" target="_blank">唯绿叶</a>
+            <a href="https://download.xixin/theme/打工牛牛" class="tag tag-link" target="_blank">打工牛牛</a>
+            <a href="https://download.xixin/theme/桃花诺" class="tag tag-link" target="_blank">桃花诺</a>
+            <a href="https://download.xixin/theme/紫簇" class="tag tag-link" target="_blank">紫簇</a>
+            <a href="https://download.xixin/theme/牵牛花" class="tag tag-link" target="_blank">牵牛花</a>
+            <a href="https://download.xixin/theme/墨染" class="tag has-both tag-link" target="_blank">墨染</a>
+            <a href="https://download.xixin/theme/画眉" class="tag tag-link" target="_blank">画眉</a>
+            <a href="https://download.xixin/theme/玉兰" class="tag tag-link" target="_blank">玉兰</a>
+            <a href="https://download.xixin/theme/溪客" class="tag tag-link" target="_blank">溪客</a>
+            <a href="https://download.xixin/theme/玉色" class="tag tag-link" target="_blank">玉色</a>
+            <a href="https://download.xixin/theme/鲸落" class="tag tag-link" target="_blank">鲸落</a>
+            <a href="https://download.xixin/theme/热爱" class="tag tag-link" target="_blank">热爱</a>
+            <a href="https://download.xixin/theme/水墨兰花" class="tag tag-link" target="_blank">水墨兰花</a>
+            <a href="https://download.xixin/theme/桂花" class="tag tag-link" target="_blank">桂花</a>
+            <a href="https://download.xixin/theme/青花瓷" class="tag tag-link" target="_blank">青花瓷</a>
+            <a href="https://download.xixin/theme/花未明" class="tag tag-link" target="_blank">花未明</a>
+            <a href="https://download.xixin/theme/白梅花" class="tag tag-link" target="_blank">白梅花</a>
+            <a href="https://download.xixin/theme/执子之手" class="tag tag-link" target="_blank">执子之手</a>
+            <a href="https://download.xixin/theme/绿绮" class="tag tag-link" target="_blank">绿绮</a>
+            <a href="https://download.xixin/theme/樱落" class="tag tag-link" target="_blank">樱落</a>
+            <a href="https://download.xixin/theme/相逢" class="tag tag-link" target="_blank">相逢</a>
+            <a href="https://download.xixin/theme/百合" class="tag tag-link" target="_blank">百合</a>
+            <a href="https://download.xixin/theme/粉黛轻妆" class="tag tag-link" target="_blank">粉黛轻妆</a>
+        </div>
+    </section>
+
+    <!-- 夜间主题（可折叠+可点击） -->
+    <section class="section night-theme">
+        <h2>
+            夜间主题
+            <button class="collapse-btn" data-target="night-container">▼</button>
+        </h2>
+        <p class="link-title">（标色为同时拥有日间主题）</p>
+        <div id="night-container" class="collapse-container">
+            <a href="https://download.xixin/theme/猫爪" class="tag tag-link" target="_blank">猫爪</a>
+            <a href="https://download.xixin/theme/邀月" class="tag tag-link" target="_blank">邀月</a>
+            <a href="https://download.xixin/theme/明月" class="tag has-both tag-link" target="_blank">明月</a>
+            <a href="https://download.xixin/theme/野性·夜间" class="tag has-both tag-link" target="_blank">野性·夜间</a>
+            <a href="https://download.xixin/theme/匆匆" class="tag tag-link" target="_blank">匆匆</a>
+            <a href="https://download.xixin/theme/竹雀·夜" class="tag has-both tag-link" target="_blank">竹雀·夜</a>
+            <a href="https://download.xixin/theme/初春颜色" class="tag tag-link" target="_blank">初春颜色</a>
+            <a href="https://download.xixin/theme/光影" class="tag tag-link" target="_blank">光影</a>
+            <a href="https://download.xixin/theme/零号" class="tag tag-link" target="_blank">零号</a>
+            <a href="https://download.xixin/theme/落梅·夜" class="tag has-both tag-link" target="_blank">落梅·夜</a>
+            <a href="https://download.xixin/theme/黑莲" class="tag tag-link" target="_blank">黑莲</a>
+            <a href="https://download.xixin/theme/墨染·夜" class="tag has-both tag-link" target="_blank">墨染·夜</a>
+        </div>
+    </section>
+
+    <!-- 阅读背景（可折叠+可点击） -->
+    <section class="section background">
+        <h2>
+            阅读背景
+            <button class="collapse-btn" data-target="bg-container">▼</button>
+        </h2>
+        <div id="bg-container" class="collapse-container">
+            <a href="https://download.xixin/background/阅读背景（集合·摆烂）" class="tag tag-link" target="_blank">阅读背景（集合·摆烂）</a>
+            <a href="https://download.xixin/background/阅读背景（闲暇时光）" class="tag tag-link" target="_blank">阅读背景（闲暇时光）</a>
+            <a href="https://download.xixin/background/桃花依旧" class="tag tag-link" target="_blank">桃花依旧</a>
+            <a href="https://download.xixin/background/金秋" class="tag tag-link" target="_blank">金秋</a>
+            <a href="https://download.xixin/background/眼眸" class="tag tag-link" target="_blank">眼眸</a>
+            <a href="https://download.xixin/background/荷花" class="tag tag-link" target="_blank">荷花</a>
+            <a href="https://download.xixin/background/蓝雪花" class="tag tag-link" target="_blank">蓝雪花</a>
+        </div>
+    </section>
+
+    <!-- 相关链接与资源（可折叠+标签统一） -->
+    <section class="section links">
+        <h2>
+            相关链接与资源
+            <button class="collapse-btn" data-target="links-container">▼</button>
+        </h2>
+        <div id="links-container" class="collapse-container">
+            <div class="link-group">
+                <h3 class="link-title">字体与教程</h3>
+                <ul class="group-list">
+                    <li class="resource-tag"><a href="https://www.lanzouw.com/" class="resource-link" target="_blank">华康圆体W7.ttf - 蓝奏云</a></li>
+                    <li class="resource-tag"><a href="https://flowus.cn/" class="resource-link" target="_blank">更换阅读字体教程 - FlowUs息流</a></li>
+                    <li class="resource-tag"><a href="https://image.coolapk.com/" class="resource-link" target="_blank">更换主题教程 - 酷安@我晓得啦</a></li>
+                    <li class="resource-tag"><a href="#" class="resource-link" target="_blank">阅读界面配置（密码：momo）</a></li>
+                    <li class="resource-tag"><a href="https://flowus.cn/" class="resource-link" target="_blank">排版导入导出教程 - FlowUs息流</a></li>
+                    <li class="resource-tag"><a href="https://flowus.cn/" class="resource-link" target="_blank">阅读基础使用教程 - FlowUs息流</a></li>
+                </ul>
+            </div>
+            
+            <div class="link-group">
+                <h3 class="link-title">交流平台</h3>
+                <ul class="group-list">
+                    <li class="resource-tag"><a href="https://pd.qq.com/" class="resource-link" target="_blank">QQ频道【兮心】</a></li>
+                    <li class="resource-tag"><a href="https://jq.qq.com/?_wv=1027&k=XXXXXX" class="resource-link" target="_blank">兮心①群：793604412</a></li>
+                    <li class="resource-tag"><a href="https://jq.qq.com/?_wv=1027&k=XXXXXX" class="resource-link" target="_blank">兮心②群：1103907750</a></li>
+                    <li class="resource-tag"><a href="https://jq.qq.com/?_wv=1027&k=XXXXXX" class="resource-link" target="_blank">兮心③群：812708436</a></li>
+                    <li class="resource-tag"><a href="#" class="resource-link" target="_blank">兮心官网</a></li>
+                    <li class="resource-tag"><a href="#" class="resource-link" target="_blank">主题总预览链接（未登录限看部分）</a></li>
+                </ul>
+            </div>
+            
+            <div class="link-group">
+                <h3 class="link-title">推荐资源</h3>
+                <ul class="group-list">
+                    <li class="resource-tag"><a href="#" class="resource-link" target="_blank">文艺网页·挖沙</a></li>
+                    <li class="resource-tag"><a href="#" class="resource-link" target="_blank">文艺网页·海纳一文</a></li>
+                    <li class="resource-tag"><a href="https://www.qidian.com/" class="resource-link" target="_blank">网页打包软件·起点（网页版）</a></li>
+                    <li class="resource-tag"><a href="#" class="resource-link" target="_blank">网页打包软件·凉墨（资源合集）</a></li>
+                    <li class="resource-tag"><a href="#" class="resource-link" target="_blank">书源发布页</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>整理者：墨殇（酷安@墨迹染流年） | 所有主题均为原创制作</p>
+        <p>温馨提示：加群仅提供交流平台，主要分享书籍资源及主题讨论</p>
+    </footer>
+
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 标签跳转确认（可选，注释后直接跳转）
+        const allLinks = document.querySelectorAll('.tag-link, .resource-link');
+        allLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // 取消注释可开启确认提示
+                // if(!confirm(`是否前往「${this.textContent}」链接？`)) {
+                //     e.preventDefault();
+                // }
+            });
+        });
+
+        // 全局折叠功能逻辑（适配所有分类）
+        const collapseBtns = document.querySelectorAll('.collapse-btn');
+        collapseBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetContainer = document.getElementById(targetId);
+                
+                // 切换折叠状态
+                targetContainer.classList.toggle('collapsed');
+                
+                // 切换按钮图标
+                this.textContent = targetContainer.classList.contains('collapsed') ? '▲' : '▼';
+            });
+        });
+    </script>
+</body>
+</html>
