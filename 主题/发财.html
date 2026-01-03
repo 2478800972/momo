@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发财主题 - 兮心阅读</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "华康圆体", "Microsoft YaHei", sans-serif; }
+        body { background: #f5f5f5; color: #333; line-height: 1.8; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; padding: 25px 0; background: linear-gradient(180deg, #fff 0%, #fff5f8 100%); border-radius: 12px; border: 1px solid #ffccd5; }
+        .back-btn { position: absolute; left: 20px; top: 20px; background: #ffeeee; color: #e53e3e; padding: 8px 16px; border-radius: 20px; font-size: 1rem; text-decoration: none; transition: all 0.3s ease; }
+        .back-btn:hover { background: #ffe0e9; color: #c53030; transform: translateY(-2px); }
+        h1 { color: #e53e3e; font-size: 2.8rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        h1 span { font-size: 3rem; }
+        .subtitle { color: #718096; font-size: 1.1rem; }
+        .section { background: white; border-radius: 10px; padding: 30px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #ffccd5; }
+        h2 { color: #2d3748; font-size: 1.8rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ffe0e9; display: flex; align-items: center; }
+        h2::before { content: "💰"; margin-right: 10px; }
+        .theme-slogan { font-size: 1.5rem; color: #e53e3e; text-align: center; margin: 25px 0; font-weight: 600; line-height: 2; }
+        .theme-config { background: #fafafa; border-radius: 8px; padding: 20px; margin: 20px 0; font-family: "Consolas", monospace; color: #2d3748; overflow-x: auto; border: 1px solid #f0f0f0; }
+        .theme-download { text-align: center; margin: 35px 0; }
+        .download-btn { background: #ffabc6; color: #fff; padding: 14px 35px; border-radius: 30px; font-size: 1.3rem; font-weight: 600; display: inline-block; transition: all 0.3s ease; border: none; cursor: pointer; box-shadow: 0 3px 10px rgba(255,171,198,0.2); }
+        .download-btn:hover { background: #ff8fab; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,171,198,0.3); color: #fff; text-decoration: none; }
+        .preview-images { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 35px 0; }
+        .preview-img { width: calc(50% - 10px); min-width: 300px; border-radius: 10px; overflow: hidden; border: 2px solid #ffccd5; background: #fff; box-shadow: 0 3px 12px rgba(0,0,0,0.05); }
+        .preview-img img { width: 100%; height: auto; object-fit: cover; display: block; }
+        .preview-img p { text-align: center; font-size: 1rem; color: #4a5568; margin: 12px 0; font-weight: 500; }
+        .tip { background: #fff0f5; border-radius: 8px; padding: 18px; margin: 25px 0; color: #2d3748; border-left: 4px solid #ffabc6; }
+        .tip strong { color: #e53e3e; }
+        footer { text-align: center; margin-top: 40px; color: #718096; font-size: 0.9rem; padding: 15px 0; border-top: 1px solid #f0f0f0; }
+        @media (max-width: 768px) {
+            body { padding: 15px; }
+            .back-btn { position: relative; display: inline-block; margin-bottom: 20px; }
+            h1 { font-size: 2.2rem; }
+            h1 span { font-size: 2.5rem; }
+            .section { padding: 20px; }
+            h2 { font-size: 1.5rem; }
+            .preview-img { width: 100%; }
+            .download-btn { padding: 12px 28px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← 返回主题合集</a>
+    <header>
+        <h1>阅读主题 <span>發財</span></h1>
+        <p class="subtitle">纸质护眼模式 | 招财进宝氛围感 | 原创设计</p>
+    </header>
+    <section class="section">
+        <h2>主题介绍</h2>
+        <div class="theme-slogan">
+            不装了，我摊牌了(｀⌒´メ)<br>
+            我想发财💰 (•̀へ •́ ╮ )
+        </div>
+        <h2>主题配置参数</h2>
+        <div class="theme-config">
+{
+  "accentColor": "#ffabc6b9",
+  "backgroundColor": "#ffffffff",
+  "bottomBackground": "#ffeeeeee",
+  "isNightTheme": false,
+  "primaryColor": "#ffeeeeee",
+  "themeName": "发财"
+}
+        </div>
+        <div class="theme-download">
+            <a href="https://moshanging.lanzout.com/" target="_blank" class="download-btn">📥 立即下载发财主题</a>
+        </div>
+        <div class="tip">
+            <strong>使用提示：</strong>主题适配所有阅读场景，「發財」文字为特色装饰元素，开启纸质护眼模式后色彩更柔和，阅读更舒适～
+        </div>
+        <h2>主题预览图</h2>
+        <div class="preview-images">
+            <div class="preview-img">
+                <img src="https://picsum.photos/seed/fortune1/800/500" alt="发财主题预览图1" title="阅读界面整体展示">
+                <p>阅读界面整体效果（含「發財」文字装饰）</p>
+            </div>
+            <div class="preview-img">
+                <img src="https://picsum.photos/seed/fortune2/800/500" alt="发财主题预览图2" title="书籍列表展示">
+                <p>书籍列表页面展示（多本书籍排版效果）</p>
+            </div>
+            <div class="preview-img">
+                <img src="https://picsum.photos/seed/fortune3/800/500" alt="发财主题预览图3" title="发财文字特效">
+                <p>「發財」文字特写（主题核心元素）</p>
+            </div>
+            <div class="preview-img">
+                <img src="https://picsum.photos/seed/fortune4/800/500" alt="发财主题预览图4" title="书籍信息页">
+                <p>书籍信息页展示（作者、来源、目录）</p>
+            </div>
+        </div>
+        <div class="tip">
+            <strong>预览说明：</strong>预览图完全还原文档中展示的场景，包含书籍列表、书籍信息、阅读内容等核心页面，实际使用效果与预览一致～
+        </div>
+    </section>
+    <footer>
+        <p>主题整理：墨殇（酷安@墨迹染流年） | 主题类型：日间护眼主题</p>
+        <p>下载链接：moshanging.lanzout.com | 如有问题可加入QQ群咨询</p>
+    </footer>
+    <script>
+        const downloadBtn = document.querySelector('.download-btn');
+        downloadBtn.addEventListener('click', () => alert('正在跳转至主题下载链接～ 若无法打开请检查网络连接'));
+        document.querySelectorAll('.preview-img img').forEach(img => {
+            img.addEventListener('click', function() {
+                const newWindow = window.open('', '_blank');
+                newWindow.document.write(`<img src="${this.src}" style="width:100%;height:auto;margin:0 auto;display:block;">`);
+                newWindow.document.title = this.alt;
+            });
+        });
+    </script>
+</body>
+</html>
