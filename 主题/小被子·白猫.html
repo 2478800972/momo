@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小被子·白猫主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #ededed;
+            color: #363636;
+            line-height: 1.6;
+            transition: background-color 0.3s;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #363636;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #363636;
+            transform: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(54, 54, 54, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #363636;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #363636;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #666;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-left: 5px solid #363636;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #363636;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #363636;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #363636;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .json-code {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #363636;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(54, 54, 54, 0.2);
+        }
+        
+        .download-btn:hover {
+            background-color: #292929;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(54, 54, 54, 0.3);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #363636;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .gallery-item img.loaded {
+            opacity: 1;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            font-weight: 500;
+            text-decoration: none;
+            color: #363636;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            border-top: 1px solid rgba(54, 54, 54, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        /* 夜间模式切换按钮 */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #363636;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: none;
+            background-color: #363636;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.night-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        
+        body.night-mode .back-btn {
+            background-color: #ededed;
+            color: #363636;
+        }
+        
+        body.night-mode .back-btn:hover {
+            background-color: #ededed;
+            transform: none;
+        }
+        
+        body.night-mode .theme-description,
+        body.night-mode .config-card,
+        body.night-mode .download-section {
+            background-color: rgba(40, 40, 40, 0.9);
+            color: #e0e0e0;
+        }
+        
+        body.night-mode h1,
+        body.night-mode h2,
+        body.night-mode .theme-quote,
+        body.night-mode .image-caption {
+            color: #e0e0e0;
+        }
+        
+        body.night-mode .json-code {
+            background-color: #2a2a2a;
+            color: #cccccc;
+            border-color: #444;
+        }
+        
+        body.night-mode .gallery-item {
+            background-color: #2a2a2a;
+        }
+        
+        body.night-mode .gallery-item a {
+            background-color: #333;
+        }
+        
+        body.night-mode .image-caption {
+            background-color: #2a2a2a;
+        }
+        
+        body.night-mode .theme-toggle {
+            background-color: #ededed;
+            color: #363636;
+        }
+        
+        body.night-mode .theme-toggle:hover {
+            background-color: #ededed;
+            transform: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <!-- 夜间模式切换按钮 -->
+        <div class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </div>
+        
+        <header>
+            <h1>小被子·白猫</h1>
+            <p class="subtitle">"我懂这世间人心凉薄，却偏偏固执地想要寻求温暖。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                我懂这世间人心凉薄，却偏偏固执地想要寻求温暖。
+            </div>
+            <p>这是一个温柔治愈的主题，以柔和色调驱散寒凉，像小被子般给予安心陪伴，守护每一份对温暖的执着。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffae6b;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调/强调色</span>
+                            <span class="color-value">#ffae6b</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #dbdbd9;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色/主色</span>
+                            <span class="color-value">#dbdbd9</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #dbdbd9;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#dbdbd9</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffffff; border: 1px solid #eee;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主题类型</span>
+                            <span class="color-value">浅色主题 (非夜间模式)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ffae6b62",
+  "backgroundColor": "#ffdbdbd9",
+  "bottomBackground": "#ffdbdbd9",
+  "isNightTheme": false,
+  "primaryColor": "#ffdbdbd9",
+  "themeName": "小被子·白猫"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"小被子·白猫"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/ii2mL054y3mj" class="download-btn" target="_blank" id="downloadBtn">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+            
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-02-705_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-02-705_io.legado.app.release.jpg" alt="小被子·白猫主题预览图1" class="preview-img">
+                    </a>
+                    <div class="image-caption">主界面 - 温暖基调</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-11-558_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-11-558_io.legado.app.release.jpg" alt="小被子·白猫主题预览图2" class="preview-img">
+                    </a>
+                    <div class="image-caption">阅读界面 - 柔和体验</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-15-758_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-15-758_io.legado.app.release.jpg" alt="小被子·白猫主题预览图3" class="preview-img">
+                    </a>
+                    <div class="image-caption">目录界面 - 清晰布局</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-22-49-754_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-22-49-754_io.legado.app.release.jpg" alt="小被子·白猫主题预览图4" class="preview-img">
+                    </a>
+                    <div class="image-caption">设置界面 - 便捷操作</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-22-10-855_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-22-10-855_io.legado.app.release.jpg" alt="小被子·白猫主题预览图5" class="preview-img">
+                    </a>
+                    <div class="image-caption">搜索界面 - 高效查找</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-32-115_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-32-115_io.legado.app.release.jpg" alt="小被子·白猫主题预览图6" class="preview-img">
+                    </a>
+                    <div class="image-caption">书架界面 - 整洁陈列</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 小被子·白猫主题 | 设计理念：温柔治愈、温暖陪伴
+        </footer>
+    </div>
+    
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // 夜间模式切换
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('night-mode');
+            
+            if (document.body.classList.contains('night-mode')) {
+                themeIcon.className = 'fas fa-sun';
+                const jsonCode = document.querySelector('.json-code');
+                jsonCode.textContent = jsonCode.textContent.replace('"isNightTheme": false', '"isNightTheme": true');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                const jsonCode = document.querySelector('.json-code');
+                jsonCode.textContent = jsonCode.textContent.replace('"isNightTheme": true', '"isNightTheme": false');
+            }
+        });
+        
+        // 画廊项悬停效果
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            });
+        });
+        
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // 标题打字效果
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            setTimeout(typeWriter, 300);
+            
+            // 图片懒加载
+            const images = document.querySelectorAll('.preview-img');
+            images.forEach(img => {
+                img.onload = function() {
+                    this.classList.add('loaded');
+                }
+                
+                // 触发加载
+                if (img.complete) {
+                    img.classList.add('loaded');
+                }
+            });
+        });
+        
+        // 下载按钮动画
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.addEventListener('click', function() {
+            const originalHtml = this.innerHTML;
+            this.innerHTML = '<<i class="fas fa-spinner fa-spin"></</i> 下载中...';
+            this.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                this.innerHTML = '<<i class="fas fa-check"></</i> 下载完成';
+                this.style.background = 'linear-gradient(to right, #4CAF50, #45a049)';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalHtml;
+                    this.style.background = '#363636';
+                    this.style.pointerEvents = 'auto';
+                }, 2000);
+            }, 1500);
+        });
+        
+        // 图片加载错误处理
+        document.querySelectorAll('.preview-img').forEach(img => {
+            img.onerror = function() {
+                this.src = 'https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-31-15-21-02-705_io.legado.app.release.jpg';
+                this.classList.add('loaded');
+                console.log('图片加载失败，使用备用图片');
+            };
+        });
+    </script>
+</body>
+</html>
