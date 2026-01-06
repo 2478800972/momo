@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>好好生活主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #84ac91;
+            color: #E0E0E0; /* 调整基础文字颜色为更亮的灰色 */
+            line-height: 1.6;
+            transition: background-color 0.3s;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #e68828;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* 取消返回按钮的悬停效果 */
+        .back-btn:hover {
+            background-color: #e68828;
+            transform: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(230, 136, 40, 0.3);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #e68828;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #ffffff;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-left: 5px solid #e68828;
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #ffffff;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+        
+        .cat-art {
+            font-size: 2.5rem;
+            margin: 15px 0;
+            color: #e68828;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #e68828;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.95rem;
+            color: #F0F0F0; /* 调整颜色值为更亮的颜色，提高可读性 */
+            font-weight: 500;
+        }
+        
+        .json-code {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #F0F0F0; /* 调整JSON代码颜色为更亮的颜色 */
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #e68828;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(230, 136, 40, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #d67c1f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(230, 136, 40, 0.4);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #ffffff;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: rgba(255, 255, 255, 0.85);
+            border-top: 1px solid rgba(230, 136, 40, 0.3);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 夜间模式切换按钮 */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #e68828;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        /* 取消夜间模式切换按钮的悬停效果 */
+        .theme-toggle:hover {
+            transform: none;
+            background-color: #e68828;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 夜间模式样式 */
+        body.night-mode {
+            background-color: #2a2a2a;
+            color: #E0E0E0;
+        }
+        
+        body.night-mode .back-btn {
+            background-color: #e68828;
+            color: white;
+        }
+        
+        body.night-mode .back-btn:hover {
+            background-color: #e68828;
+            transform: none;
+        }
+        
+        body.night-mode .theme-description,
+        body.night-mode .config-card,
+        body.night-mode .download-section {
+            background-color: rgba(40, 40, 40, 0.9);
+            color: #E0E0E0;
+        }
+        
+        body.night-mode h1,
+        body.night-mode h2,
+        body.night-mode .theme-quote,
+        body.night-mode .subtitle {
+            color: #ffffff;
+        }
+        
+        body.night-mode .json-code {
+            background-color: #333333;
+            color: #F0F0F0;
+            border-color: #444;
+        }
+        
+        body.night-mode .gallery-item {
+            background-color: #333333;
+        }
+        
+        body.night-mode .gallery-item a {
+            background-color: #2a2a2a;
+        }
+        
+        body.night-mode .image-caption {
+            background-color: #333333;
+            color: #cccccc;
+        }
+        
+        body.night-mode .theme-toggle {
+            background-color: #e68828;
+            color: white;
+        }
+        
+        body.night-mode .theme-toggle:hover {
+            background-color: #e68828;
+            transform: none;
+        }
+        
+        body.night-mode footer {
+            color: #cccccc;
+            border-top: 1px solid rgba(230, 136, 40, 0.3);
+        }
+        
+        body.night-mode .color-name {
+            color: #ffffff;
+        }
+        
+        body.night-mode .color-value {
+            color: #F0F0F0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <!-- 夜间模式切换按钮 -->
+        <div class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </div>
+        
+        <header>
+            <h1>好好生活</h1>
+            <p class="subtitle">"青春是打开了就合不上的书，人生是踏上了就回不了头的路"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                青春是打开了就合不上的书<br>
+                人生是踏上了就回不了头的路
+            </div>
+            <div class="cat-art">
+                生活不易猫猫卖艺། -- _ -- །
+            </div>
+            <p>这是一个充满生活气息的主题，旨在提醒我们珍惜青春、勇敢前行。无论生活多么不易，都要保持积极向上的心态。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #e68828;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调/强调色</span>
+                            <span class="color-value">#e68828</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #84ac91;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#84ac91</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #4a7460;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色/主色</span>
+                            <span class="color-value">#4a7460</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ffe68828",
+  "backgroundColor": "#ff84ac91",
+  "bottomBackground": "#ff4a7460",
+  "isNightTheme": false,
+  "primaryColor": "#ff4a7460",
+  "themeName": "生活"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"生活"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/iTItn054xlhg" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260106-130833-22252b.jpeg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260106-130833-22252b.jpeg" alt="生活主题预览图1">
+                    </a>
+                    <div class="image-caption">生活主题预览 - 界面1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-16-28-780_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-16-28-780_io.legado.app.release.jpg" alt="生活主题预览图2">
+                    </a>
+                    <div class="image-caption">生活主题预览 - 界面2</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-16-36-230_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-16-36-230_io.legado.app.release.jpg" alt="生活主题预览图3">
+                    </a>
+                    <div class="image-caption">生活主题预览 - 界面3</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/ce0f6c09-f4f7-4afe-90b1-3921b8dc8e91.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/ce0f6c09-f4f7-4afe-90b1-3921b8dc8e91.jpg" alt="生活主题预览图4">
+                    </a>
+                    <div class="image-caption">生活主题预览 - 界面4</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-17-00-745_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-17-00-745_io.legado.app.release.jpg" alt="生活主题预览图5">
+                    </a>
+                    <div class="image-caption">生活主题预览 - 界面5</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-30-24-559_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-30-24-559_io.legado.app.release.jpg" alt="生活主题预览图6">
+                    </a>
+                    <div class="image-caption">生活主题预览 - 界面6</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-30-02-750_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-03-30-23-30-02-750_io.legado.app.release.jpg" alt="生活主题预览图7">
+                    </a>
+                    <div class="image-caption">生活主题预览 - 界面7</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 生活主题 | 设计理念：青春、人生、生活不易猫猫卖艺
+        </footer>
+    </div>
+    
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('night-mode');
+            
+            if (document.body.classList.contains('night-mode')) {
+                themeIcon.className = 'fas fa-sun';
+                const jsonCode = document.querySelector('.json-code');
+                jsonCode.textContent = jsonCode.textContent.replace('"isNightTheme": false', '"isNightTheme": true');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                const jsonCode = document.querySelector('.json-code');
+                jsonCode.textContent = jsonCode.textContent.replace('"isNightTheme": true', '"isNightTheme": false');
+            }
+        });
+        
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            });
+        });
+        
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            setTimeout(typeWriter, 300);
+        });
+    </script>
+</body>
+</html>
