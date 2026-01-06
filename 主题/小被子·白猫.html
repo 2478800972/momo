@@ -608,24 +608,7 @@
             });
         });
         
-        // 下载按钮动画
-        const downloadBtn = document.getElementById('downloadBtn');
-        downloadBtn.addEventListener('click', function() {
-            const originalHtml = this.innerHTML;
-            this.innerHTML = '<<i class="fas fa-spinner fa-spin"></</i> 下载中...';
-            this.style.pointerEvents = 'none';
-            
-            setTimeout(() => {
-                this.innerHTML = '<<i class="fas fa-check"></</i> 下载完成';
-                this.style.background = 'linear-gradient(to right, #4CAF50, #45a049)';
-                
-                setTimeout(() => {
-                    this.innerHTML = originalHtml;
-                    this.style.background = '#363636';
-                    this.style.pointerEvents = 'auto';
-                }, 2000);
-            }, 1500);
-        });
+        
         
         // 图片加载错误处理
         document.querySelectorAll('.preview-img').forEach(img => {
