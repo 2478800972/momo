@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云归鹤主题</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+            background-color: #ffcfc1c2;
+            color: #3a2a2a;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回链接样式 */
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background-color: #ff602f32;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .back-link:hover {
+            background-color: #d84c2a;
+            color: #fff;
+            transform: translateX(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .back-link::before {
+            content: "←";
+            margin-right: 6px;
+            font-size: 1.1rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 2px dashed #ff602f32;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #a83c2b;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #5c4038;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+        
+        .theme-info {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .theme-info h2 {
+            color: #a83c2b;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .theme-info p {
+            color: #4a3a35;
+            margin-bottom: 15px;
+        }
+        
+        .theme-properties {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .property {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 6px;
+            border-left: 4px solid #ff482326;
+            color: #4a3a35;
+        }
+        
+        .property span {
+            font-weight: bold;
+            color: #a83c2b;
+        }
+        
+        .theme-code-section {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .theme-code-section h2 {
+            color: #a83c2b;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .theme-code {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid rgba(255, 72, 35, 0.2);
+            color: #4a3a35;
+        }
+        
+        .code-line {
+            margin-bottom: 5px;
+        }
+        
+        .code-key {
+            color: #d73a49;
+        }
+        
+        .code-value {
+            color: #005cc5;
+        }
+        
+        .code-string {
+            color: #032f62;
+        }
+        
+        .code-brace {
+            color: #6f42c1;
+        }
+        
+        .download-section {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .download-section h2 {
+            color: #a83c2b;
+            margin-bottom: 15px;
+        }
+        
+        .download-section p {
+            color: #4a3a35;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: #ff602f32;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .download-btn:hover {
+            background-color: #d84c2a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-link {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .gallery-image-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item p {
+            padding: 15px;
+            text-align: center;
+            color: #5c4038;
+            background-color: white;
+            margin: 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #a83c2b;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 96, 47, 0.3);
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .theme-code {
+                font-size: 0.85rem;
+                padding: 15px;
+            }
+            
+            .back-link {
+                top: 15px;
+                left: 15px;
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .theme-properties {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-link {
+                top: 10px;
+                left: 10px;
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回链接 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-link" title="返回主题合集">返回主题合集</a>
+        
+        <header>
+            <h1>云归鹤</h1>
+            <p class="subtitle">抱琴看鹤去，枕石待云归。</p>
+        </header>
+        
+        <section class="theme-info">
+            <h2>阅读主题『云归鹤』</h2>
+            <p>这是一个充满古典诗意的主题，以"云归鹤"为名，融合了中国传统山水画的意境与现代设计美学。</p>
+            
+            <div class="theme-properties">
+                <div class="property"><span>主题名称:</span> 云归鹤</div>
+                <div class="property"><span>主色调:</span> #ff602f32</div>
+                <div class="property"><span>强调色:</span> #ff482326</div>
+                <div class="property"><span>背景色:</span> #ffcfc1c2</div>
+                <div class="property"><span>底部背景:</span> #ff602f32</div>
+                <div class="property"><span>主题类型:</span> 日间主题</div>
+            </div>
+        </section>
+        
+        <section class="theme-code-section">
+            <h2>主题代码</h2>
+            <div class="theme-code">
+                <div class="code-line"><span class="code-brace">{</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"accentColor"</span>: <span class="code-string">"#ff482326"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"backgroundColor"</span>: <span class="code-string">"#ffcfc1c2"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"bottomBackground"</span>: <span class="code-string">"#ff602f32"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"isNightTheme"</span>: <span class="code-value">false</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"primaryColor"</span>: <span class="code-string">"#ff602f32"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"themeName"</span>: <span class="code-string">"云归鹤"</span></div>
+                <div class="code-line"><span class="code-brace">}</span></div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>云归鹤主题下载</h2>
+            <p>点击下方按钮下载「云归鹤」主题文件，应用于您的阅读器或设备</p>
+            <a href="https://moshanging.lanzout.com/ibKbA07hp16h" class="download-btn" target="_blank">立即下载主题</a>
+        </section>
+        
+        <section class="gallery">
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_103855.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_103855.png" alt="云归鹤主题预览图1">
+                    </div>
+                    <p>云归鹤主题预览 - 1</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_103958.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_103958.png" alt="云归鹤主题预览图2">
+                    </div>
+                    <p>云归鹤主题预览 - 2</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104043.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104043.png" alt="云归鹤主题预览图3">
+                    </div>
+                    <p>云归鹤主题预览 - 3</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104143.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104143.png" alt="云归鹤主题预览图4">
+                    </div>
+                    <p>云归鹤主题预览 - 4</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104233.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104233.png" alt="云归鹤主题预览图5">
+                    </div>
+                    <p>云归鹤主题预览 - 5</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104309.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104309.png" alt="云归鹤主题预览图6">
+                    </div>
+                    <p>云归鹤主题预览 - 6</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104338.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220707_104338.png" alt="云归鹤主题预览图7">
+                    </div>
+                    <p>云归鹤主题预览 - 7</p>
+                </a>
+            </div>
+        </section>
+        
+        <footer>
+            <p>兮心阅读 © 云归鹤主题</p>
+        </footer>
+    </div>
+</body>
+</html>
