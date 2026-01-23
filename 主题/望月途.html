@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>望月途主题 - 兮心阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+            background-color: #faf0e4;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回链接样式 - 已调整 */
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background-color: #faf0e4;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #7f888a;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(127, 136, 138, 0.2);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .back-link:hover {
+            background-color: #e8e0d4;
+            color: #7f888a;
+            transform: translateX(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .back-link::before {
+            content: "←";
+            margin-right: 6px;
+            font-size: 1.1rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 2px dashed #d0c8b8;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #7f888a;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f888a;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+        
+        .theme-info {
+            background-color: #faf0e4;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(127, 136, 138, 0.1);
+        }
+        
+        .theme-info h2 {
+            color: #7f888a;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .theme-properties {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .property {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 6px;
+            border-left: 4px solid #7f888a;
+        }
+        
+        .property span {
+            font-weight: bold;
+            color: #7f888a;
+        }
+        
+        .theme-code-section {
+            background-color: #faf0e4;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(127, 136, 138, 0.1);
+        }
+        
+        .theme-code-section h2 {
+            color: #7f888a;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .theme-code {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid rgba(127, 136, 138, 0.2);
+        }
+        
+        .code-line {
+            margin-bottom: 5px;
+        }
+        
+        .code-key {
+            color: #d73a49;
+        }
+        
+        .code-value {
+            color: #005cc5;
+        }
+        
+        .code-string {
+            color: #032f62;
+        }
+        
+        .code-brace {
+            color: #6f42c1;
+        }
+        
+        .download-section {
+            text-align: center;
+            padding: 30px;
+            background-color: #faf0e4;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(127, 136, 138, 0.1);
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: #7f888a;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .download-btn:hover {
+            background-color: #6a7375;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(127, 136, 138, 0.1);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-link {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .gallery-image-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item p {
+            padding: 15px;
+            text-align: center;
+            color: #7f888a;
+            background-color: white;
+            margin: 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f888a;
+            font-size: 0.9rem;
+            border-top: 1px solid #d0c8b8;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .theme-code {
+                font-size: 0.85rem;
+                padding: 15px;
+            }
+            
+            .back-link {
+                top: 15px;
+                left: 15px;
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .theme-properties {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-link {
+                top: 10px;
+                left: 10px;
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回链接 - 现在在容器内部，跟随页面滚动 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-link" title="返回主题合集">返回主题合集</a>
+        
+        <header>
+            <h1>望月途</h1>
+            <p class="subtitle">雾里看花，花如雾。梦中望月，月如梦。</p>
+        </header>
+        
+        <section class="theme-info">
+            <h2>阅读主题『望月途』</h2>
+            <p>这是一个以望月途为主题的梦幻朦胧主题，采用柔和的米白色调，营造出梦幻、朦胧的阅读氛围，适合品味诗意与想象。</p>
+            
+            <div class="theme-properties">
+                <div class="property"><span>主题名称:</span> 望月途</div>
+                <div class="property"><span>主色调:</span> #fffaf0e4</div>
+                <div class="property"><span>强调色:</span> #ff7f888a</div>
+                <div class="property"><span>背景色:</span> #fffaf0e4</div>
+                <div class="property"><span>底部背景:</span> #fffaf0e4</div>
+                <div class="property"><span>主题类型:</span> 日间主题</div>
+            </div>
+        </section>
+        
+        <section class="theme-code-section">
+            <h2>主题代码</h2>
+            <div class="theme-code">
+                <div class="code-line"><span class="code-brace">{</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"accentColor"</span>: <span class="code-string">"#ff7f888a"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"backgroundColor"</span>: <span class="code-string">"#fffaf0e4"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"bottomBackground"</span>: <span class="code-string">"#fffaf0e4"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"isNightTheme"</span>: <span class="code-value">false</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"primaryColor"</span>: <span class="code-string">"#fffaf0e4"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"themeName"</span>: <span class="code-string">"望月途"</span></div>
+                <div class="code-line"><span class="code-brace">}</span></div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>望月途主题下载</h2>
+            <p>点击下方按钮下载「望月途」主题文件，应用于您的阅读器或设备</p>
+            <a href="https://moshanging.lanzout.com/i8jgy0d6g8fe" class="download-btn" target="_blank">立即下载主题</a>
+        </section>
+        
+        <section class="gallery">
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20221004_233503.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20221004_233503.png" alt="望月途主题预览图1">
+                    </div>
+                    <p>望月途主题预览 - 1</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20221004_233418.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20221004_233418.png" alt="望月途主题预览图2">
+                    </div>
+                    <p>望月途主题预览 - 2</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20221004_233558.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20221004_233558.png" alt="望月途主题预览图3">
+                    </div>
+                    <p>望月途主题预览 - 3</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20221004_233622.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20221004_233622.png" alt="望月途主题预览图4">
+                    </div>
+                    <p>望月途主题预览 - 4</p>
+                </a>
+            </div>
+        </section>
+        
+        <footer>
+            <p>兮心阅读 © 望月途主题 | 设计灵感来源于「雾里看花，花如雾。梦中望月，月如梦。」</p>
+        </footer>
+    </div>
+</body>
+</html>
