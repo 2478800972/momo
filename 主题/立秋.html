@@ -13,10 +13,12 @@
         
         body {
             font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
-            background-color: #ffe6ddc5;
+            background-color: #f8f1e5;
             color: #5c4a3a;
             line-height: 1.6;
             padding-bottom: 40px;
+            background-image: linear-gradient(to bottom, #f8f1e5 0%, #ffe6ddc5 100%);
+            min-height: 100vh;
         }
         
         .container {
@@ -81,11 +83,12 @@
         }
         
         .theme-info {
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.85);
             border-radius: 10px;
             padding: 25px;
             margin-bottom: 40px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 230, 220, 0.8);
         }
         
         .theme-info h2 {
@@ -108,10 +111,11 @@
         
         .property {
             padding: 10px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 6px;
             border-left: 4px solid #747762;
             color: #5c4a3a;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
         .property span {
@@ -120,11 +124,12 @@
         }
         
         .theme-code-section {
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.85);
             border-radius: 10px;
             padding: 25px;
             margin-bottom: 40px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 230, 220, 0.8);
         }
         
         .theme-code-section h2 {
@@ -134,7 +139,7 @@
         }
         
         .theme-code {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 8px;
             padding: 20px;
             margin-top: 15px;
@@ -144,6 +149,7 @@
             line-height: 1.5;
             border: 1px solid rgba(116, 119, 98, 0.2);
             color: #5c4a3a;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
         .code-line {
@@ -169,10 +175,11 @@
         .download-section {
             text-align: center;
             padding: 30px;
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.85);
             border-radius: 10px;
             margin-bottom: 50px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 230, 220, 0.8);
         }
         
         .download-section h2 {
@@ -266,11 +273,13 @@
         
         footer {
             text-align: center;
-            padding: 30px 0;
-            color: #747762;
+            padding: 25px 0;
+            color: #5c4a3a;
             font-size: 0.9rem;
-            border-top: 1px solid rgba(116, 119, 98, 0.3);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
             margin-top: 30px;
+            border-top: 1px solid rgba(116, 119, 98, 0.1);
         }
         
         @media (max-width: 768px) {
@@ -320,9 +329,68 @@
                 padding: 5px 10px;
             }
         }
+        
+        /* 添加背景装饰元素 */
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0.03;
+            background-color: #747762;
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(45deg);
+        }
+        
+        .leaf:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .leaf:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            width: 35px;
+            height: 35px;
+            opacity: 0.02;
+        }
+        
+        .leaf:nth-child(3) {
+            bottom: 15%;
+            left: 15%;
+            width: 25px;
+            height: 25px;
+        }
+        
+        .leaf:nth-child(4) {
+            bottom: 25%;
+            right: 5%;
+            width: 30px;
+            height: 30px;
+        }
     </style>
 </head>
 <body>
+    <!-- 背景装饰元素 -->
+    <div class="bg-decoration">
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+    </div>
+    
     <div class="container">
         <!-- 返回链接 -->
         <a href="https://2478800972.github.io/momo/zhuti.html" class="back-link" title="返回主题合集">返回主题合集</a>
@@ -410,7 +478,7 @@
         </section>
         
         <footer>
-            <p>兮心阅读 © 立秋主题 </p>
+            <p>兮心阅读 © 立秋主题</p>
         </footer>
     </div>
 </body>
