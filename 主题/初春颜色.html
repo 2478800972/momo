@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初春颜色主题 - 兮心阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+            background-color: #000000;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回链接样式 - 已调整 */
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background-color: #662d2d;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 45, 45, 0.8);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .back-link:hover {
+            background-color: #552222;
+            color: white;
+            transform: translateX(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .back-link::before {
+            content: "←";
+            margin-right: 6px;
+            font-size: 1.1rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 2px dashed #662d2d;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #662d2d;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+        
+        .quote {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(102, 45, 45, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid #662d2d;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        .theme-info {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(102, 45, 45, 0.3);
+        }
+        
+        .theme-info h2 {
+            color: #662d2d;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .theme-properties {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .property {
+            padding: 10px;
+            background-color: rgba(30, 30, 30, 0.8);
+            border-radius: 6px;
+            border-left: 4px solid #662d2d;
+        }
+        
+        .property span {
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+        
+        .theme-code-section {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(102, 45, 45, 0.3);
+        }
+        
+        .theme-code-section h2 {
+            color: #662d2d;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .theme-code {
+            background-color: rgba(30, 30, 30, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid rgba(102, 45, 45, 0.3);
+        }
+        
+        .code-line {
+            margin-bottom: 5px;
+        }
+        
+        .code-key {
+            color: #ff6b6b;
+        }
+        
+        .code-value {
+            color: #4ecdc4;
+        }
+        
+        .code-string {
+            color: #ffd166;
+        }
+        
+        .code-brace {
+            color: #9d65ff;
+        }
+        
+        .download-section {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(102, 45, 45, 0.3);
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: #662d2d;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #552222;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: rgba(30, 30, 30, 0.8);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(102, 45, 45, 0.3);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        
+        .gallery-link {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .gallery-image-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #111;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item p {
+            padding: 15px;
+            text-align: center;
+            color: #e0e0e0;
+            background-color: rgba(30, 30, 30, 0.8);
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            border-top: 1px solid #662d2d;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .theme-code {
+                font-size: 0.85rem;
+                padding: 15px;
+            }
+            
+            .back-link {
+                top: 15px;
+                left: 15px;
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .theme-properties {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-link {
+                top: 10px;
+                left: 10px;
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回链接 - 现在在容器内部，跟随页面滚动 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-link" title="返回主题合集">返回主题合集</a>
+        
+        <header>
+            <h1>初春颜色</h1>
+            <p class="subtitle">我将于茫茫人海中访我唯一灵魂之伴侣；得之，我幸；不得，我命。</p>
+            <div class="quote">
+                我将于茫茫人海中访我唯一灵魂之伴侣；得之，我幸；不得，我命。<br>
+                <span style="float:right;">—— 徐志摩 《致梁启超》</span>
+            </div>
+        </header>
+        
+        <section class="theme-info">
+            <h2>阅读主题『初春颜色』</h2>
+            <p>这是一个以初春颜色为主题的夜间主题，采用深邃的黑色背景和深红色调，营造出神秘、深沉的阅读氛围，适合夜间阅读。</p>
+            
+            <div class="theme-properties">
+                <div class="property"><span>主题名称:</span> 初春颜色</div>
+                <div class="property"><span>主色调:</span> #ff000000</div>
+                <div class="property"><span>强调色:</span> #ff662d2d</div>
+                <div class="property"><span>背景色:</span> #ff000000</div>
+                <div class="property"><span>底部背景:</span> #ff000000</div>
+                <div class="property"><span>主题类型:</span> 夜间主题</div>
+            </div>
+        </section>
+        
+        <section class="theme-code-section">
+            <h2>主题代码</h2>
+            <div class="theme-code">
+                <div class="code-line"><span class="code-brace">{</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"accentColor"</span>: <span class="code-string">"#ff662d2d"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"backgroundColor"</span>: <span class="code-string">"#ff000000"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"bottomBackground"</span>: <span class="code-string">"#ff000000"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"isNightTheme"</span>: <span class="code-value">true</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"primaryColor"</span>: <span class="code-string">"#ff000000"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"themeName"</span>: <span class="code-string">"初春颜色"</span></div>
+                <div class="code-line"><span class="code-brace">}</span></div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>初春颜色主题下载</h2>
+            <p>点击下方按钮下载「初春颜色」主题文件，应用于您的阅读器或设备</p>
+            <a href="https://moshanging.lanzout.com/iYS1H0c0iduj" class="download-btn" target="_blank">立即下载主题</a>
+        </section>
+        
+        <section class="gallery">
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220920_125425.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220920_125425.png" alt="初春颜色主题预览图1">
+                    </div>
+                    <p>初春颜色主题预览 - 1</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220920_125514.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220920_125514.png" alt="初春颜色主题预览图2">
+                    </div>
+                    <p>初春颜色主题预览 - 2</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220920_125607.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220920_125607.png" alt="初春颜色主题预览图3">
+                    </div>
+                    <p>初春颜色主题预览 - 3</p>
+                </a>
+            </div>
+        </section>
+        
+        <footer>
+            <p>兮心阅读 © 初春颜色主题 | 设计灵感来源于徐志摩《致梁启超》</p>
+        </footer>
+    </div>
+</body>
+</html>
