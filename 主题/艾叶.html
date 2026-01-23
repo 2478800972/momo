@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>艾叶主题 - 兮心阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+            background-color: #e1e1e1;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回链接样式 - 已调整 */
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background-color: #e1e1e1;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #2d2c2c;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(45, 44, 44, 0.2);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .back-link:hover {
+            background-color: #d4d4d4;
+            color: #2d2c2c;
+            transform: translateX(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .back-link::before {
+            content: "←";
+            margin-right: 6px;
+            font-size: 1.1rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 2px dashed #bdbdbd;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #2d2c2c;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #5a5a5a;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+        
+        .theme-info {
+            background-color: #e1e1e1;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(45, 44, 44, 0.1);
+        }
+        
+        .theme-info h2 {
+            color: #2d2c2c;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .theme-properties {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .property {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 6px;
+            border-left: 4px solid #2d2c2c;
+        }
+        
+        .property span {
+            font-weight: bold;
+            color: #5a5a5a;
+        }
+        
+        .theme-code-section {
+            background-color: #e1e1e1;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(45, 44, 44, 0.1);
+        }
+        
+        .theme-code-section h2 {
+            color: #2d2c2c;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .theme-code {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #ddd;
+        }
+        
+        .code-line {
+            margin-bottom: 5px;
+        }
+        
+        .code-key {
+            color: #d73a49;
+        }
+        
+        .code-value {
+            color: #005cc5;
+        }
+        
+        .code-string {
+            color: #032f62;
+        }
+        
+        .code-brace {
+            color: #6f42c1;
+        }
+        
+        .download-section {
+            text-align: center;
+            padding: 30px;
+            background-color: #e1e1e1;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(45, 44, 44, 0.1);
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: #2d2c2c;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .download-btn:hover {
+            background-color: #1f1e1e;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(45, 44, 44, 0.1);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-link {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .gallery-image-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item p {
+            padding: 15px;
+            text-align: center;
+            color: #5a5a5a;
+            background-color: white;
+            margin: 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #2d2c2c;
+            font-size: 0.9rem;
+            border-top: 1px solid #bdbdbd;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .theme-code {
+                font-size: 0.85rem;
+                padding: 15px;
+            }
+            
+            .back-link {
+                top: 15px;
+                left: 15px;
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .theme-properties {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-link {
+                top: 10px;
+                left: 10px;
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回链接 - 现在在容器内部，跟随页面滚动 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-link" title="返回主题合集">返回主题合集</a>
+        
+        <header>
+            <h1>艾叶</h1>
+            <p class="subtitle">已落芙蓉并叶凋，半枯萧艾过墙高。</p>
+        </header>
+        
+        <section class="theme-info">
+            <h2>阅读主题『艾叶』</h2>
+            <p>这是一个以艾叶为主题的简约灰色调主题，采用中性灰色调，营造出宁静、淡雅的阅读氛围，适合长时间沉浸式阅读。</p>
+            
+            <div class="theme-properties">
+                <div class="property"><span>主题名称:</span> 艾叶</div>
+                <div class="property"><span>主色调:</span> #ffe1e1e1</div>
+                <div class="property"><span>强调色:</span> #ff2d2c2c</div>
+                <div class="property"><span>背景色:</span> #ffe1e1e1</div>
+                <div class="property"><span>底部背景:</span> #ffe1e1e1</div>
+                <div class="property"><span>主题类型:</span> 日间主题</div>
+            </div>
+        </section>
+        
+        <section class="theme-code-section">
+            <h2>主题代码</h2>
+            <div class="theme-code">
+                <div class="code-line"><span class="code-brace">{</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"accentColor"</span>: <span class="code-string">"#ff2d2c2c"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"backgroundColor"</span>: <span class="code-string">"#ffe1e1e1"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"bottomBackground"</span>: <span class="code-string">"#ffe1e1e1"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"isNightTheme"</span>: <span class="code-value">false</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"primaryColor"</span>: <span class="code-string">"#ffe1e1e1"</span><span class="code-brace">,</span></div>
+                <div class="code-line">&nbsp;&nbsp;<span class="code-key">"themeName"</span>: <span class="code-string">"艾叶"</span></div>
+                <div class="code-line"><span class="code-brace">}</span></div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>艾叶主题下载</h2>
+            <p>点击下方按钮下载「艾叶」主题文件，应用于您的阅读器或设备</p>
+            <a href="https://moshanging.lanzout.com/iwqlw0b0fvpi" class="download-btn" target="_blank">立即下载主题</a>
+        </section>
+        
+        <section class="gallery">
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220904_083001.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220904_083001.png" alt="艾叶主题预览图1">
+                    </div>
+                    <p>艾叶主题预览 - 1</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220904_083132.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220904_083132.png" alt="艾叶主题预览图2">
+                    </div>
+                    <p>艾叶主题预览 - 2</p>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220904_084214.png" class="gallery-link" target="_blank">
+                    <div class="gallery-image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220904_084214.png" alt="艾叶主题预览图3">
+                    </div>
+                    <p>艾叶主题预览 - 3</p>
+                </a>
+            </div>
+        </section>
+        
+        <footer>
+            <p>兮心阅读 © 艾叶主题 | 设计灵感来源于「已落芙蓉并叶凋，半枯萧艾过墙高」</p>
+        </footer>
+    </div>
+</body>
+</html>
