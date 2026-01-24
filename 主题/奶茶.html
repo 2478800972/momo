@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奶茶主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #fff9f5;
+            color: #5a4a42;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #7a605a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #69514c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(122, 96, 90, 0.2);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #7a605a;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #d5a79e;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-top: 25px;
+            color: #7a605a;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+            font-style: italic;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border-left: 5px solid #d5a79e;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 400;
+            line-height: 1.8;
+            color: #7a605a;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #7a605a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #d5a79e;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #7a605a;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .json-code {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .json-code .property {
+            color: #7a605a;
+            font-weight: bold;
+        }
+        
+        .json-code .string {
+            color: #d5a79e;
+        }
+        
+        .json-code .boolean {
+            color: #7a605a;
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid #d5a79e;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #7a605a;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(122, 96, 90, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #69514c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(122, 96, 90, 0.4);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #7a605a;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(213, 167, 158, 0.15);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #7a605a;
+            border-top: 1px solid rgba(213, 167, 158, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7a605a;
+            border-top: 1px solid rgba(122, 96, 90, 0.2);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .light-theme-badge {
+            display: inline-block;
+            background-color: #d5a79e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>奶茶</h1>
+            <p class="subtitle">"生活很苦，奶茶很甜，人生像一杯奶茶，即使甜不了一辈子，但总能甜一阵子，生活不易，自己加糖。"</p>
+            <div class="light-theme-badge">
+                <i class="fas fa-sun"></i> 浅色主题
+            </div>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                生活很苦，奶茶很甜，人生像一杯奶茶，即使甜不了一辈子，但总能甜一阵子，生活不易，自己加糖。
+            </div>
+            <p>这是一个温暖治愈的主题，以"奶茶"为意象，表达对生活的热爱与对甜蜜时光的珍惜。在柔和温暖的色调中，体验温馨舒适的阅读氛围，感受生活中的小确幸。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff7a605a;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff7a605a</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffffffff;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#fffffffb</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffffffff;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#fffffffb</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffd5a79e;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ffd5a79e</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 10px; background-color: rgba(213, 167, 158, 0.1); border-radius: 8px;">
+                    <p style="font-size: 0.9rem; color: #7a605a;"><i class="fas fa-info-circle"></i> 这是一个浅色主题 (isNightTheme: false)</p>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  <span class="property">"accentColor"</span>: <span class="string">"#ff7a605a"</span>,
+  <span class="property">"backgroundColor"</span>: <span class="string">"#fffffffb"</span>,
+  <span class="property">"bottomBackground"</span>: <span class="string">"#fffffffb"</span>,
+  <span class="property">"isNightTheme"</span>: <span class="boolean">false</span>,
+  <span class="property">"primaryColor"</span>: <span class="string">"#ffd5a79e"</span>,
+  <span class="property">"themeName"</span>: <span class="string">"奶茶"</span>
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"奶茶"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/iiSjC0m38a9i" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_215129.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_215129.png" alt="奶茶主题预览图1">
+                    </a>
+                    <div class="image-caption">奶茶主题预览 - 首页界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_214729.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_214729.png" alt="奶茶主题预览图2">
+                    </a>
+                    <div class="image-caption">奶茶主题预览 - 阅读界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_214825.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_214825.png" alt="奶茶主题预览图3">
+                    </a>
+                    <div class="image-caption">奶茶主题预览 - 设置界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_214918.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_214918.png" alt="奶茶主题预览图4">
+                    </a>
+                    <div class="image-caption">奶茶主题预览 - 书籍详情</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_215026.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_215026.png" alt="奶茶主题预览图5">
+                    </a>
+                    <div class="image-caption">奶茶主题预览 - 分类浏览</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_215053.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230112_215053.png" alt="奶茶主题预览图6">
+                    </a>
+                    <div class="image-caption">奶茶主题预览 - 搜索界面</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 奶茶主题 | 设计理念：温暖、治愈、甜蜜
+        </footer>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 150);
+                }
+            }
+            
+            setTimeout(typeWriter, 300);
+            
+            // 图片悬停效果增强
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(213, 167, 158, 0.2)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+            
+            // 添加奶茶主题的动态效果
+            const milkTeaEffect = document.createElement('div');
+            milkTeaEffect.style.position = 'fixed';
+            milkTeaEffect.style.top = '0';
+            milkTeaEffect.style.left = '0';
+            milkTeaEffect.style.width = '100%';
+            milkTeaEffect.style.height = '100%';
+            milkTeaEffect.style.pointerEvents = 'none';
+            milkTeaEffect.style.zIndex = '-1';
+            milkTeaEffect.style.background = 'radial-gradient(circle at 20% 80%, rgba(213, 167, 158, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 255, 251, 0.2) 0%, transparent 50%)';
+            document.body.appendChild(milkTeaEffect);
+            
+            // 高亮JSON代码中的关键词
+            const jsonCode = document.querySelector('.json-code');
+            if (jsonCode) {
+                let html = jsonCode.innerHTML;
+                html = html.replace(/"([^"]+)"/g, '<span class="string">"$1"</span>');
+                html = html.replace(/(true|false)/g, '<span class="boolean">$1</span>');
+                const properties = ['accentColor', 'backgroundColor', 'bottomBackground', 'isNightTheme', 'primaryColor', 'themeName'];
+                properties.forEach(prop => {
+                    const regex = new RegExp(`"${prop}"`, 'g');
+                    html = html.replace(regex, `<span class="property">"${prop}"</span>`);
+                });
+                jsonCode.innerHTML = html;
+            }
+            
+            // 添加奶茶气泡效果
+            const bubbleContainer = document.createElement('div');
+            bubbleContainer.style.position = 'fixed';
+            bubbleContainer.style.top = '0';
+            bubbleContainer.style.left = '0';
+            bubbleContainer.style.width = '100%';
+            bubbleContainer.style.height = '100%';
+            bubbleContainer.style.pointerEvents = 'none';
+            bubbleContainer.style.zIndex = '-1';
+            bubbleContainer.style.overflow = 'hidden';
+            document.body.appendChild(bubbleContainer);
+            
+            // 创建奶茶气泡
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.style.position = 'absolute';
+                bubble.style.width = Math.random() * 20 + 5 + 'px';
+                bubble.style.height = bubble.style.width;
+                bubble.style.backgroundColor = 'rgba(213, 167, 158, 0.2)';
+                bubble.style.borderRadius = '50%';
+                bubble.style.top = Math.random() * 100 + 'vh';
+                bubble.style.left = Math.random() * 100 + 'vw';
+                bubble.style.opacity = '0.7';
+                bubbleContainer.appendChild(bubble);
+                
+                // 简单的动画
+                animateBubble(bubble);
+            }
+            
+            function animateBubble(bubble) {
+                let x = parseFloat(bubble.style.left);
+                let y = parseFloat(bubble.style.top);
+                let speedX = (Math.random() - 0.5) * 0.3;
+                let speedY = Math.random() * -0.3 - 0.1; // 向上飘动
+                
+                function move() {
+                    x += speedX;
+                    y += speedY;
+                    
+                    if (y < -10) {
+                        y = 110;
+                        x = Math.random() * 100;
+                    }
+                    
+                    if (x > 100) x = 0;
+                    if (x < 0) x = 100;
+                    
+                    bubble.style.left = x + 'vw';
+                    bubble.style.top = y + 'vh';
+                    
+                    requestAnimationFrame(move);
+                }
+                
+                move();
+            }
+        });
+    </script>
+</body>
+</html>
