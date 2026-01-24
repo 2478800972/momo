@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猫爪主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #ff1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ffddd9d6;
+            color: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(221, 217, 214, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #c5c1be;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(221, 217, 214, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(224, 224, 224, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #ddd9d6;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #ddd9d6;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #aaa;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(40, 40, 40, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-left: 5px solid #ddd9d6;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #ddd9d6;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-insight {
+            font-size: 1rem;
+            color: #aaa;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 20px auto 0;
+            text-align: left;
+            padding: 0 10px;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(40, 40, 40, 0.85);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ddd9d6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #ddd9d6;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .json-code {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #3a3a3a;
+        }
+        
+        .download-section {
+            background-color: rgba(40, 40, 40, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #ddd9d6;
+            color: #1a1a1a;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(221, 217, 214, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #c5c1be;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(221, 217, 214, 0.4);
+        }
+        
+        .external-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #ddd9d6;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .external-link:hover {
+            text-decoration: underline;
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #ddd9d6;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            background-color: #2a2a2a;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1a1a1a;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: #2a2a2a;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #aaa;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #aaa;
+            border-top: 1px solid rgba(224, 224, 224, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 猫爪和猫元素效果 */
+        .cat-paw {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .cat-silhouette {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .cat-cluster {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>猫爪</h1>
+            <p class="subtitle">"阳光午后，做一只慵懒的猫吧。让时间悠悠逝去，享受猫咪一样的慢生活。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                阳光午后，做一只慵懒的猫吧。
+            </div>
+            <div class="theme-insight">
+                猫爪主题是一款专为夜间阅读设计的暗色主题，以猫咪的慵懒与优雅为设计灵感。深色背景搭配柔和的浅灰色调，营造出宁静舒适的夜间阅读环境，让你在阅读时仿佛被猫咪的温柔所包围，享受悠闲的阅读时光。
+                <br><br>
+                这是一个夜间主题，适合在光线较暗的环境中使用，可以有效减少眼睛疲劳，让你沉浸在舒适的阅读氛围中。
+            </div>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffddd9d6;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ffddd9d6</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff1a1a1a;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ff1a1a1a</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff1a1a1a;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ff1a1a1a</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff1a1a1a;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ff1a1a1a</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #2a2a2a;"></div>
+                        <div class="color-info">
+                            <span class="color-name">夜间主题</span>
+                            <span class="color-value">isNightTheme: true</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ffddd9d6",
+  "backgroundColor": "#ff1a1a1a",
+  "bottomBackground": "#ff1a1a1a",
+  "isNightTheme": true,
+  "primaryColor": "#ff1a1a1a",
+  "themeName": "猫爪"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"猫爪"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/iosIL054y7ja" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-59-04-747_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-59-04-747_io.legado.app.release.jpg" alt="猫爪主题预览图1" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-59-08-978_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-59-08-978_io.legado.app.release.jpg" alt="猫爪主题预览图2" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 2</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-59-18-785_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-59-18-785_io.legado.app.release.jpg" alt="猫爪主题预览图3" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 3</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-49-33-142_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-49-33-142_io.legado.app.release.jpg" alt="猫爪主题预览图4" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 4</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-48-55-430_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-48-55-430_io.legado.app.release.jpg" alt="猫爪主题预览图5" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 5</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-49-12-695_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-49-12-695_io.legado.app.release.jpg" alt="猫爪主题预览图6" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 6</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-49-26-090_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-49-26-090_io.legado.app.release.jpg" alt="猫爪主题预览图7" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 7</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-53-04-616_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-53-04-616_io.legado.app.release.jpg" alt="猫爪主题预览图8" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 8</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-57-15-643_io.legado.app.release.jpg" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/Screenshot_2022-04-02-09-57-15-643_io.legado.app.release.jpg" alt="猫爪主题预览图9" loading="lazy">
+                    </a>
+                    <div class="image-caption">猫爪主题预览 - 9</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 猫爪主题 | 设计理念：猫咪、慵懒、夜间阅读
+        </footer>
+    </div>
+    
+    <script>
+        // 页面加载动画 - 立即执行，不等待图片
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // 打字机效果 - 立即执行，不等待图片
+        const title = document.querySelector('h1');
+        const originalText = title.textContent;
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                title.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        setTimeout(typeWriter, 300);
+        
+        // 创建猫爪效果 - 立即执行，不等待图片
+        function createCatPaw() {
+            const paw = document.createElement('div');
+            paw.classList.add('cat-paw');
+            
+            // 随机大小 - 猫爪形状
+            const size = Math.random() * 25 + 15;
+            
+            paw.style.width = `${size}px`;
+            paw.style.height = `${size}px`;
+            
+            // 猫爪颜色（浅灰色调）
+            const colors = [
+                `rgba(221, 217, 214, ${Math.random() * 0.3 + 0.1})`, // 主题浅灰色
+                `rgba(200, 200, 200, ${Math.random() * 0.25 + 0.1})`, // 灰色
+                `rgba(180, 180, 180, ${Math.random() * 0.2 + 0.1})`, // 深灰色
+                `rgba(220, 220, 220, ${Math.random() * 0.25 + 0.1})`  // 浅灰色
+            ];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // 创建猫爪形状（使用border-radius模拟）
+            paw.style.backgroundColor = color;
+            paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+            
+            // 添加小肉垫
+            paw.style.position = 'relative';
+            
+            // 随机起始位置
+            paw.style.left = `${Math.random() * 100}vw`;
+            paw.style.top = `-20px`;
+            
+            document.body.appendChild(paw);
+            
+            // 添加肉垫效果
+            setTimeout(() => {
+                const pad1 = document.createElement('div');
+                pad1.style.position = 'absolute';
+                pad1.style.width = '30%';
+                pad1.style.height = '30%';
+                pad1.style.backgroundColor = `rgba(240, 200, 200, ${Math.random() * 0.2 + 0.1})`;
+                pad1.style.borderRadius = '50%';
+                pad1.style.top = '20%';
+                pad1.style.left = '35%';
+                paw.appendChild(pad1);
+                
+                const pad2 = document.createElement('div');
+                pad2.style.position = 'absolute';
+                pad2.style.width = '20%';
+                pad2.style.height = '20%';
+                pad2.style.backgroundColor = `rgba(240, 200, 200, ${Math.random() * 0.2 + 0.1})`;
+                pad2.style.borderRadius = '50%';
+                pad2.style.top = '55%';
+                pad2.style.left = '15%';
+                paw.appendChild(pad2);
+                
+                const pad3 = document.createElement('div');
+                pad3.style.position = 'absolute';
+                pad3.style.width = '20%';
+                pad3.style.height = '20%';
+                pad3.style.backgroundColor = `rgba(240, 200, 200, ${Math.random() * 0.2 + 0.1})`;
+                pad3.style.borderRadius = '50%';
+                pad3.style.top = '55%';
+                pad3.style.left = '55%';
+                paw.appendChild(pad3);
+            }, 10);
+            
+            // 猫爪飘落动画
+            const duration = Math.random() * 18000 + 12000;
+            const endLeft = parseFloat(paw.style.left) + (Math.random() * 60 - 30);
+            const rotate = Math.random() * 180; // 随机旋转角度
+            
+            paw.animate([
+                { 
+                    transform: 'translateY(0) rotate(0deg)',
+                    opacity: 0.7
+                },
+                { 
+                    transform: `translateY(120vh) translateX(${endLeft - parseFloat(paw.style.left)}vw) rotate(${rotate}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除猫爪
+            setTimeout(() => {
+                paw.remove();
+            }, duration);
+        }
+        
+        // 创建猫咪剪影效果 - 立即执行，不等待图片
+        function createCatSilhouette() {
+            const cat = document.createElement('div');
+            cat.classList.add('cat-silhouette');
+            
+            // 随机大小
+            const width = Math.random() * 80 + 40;
+            const height = width * 0.6;
+            
+            cat.style.width = `${width}px`;
+            cat.style.height = `${height}px`;
+            
+            // 创建猫咪剪影形状
+            cat.style.background = `
+                radial-gradient(ellipse at 30% 40%, rgba(221, 217, 214, 0.08) 0%, rgba(221, 217, 214, 0) 40%),
+                radial-gradient(ellipse at 70% 40%, rgba(221, 217, 214, 0.08) 0%, rgba(221, 217, 214, 0) 40%),
+                radial-gradient(ellipse at 50% 80%, rgba(221, 217, 214, 0.05) 0%, rgba(221, 217, 214, 0) 50%)
+            `;
+            cat.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+            
+            // 随机位置
+            cat.style.left = `${Math.random() * 100}vw`;
+            cat.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(cat);
+            
+            // 猫咪剪影淡入淡出动画
+            const duration = Math.random() * 30000 + 20000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            cat.animate([
+                { 
+                    transform: 'translate(0, 0) scale(0.8)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: 0.08
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(cat.style.left)}vw, ${endTop - parseFloat(cat.style.top)}vh) scale(1.1)`,
+                    opacity: 0.08
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(cat.style.left)}vw, ${endTop - parseFloat(cat.style.top)}vh) scale(0.8)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 从猫咪剪影飘出猫爪
+            const pawInterval = setInterval(() => {
+                createSilhouettePaw(cat);
+            }, 2000);
+            
+            // 移除猫咪剪影
+            setTimeout(() => {
+                clearInterval(pawInterval);
+                cat.remove();
+            }, duration);
+        }
+        
+        // 创建猫咪簇效果 - 立即执行，不等待图片
+        function createCatCluster() {
+            const cluster = document.createElement('div');
+            cluster.classList.add('cat-cluster');
+            
+            // 随机大小
+            const width = Math.random() * 150 + 100;
+            const height = width * 0.5;
+            
+            cluster.style.width = `${width}px`;
+            cluster.style.height = `${height}px`;
+            
+            // 创建猫咪簇的形状
+            cluster.style.background = `
+                radial-gradient(ellipse at 50% 50%, rgba(221, 217, 214, 0.06) 0%, rgba(221, 217, 214, 0) 70%)
+            `;
+            cluster.style.borderRadius = '50%';
+            
+            // 随机位置
+            cluster.style.left = `${Math.random() * 100}vw`;
+            cluster.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(cluster);
+            
+            // 猫咪簇淡入淡出动画
+            const duration = Math.random() * 40000 + 30000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            cluster.animate([
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0.06
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(cluster.style.left)}vw, ${endTop - parseFloat(cluster.style.top)}vh)`,
+                    opacity: 0.06
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(cluster.style.left)}vw, ${endTop - parseFloat(cluster.style.top)}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 从猫咪簇飘出猫爪
+            const pawInterval = setInterval(() => {
+                createClusterPaw(cluster);
+            }, 1200);
+            
+            // 移除猫咪簇
+            setTimeout(() => {
+                clearInterval(pawInterval);
+                cluster.remove();
+            }, duration);
+        }
+        
+        // 从猫咪剪影飘出的猫爪 - 立即执行，不等待图片
+        function createSilhouettePaw(catElement) {
+            const paw = document.createElement('div');
+            paw.classList.add('cat-paw');
+            
+            // 小猫爪
+            const size = Math.random() * 20 + 10;
+            
+            paw.style.width = `${size}px`;
+            paw.style.height = `${size}px`;
+            
+            // 猫爪颜色
+            const opacity = Math.random() * 0.25 + 0.1;
+            paw.style.backgroundColor = `rgba(221, 217, 214, ${opacity})`;
+            paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+            
+            // 从猫咪剪影位置开始
+            const catLeft = parseFloat(catElement.style.left);
+            const catTop = parseFloat(catElement.style.top);
+            const catWidth = parseFloat(catElement.style.width);
+            const catHeight = parseFloat(catElement.style.height);
+            
+            paw.style.left = `${catLeft + (Math.random() * catWidth)}px`;
+            paw.style.top = `${catTop + (Math.random() * catHeight)}px`;
+            
+            document.body.appendChild(paw);
+            
+            // 猫爪飘落动画
+            const duration = Math.random() * 16000 + 11000;
+            const floatDistance = Math.random() * 130 + 70;
+            const floatLeft = (Math.random() * 90 - 45);
+            const rotate = Math.random() * 180;
+            
+            paw.animate([
+                { 
+                    transform: 'translate(0, 0) rotate(0deg)',
+                    opacity: 0.7
+                },
+                { 
+                    transform: `translate(${floatLeft}px, ${floatDistance}vh) rotate(${rotate}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除猫爪
+            setTimeout(() => {
+                paw.remove();
+            }, duration);
+        }
+        
+        // 从猫咪簇飘出的猫爪 - 立即执行，不等待图片
+        function createClusterPaw(clusterElement) {
+            const pawCount = Math.floor(Math.random() * 4) + 2;
+            
+            for(let i = 0; i < pawCount; i++) {
+                setTimeout(() => {
+                    const paw = document.createElement('div');
+                    paw.classList.add('cat-paw');
+                    
+                    // 小猫爪
+                    const size = Math.random() * 15 + 8;
+                    
+                    paw.style.width = `${size}px`;
+                    paw.style.height = `${size}px`;
+                    
+                    // 猫爪颜色
+                    const opacity = Math.random() * 0.2 + 0.08;
+                    paw.style.backgroundColor = `rgba(221, 217, 214, ${opacity})`;
+                    paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+                    
+                    // 从猫咪簇位置开始
+                    const clusterLeft = parseFloat(clusterElement.style.left);
+                    const clusterTop = parseFloat(clusterElement.style.top);
+                    const clusterWidth = parseFloat(clusterElement.style.width);
+                    const clusterHeight = parseFloat(clusterElement.style.height);
+                    
+                    paw.style.left = `${clusterLeft + (Math.random() * clusterWidth)}px`;
+                    paw.style.top = `${clusterTop + (Math.random() * clusterHeight)}px`;
+                    
+                    document.body.appendChild(paw);
+                    
+                    // 猫爪飘落动画
+                    const duration = Math.random() * 14000 + 9000;
+                    const floatDistance = Math.random() * 120 + 60;
+                    const floatLeft = (Math.random() * 80 - 40);
+                    const rotate = Math.random() * 180;
+                    
+                    paw.animate([
+                        { 
+                            transform: 'translate(0, 0) rotate(0deg)',
+                            opacity: opacity * 3
+                        },
+                        { 
+                            transform: `translate(${floatLeft}px, ${floatDistance}vh) rotate(${rotate}deg)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                    });
+                    
+                    // 移除猫爪
+                    setTimeout(() => {
+                        paw.remove();
+                    }, duration);
+                }, i * 300);
+            }
+        }
+        
+        // 立即开始动画，不等待图片加载
+        // 每2.5秒创建一个飘落的猫爪
+        setInterval(createCatPaw, 2500);
+        
+        // 每30秒创建一个猫咪剪影
+        setInterval(createCatSilhouette, 30000);
+        
+        // 每45秒创建一个猫咪簇
+        setInterval(createCatCluster, 45000);
+        
+        // 初始化创建一些猫爪
+        for(let i = 0; i < 18; i++) {
+            setTimeout(() => createCatPaw(), i * 500);
+        }
+        
+        // 初始化创建一个猫咪剪影
+        setTimeout(() => createCatSilhouette(), 10000);
+        
+        // 初始化创建一个猫咪簇
+        setTimeout(() => createCatCluster(), 20000);
+        
+        // 图片悬停效果增强 - 等DOMContentLoaded完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(221, 217, 214, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.2)';
+                });
+            });
+            
+            // 为图片添加懒加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 添加加载失败处理
+                img.addEventListener('error', function() {
+                    this.style.backgroundColor = '#1a1a1a';
+                    this.style.padding = '20px';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.style.minHeight = '200px';
+                    
+                    // 创建一个替代文本
+                    const altText = document.createElement('div');
+                    altText.textContent = this.alt || '图片加载失败';
+                    altText.style.color = '#666';
+                    altText.style.fontSize = '14px';
+                    
+                    // 清空图片内容并添加替代文本
+                    this.parentNode.replaceChild(altText, this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
