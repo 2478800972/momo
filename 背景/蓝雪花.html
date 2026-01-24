@@ -22,6 +22,20 @@
             max-width: 1200px;
             margin: 0 auto;
             background-image: linear-gradient(to bottom, #f0f5f9 0%, #e6eff5 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 顶部雪花飘落容器 - 固定在顶部 */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
         }
         
         .container {
@@ -31,6 +45,8 @@
             padding: 40px;
             margin-top: 20px;
             border: 1px solid rgba(52, 152, 219, 0.1);
+            position: relative;
+            z-index: 2;
         }
         
         /* 返回按钮样式 */
@@ -199,8 +215,8 @@
             color: #aed6f1;
             font-size: 1rem;
             pointer-events: none;
-            z-index: -1;
             opacity: 0.7;
+            top: 0;
         }
         
         @media (max-width: 768px) {
@@ -228,6 +244,10 @@
             .image-item {
                 width: 100%;
                 max-width: 400px;
+            }
+            
+            .snow-container {
+                height: 150px;
             }
         }
         
@@ -275,6 +295,9 @@
     </style>
 </head>
 <body>
+    <!-- 顶部雪花飘落容器 -->
+    <div class="snow-container" id="snowContainer"></div>
+    
     <div class="container">
         <!-- 返回按钮 -->
         <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
@@ -457,60 +480,75 @@
             }
         });
         
-        // 创建雪花飘落效果
+        // 创建雪花飘落效果 - 固定在顶部区域随机左右摇摆下落
         function createSnowflakes() {
-            const snowflakeCount = 15;
+            const snowflakeCount = 20;
+            const snowContainer = document.getElementById('snowContainer');
+            
+            // 先清除之前的雪花
+            snowContainer.innerHTML = '';
             
             for (let i = 0; i < snowflakeCount; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
                 snowflake.innerHTML = '❄';
                 
-                // 随机位置
-                const leftPos = Math.random() * 100;
-                snowflake.style.left = `${leftPos}vw`;
+                // 随机起始水平位置
+                const startLeft = Math.random() * 100;
+                snowflake.style.left = `${startLeft}vw`;
                 
                 // 随机大小
-                const size = 10 + Math.random() * 15;
+                const size = 12 + Math.random() * 20;
                 snowflake.style.fontSize = `${size}px`;
                 
                 // 随机透明度
-                snowflake.style.opacity = 0.3 + Math.random() * 0.4;
+                snowflake.style.opacity = 0.3 + Math.random() * 0.5;
                 
-                // 随机动画
-                const duration = 10 + Math.random() * 15;
-                const delay = Math.random() * 5;
-                const sway = 50 + Math.random() * 100;
-                snowflake.style.animation = `snowfall ${duration}s linear ${delay}s infinite`;
+                // 随机左右摇摆幅度
+                const swayAmplitude = 30 + Math.random() * 70; // 左右摇摆幅度
+                const swayFrequency = 0.5 + Math.random() * 2; // 摇摆频率
                 
-                // 添加动画关键帧
+                // 随机下落时间和延迟
+                const duration = 6 + Math.random() * 10;
+                const delay = Math.random() * 3;
+                
+                // 创建唯一的动画名称
+                const animationName = `snowfall${i}`;
+                
+                // 创建关键帧动画
                 const style = document.createElement('style');
                 style.textContent = `
-                    @keyframes snowfall {
+                    @keyframes ${animationName} {
                         0% {
-                            transform: translateY(-50px) translateX(0);
+                            transform: translateY(-30px) translateX(0);
                             opacity: 0;
                         }
                         10% {
-                            opacity: 0.7;
+                            opacity: ${0.3 + Math.random() * 0.6};
                         }
                         90% {
-                            opacity: 0.7;
+                            opacity: ${0.3 + Math.random() * 0.6};
                         }
                         100% {
-                            transform: translateY(calc(100vh + 50px)) translateX(${sway}px);
+                            transform: translateY(200px) translateX(${swayAmplitude * Math.sin(swayFrequency * 100)}px);
                             opacity: 0;
                         }
                     }
                 `;
                 document.head.appendChild(style);
                 
-                document.body.appendChild(snowflake);
+                // 应用动画
+                snowflake.style.animation = `${animationName} ${duration}s linear ${delay}s infinite`;
+                
+                snowContainer.appendChild(snowflake);
             }
         }
         
         // 页面加载完成后创建雪花
         document.addEventListener('DOMContentLoaded', createSnowflakes);
+        
+        // 窗口大小改变时重新创建雪花，防止溢出
+        window.addEventListener('resize', createSnowflakes);
     </script>
 </body>
 </html>
