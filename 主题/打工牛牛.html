@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打工牛牛主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f0eb;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #6a7082;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #595d6d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(106, 112, 130, 0.2);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #6a7082;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #ddd1c4;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-top: 25px;
+            color: #6a7082;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border-left: 5px solid #6a7082;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 400;
+            line-height: 1.8;
+            color: #6a7082;
+            margin-bottom: 15px;
+            padding: 0 20px;
+        }
+        
+        .theme-quote-2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #6a7082;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #6a7082;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #6a7082;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #6a7082;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .json-code {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .json-code .property {
+            color: #6a7082;
+            font-weight: bold;
+        }
+        
+        .json-code .string {
+            color: #4a4a4a;
+        }
+        
+        .json-code .boolean {
+            color: #6a7082;
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid #6a7082;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #6a7082;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(106, 112, 130, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #595d6d;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(106, 112, 130, 0.4);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #6a7082;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(106, 112, 130, 0.15);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #6a7082;
+            border-top: 1px solid rgba(106, 112, 130, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6a7082;
+            border-top: 1px solid rgba(106, 112, 130, 0.2);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>打工牛牛</h1>
+            <p class="subtitle">"只要我够努力，老板很快就能过上他想要的生活！"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                只要我够努力，老板很快就能过上他想要的生活！
+            </div>
+            <div class="theme-quote-2">
+                这一次牛牛我啊~是真的不行了(╥﹏╥)
+            </div>
+            <p>这是一个充满幽默与自嘲的主题，以"打工牛牛"为形象，表达现代职场人的奋斗与无奈。在温暖柔和的色调中，体验轻松有趣的阅读氛围，感受打工人的幽默与坚韧。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff6a7082;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff6a7082</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffddd1c4;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ffddd1c4</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffddd1c4;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ffddd1c4</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffddd1c4;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ffddd1c4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  <span class="property">"accentColor"</span>: <span class="string">"#ff6a7082"</span>,
+  <span class="property">"backgroundColor"</span>: <span class="string">"#ffddd1c4"</span>,
+  <span class="property">"bottomBackground"</span>: <span class="string">"#ffddd1c4"</span>,
+  <span class="property">"isNightTheme"</span>: <span class="boolean">false</span>,
+  <span class="property">"primaryColor"</span>: <span class="string">"#ffddd1c4"</span>,
+  <span class="property">"themeName"</span>: <span class="string">"打工牛牛"</span>
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"打工牛牛"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/ioLaU0s3z65i" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_222028.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_222028.png" alt="打工牛牛主题预览图1">
+                    </a>
+                    <div class="image-caption">打工牛牛主题预览 - 首页界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_221602.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_221602.png" alt="打工牛牛主题预览图2">
+                    </a>
+                    <div class="image-caption">打工牛牛主题预览 - 阅读界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_221701.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_221701.png" alt="打工牛牛主题预览图3">
+                    </a>
+                    <div class="image-caption">打工牛牛主题预览 - 设置界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_221750.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_221750.png" alt="打工牛牛主题预览图4">
+                    </a>
+                    <div class="image-caption">打工牛牛主题预览 - 书籍详情</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_221815.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230316_221815.png" alt="打工牛牛主题预览图5">
+                    </a>
+                    <div class="image-caption">打工牛牛主题预览 - 分类浏览</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 打工牛牛主题 | 设计理念：幽默、轻松、坚韧
+        </footer>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 150);
+                }
+            }
+            
+            setTimeout(typeWriter, 300);
+            
+            // 图片悬停效果增强
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(106, 112, 130, 0.2)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+            
+            // 添加打工牛牛主题的动态效果
+            const cowEffect = document.createElement('div');
+            cowEffect.style.position = 'fixed';
+            cowEffect.style.top = '0';
+            cowEffect.style.left = '0';
+            cowEffect.style.width = '100%';
+            cowEffect.style.height = '100%';
+            cowEffect.style.pointerEvents = 'none';
+            cowEffect.style.zIndex = '-1';
+            cowEffect.style.background = 'radial-gradient(circle at 20% 80%, rgba(106, 112, 130, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(221, 209, 196, 0.2) 0%, transparent 50%)';
+            document.body.appendChild(cowEffect);
+            
+            // 高亮JSON代码中的关键词
+            const jsonCode = document.querySelector('.json-code');
+            if (jsonCode) {
+                let html = jsonCode.innerHTML;
+                html = html.replace(/"([^"]+)"/g, '<span class="string">"$1"</span>');
+                html = html.replace(/(true|false)/g, '<span class="boolean">$1</span>');
+                const properties = ['accentColor', 'backgroundColor', 'bottomBackground', 'isNightTheme', 'primaryColor', 'themeName'];
+                properties.forEach(prop => {
+                    const regex = new RegExp(`"${prop}"`, 'g');
+                    html = html.replace(regex, `<span class="property">"${prop}"</span>`);
+                });
+                jsonCode.innerHTML = html;
+            }
+            
+            // 添加牛牛角飘动效果
+            const hornsContainer = document.createElement('div');
+            hornsContainer.style.position = 'fixed';
+            hornsContainer.style.top = '0';
+            hornsContainer.style.left = '0';
+            hornsContainer.style.width = '100%';
+            hornsContainer.style.height = '100%';
+            hornsContainer.style.pointerEvents = 'none';
+            hornsContainer.style.zIndex = '-1';
+            hornsContainer.style.overflow = 'hidden';
+            document.body.appendChild(hornsContainer);
+            
+            // 创建牛牛角效果
+            for (let i = 0; i < 12; i++) {
+                const horn = document.createElement('div');
+                horn.style.position = 'absolute';
+                horn.style.width = '20px';
+                horn.style.height = '25px';
+                horn.style.backgroundColor = 'rgba(106, 112, 130, 0.15)';
+                horn.style.borderRadius = '50% 50% 0 0';
+                horn.style.top = Math.random() * 100 + 'vh';
+                horn.style.left = Math.random() * 100 + 'vw';
+                horn.style.opacity = '0.6';
+                horn.style.transform = 'rotate(' + (Math.random() * 30 - 15) + 'deg)';
+                hornsContainer.appendChild(horn);
+                
+                // 简单的动画
+                animateHorn(horn);
+            }
+            
+            function animateHorn(horn) {
+                let x = parseFloat(horn.style.left);
+                let y = parseFloat(horn.style.top);
+                let speedX = (Math.random() - 0.5) * 0.3;
+                let speedY = Math.random() * 0.5 + 0.2;
+                
+                function move() {
+                    x += speedX;
+                    y += speedY;
+                    
+                    if (y > 100) {
+                        y = -5;
+                        x = Math.random() * 100;
+                    }
+                    
+                    if (x > 100) x = 0;
+                    if (x < 0) x = 100;
+                    
+                    horn.style.left = x + 'vw';
+                    horn.style.top = y + 'vh';
+                    
+                    requestAnimationFrame(move);
+                }
+                
+                move();
+            }
+        });
+    </script>
+</body>
+</html>
