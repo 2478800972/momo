@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>溪客主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #ffdcddd7;
+            color: #363636;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff5b7079;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(91, 112, 121, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #4a6b77;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(91, 112, 121, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(54, 54, 54, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #ff5b7079;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #ff5b7079;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #666;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-left: 5px solid #ff5b7079;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #5b7079;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #5b7079;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #ff5b7079;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .json-code {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #ff5b7079;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(91, 112, 121, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #4a6b77;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(91, 112, 121, 0.4);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #5b7079;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            border-top: 1px solid rgba(54, 54, 54, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 溪水波纹效果 */
+        .ripple {
+            position: fixed;
+            border-radius: 50%;
+            border: 1px solid rgba(91, 112, 121, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .water-drop {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(91, 112, 121, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .lotus {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .lotus:after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            top: 7px;
+            left: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>溪客</h1>
+            <p class="subtitle">"竹色溪不绿，荷花镜里香。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                竹色溪不绿，荷花镜里香。
+            </div>
+            <p>这是一个充满自然诗意与清幽意境的主题，以溪流与荷花为意象，表达山水的清幽与自然的和谐。在溪水潺潺中，感受竹影婆娑与荷花的清香。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff5b7079;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff5b7079</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffdcddd7;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ffdcddd7</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffdcddd7;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ffdcddd7</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffdcddd7;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ffdcddd7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ff5b7079",
+  "backgroundColor": "#ffdcddd7",
+  "bottomBackground": "#ffdcddd7",
+  "isNightTheme": false,
+  "primaryColor": "#ffdcddd7",
+  "themeName": "溪客"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"溪客"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/in4Py13zjkti" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155512.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155512.png" alt="溪客主题预览图1">
+                    </a>
+                    <div class="image-caption">溪客主题预览 - 1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155754.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155754.png" alt="溪客主题预览图2">
+                    </a>
+                    <div class="image-caption">溪客主题预览 - 2</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155651.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155651.png" alt="溪客主题预览图3">
+                    </a>
+                    <div class="image-caption">溪客主题预览 - 3</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155851.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155851.png" alt="溪客主题预览图4">
+                    </a>
+                    <div class="image-caption">溪客主题预览 - 4</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155945.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230729_155945.png" alt="溪客主题预览图5">
+                    </a>
+                    <div class="image-caption">溪客主题预览 - 5</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 溪客主题 | 设计理念：清幽、自然、山水诗意
+        </footer>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            // 页面加载动画
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // 打字机效果
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            setTimeout(typeWriter, 300);
+            
+            // 图片悬停效果增强
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(91, 112, 121, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+            
+            // 创建溪水波纹效果
+            function createRipple() {
+                const ripple = document.createElement('div');
+                ripple.classList.add('ripple');
+                
+                // 随机大小
+                const size = Math.random() * 100 + 50;
+                ripple.style.width = `${size}px`;
+                ripple.style.height = `${size}px`;
+                
+                // 随机位置
+                ripple.style.left = `${Math.random() * 100}vw`;
+                ripple.style.top = `${Math.random() * 100}vh`;
+                
+                document.body.appendChild(ripple);
+                
+                // 波纹扩散动画
+                ripple.animate([
+                    { 
+                        width: '0px',
+                        height: '0px',
+                        opacity: 0.8,
+                        borderWidth: '2px'
+                    },
+                    { 
+                        width: `${size}px`,
+                        height: `${size}px`,
+                        opacity: 0,
+                        borderWidth: '0.5px'
+                    }
+                ], {
+                    duration: 3000,
+                    easing: 'ease-out'
+                });
+                
+                // 移除波纹
+                setTimeout(() => {
+                    ripple.remove();
+                }, 3000);
+            }
+            
+            // 创建水滴效果
+            function createWaterDrop() {
+                const drop = document.createElement('div');
+                drop.classList.add('water-drop');
+                
+                // 随机位置
+                drop.style.left = `${Math.random() * 100}vw`;
+                drop.style.top = `-10px`;
+                
+                document.body.appendChild(drop);
+                
+                // 水滴下落动画
+                const duration = Math.random() * 4000 + 2000;
+                const endLeft = parseFloat(drop.style.left) + (Math.random() * 20 - 10);
+                
+                drop.animate([
+                    { 
+                        transform: 'translateY(0)',
+                        opacity: 0.3
+                    },
+                    { 
+                        transform: `translateY(100vh)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: duration,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                });
+                
+                // 移除水滴
+                setTimeout(() => {
+                    drop.remove();
+                }, duration);
+                
+                // 水滴落水后创建波纹
+                setTimeout(() => {
+                    const ripple = document.createElement('div');
+                    ripple.classList.add('ripple');
+                    
+                    ripple.style.width = '0px';
+                    ripple.style.height = '0px';
+                    ripple.style.left = `${endLeft}vw`;
+                    ripple.style.top = '100vh';
+                    
+                    document.body.appendChild(ripple);
+                    
+                    ripple.animate([
+                        { 
+                            width: '0px',
+                            height: '0px',
+                            opacity: 0.6,
+                            borderWidth: '1px'
+                        },
+                        { 
+                            width: '150px',
+                            height: '150px',
+                            opacity: 0,
+                            borderWidth: '0.5px'
+                        }
+                    ], {
+                        duration: 2000,
+                        easing: 'ease-out'
+                    });
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 2000);
+                }, duration - 100);
+            }
+            
+            // 创建荷花效果
+            function createLotus() {
+                const lotus = document.createElement('div');
+                lotus.classList.add('lotus');
+                
+                // 随机大小
+                const size = Math.random() * 25 + 20;
+                lotus.style.width = `${size}px`;
+                lotus.style.height = `${size}px`;
+                
+                // 随机位置
+                lotus.style.left = `${Math.random() * 100}vw`;
+                lotus.style.top = `${Math.random() * 100}vh`;
+                
+                // 随机旋转
+                lotus.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                document.body.appendChild(lotus);
+                
+                // 荷花浮动动画
+                const duration = Math.random() * 20000 + 10000;
+                const floatX = Math.random() * 40 - 20;
+                const floatY = Math.random() * 20 - 10;
+                
+                lotus.animate([
+                    { 
+                        transform: `rotate(${Math.random() * 360}deg) translate(0, 0)`,
+                        opacity: 0.1
+                    },
+                    { 
+                        transform: `rotate(${Math.random() * 360}deg) translate(${floatX}px, ${floatY}px)`,
+                        opacity: 0.15
+                    },
+                    { 
+                        transform: `rotate(${Math.random() * 360}deg) translate(0, 0)`,
+                        opacity: 0.1
+                    }
+                ], {
+                    duration: duration,
+                    easing: 'ease-in-out',
+                    iterations: Infinity
+                });
+                
+                // 随机时间后移除荷花
+                setTimeout(() => {
+                    lotus.animate([
+                        { opacity: 0.1 },
+                        { opacity: 0 }
+                    ], {
+                        duration: 2000,
+                        easing: 'ease-out'
+                    }).onfinish = () => lotus.remove();
+                }, Math.random() * 30000 + 20000);
+            }
+            
+            // 每2秒创建一个波纹
+            setInterval(createRipple, 2000);
+            
+            // 每3秒创建一个水滴
+            setInterval(createWaterDrop, 3000);
+            
+            // 每10秒创建一朵荷花
+            setInterval(createLotus, 10000);
+            
+            // 初始化创建一些波纹
+            for(let i = 0; i < 10; i++) {
+                setTimeout(() => createRipple(), i * 300);
+            }
+            
+            // 初始化创建一些荷花
+            for(let i = 0; i < 5; i++) {
+                setTimeout(() => createLotus(), i * 2000);
+            }
+        });
+    </script>
+</body>
+</html>
