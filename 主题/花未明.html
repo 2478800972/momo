@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花未明主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #fff6efe9;
+            color: #363636;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff787878;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(120, 120, 120, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(120, 120, 120, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(54, 54, 54, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #787878;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #787878;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #666;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-left: 5px solid #787878;
+        }
+        
+        .theme-quote {
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #787878;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #787878;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #787878;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .json-code {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #787878;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(120, 120, 120, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #5a5a5a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(120, 120, 120, 0.4);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #787878;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            border-top: 1px solid rgba(54, 54, 54, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 花未明效果 - 花瓣飘落 */
+        .flower-petal {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .half-flower {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .moon {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>花未明</h1>
+            <p class="subtitle">"花未全开月未圆，半山微醉尽余欢。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                花未全开月未圆，半山微醉尽余欢。
+            </div>
+            <p>这是一个充满禅意与朦胧美感的中式主题，以"花未全开，月未圆"的意境为核心，营造出一种含蓄、内敛的阅读氛围。淡淡的灰色与米白色调相结合，象征着事物发展的中间状态，寓意着未完待续的美好与期待。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff787878;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff787878</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #fff6efe9;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#fff6efe9</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #fff6efe9;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#fff6efe9</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #fff6efe9;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#fff6efe9</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ff787878",
+  "backgroundColor": "#fff6efe9",
+  "bottomBackground": "#fff6efe9",
+  "isNightTheme": false,
+  "primaryColor": "#fff6efe9",
+  "themeName": "花未明"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"花未明"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/i3TQN1er7jcb" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_222452.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_222452.png" alt="花未明主题预览图1" loading="lazy">
+                    </a>
+                    <div class="image-caption">花未明主题预览 - 1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_222657.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_222657.png" alt="花未明主题预览图2" loading="lazy">
+                    </a>
+                    <div class="image-caption">花未明主题预览 - 2</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_222754.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_222754.png" alt="花未明主题预览图3" loading="lazy">
+                    </a>
+                    <div class="image-caption">花未明主题预览 - 3</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_222835.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_222835.png" alt="花未明主题预览图4" loading="lazy">
+                    </a>
+                    <div class="image-caption">花未明主题预览 - 4</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_223732.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20231113_223732.png" alt="花未明主题预览图5" loading="lazy">
+                    </a>
+                    <div class="image-caption">花未明主题预览 - 5</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 花未明主题 | 设计理念：禅意、朦胧、含蓄
+        </footer>
+    </div>
+    
+    <script>
+        // 页面加载动画 - 立即执行，不等待图片
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // 打字机效果 - 立即执行，不等待图片
+        const title = document.querySelector('h1');
+        const originalText = title.textContent;
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                title.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        setTimeout(typeWriter, 300);
+        
+        // 创建花瓣飘落效果 - 立即执行，不等待图片
+        function createFlowerPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('flower-petal');
+            
+            // 随机大小
+            const width = Math.random() * 20 + 10;
+            const height = width * 1.5;
+            
+            petal.style.width = `${width}px`;
+            petal.style.height = `${height}px`;
+            
+            // 花瓣颜色（浅灰色或淡粉色）
+            const colors = [
+                `rgba(120, 120, 120, ${Math.random() * 0.2 + 0.1})`,
+                `rgba(200, 170, 180, ${Math.random() * 0.15 + 0.08})`,
+                `rgba(180, 160, 170, ${Math.random() * 0.18 + 0.09})`
+            ];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            petal.style.backgroundColor = color;
+            petal.style.borderRadius = '50% 50% 0 50%';
+            petal.style.transform = 'rotate(45deg)';
+            
+            // 随机起始位置
+            petal.style.left = `${Math.random() * 100}vw`;
+            petal.style.top = `-20px`;
+            
+            document.body.appendChild(petal);
+            
+            // 花瓣飘落动画
+            const duration = Math.random() * 12000 + 8000;
+            const endLeft = parseFloat(petal.style.left) + (Math.random() * 40 - 20);
+            const rotate = Math.random() * 360; // 随机旋转角度
+            
+            petal.animate([
+                { 
+                    transform: 'translateY(0) rotate(45deg)',
+                    opacity: 0.8
+                },
+                { 
+                    transform: `translateY(110vh) translateX(${endLeft - parseFloat(petal.style.left)}vw) rotate(${45 + rotate}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除花瓣
+            setTimeout(() => {
+                petal.remove();
+            }, duration);
+        }
+        
+        // 创建半开花朵效果 - 立即执行，不等待图片
+        function createHalfFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('half-flower');
+            
+            // 随机大小
+            const size = Math.random() * 50 + 30;
+            
+            flower.style.width = `${size}px`;
+            flower.style.height = `${size}px`;
+            
+            // 创建半开花朵的形状
+            flower.style.background = `
+                radial-gradient(circle at 50% 20%, rgba(120, 120, 120, 0.1) 0%, rgba(120, 120, 120, 0) 60%),
+                radial-gradient(circle at 20% 50%, rgba(120, 120, 120, 0.08) 0%, rgba(120, 120, 120, 0) 50%),
+                radial-gradient(circle at 80% 50%, rgba(120, 120, 120, 0.08) 0%, rgba(120, 120, 120, 0) 50%)
+            `;
+            flower.style.borderRadius = '50%';
+            
+            // 随机位置
+            flower.style.left = `${Math.random() * 100}vw`;
+            flower.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(flower);
+            
+            // 花朵淡入淡出动画
+            const duration = Math.random() * 25000 + 15000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            flower.animate([
+                { 
+                    transform: 'translate(0, 0) scale(0.8)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: 0.07
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(flower.style.left)}vw, ${endTop - parseFloat(flower.style.top)}vh) scale(1.2)`,
+                    opacity: 0.07
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(flower.style.left)}vw, ${endTop - parseFloat(flower.style.top)}vh) scale(0.8)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 从花朵飘出花瓣
+            const petalInterval = setInterval(() => {
+                createFlowerPetalFromSource(flower);
+            }, 1500);
+            
+            // 移除花朵
+            setTimeout(() => {
+                clearInterval(petalInterval);
+                flower.remove();
+            }, duration);
+        }
+        
+        // 创建从花朵源飘出的花瓣 - 立即执行，不等待图片
+        function createFlowerPetalFromSource(flowerElement) {
+            const petal = document.createElement('div');
+            petal.classList.add('flower-petal');
+            
+            // 小花瓣
+            const width = Math.random() * 15 + 8;
+            const height = width * 1.5;
+            
+            petal.style.width = `${width}px`;
+            petal.style.height = `${height}px`;
+            
+            // 花瓣颜色
+            const colors = [
+                `rgba(120, 120, 120, ${Math.random() * 0.25 + 0.12})`,
+                `rgba(200, 170, 180, ${Math.random() * 0.2 + 0.1})`
+            ];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            petal.style.backgroundColor = color;
+            petal.style.borderRadius = '50% 50% 0 50%';
+            petal.style.transform = 'rotate(45deg)';
+            
+            // 从花朵位置开始
+            const flowerLeft = parseFloat(flowerElement.style.left);
+            const flowerTop = parseFloat(flowerElement.style.top);
+            const flowerSize = parseFloat(flowerElement.style.width);
+            
+            petal.style.left = `${flowerLeft + (Math.random() * flowerSize)}px`;
+            petal.style.top = `${flowerTop + (Math.random() * flowerSize)}px`;
+            
+            document.body.appendChild(petal);
+            
+            // 花瓣飘落动画
+            const duration = Math.random() * 10000 + 6000;
+            const floatDistance = Math.random() * 80 + 40;
+            const floatLeft = (Math.random() * 60 - 30);
+            const rotate = Math.random() * 360;
+            
+            petal.animate([
+                { 
+                    transform: 'translate(0, 0) rotate(45deg)',
+                    opacity: 0.8
+                },
+                { 
+                    transform: `translate(${floatLeft}px, ${floatDistance}vh) rotate(${45 + rotate}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除花瓣
+            setTimeout(() => {
+                petal.remove();
+            }, duration);
+        }
+        
+        // 创建半月效果 - 立即执行，不等待图片
+        function createHalfMoon() {
+            const moon = document.createElement('div');
+            moon.classList.add('moon');
+            
+            // 随机大小
+            const size = Math.random() * 60 + 40;
+            
+            moon.style.width = `${size}px`;
+            moon.style.height = `${size}px`;
+            
+            // 创建半月形状
+            moon.style.background = `
+                radial-gradient(circle at 70% 50%, rgba(120, 120, 120, 0.05) 0%, rgba(120, 120, 120, 0) 70%)
+            `;
+            moon.style.borderRadius = '50%';
+            moon.style.boxShadow = 'inset -5px 0px 0px 0px rgba(120, 120, 120, 0.05)';
+            
+            // 随机位置
+            moon.style.left = `${Math.random() * 100}vw`;
+            moon.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(moon);
+            
+            // 半月淡入淡出动画
+            const duration = Math.random() * 30000 + 20000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            moon.animate([
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0.06
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(moon.style.left)}vw, ${endTop - parseFloat(moon.style.top)}vh)`,
+                    opacity: 0.06
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(moon.style.left)}vw, ${endTop - parseFloat(moon.style.top)}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除半月
+            setTimeout(() => {
+                moon.remove();
+            }, duration);
+        }
+        
+        // 立即开始动画，不等待图片加载
+        // 每2秒创建一个飘落的花瓣
+        setInterval(createFlowerPetal, 2000);
+        
+        // 每25秒创建一朵半开花朵
+        setInterval(createHalfFlower, 25000);
+        
+        // 每35秒创建一个半月
+        setInterval(createHalfMoon, 35000);
+        
+        // 初始化创建一些花瓣
+        for(let i = 0; i < 20; i++) {
+            setTimeout(() => createFlowerPetal(), i * 400);
+        }
+        
+        // 初始化创建一朵半开花朵
+        setTimeout(() => createHalfFlower(), 6000);
+        
+        // 初始化创建一个半月
+        setTimeout(() => createHalfMoon(), 10000);
+        
+        // 图片悬停效果增强 - 等DOMContentLoaded完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(120, 120, 120, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+            
+            // 为图片添加懒加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 添加加载失败处理
+                img.addEventListener('error', function() {
+                    this.style.backgroundColor = '#f5f5f5';
+                    this.style.padding = '20px';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.style.minHeight = '200px';
+                    
+                    // 创建一个替代文本
+                    const altText = document.createElement('div');
+                    altText.textContent = this.alt || '图片加载失败';
+                    altText.style.color = '#666';
+                    altText.style.fontSize = '14px';
+                    
+                    // 清空图片内容并添加替代文本
+                    this.parentNode.replaceChild(altText, this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
