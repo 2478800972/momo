@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>野性·夜间主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #ff4b5053;
+            color: #d0d0d0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff2e3332;
+            color: #d0d0d0;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(46, 51, 50, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #3a3f3e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 51, 50, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(208, 208, 208, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #d0d0d0;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #2e3332;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #aaa;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(60, 65, 70, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-left: 5px solid #2e3332;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #d0d0d0;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-insight {
+            font-size: 1rem;
+            color: #aaa;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 20px auto 0;
+            text-align: left;
+            padding: 0 10px;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(60, 65, 70, 0.85);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #d0d0d0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #2e3332;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #d0d0d0;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .json-code {
+            background-color: #3a3f45;
+            color: #d0d0d0;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #4a4f55;
+        }
+        
+        .download-section {
+            background-color: rgba(60, 65, 70, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #2e3332;
+            color: #d0d0d0;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 51, 50, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #3a3f3e;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 51, 50, 0.4);
+        }
+        
+        .external-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2e3332;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .external-link:hover {
+            text-decoration: underline;
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #d0d0d0;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            background-color: #3a3f45;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2a2f35;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: #3a3f45;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #aaa;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #aaa;
+            border-top: 1px solid rgba(208, 208, 208, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 野性主题效果 - 火焰、野性元素 */
+        .wild-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .flame-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .wild-cluster {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>野性·夜间</h1>
+            <p class="subtitle">"情话烫喉，野性入骨。一生浪荡，不为人囚。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                情话烫喉，野性入骨。一生浪荡，不为人囚。
+            </div>
+            <div class="theme-insight">
+                野性·夜间主题以不羁的野性美学为设计灵感，融合了暗色系的背景与深沉的中性色调。深灰色的背景象征着夜晚的狂野与神秘，深绿色的强调色如同荒野中的生命力，营造出自由、不羁而又深邃的阅读氛围，让人在阅读中感受内心的野性与自由精神。
+                <br><br>
+                这是一个夜间主题，采用深色背景和强烈的对比色彩搭配，适合在光线较暗的环境中使用，带来沉浸式的阅读体验，激发内心的自由与野性。
+            </div>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff2e3332;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff2e3332</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff4b5053;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ff4b5053</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff4b5053;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ff4b5053</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff4b5053;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ff4b5053</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #3a3f45;"></div>
+                        <div class="color-info">
+                            <span class="color-name">夜间主题</span>
+                            <span class="color-value">isNightTheme: true</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ff2e3332",
+  "backgroundColor": "#ff4b5053",
+  "bottomBackground": "#ff4b5053",
+  "isNightTheme": true,
+  "primaryColor": "#ff4b5053",
+  "themeName": "野性·夜间"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"野性·夜间"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/i8NZS0552aeh" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145229_8e26fa.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145229_8e26fa.png" alt="野性·夜间主题预览图1" loading="lazy">
+                    </a>
+                    <div class="image-caption">野性·夜间主题预览 - 1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145449_b90db4.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145449_b90db4.png" alt="野性·夜间主题预览图2" loading="lazy">
+                    </a>
+                    <div class="image-caption">野性·夜间主题预览 - 2</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145315_890d3d.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145315_890d3d.png" alt="野性·夜间主题预览图3" loading="lazy">
+                    </a>
+                    <div class="image-caption">野性·夜间主题预览 - 3</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145700_b12551.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145700_b12551.png" alt="野性·夜间主题预览图4" loading="lazy">
+                    </a>
+                    <div class="image-caption">野性·夜间主题预览 - 4</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145618_e0aaa3.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145618_e0aaa3.png" alt="野性·夜间主题预览图5" loading="lazy">
+                    </a>
+                    <div class="image-caption">野性·夜间主题预览 - 5</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145536_fc881f.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220502_145536_fc881f.png" alt="野性·夜间主题预览图6" loading="lazy">
+                    </a>
+                    <div class="image-caption">野性·夜间主题预览 - 6</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 野性·夜间主题 | 设计理念：野性、不羁、自由
+        </footer>
+    </div>
+    
+    <script>
+        // 页面加载动画 - 立即执行，不等待图片
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // 打字机效果 - 立即执行，不等待图片
+        const title = document.querySelector('h1');
+        const originalText = title.textContent;
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                title.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        setTimeout(typeWriter, 300);
+        
+        // 创建野性元素效果 - 立即执行，不等待图片
+        function createWildElement() {
+            const element = document.createElement('div');
+            element.classList.add('wild-element');
+            
+            // 随机大小 - 野性元素形状（不规则）
+            const size = Math.random() * 20 + 10;
+            
+            element.style.width = `${size}px`;
+            element.style.height = `${size}px`;
+            
+            // 野性颜色（深绿、深灰、深棕色调）
+            const colors = [
+                `rgba(46, 51, 50, ${Math.random() * 0.5 + 0.2})`, // 主题深绿色
+                `rgba(60, 65, 70, ${Math.random() * 0.4 + 0.15})`, // 深灰色
+                `rgba(80, 70, 60, ${Math.random() * 0.3 + 0.1})`, // 深棕色
+                `rgba(50, 60, 55, ${Math.random() * 0.4 + 0.15})`  // 深灰绿色
+            ];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // 创建不规则形状
+            element.style.backgroundColor = color;
+            element.style.borderRadius = getRandomBorderRadius();
+            
+            // 随机起始位置
+            element.style.left = `${Math.random() * 100}vw`;
+            element.style.top = `-20px`;
+            
+            document.body.appendChild(element);
+            
+            // 元素飘落动画
+            const duration = Math.random() * 18000 + 12000;
+            const endLeft = parseFloat(element.style.left) + (Math.random() * 60 - 30);
+            const rotate = Math.random() * 360; // 随机旋转角度
+            
+            element.animate([
+                { 
+                    transform: 'translateY(0) rotate(0deg)',
+                    opacity: 0.8
+                },
+                { 
+                    transform: `translateY(120vh) translateX(${endLeft - parseFloat(element.style.left)}vw) rotate(${rotate}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除元素
+            setTimeout(() => {
+                element.remove();
+            }, duration);
+        }
+        
+        // 创建火焰效果 - 立即执行，不等待图片
+        function createFlame() {
+            const flame = document.createElement('div');
+            flame.classList.add('flame-element');
+            
+            // 随机大小
+            const width = Math.random() * 40 + 20;
+            const height = width * 1.5;
+            
+            flame.style.width = `${width}px`;
+            flame.style.height = `${height}px`;
+            
+            // 创建火焰的形状
+            flame.style.background = `
+                radial-gradient(ellipse at 50% 20%, rgba(255, 100, 0, 0.1) 0%, rgba(255, 60, 0, 0) 60%),
+                radial-gradient(ellipse at 50% 40%, rgba(255, 80, 0, 0.08) 0%, rgba(255, 40, 0, 0) 70%)
+            `;
+            flame.style.borderRadius = '50% 50% 20% 20%';
+            
+            // 随机位置
+            flame.style.left = `${Math.random() * 100}vw`;
+            flame.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(flame);
+            
+            // 火焰闪烁动画
+            const duration = Math.random() * 25000 + 15000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            flame.animate([
+                { 
+                    transform: 'translate(0, 0) scale(0.8)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: 0.1
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(flame.style.left)}vw, ${endTop - parseFloat(flame.style.top)}vh) scale(1.2)`,
+                    opacity: 0.1
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(flame.style.left)}vw, ${endTop - parseFloat(flame.style.top)}vh) scale(0.8)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 闪烁效果
+            const flicker = () => {
+                const scale = 0.9 + Math.random() * 0.2;
+                flame.animate([
+                    { transform: `scale(${scale})` },
+                    { transform: `scale(${scale + 0.1})` },
+                    { transform: `scale(${scale})` }
+                ], {
+                    duration: 500 + Math.random() * 1000,
+                    easing: 'ease-in-out'
+                });
+                
+                setTimeout(flicker, 500 + Math.random() * 1500);
+            };
+            
+            flicker();
+            
+            // 从火焰飘出元素
+            const elementInterval = setInterval(() => {
+                createFlameElement(flame);
+            }, 1500);
+            
+            // 移除火焰
+            setTimeout(() => {
+                clearInterval(elementInterval);
+                flame.remove();
+            }, duration);
+        }
+        
+        // 创建野性簇效果 - 立即执行，不等待图片
+        function createWildCluster() {
+            const cluster = document.createElement('div');
+            cluster.classList.add('wild-cluster');
+            
+            // 随机大小
+            const width = Math.random() * 150 + 100;
+            const height = width * 0.8;
+            
+            cluster.style.width = `${width}px`;
+            cluster.style.height = `${height}px`;
+            
+            // 创建野性簇的形状
+            cluster.style.background = `
+                radial-gradient(ellipse at 50% 50%, rgba(46, 51, 50, 0.08) 0%, rgba(46, 51, 50, 0) 70%)
+            `;
+            cluster.style.borderRadius = '50%';
+            
+            // 随机位置
+            cluster.style.left = `${Math.random() * 100}vw`;
+            cluster.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(cluster);
+            
+            // 野性簇淡入淡出动画
+            const duration = Math.random() * 35000 + 25000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            cluster.animate([
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0.06
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(cluster.style.left)}vw, ${endTop - parseFloat(cluster.style.top)}vh)`,
+                    opacity: 0.06
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(cluster.style.left)}vw, ${endTop - parseFloat(cluster.style.top)}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 从野性簇飘出元素
+            const elementInterval = setInterval(() => {
+                createClusterElement(cluster);
+            }, 1000);
+            
+            // 移除野性簇
+            setTimeout(() => {
+                clearInterval(elementInterval);
+                cluster.remove();
+            }, duration);
+        }
+        
+        // 从火焰飘出的元素 - 立即执行，不等待图片
+        function createFlameElement(flameElement) {
+            const element = document.createElement('div');
+            element.classList.add('wild-element');
+            
+            // 小元素
+            const size = Math.random() * 15 + 8;
+            
+            element.style.width = `${size}px`;
+            element.style.height = `${size}px`;
+            
+            // 元素颜色
+            const opacity = Math.random() * 0.4 + 0.2;
+            element.style.backgroundColor = `rgba(46, 51, 50, ${opacity})`;
+            element.style.borderRadius = getRandomBorderRadius();
+            
+            // 从火焰位置开始
+            const flameLeft = parseFloat(flameElement.style.left);
+            const flameTop = parseFloat(flameElement.style.top);
+            const flameWidth = parseFloat(flameElement.style.width);
+            const flameHeight = parseFloat(flameElement.style.height);
+            
+            element.style.left = `${flameLeft + (Math.random() * flameWidth)}px`;
+            element.style.top = `${flameTop + (Math.random() * flameHeight)}px`;
+            
+            document.body.appendChild(element);
+            
+            // 元素飘落动画
+            const duration = Math.random() * 16000 + 11000;
+            const floatDistance = Math.random() * 130 + 70;
+            const floatLeft = (Math.random() * 100 - 50);
+            const rotate = Math.random() * 360;
+            
+            element.animate([
+                { 
+                    transform: 'translate(0, 0) rotate(0deg)',
+                    opacity: 0.8
+                },
+                { 
+                    transform: `translate(${floatLeft}px, ${floatDistance}vh) rotate(${rotate}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除元素
+            setTimeout(() => {
+                element.remove();
+            }, duration);
+        }
+        
+        // 从野性簇飘出的元素 - 立即执行，不等待图片
+        function createClusterElement(clusterElement) {
+            const elementCount = Math.floor(Math.random() * 5) + 3;
+            
+            for(let i = 0; i < elementCount; i++) {
+                setTimeout(() => {
+                    const element = document.createElement('div');
+                    element.classList.add('wild-element');
+                    
+                    // 小元素
+                    const size = Math.random() * 12 + 6;
+                    
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                    
+                    // 元素颜色
+                    const opacity = Math.random() * 0.3 + 0.15;
+                    element.style.backgroundColor = `rgba(46, 51, 50, ${opacity})`;
+                    element.style.borderRadius = getRandomBorderRadius();
+                    
+                    // 从野性簇位置开始
+                    const clusterLeft = parseFloat(clusterElement.style.left);
+                    const clusterTop = parseFloat(clusterElement.style.top);
+                    const clusterWidth = parseFloat(clusterElement.style.width);
+                    const clusterHeight = parseFloat(clusterElement.style.height);
+                    
+                    element.style.left = `${clusterLeft + (Math.random() * clusterWidth)}px`;
+                    element.style.top = `${clusterTop + (Math.random() * clusterHeight)}px`;
+                    
+                    document.body.appendChild(element);
+                    
+                    // 元素飘落动画
+                    const duration = Math.random() * 14000 + 9000;
+                    const floatDistance = Math.random() * 120 + 60;
+                    const floatLeft = (Math.random() * 80 - 40);
+                    const rotate = Math.random() * 360;
+                    
+                    element.animate([
+                        { 
+                            transform: 'translate(0, 0) rotate(0deg)',
+                            opacity: opacity * 2
+                        },
+                        { 
+                            transform: `translate(${floatLeft}px, ${floatDistance}vh) rotate(${rotate}deg)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                    });
+                    
+                    // 移除元素
+                    setTimeout(() => {
+                        element.remove();
+                    }, duration);
+                }, i * 300);
+            }
+        }
+        
+        // 生成随机边框半径函数
+        function getRandomBorderRadius() {
+            const values = [];
+            for(let i = 0; i < 4; i++) {
+                values.push(`${Math.random() * 50 + 10}% ${Math.random() * 50 + 10}%`);
+            }
+            return values.join(' ');
+        }
+        
+        // 立即开始动画，不等待图片加载
+        // 每2秒创建一个飘落的野性元素
+        setInterval(createWildElement, 2000);
+        
+        // 每30秒创建一个火焰
+        setInterval(createFlame, 30000);
+        
+        // 每45秒创建一个野性簇
+        setInterval(createWildCluster, 45000);
+        
+        // 初始化创建一些元素
+        for(let i = 0; i < 20; i++) {
+            setTimeout(() => createWildElement(), i * 400);
+        }
+        
+        // 初始化创建一个火焰
+        setTimeout(() => createFlame(), 10000);
+        
+        // 初始化创建一个野性簇
+        setTimeout(() => createWildCluster(), 20000);
+        
+        // 图片悬停效果增强 - 等DOMContentLoaded完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(46, 51, 50, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.2)';
+                });
+            });
+            
+            // 为图片添加懒加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 添加加载失败处理
+                img.addEventListener('error', function() {
+                    this.style.backgroundColor = '#2a2f35';
+                    this.style.padding = '20px';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.style.minHeight = '200px';
+                    
+                    // 创建一个替代文本
+                    const altText = document.createElement('div');
+                    altText.textContent = this.alt || '图片加载失败';
+                    altText.style.color = '#666';
+                    altText.style.fontSize = '14px';
+                    
+                    // 清空图片内容并添加替代文本
+                    this.parentNode.replaceChild(altText, this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
