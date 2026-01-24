@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>荷花</title>
+    <!-- Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f7f0;
+            color: #39534a;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-image: linear-gradient(to bottom, #f0f7f0 0%, #e8f3e8 100%);
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-top: 20px;
+            border: 1px solid rgba(57, 83, 74, 0.1);
+        }
+        
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #39534a;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: 1px solid #a8d5b2;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            background-color: #e8f3e8;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background-color: #39534a;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(57, 83, 74, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #2a7d62;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #a8d5b2, transparent);
+            margin: 40px 0;
+        }
+        
+        /* 诗歌区域 */
+        .poem-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background-color: #f5faf5;
+            border-radius: 10px;
+            border-left: 4px solid #2a7d62;
+        }
+        
+        .poem-text {
+            font-size: 1.6rem;
+            color: #39534a;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-family: 'STKaiti', 'SimSun', serif;
+        }
+        
+        .poem-author {
+            color: #6a8c7a;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+        
+        /* 下载区域 */
+        .download-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 25px;
+            background-color: #f5faf5;
+            border-radius: 10px;
+        }
+        
+        .download-section p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #39534a;
+        }
+        
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #2a7d62;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+            border: 1px solid #a8d5b2;
+            border-radius: 30px;
+            background-color: #e8f3e8;
+            transition: all 0.3s ease;
+        }
+        
+        .download-link:hover {
+            background-color: #2a7d62;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 125, 98, 0.2);
+        }
+        
+        .color-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #6a8c7a;
+        }
+        
+        /* 图片展示区域 */
+        .image-section {
+            margin: 40px 0;
+        }
+        
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .image-item {
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #f5faf5;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            max-width: 100%;
+        }
+        
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-item img:hover {
+            transform: scale(1.03);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #39534a;
+            background-color: #f5faf5;
+        }
+        
+        /* 小图标样式 */
+        .small-icon {
+            max-width: 100px;
+            margin: 0 auto;
+        }
+        
+        .main-image {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #a8d5b2;
+            color: #6a8c7a;
+            font-size: 0.9rem;
+        }
+        
+        /* 荷花装饰 */
+        .lotus-decoration {
+            text-align: center;
+            margin: 30px 0;
+            color: #2a7d62;
+        }
+        
+        .lotus-decoration i {
+            font-size: 1.8rem;
+            margin: 0 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .lotus-decoration i:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .lotus-decoration i:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .poem-text {
+                font-size: 1.3rem;
+            }
+            
+            .image-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .image-item {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+        
+        /* 图片加载占位符 */
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(90deg, #e8f3e8 25%, #d4e8d4 50%, #e8f3e8 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        .main-placeholder {
+            height: 500px;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <!-- 荷花装饰 -->
+        <div class="lotus-decoration">
+            <i class="fas fa-leaf"></i>
+            <i class="fas fa-water"></i>
+            <i class="fas fa-leaf"></i>
+        </div>
+        
+        <header>
+            <h1>荷花</h1>
+        </header>
+        
+        <div class="divider"></div>
+        
+        <!-- 诗歌区域 -->
+        <div class="poem-section">
+            <div class="poem-text">" 惟有绿荷红菡萏，卷舒开合任天真。 "</div>
+            <div class="poem-author">—— 李商隐《赠荷花》</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 下载区域 -->
+        <div class="download-section">
+            <p>排版下载：</p>
+            <a href="https://moshanging.lanzout.com/iYiK00ykolyj" class="download-link" target="_blank">
+                <i class="fas fa-download"></i> moshanging.lanzout.com
+            </a>
+            <div class="color-info">字色：39534A</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 图片展示区域 -->
+        <div class="image-section">
+            <div class="image-container">
+                <!-- 第一张图片（小图标） -->
+                <div class="image-item small-icon">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/0b9ddd5340e45a3067d13d323e49cfb6.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder1"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/0b9ddd5340e45a3067d13d323e49cfb6.png" 
+                             alt="荷花图标1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder1')">
+                    </a>
+                    <div class="image-caption">荷花装饰图标</div>
+                </div>
+                
+                <!-- 第二张图片（主图） -->
+                <div class="image-item main-image">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005221-533912.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder main-placeholder" id="placeholder2"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005221-533912.jpeg" 
+                             alt="荷花主图" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder2')">
+                    </a>
+                    <div class="image-caption">荷花盛开</div>
+                </div>
+                
+                <!-- 第三张图片（小图标） -->
+                <div class="image-item small-icon">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/荷花.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder3"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/荷花.png" 
+                             alt="荷花图标2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder3')">
+                    </a>
+                    <div class="image-caption">荷花元素图标</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 荷花描述 -->
+        <div class="poem-section">
+            <div class="poem-text">荷花，出淤泥而不染，濯清涟而不妖</div>
+            <div class="poem-text">象征着纯洁、高雅与清新脱俗</div>
+            <div class="poem-text">在炎炎夏日中绽放，为世界带来一丝清凉</div>
+        </div>
+        
+        <footer>
+            <p>兮心阅读 © 荷花 | 出淤泥而不染，濯清涟而不妖</p>
+        </footer>
+    </div>
+
+    <script>
+        // 图片加载完成后的处理
+        function imageLoaded(imgElement, placeholderId) {
+            // 添加loaded类触发动画
+            imgElement.classList.add('loaded');
+            
+            // 移除占位符
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+            
+            // 确保图片显示
+            imgElement.style.opacity = '1';
+            imgElement.style.transform = 'translateY(0)';
+        }
+        
+        // 为图片添加错误处理
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.image-item img');
+            
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.error('图片加载失败:', this.src);
+                    // 可以在这里显示一个错误占位符
+                    const placeholderId = this.getAttribute('onload').match(/imageLoaded\(this, '(\w+)'\)/)[1];
+                    const placeholder = document.getElementById(placeholderId);
+                    if (placeholder) {
+                        placeholder.innerHTML = '<div style="text-align:center; padding: 50px; color: #2a7d62;">图片加载失败</div>';
+                        placeholder.style.background = '#e8f3e8';
+                        placeholder.style.animation = 'none';
+                    }
+                });
+            });
+            
+            // 优化图片加载 - 使用Intersection Observer API实现懒加载
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                // 为所有图片添加观察
+                const images = document.querySelectorAll('.image-item img');
+                images.forEach(img => {
+                    if (img.getAttribute('loading') !== 'lazy') {
+                        img.setAttribute('loading', 'lazy');
+                    }
+                    imageObserver.observe(img);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
