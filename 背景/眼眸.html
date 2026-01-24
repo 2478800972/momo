@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>眼眸</title>
+    <!-- Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a1a;
+            color: #e0e0ff;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-image: radial-gradient(circle at 20% 30%, rgba(32, 32, 64, 0.8) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 70%, rgba(64, 64, 128, 0.6) 0%, transparent 50%);
+        }
+        
+        .container {
+            background-color: rgba(16, 16, 32, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            margin-top: 20px;
+            border: 1px solid rgba(64, 64, 128, 0.3);
+        }
+        
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #8a8aff;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: 1px solid rgba(138, 138, 255, 0.3);
+            border-radius: 30px;
+            margin-bottom: 30px;
+            background-color: rgba(32, 32, 64, 0.5);
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background-color: #8a8aff;
+            color: #0a0a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(138, 138, 255, 0.3);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(64, 64, 128, 0.5);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #a0a0ff;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(160, 160, 255, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #c0c0ff;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle-en {
+            font-size: 1.2rem;
+            color: #8a8aff;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #8a8aff, transparent);
+            margin: 40px 0;
+        }
+        
+        /* 图片展示区域 */
+        .image-section {
+            margin-bottom: 50px;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .image-item {
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(32, 32, 64, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(138, 138, 255, 0.2);
+        }
+        
+        .image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+        
+        .image-item img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #c0c0ff;
+            background-color: rgba(32, 32, 64, 0.8);
+        }
+        
+        /* 星空装饰 */
+        .stars-decoration {
+            text-align: center;
+            margin: 30px 0;
+            color: #8a8aff;
+        }
+        
+        .stars-decoration i {
+            font-size: 1.5rem;
+            margin: 0 8px;
+            animation: twinkle 3s infinite;
+        }
+        
+        .stars-decoration i:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .stars-decoration i:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* 主题诗句 */
+        .theme-poem {
+            background-color: rgba(32, 32, 64, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border-left: 4px solid #8a8aff;
+        }
+        
+        .poem-line {
+            font-size: 1.5rem;
+            color: #c0c0ff;
+            margin: 15px 0;
+            font-family: 'STKaiti', 'SimSun', serif;
+        }
+        
+        .poem-line-en {
+            font-size: 1.2rem;
+            color: #8a8aff;
+            margin: 10px 0;
+            font-style: italic;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(64, 64, 128, 0.5);
+            color: #8a8aff;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .subtitle-en {
+                font-size: 1rem;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .poem-line {
+                font-size: 1.2rem;
+            }
+            
+            .poem-line-en {
+                font-size: 1rem;
+            }
+        }
+        
+        /* 图片加载占位符 */
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(90deg, rgba(32, 32, 64, 0.8) 25%, rgba(64, 64, 128, 0.8) 50%, rgba(32, 32, 64, 0.8) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        
+        /* 星空背景效果 */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <!-- 星空装饰 -->
+        <div class="stars-decoration">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+        </div>
+        
+        <header>
+            <h1>眼眸</h1>
+            <div class="subtitle">眼眸有星辰，心中有大海。</div>
+            <div class="subtitle-en">There are stars in the eyes, and the sea in the heart.</div>
+        </header>
+        
+        <!-- 主题诗句 -->
+        <div class="theme-poem">
+            <div class="poem-line">眼眸深处藏着星辰大海</div>
+            <div class="poem-line">每一道目光都是宇宙的窗口</div>
+            <div class="poem-line-en">Eyes hold the universe within</div>
+            <div class="poem-line-en">Every gaze is a window to the cosmos</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 图片展示区域 -->
+        <div class="image-section">
+            <div class="image-grid">
+                <!-- 第一张图片 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005019-c33ca3.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder1"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005019-c33ca3.jpeg" 
+                             alt="眼眸图片1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder1')">
+                    </a>
+                    <div class="image-caption">星辰眼眸</div>
+                </div>
+                
+                <!-- 第二张图片 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005021-36f42b.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder2"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005021-36f42b.jpeg" 
+                             alt="眼眸图片2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder2')">
+                    </a>
+                    <div class="image-caption">深邃目光</div>
+                </div>
+                
+                <!-- 第三张图片 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景111.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder3"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景111.png" 
+                             alt="眼眸背景1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder3')">
+                    </a>
+                    <div class="image-caption">星辰背景</div>
+                </div>
+                
+                <!-- 第四张图片 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景181.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder4"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景181.png" 
+                             alt="眼眸背景2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder4')">
+                    </a>
+                    <div class="image-caption">宇宙之眼</div>
+                </div>
+                
+                <!-- 第五张图片 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景182.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder5"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景182.png" 
+                             alt="眼眸背景3" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder5')">
+                    </a>
+                    <div class="image-caption">星光闪烁</div>
+                </div>
+                
+                <!-- 第六张图片 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景183.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder6"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景183.png" 
+                             alt="眼眸背景4" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder6')">
+                    </a>
+                    <div class="image-caption">深邃星空</div>
+                </div>
+                
+                <!-- 第七张图片 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景184.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder7"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景184.png" 
+                             alt="眼眸背景5" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder7')">
+                    </a>
+                    <div class="image-caption">星辰大海</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 结束语 -->
+        <div class="theme-poem">
+            <div class="poem-line">眼眸是灵魂的窗户</div>
+            <div class="poem-line">映照着内心的星辰大海</div>
+            <div class="poem-line-en">Eyes are the windows to the soul</div>
+            <div class="poem-line-en">Reflecting the stars and sea within</div>
+        </div>
+        
+        <footer>
+            <p>兮心阅读 © 眼眸 | 眼眸有星辰，心中有大海</p>
+        </footer>
+    </div>
+
+    <script>
+        // 图片加载完成后的处理
+        function imageLoaded(imgElement, placeholderId) {
+            // 添加loaded类触发动画
+            imgElement.classList.add('loaded');
+            
+            // 移除占位符
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+            
+            // 确保图片显示
+            imgElement.style.opacity = '1';
+            imgElement.style.transform = 'translateY(0)';
+        }
+        
+        // 为图片添加错误处理
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.image-item img');
+            
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.error('图片加载失败:', this.src);
+                    // 可以在这里显示一个错误占位符
+                    const placeholderId = this.getAttribute('onload').match(/imageLoaded\(this, '(\w+)'\)/)[1];
+                    const placeholder = document.getElementById(placeholderId);
+                    if (placeholder) {
+                        placeholder.innerHTML = '<div style="text-align:center; padding: 50px; color: #8a8aff;">图片加载失败</div>';
+                        placeholder.style.background = 'rgba(32, 32, 64, 0.8)';
+                        placeholder.style.animation = 'none';
+                    }
+                });
+            });
+            
+            // 优化图片加载 - 使用Intersection Observer API实现懒加载
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                // 为所有图片添加观察
+                const images = document.querySelectorAll('.image-item img');
+                images.forEach(img => {
+                    if (img.getAttribute('loading') !== 'lazy') {
+                        img.setAttribute('loading', 'lazy');
+                    }
+                    imageObserver.observe(img);
+                });
+            }
+        });
+        
+        // 创建星空背景效果
+        function createStars() {
+            const starCount = 50;
+            const body = document.body;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // 随机位置
+                const leftPos = Math.random() * 100;
+                const topPos = Math.random() * 100;
+                star.style.left = `${leftPos}vw`;
+                star.style.top = `${topPos}vh`;
+                
+                // 随机大小
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 随机透明度
+                star.style.opacity = Math.random() * 0.8 + 0.2;
+                
+                // 随机闪烁动画
+                const duration = 2 + Math.random() * 3;
+                const delay = Math.random() * 2;
+                star.style.animation = `twinkle ${duration}s ease-in-out ${delay}s infinite`;
+                
+                body.appendChild(star);
+            }
+        }
+        
+        // 页面加载完成后创建星空
+        document.addEventListener('DOMContentLoaded', createStars);
+    </script>
+</body>
+</html>
