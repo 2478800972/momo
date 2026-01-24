@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读背景『集合·摆烂』</title>
+    <!-- Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-top: 20px;
+        }
+        
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2e7d32;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: 1px solid #c8e6c9;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            background-color: #f1f8e9;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background-color: #2e7d32;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* 分割线样式 */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #c8e6c9, transparent);
+            margin: 40px 0;
+        }
+        
+        /* 章节样式 */
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #388e3c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: #66bb6a;
+        }
+        
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1b5e20;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border: 1px solid #a5d6a7;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            background-color: #e8f5e9;
+            transition: all 0.3s ease;
+        }
+        
+        .download-link:hover {
+            background-color: #c8e6c9;
+            transform: translateY(-2px);
+        }
+        
+        /* 图片容器样式 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .image-item {
+            text-align: center;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-item img:hover {
+            transform: scale(1.03);
+        }
+        
+        .image-caption {
+            padding: 12px;
+            font-size: 0.9rem;
+            color: #555;
+            background-color: #f9f9f9;
+        }
+        
+        /* 诗句样式 */
+        .poem-section {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+            border-left: 4px solid #66bb6a;
+        }
+        
+        .poem-text {
+            font-size: 1.4rem;
+            color: #2e7d32;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-family: 'STKaiti', 'SimSun', serif;
+        }
+        
+        .poem-source {
+            color: #666;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .poem-text {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* 图片加载占位符 */
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>阅读背景『集合·摆烂』</h1>
+            <div class="subtitle">收集美好阅读背景，为你的阅读时光增添色彩</div>
+        </header>
+        
+        <!-- 绿色部分 -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-leaf"></i> 绿色</h2>
+            <p>排版：</p>
+            <a href="https://moshanging.lanzout.com/isHGL1oowdej" class="download-link" target="_blank">
+                <i class="fas fa-download"></i> 绿色.zip - 蓝奏云
+            </a>
+            
+            <div class="image-grid">
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-001245-a28d63.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="green-placeholder1"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-001245-a28d63.jpeg" 
+                             alt="绿色背景1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'green-placeholder1')">
+                    </a>
+                    <div class="image-caption">清新绿色阅读背景</div>
+                </div>
+                
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景637.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="green-placeholder2"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景637.png" 
+                             alt="绿色背景2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'green-placeholder2')">
+                    </a>
+                    <div class="image-caption">自然绿色纹理背景</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <!-- 春日部分 -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-sun"></i> 春日</h2>
+            <p>排版：</p>
+            <a href="https://moshanging.lanzout.com/iah2r1oow1ud" class="download-link" target="_blank">
+                <i class="fas fa-download"></i> 春日.zip - 蓝奏云
+            </a>
+            
+            <div class="image-grid">
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-001243-608a35.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="spring-placeholder1"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-001243-608a35.jpeg" 
+                             alt="春日背景1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'spring-placeholder1')">
+                    </a>
+                    <div class="image-caption">春日清新背景</div>
+                </div>
+                
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景638.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="spring-placeholder2"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景638.png" 
+                             alt="春日背景2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'spring-placeholder2')">
+                    </a>
+                    <div class="image-caption">春日花朵背景</div>
+                </div>
+                
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景639.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="spring-placeholder3"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景639.png" 
+                             alt="春日背景3" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'spring-placeholder3')">
+                    </a>
+                    <div class="image-caption">春日绿意背景</div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <!-- 阅读背景部分 -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> 阅读背景『背景』</h2>
+            
+            <div class="poem-section">
+                <div class="poem-text">你且听这荒唐 春秋走来一步步</div>
+                <div class="poem-text">你且迷这风浪 永远二十赶朝暮</div>
+                <div class="poem-source">—— 阅读背景诗意</div>
+            </div>
+            
+            <div class="image-grid">
+                <!-- 调整顺序：原来的第三和第四个放到第一和第二位置 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-001738-502898.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="read-placeholder1"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-001738-502898.jpeg" 
+                             alt="阅读背景3" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'read-placeholder1')">
+                    </a>
+                    <div class="image-caption">质感阅读背景</div>
+                </div>
+                
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-001742-c8f218.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="read-placeholder2"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-001742-c8f218.jpeg" 
+                             alt="阅读背景4" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'read-placeholder2')">
+                    </a>
+                    <div class="image-caption">典雅阅读背景</div>
+                </div>
+                
+                <!-- 原来的第一和第二个放到第三和第四位置 -->
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景651.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="read-placeholder3"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景651.png" 
+                             alt="阅读背景1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'read-placeholder3')">
+                    </a>
+                    <div class="image-caption">简约阅读背景</div>
+                </div>
+                
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景650.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="read-placeholder4"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景650.png" 
+                             alt="阅读背景2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'read-placeholder4')">
+                    </a>
+                    <div class="image-caption">文艺阅读背景</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <!-- 修改页脚文字 -->
+            <p>兮心阅读 © 阅读背景『集合·摆烂』| 收集美好，分享阅读时光</p>
+        </footer>
+    </div>
+
+    <script>
+        // 图片加载完成后的处理
+        function imageLoaded(imgElement, placeholderId) {
+            // 添加loaded类触发动画
+            imgElement.classList.add('loaded');
+            
+            // 移除占位符
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+            
+            // 确保图片显示
+            imgElement.style.opacity = '1';
+            imgElement.style.transform = 'translateY(0)';
+        }
+        
+        // 为图片添加错误处理
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.image-item img');
+            
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.error('图片加载失败:', this.src);
+                    // 可以在这里显示一个错误占位符
+                    const placeholderId = this.getAttribute('onload').match(/imageLoaded\(this, '(\w+)'\)/)[1];
+                    const placeholder = document.getElementById(placeholderId);
+                    if (placeholder) {
+                        placeholder.innerHTML = '<div style="text-align:center; padding: 50px; color: #2e7d32;">图片加载失败</div>';
+                        placeholder.style.background = '#f1f8e9';
+                        placeholder.style.animation = 'none';
+                    }
+                });
+            });
+            
+            // 优化图片加载 - 使用Intersection Observer API实现懒加载
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                // 为所有图片添加观察
+                const images = document.querySelectorAll('.image-item img');
+                images.forEach(img => {
+                    if (img.getAttribute('loading') !== 'lazy') {
+                        img.setAttribute('loading', 'lazy');
+                    }
+                    imageObserver.observe(img);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
