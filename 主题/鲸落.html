@@ -440,31 +440,31 @@
             <div class="image-gallery">
                 <div class="gallery-item">
                     <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220053.png" target="_blank">
-                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220053.png" alt="鲸落主题预览图1">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220053.png" alt="鲸落主题预览图1" loading="lazy">
                     </a>
                     <div class="image-caption">鲸落主题预览 - 1</div>
                 </div>
                 <div class="gallery-item">
                     <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220237.png" target="_blank">
-                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220237.png" alt="鲸落主题预览图2">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220237.png" alt="鲸落主题预览图2" loading="lazy">
                     </a>
                     <div class="image-caption">鲸落主题预览 - 2</div>
                 </div>
                 <div class="gallery-item">
                     <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220417.png" target="_blank">
-                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220417.png" alt="鲸落主题预览图3">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220417.png" alt="鲸落主题预览图3" loading="lazy">
                     </a>
                     <div class="image-caption">鲸落主题预览 - 3</div>
                 </div>
                 <div class="gallery-item">
                     <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220541.png" target="_blank">
-                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220541.png" alt="鲸落主题预览图4">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220541.png" alt="鲸落主题预览图4" loading="lazy">
                     </a>
                     <div class="image-caption">鲸落主题预览 - 4</div>
                 </div>
                 <div class="gallery-item">
                     <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220627.png" target="_blank">
-                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220627.png" alt="鲸落主题预览图5">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230817_220627.png" alt="鲸落主题预览图5" loading="lazy">
                     </a>
                     <div class="image-caption">鲸落主题预览 - 5</div>
                 </div>
@@ -477,32 +477,193 @@
     </div>
     
     <script>
-        window.addEventListener('load', function() {
-            // 页面加载动画
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-            
-            // 打字机效果
-            const title = document.querySelector('h1');
-            const originalText = title.textContent;
-            title.textContent = '';
-            
-            let i = 0;
-            function typeWriter() {
-                if (i < originalText.length) {
-                    title.textContent += originalText.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100);
-                }
+        // 页面加载动画 - 立即执行，不等待图片
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // 打字机效果 - 立即执行，不等待图片
+        const title = document.querySelector('h1');
+        const originalText = title.textContent;
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                title.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
             }
+        }
+        
+        setTimeout(typeWriter, 300);
+        
+        // 创建海洋气泡效果 - 立即执行，不等待图片
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
             
-            setTimeout(typeWriter, 300);
+            // 随机大小
+            const size = Math.random() * 40 + 10;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
             
-            // 图片悬停效果增强
+            // 随机起始位置
+            bubble.style.left = `${Math.random() * 100}vw`;
+            bubble.style.top = `100vh`;
+            
+            document.body.appendChild(bubble);
+            
+            // 气泡上浮动画
+            const duration = Math.random() * 15000 + 10000;
+            const endTop = Math.random() * 100;
+            
+            bubble.animate([
+                { 
+                    transform: 'translateY(0)',
+                    opacity: 0.5
+                },
+                { 
+                    transform: `translateY(-${100 + endTop}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除气泡
+            setTimeout(() => {
+                bubble.remove();
+            }, duration);
+        }
+        
+        // 创建鲸鱼效果 - 立即执行，不等待图片
+        function createWhale() {
+            const whale = document.createElement('div');
+            whale.classList.add('whale');
+            
+            // 随机大小
+            const width = Math.random() * 80 + 120;
+            const height = width / 2;
+            
+            whale.style.width = `${width}px`;
+            whale.style.height = `${height}px`;
+            
+            // 随机起始位置
+            whale.style.left = `${Math.random() * 100}vw`;
+            whale.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(whale);
+            
+            // 鲸鱼游动动画
+            const duration = Math.random() * 30000 + 20000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            whale.animate([
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0.05
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(whale.style.left)}vw, ${endTop - parseFloat(whale.style.top)}vh)`,
+                    opacity: 0.05
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(whale.style.left)}vw, ${endTop - parseFloat(whale.style.top)}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 在鲸鱼游动时创建气泡
+            const bubbleInterval = setInterval(() => {
+                createWhaleBubble(whale);
+            }, 1000);
+            
+            // 移除鲸鱼
+            setTimeout(() => {
+                clearInterval(bubbleInterval);
+                whale.remove();
+            }, duration);
+        }
+        
+        // 创建鲸鱼气泡效果 - 立即执行，不等待图片
+        function createWhaleBubble(whaleElement) {
+            const bubbleCount = Math.floor(Math.random() * 5) + 3;
+            
+            for(let i = 0; i < bubbleCount; i++) {
+                setTimeout(() => {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble');
+                    
+                    // 小气泡
+                    const size = Math.random() * 15 + 5;
+                    bubble.style.width = `${size}px`;
+                    bubble.style.height = `${size}px`;
+                    
+                    // 在鲸鱼位置附近
+                    const whaleLeft = parseFloat(whaleElement.style.left);
+                    const whaleTop = parseFloat(whaleElement.style.top);
+                    
+                    bubble.style.left = `${whaleLeft + (Math.random() * 50 - 25)}vw`;
+                    bubble.style.top = `${whaleTop + (Math.random() * 30 - 15)}vh`;
+                    
+                    document.body.appendChild(bubble);
+                    
+                    // 气泡上浮动画
+                    const duration = Math.random() * 8000 + 5000;
+                    const floatDistance = Math.random() * 50 + 30;
+                    
+                    bubble.animate([
+                        { 
+                            transform: 'translateY(0)',
+                            opacity: 0.3
+                        },
+                        { 
+                            transform: `translateY(-${floatDistance}vh)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                    });
+                    
+                    // 移除气泡
+                    setTimeout(() => {
+                        bubble.remove();
+                    }, duration);
+                }, i * 100);
+            }
+        }
+        
+        // 立即开始动画，不等待图片加载
+        // 每3秒创建一个气泡
+        setInterval(createBubble, 3000);
+        
+        // 每30秒创建一条鲸鱼
+        setInterval(createWhale, 30000);
+        
+        // 初始化创建一些气泡
+        for(let i = 0; i < 20; i++) {
+            setTimeout(() => createBubble(), i * 300);
+        }
+        
+        // 初始化创建一条鲸鱼
+        setTimeout(() => createWhale(), 5000);
+        
+        // 图片悬停效果增强 - 等DOMContentLoaded完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
             const galleryItems = document.querySelectorAll('.gallery-item');
             galleryItems.forEach(item => {
                 item.addEventListener('mouseenter', function() {
@@ -514,165 +675,28 @@
                 });
             });
             
-            // 创建海洋气泡效果
-            function createBubble() {
-                const bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-                
-                // 随机大小
-                const size = Math.random() * 40 + 10;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                
-                // 随机起始位置
-                bubble.style.left = `${Math.random() * 100}vw`;
-                bubble.style.top = `100vh`;
-                
-                document.body.appendChild(bubble);
-                
-                // 气泡上浮动画
-                const duration = Math.random() * 15000 + 10000;
-                const endTop = Math.random() * 100;
-                
-                bubble.animate([
-                    { 
-                        transform: 'translateY(0)',
-                        opacity: 0.5
-                    },
-                    { 
-                        transform: `translateY(-${100 + endTop}vh)`,
-                        opacity: 0
-                    }
-                ], {
-                    duration: duration,
-                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            // 为图片添加懒加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 添加加载失败处理
+                img.addEventListener('error', function() {
+                    this.style.backgroundColor = '#f5f5f5';
+                    this.style.padding = '20px';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.style.minHeight = '200px';
+                    
+                    // 创建一个替代文本
+                    const altText = document.createElement('div');
+                    altText.textContent = this.alt || '图片加载失败';
+                    altText.style.color = '#666';
+                    altText.style.fontSize = '14px';
+                    
+                    // 清空图片内容并添加替代文本
+                    this.parentNode.replaceChild(altText, this);
                 });
-                
-                // 移除气泡
-                setTimeout(() => {
-                    bubble.remove();
-                }, duration);
-            }
-            
-            // 创建鲸鱼效果
-            function createWhale() {
-                const whale = document.createElement('div');
-                whale.classList.add('whale');
-                
-                // 随机大小
-                const width = Math.random() * 80 + 120;
-                const height = width / 2;
-                
-                whale.style.width = `${width}px`;
-                whale.style.height = `${height}px`;
-                
-                // 随机起始位置
-                whale.style.left = `${Math.random() * 100}vw`;
-                whale.style.top = `${Math.random() * 100}vh`;
-                
-                document.body.appendChild(whale);
-                
-                // 鲸鱼游动动画
-                const duration = Math.random() * 30000 + 20000;
-                const endLeft = Math.random() * 100;
-                const endTop = Math.random() * 100;
-                
-                whale.animate([
-                    { 
-                        transform: 'translate(0, 0)',
-                        opacity: 0
-                    },
-                    { 
-                        transform: 'translate(0, 0)',
-                        opacity: 0.05
-                    },
-                    { 
-                        transform: `translate(${endLeft - parseFloat(whale.style.left)}vw, ${endTop - parseFloat(whale.style.top)}vh)`,
-                        opacity: 0.05
-                    },
-                    { 
-                        transform: `translate(${endLeft - parseFloat(whale.style.left)}vw, ${endTop - parseFloat(whale.style.top)}vh)`,
-                        opacity: 0
-                    }
-                ], {
-                    duration: duration,
-                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-                });
-                
-                // 在鲸鱼游动时创建气泡
-                const bubbleInterval = setInterval(() => {
-                    createWhaleBubble(whale);
-                }, 1000);
-                
-                // 移除鲸鱼
-                setTimeout(() => {
-                    clearInterval(bubbleInterval);
-                    whale.remove();
-                }, duration);
-            }
-            
-            // 创建鲸鱼气泡效果
-            function createWhaleBubble(whaleElement) {
-                const bubbleCount = Math.floor(Math.random() * 5) + 3;
-                
-                for(let i = 0; i < bubbleCount; i++) {
-                    setTimeout(() => {
-                        const bubble = document.createElement('div');
-                        bubble.classList.add('bubble');
-                        
-                        // 小气泡
-                        const size = Math.random() * 15 + 5;
-                        bubble.style.width = `${size}px`;
-                        bubble.style.height = `${size}px`;
-                        
-                        // 在鲸鱼位置附近
-                        const whaleLeft = parseFloat(whaleElement.style.left);
-                        const whaleTop = parseFloat(whaleElement.style.top);
-                        
-                        bubble.style.left = `${whaleLeft + (Math.random() * 50 - 25)}vw`;
-                        bubble.style.top = `${whaleTop + (Math.random() * 30 - 15)}vh`;
-                        
-                        document.body.appendChild(bubble);
-                        
-                        // 气泡上浮动画
-                        const duration = Math.random() * 8000 + 5000;
-                        const floatDistance = Math.random() * 50 + 30;
-                        
-                        bubble.animate([
-                            { 
-                                transform: 'translateY(0)',
-                                opacity: 0.3
-                            },
-                            { 
-                                transform: `translateY(-${floatDistance}vh)`,
-                                opacity: 0
-                            }
-                        ], {
-                            duration: duration,
-                            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-                        });
-                        
-                        // 移除气泡
-                        setTimeout(() => {
-                            bubble.remove();
-                        }, duration);
-                    }, i * 100);
-                }
-            }
-            
-            // 每3秒创建一个气泡
-            setInterval(createBubble, 3000);
-            
-            // 每30秒创建一条鲸鱼
-            setInterval(createWhale, 30000);
-            
-            // 初始化创建一些气泡
-            for(let i = 0; i < 20; i++) {
-                setTimeout(() => createBubble(), i * 300);
-            }
-            
-            // 初始化创建一条鲸鱼
-            setTimeout(() => createWhale(), 5000);
+            });
         });
     </script>
 </body>
