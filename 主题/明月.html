@@ -14,9 +14,30 @@
         }
         
         body {
-            background-color: #ff191d23;
+            background: linear-gradient(135deg, #0c101b 0%, #1a1a2e 50%, #16213e 100%);
             color: #e0e0e0;
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        
+        /* 添加星空和月光纹理效果 */
+        body:before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 245, 230, 0.08) 0%, transparent 15%),
+                radial-gradient(circle at 80% 70%, rgba(255, 240, 220, 0.06) 0%, transparent 12%),
+                radial-gradient(circle at 40% 80%, rgba(255, 250, 240, 0.05) 0%, transparent 18%),
+                radial-gradient(circle at 60% 20%, rgba(245, 235, 210, 0.04) 0%, transparent 10%);
+            pointer-events: none;
+            z-index: -2;
         }
         
         .container {
@@ -24,6 +45,13 @@
             margin: 0 auto;
             padding: 20px;
             position: relative;
+            background-color: rgba(12, 16, 27, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 245, 230, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
         
         /* 返回按钮 */
@@ -31,14 +59,14 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background-color: #ff635d4a;
+            background: linear-gradient(135deg, #635d4a 0%, #8a7c65 100%);
             color: white;
             padding: 10px 20px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 500;
             z-index: 100;
-            box-shadow: 0 3px 10px rgba(99, 93, 74, 0.3);
+            box-shadow: 0 4px 15px rgba(99, 93, 74, 0.4);
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
@@ -46,9 +74,9 @@
         }
         
         .back-btn:hover {
-            background-color: #8a7c65;
+            background: linear-gradient(135deg, #8a7c65 0%, #9c8e77 100%);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(99, 93, 74, 0.4);
+            box-shadow: 0 6px 20px rgba(99, 93, 74, 0.5);
         }
         
         header {
@@ -65,6 +93,7 @@
             letter-spacing: 2px;
             position: relative;
             display: inline-block;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
         
         h1:after {
@@ -75,27 +104,28 @@
             transform: translateX(-50%);
             width: 120px;
             height: 4px;
-            background-color: #635d4a;
+            background: linear-gradient(to right, transparent, #635d4a, transparent);
             border-radius: 2px;
         }
         
         .subtitle {
             font-size: 1.2rem;
             margin-top: 25px;
-            color: #aaa;
+            color: #c0c0c0;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
         
         .theme-description {
-            background-color: rgba(30, 35, 45, 0.85);
+            background-color: rgba(20, 25, 40, 0.85);
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 40px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             text-align: center;
             border-left: 5px solid #635d4a;
+            border: 1px solid rgba(255, 245, 230, 0.1);
         }
         
         .theme-quote {
@@ -106,6 +136,7 @@
             margin-bottom: 20px;
             padding: 0 20px;
             font-style: italic;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
         
         .theme-insight {
@@ -128,10 +159,11 @@
         .config-card {
             flex: 1;
             min-width: 300px;
-            background-color: rgba(30, 35, 45, 0.85);
+            background-color: rgba(20, 25, 40, 0.85);
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 245, 230, 0.1);
         }
         
         .config-card h2 {
@@ -141,6 +173,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
         
         .config-card h2 i {
@@ -184,7 +217,7 @@
         }
         
         .json-code {
-            background-color: #2a2f3a;
+            background-color: rgba(15, 20, 35, 0.9);
             color: #e0e0e0;
             border-radius: 8px;
             padding: 20px;
@@ -192,23 +225,24 @@
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             line-height: 1.5;
-            border: 1px solid #3a3f4a;
+            border: 1px solid rgba(255, 245, 230, 0.1);
         }
         
         .download-section {
-            background-color: rgba(30, 35, 45, 0.85);
+            background-color: rgba(20, 25, 40, 0.85);
             border-radius: 12px;
             padding: 30px;
             text-align: center;
             margin-bottom: 50px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 245, 230, 0.1);
         }
         
         .download-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background-color: #635d4a;
+            background: linear-gradient(135deg, #635d4a 0%, #8a7c65 100%);
             color: white;
             padding: 15px 30px;
             border-radius: 50px;
@@ -217,24 +251,25 @@
             font-weight: 600;
             margin-top: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(99, 93, 74, 0.3);
+            box-shadow: 0 4px 20px rgba(99, 93, 74, 0.4);
         }
         
         .download-btn:hover {
-            background-color: #8a7c65;
+            background: linear-gradient(135deg, #8a7c65 0%, #9c8e77 100%);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(99, 93, 74, 0.4);
+            box-shadow: 0 6px 25px rgba(99, 93, 74, 0.5);
         }
         
         .external-link {
             display: inline-block;
             margin-top: 15px;
-            color: #635d4a;
+            color: #8a7c65;
             text-decoration: none;
             font-size: 0.95rem;
         }
         
         .external-link:hover {
+            color: #9c8e77;
             text-decoration: underline;
         }
         
@@ -247,6 +282,7 @@
             margin-bottom: 25px;
             color: #f5f0e6;
             text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
         
         .image-gallery {
@@ -258,15 +294,18 @@
         .gallery-item {
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-            background-color: #2a2f3a;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            background-color: rgba(25, 30, 45, 0.9);
             display: flex;
             flex-direction: column;
+            border: 1px solid rgba(255, 245, 230, 0.1);
         }
         
         .gallery-item:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(99, 93, 74, 0.2);
+            border-color: rgba(255, 245, 230, 0.2);
         }
         
         .gallery-item a {
@@ -307,12 +346,25 @@
             text-align: center;
             padding: 30px 0;
             color: #aaa;
-            border-top: 1px solid rgba(224, 224, 224, 0.1);
+            border-top: 1px solid rgba(255, 245, 230, 0.1);
             margin-top: 30px;
             font-size: 0.95rem;
+            background-color: rgba(15, 20, 35, 0.9);
+            border-radius: 0 0 16px 16px;
+            margin-bottom: 20px;
         }
         
         @media (max-width: 768px) {
+            body {
+                background: linear-gradient(135deg, #0c101b 0%, #1a1a2e 100%);
+            }
+            
+            body:before {
+                background-image: 
+                    radial-gradient(circle at 20% 30%, rgba(255, 245, 230, 0.1) 0%, transparent 20%),
+                    radial-gradient(circle at 80% 70%, rgba(255, 240, 220, 0.08) 0%, transparent 15%);
+            }
+            
             h1 {
                 font-size: 2.5rem;
             }
@@ -322,6 +374,12 @@
                 left: 15px;
                 padding: 8px 15px;
                 font-size: 0.9rem;
+            }
+            
+            .container {
+                backdrop-filter: blur(4px);
+                margin: 10px;
+                padding: 15px;
             }
             
             .theme-config {
@@ -357,6 +415,15 @@
             pointer-events: none;
             z-index: -1;
             opacity: 0;
+        }
+        
+        /* 增强月光和星星元素在深色背景下的可见性 */
+        .moonlight-element[style*="background: radial-gradient"] {
+            box-shadow: 0 0 60px rgba(255, 245, 230, 0.25);
+        }
+        
+        .star-element {
+            box-shadow: 0 0 12px rgba(255, 245, 230, 0.9);
         }
     </style>
 </head>
@@ -864,7 +931,7 @@
                 });
                 
                 item.addEventListener('mouseleave', function() {
-                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.2)';
+                    this.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
                 });
             });
             
