@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>明月主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #ff191d23;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff635d4a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(99, 93, 74, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #8a7c65;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 93, 74, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(224, 224, 224, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #f5f0e6;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #635d4a;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #aaa;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(30, 35, 45, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-left: 5px solid #635d4a;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #f5f0e6;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-insight {
+            font-size: 1rem;
+            color: #aaa;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 20px auto 0;
+            text-align: left;
+            padding: 0 10px;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(30, 35, 45, 0.85);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #f5f0e6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #635d4a;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .json-code {
+            background-color: #2a2f3a;
+            color: #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #3a3f4a;
+        }
+        
+        .download-section {
+            background-color: rgba(30, 35, 45, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #635d4a;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 93, 74, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #8a7c65;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 93, 74, 0.4);
+        }
+        
+        .external-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #635d4a;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .external-link:hover {
+            text-decoration: underline;
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #f5f0e6;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            background-color: #2a2f3a;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0c101b;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: #2a2f3a;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #aaa;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #aaa;
+            border-top: 1px solid rgba(224, 224, 224, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 明月主题效果 - 月光、星星元素 */
+        .moonlight-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .star-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .moon-cluster {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>明月</h1>
+            <p class="subtitle">"人世漫长得转瞬即逝，有人见尘埃，有人见星辰。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                人世漫长得转瞬即逝，有人见尘埃，有人见星辰。
+            </div>
+            <div class="theme-insight">
+                明月主题以深邃的夜空和皎洁的明月为设计灵感，融合了暗色系的背景与温暖的色调。深灰色的背景象征着宁静的夜空，米黄色的强调色如同温柔的月光，营造出沉静而富有诗意的阅读氛围，让人在阅读中感受时间的流转与宇宙的浩瀚。
+                <br><br>
+                这是一个夜间主题，采用深色背景和柔和的对比色彩搭配，适合在光线较暗的环境中使用，可以有效减少眼睛疲劳，让你沉浸在宁静深邃的阅读氛围中。
+            </div>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff635d4a;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff635d4a</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff191d23;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ff191d23</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff0c101b;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ff0c101b</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff0c101b;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ff0c101b</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #2a2f3a;"></div>
+                        <div class="color-info">
+                            <span class="color-name">夜间主题</span>
+                            <span class="color-value">isNightTheme: true</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ff635d4a",
+  "backgroundColor": "#ff191d23",
+  "bottomBackground": "#ff0c101b",
+  "isNightTheme": true,
+  "primaryColor": "#ff0c101b",
+  "themeName": "明月"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"明月"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/iN3vA055428f" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220517_181105.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220517_181105.png" alt="明月主题预览图1" loading="lazy">
+                    </a>
+                    <div class="image-caption">明月主题预览 - 1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220517_181144.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220517_181144.png" alt="明月主题预览图2" loading="lazy">
+                    </a>
+                    <div class="image-caption">明月主题预览 - 2</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220517_181219.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220517_181219.png" alt="明月主题预览图3" loading="lazy">
+                    </a>
+                    <div class="image-caption">明月主题预览 - 3</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220517_181258.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220517_181258.png" alt="明月主题预览图4" loading="lazy">
+                    </a>
+                    <div class="image-caption">明月主题预览 - 4</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 明月主题 | 设计理念：夜空、明月、诗意
+        </footer>
+    </div>
+    
+    <script>
+        // 页面加载动画 - 立即执行，不等待图片
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // 打字机效果 - 立即执行，不等待图片
+        const title = document.querySelector('h1');
+        const originalText = title.textContent;
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                title.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        setTimeout(typeWriter, 300);
+        
+        // 创建月光效果 - 立即执行，不等待图片
+        function createMoonlight() {
+            const light = document.createElement('div');
+            light.classList.add('moonlight-element');
+            
+            // 随机大小 - 月光形状
+            const width = Math.random() * 25 + 15;
+            const height = width * 1.2;
+            
+            light.style.width = `${width}px`;
+            light.style.height = `${height}px`;
+            
+            // 月光颜色（浅米黄色调）
+            const colors = [
+                `rgba(255, 245, 230, ${Math.random() * 0.3 + 0.15})`, // 米白色
+                `rgba(255, 250, 240, ${Math.random() * 0.25 + 0.1})`, // 淡米色
+                `rgba(255, 240, 220, ${Math.random() * 0.2 + 0.1})`, // 浅米黄
+                `rgba(245, 235, 210, ${Math.random() * 0.25 + 0.1})`  // 柔米色
+            ];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            light.style.backgroundColor = color;
+            light.style.borderRadius = '50%';
+            light.style.boxShadow = `0 0 ${width/2}px ${color}`;
+            
+            // 随机起始位置
+            light.style.left = `${Math.random() * 100}vw`;
+            light.style.top = `-20px`;
+            
+            document.body.appendChild(light);
+            
+            // 月光飘落动画
+            const duration = Math.random() * 22000 + 16000;
+            const endLeft = parseFloat(light.style.left) + (Math.random() * 50 - 25);
+            
+            light.animate([
+                { 
+                    transform: 'translateY(0)',
+                    opacity: 0.8
+                },
+                { 
+                    transform: `translateY(120vh) translateX(${endLeft - parseFloat(light.style.left)}vw)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除月光
+            setTimeout(() => {
+                light.remove();
+            }, duration);
+        }
+        
+        // 创建月亮效果 - 立即执行，不等待图片
+        function createMoon() {
+            const moon = document.createElement('div');
+            moon.classList.add('moonlight-element');
+            
+            // 随机大小
+            const size = Math.random() * 70 + 50;
+            
+            moon.style.width = `${size}px`;
+            moon.style.height = `${size}px`;
+            
+            // 创建月亮的形状（圆形，带柔和光晕）
+            moon.style.background = `
+                radial-gradient(circle at 50% 50%, rgba(255, 245, 230, 0.15) 0%, rgba(255, 245, 230, 0.05) 40%, rgba(255, 245, 230, 0) 70%)
+            `;
+            moon.style.borderRadius = '50%';
+            moon.style.boxShadow = '0 0 40px rgba(255, 245, 230, 0.15)';
+            
+            // 随机位置
+            moon.style.left = `${Math.random() * 100}vw`;
+            moon.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(moon);
+            
+            // 月亮淡入淡出动画
+            const duration = Math.random() * 38000 + 28000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            moon.animate([
+                { 
+                    transform: 'translate(0, 0) scale(0.8)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: 0.12
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(moon.style.left)}vw, ${endTop - parseFloat(moon.style.top)}vh) scale(1.2)`,
+                    opacity: 0.12
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(moon.style.left)}vw, ${endTop - parseFloat(moon.style.top)}vh) scale(0.8)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 从月亮飘出月光
+            const lightInterval = setInterval(() => {
+                createMoonLight(moon);
+            }, 2000);
+            
+            // 移除月亮
+            setTimeout(() => {
+                clearInterval(lightInterval);
+                moon.remove();
+            }, duration);
+        }
+        
+        // 创建月光簇效果 - 立即执行，不等待图片
+        function createMoonCluster() {
+            const cluster = document.createElement('div');
+            cluster.classList.add('moon-cluster');
+            
+            // 随机大小
+            const width = Math.random() * 140 + 100;
+            const height = width * 0.8;
+            
+            cluster.style.width = `${width}px`;
+            cluster.style.height = `${height}px`;
+            
+            // 创建月光簇的形状
+            cluster.style.background = `
+                radial-gradient(ellipse at 50% 50%, rgba(255, 245, 230, 0.1) 0%, rgba(255, 245, 230, 0) 70%)
+            `;
+            cluster.style.borderRadius = '50%';
+            
+            // 随机位置
+            cluster.style.left = `${Math.random() * 100}vw`;
+            cluster.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(cluster);
+            
+            // 月光簇淡入淡出动画
+            const duration = Math.random() * 45000 + 35000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            cluster.animate([
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0.07
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(cluster.style.left)}vw, ${endTop - parseFloat(cluster.style.top)}vh)`,
+                    opacity: 0.07
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(cluster.style.left)}vw, ${endTop - parseFloat(cluster.style.top)}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 从月光簇飘出月光
+            const lightInterval = setInterval(() => {
+                createClusterLight(cluster);
+            }, 1200);
+            
+            // 移除月光簇
+            setTimeout(() => {
+                clearInterval(lightInterval);
+                cluster.remove();
+            }, duration);
+        }
+        
+        // 从月亮飘出的月光 - 立即执行，不等待图片
+        function createMoonLight(moonElement) {
+            const light = document.createElement('div');
+            light.classList.add('star-element');
+            
+            // 小月光
+            const size = Math.random() * 8 + 5;
+            
+            light.style.width = `${size}px`;
+            light.style.height = `${size}px`;
+            
+            // 月光颜色
+            const opacity = Math.random() * 0.4 + 0.2;
+            light.style.backgroundColor = `rgba(255, 245, 230, ${opacity})`;
+            light.style.borderRadius = '50%';
+            light.style.boxShadow = `0 0 ${size}px rgba(255, 245, 230, ${opacity})`;
+            
+            // 从月亮位置开始
+            const moonLeft = parseFloat(moonElement.style.left);
+            const moonTop = parseFloat(moonElement.style.top);
+            const moonSize = parseFloat(moonElement.style.width);
+            
+            light.style.left = `${moonLeft + (Math.random() * moonSize)}px`;
+            light.style.top = `${moonTop + (Math.random() * moonSize)}px`;
+            
+            document.body.appendChild(light);
+            
+            // 月光飘落动画
+            const duration = Math.random() * 20000 + 14000;
+            const floatDistance = Math.random() * 170 + 100;
+            const floatLeft = (Math.random() * 110 - 55);
+            
+            light.animate([
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0.9
+                },
+                { 
+                    transform: `translate(${floatLeft}px, ${floatDistance}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 闪烁效果
+            const blinkDuration = Math.random() * 1800 + 900;
+            const blink = () => {
+                light.animate([
+                    { opacity: 0.9 },
+                    { opacity: 0.3 },
+                    { opacity: 0.9 }
+                ], {
+                    duration: blinkDuration,
+                    easing: 'ease-in-out'
+                });
+                
+                setTimeout(blink, blinkDuration);
+            };
+            
+            blink();
+            
+            // 移除月光
+            setTimeout(() => {
+                light.remove();
+            }, duration);
+        }
+        
+        // 从月光簇飘出的月光 - 立即执行，不等待图片
+        function createClusterLight(clusterElement) {
+            const lightCount = Math.floor(Math.random() * 6) + 4;
+            
+            for(let i = 0; i < lightCount; i++) {
+                setTimeout(() => {
+                    const light = document.createElement('div');
+                    light.classList.add('star-element');
+                    
+                    // 小月光
+                    const size = Math.random() * 6 + 3;
+                    
+                    light.style.width = `${size}px`;
+                    light.style.height = `${size}px`;
+                    
+                    // 月光颜色
+                    const opacity = Math.random() * 0.3 + 0.15;
+                    light.style.backgroundColor = `rgba(255, 245, 230, ${opacity})`;
+                    light.style.borderRadius = '50%';
+                    light.style.boxShadow = `0 0 ${size}px rgba(255, 245, 230, ${opacity})`;
+                    
+                    // 从月光簇位置开始
+                    const clusterLeft = parseFloat(clusterElement.style.left);
+                    const clusterTop = parseFloat(clusterElement.style.top);
+                    const clusterWidth = parseFloat(clusterElement.style.width);
+                    const clusterHeight = parseFloat(clusterElement.style.height);
+                    
+                    light.style.left = `${clusterLeft + (Math.random() * clusterWidth)}px`;
+                    light.style.top = `${clusterTop + (Math.random() * clusterHeight)}px`;
+                    
+                    document.body.appendChild(light);
+                    
+                    // 月光飘落动画
+                    const duration = Math.random() * 17000 + 12000;
+                    const floatDistance = Math.random() * 150 + 80;
+                    const floatLeft = (Math.random() * 90 - 45);
+                    
+                    light.animate([
+                        { 
+                            transform: 'translate(0, 0)',
+                            opacity: opacity * 2
+                        },
+                        { 
+                            transform: `translate(${floatLeft}px, ${floatDistance}vh)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                    });
+                    
+                    // 闪烁效果
+                    const blinkDuration = Math.random() * 1500 + 700;
+                    const blink = () => {
+                        light.animate([
+                            { opacity: opacity * 2 },
+                            { opacity: opacity * 0.5 },
+                            { opacity: opacity * 2 }
+                        ], {
+                            duration: blinkDuration,
+                            easing: 'ease-in-out'
+                        });
+                        
+                        setTimeout(blink, blinkDuration);
+                    };
+                    
+                    blink();
+                    
+                    // 移除月光
+                    setTimeout(() => {
+                        light.remove();
+                    }, duration);
+                }, i * 500);
+            }
+        }
+        
+        // 立即开始动画，不等待图片加载
+        // 每1.5秒创建一个飘落的月光
+        setInterval(createMoonlight, 1500);
+        
+        // 每28秒创建一个月亮
+        setInterval(createMoon, 28000);
+        
+        // 每40秒创建一个月光簇
+        setInterval(createMoonCluster, 40000);
+        
+        // 初始化创建一些月光
+        for(let i = 0; i < 25; i++) {
+            setTimeout(() => createMoonlight(), i * 350);
+        }
+        
+        // 初始化创建一个月亮
+        setTimeout(() => createMoon(), 9000);
+        
+        // 初始化创建一个月光簇
+        setTimeout(() => createMoonCluster(), 18000);
+        
+        // 图片悬停效果增强 - 等DOMContentLoaded完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(99, 93, 74, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.2)';
+                });
+            });
+            
+            // 为图片添加懒加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 添加加载失败处理
+                img.addEventListener('error', function() {
+                    this.style.backgroundColor = '#0c101b';
+                    this.style.padding = '20px';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.style.minHeight = '200px';
+                    
+                    // 创建一个替代文本
+                    const altText = document.createElement('div');
+                    altText.textContent = this.alt || '图片加载失败';
+                    altText.style.color = '#666';
+                    altText.style.fontSize = '14px';
+                    
+                    // 清空图片内容并添加替代文本
+                    this.parentNode.replaceChild(altText, this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
