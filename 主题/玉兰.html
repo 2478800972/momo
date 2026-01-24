@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玉兰主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #ffefe3d3;
+            color: #363636;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff795c4f;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(121, 92, 79, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #e66a4f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(121, 92, 79, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(54, 54, 54, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #ff795c4f;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #ff795c4f;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #666;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-left: 5px solid #ff795c4f;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #795c4f;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #795c4f;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #ff795c4f;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .json-code {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #ff795c4f;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(121, 92, 79, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #e66a4f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(121, 92, 79, 0.4);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #795c4f;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            border-top: 1px solid rgba(54, 54, 54, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 玉兰花飘落效果 */
+        .magnolia {
+            position: fixed;
+            width: 25px;
+            height: 25px;
+            background-color: #ffefe3d3;
+            border-radius: 50% 0 50% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: -1;
+            border: 1px solid rgba(121, 92, 79, 0.2);
+        }
+        
+        .magnolia:nth-child(3n) {
+            background-color: #fff8f0;
+            transform: rotate(45deg);
+        }
+        
+        .magnolia:nth-child(5n) {
+            background-color: #fff;
+            transform: rotate(-45deg);
+        }
+        
+        .magnolia:nth-child(7n) {
+            background-color: #ffefe3d3;
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>玉兰</h1>
+            <p class="subtitle">"高树秀枝生白莲，春芳沾得牡丹前。东风昨夜化微雨，清晓千花玉戴烟。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                高树秀枝生白莲，春芳沾得牡丹前。<br>
+                东风昨夜化微雨，清晓千花玉戴烟。
+            </div>
+            <p>这是一个充满春日诗意与高雅气息的主题，以玉兰花为意象，表达春日的生机与花朵的纯洁。在清晨的微雨中，感受玉兰花的绽放与春天的美好。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff795c4f;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff795c4f</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffefe3d3;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ffefe3d3</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffefe3d3;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ffefe3d3</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffefe3d3;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ffefe3d3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ff795c4f",
+  "backgroundColor": "#ffefe3d3",
+  "bottomBackground": "#ffefe3d3",
+  "isNightTheme": false,
+  "primaryColor": "#ffefe3d3",
+  "themeName": "玉兰"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"玉兰"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/idKAM13cqu8b" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230724_141727.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230724_141727.png" alt="玉兰主题预览图1">
+                    </a>
+                    <div class="image-caption">玉兰主题预览 - 1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230724_141827.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230724_141827.png" alt="玉兰主题预览图2">
+                    </a>
+                    <div class="image-caption">玉兰主题预览 - 2</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 玉兰主题 | 设计理念：高雅、纯洁、春日诗意
+        </footer>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            // 页面加载动画
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // 打字机效果
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            setTimeout(typeWriter, 300);
+            
+            // 图片悬停效果增强
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(121, 92, 79, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+            
+            // 创建玉兰花飘落效果
+            function createMagnolia() {
+                const magnolia = document.createElement('div');
+                magnolia.classList.add('magnolia');
+                
+                // 随机大小
+                const size = Math.random() * 20 + 15;
+                magnolia.style.width = `${size}px`;
+                magnolia.style.height = `${size}px`;
+                
+                // 随机起始位置
+                magnolia.style.left = `${Math.random() * 100}vw`;
+                magnolia.style.top = `-20px`;
+                
+                // 随机旋转
+                magnolia.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                document.body.appendChild(magnolia);
+                
+                // 动画
+                const duration = Math.random() * 12 + 8;
+                const endLeft = Math.random() * 100;
+                const rotate = Math.random() * 720;
+                
+                magnolia.animate([
+                    { 
+                        transform: `translate(0, 0) rotate(0deg)`,
+                        opacity: 0.7
+                    },
+                    { 
+                        transform: `translate(${endLeft - parseFloat(magnolia.style.left)}vw, 100vh) rotate(${rotate}deg)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                });
+                
+                // 移除玉兰花
+                setTimeout(() => {
+                    magnolia.remove();
+                }, duration * 1000);
+            }
+            
+            // 创建玉兰花枝效果
+            function createMagnoliaBranch() {
+                const branch = document.createElement('div');
+                branch.style.position = 'fixed';
+                branch.style.width = '3px';
+                branch.style.height = '50px';
+                branch.style.backgroundColor = '#795c4f';
+                branch.style.opacity = '0.1';
+                branch.style.pointerEvents = 'none';
+                branch.style.zIndex = '-1';
+                branch.style.borderRadius = '2px';
+                
+                // 随机位置
+                branch.style.left = `${Math.random() * 100}vw`;
+                branch.style.top = `${Math.random() * 100}vh`;
+                
+                // 随机旋转
+                const rotation = Math.random() * 60 - 30;
+                branch.style.transform = `rotate(${rotation}deg)`;
+                
+                document.body.appendChild(branch);
+                
+                // 创建玉兰花在枝头
+                setTimeout(() => {
+                    createMagnoliaOnBranch(branch);
+                }, 500);
+                
+                // 移除树枝
+                setTimeout(() => {
+                    branch.animate([
+                        { opacity: 0.1 },
+                        { opacity: 0 }
+                    ], {
+                        duration: 2000,
+                        easing: 'ease-out'
+                    }).onfinish = () => branch.remove();
+                }, 15000);
+            }
+            
+            // 创建枝头上的玉兰花
+            function createMagnoliaOnBranch(branchElement) {
+                const flower = document.createElement('div');
+                flower.style.position = 'fixed';
+                flower.style.width = '25px';
+                flower.style.height = '25px';
+                flower.style.backgroundColor = '#ffefe3d3';
+                flower.style.borderRadius = '50% 0 50% 0';
+                flower.style.opacity = '0';
+                flower.style.pointerEvents = 'none';
+                flower.style.zIndex = '-1';
+                flower.style.border = '1px solid rgba(121, 92, 79, 0.3)';
+                flower.style.transform = 'rotate(45deg)';
+                
+                // 在树枝的顶端
+                const branchLeft = parseFloat(branchElement.style.left);
+                const branchTop = parseFloat(branchElement.style.top);
+                const rotation = parseFloat(branchElement.style.transform.replace('rotate(', '').replace('deg)', ''));
+                
+                // 计算花朵位置（在树枝顶端）
+                flower.style.left = `${branchLeft}vw`;
+                flower.style.top = `${branchTop}vh`;
+                
+                document.body.appendChild(flower);
+                
+                // 花朵绽放动画
+                flower.animate([
+                    { 
+                        transform: 'rotate(45deg) scale(0)',
+                        opacity: 0
+                    },
+                    { 
+                        transform: 'rotate(45deg) scale(1)',
+                        opacity: 0.7
+                    },
+                    { 
+                        transform: 'rotate(45deg) scale(1)',
+                        opacity: 0.7
+                    },
+                    { 
+                        transform: 'rotate(45deg) scale(0)',
+                        opacity: 0
+                    }
+                ], {
+                    duration: 10000,
+                    easing: 'ease-in-out',
+                    iterations: 1
+                });
+                
+                // 移除花朵
+                setTimeout(() => {
+                    flower.remove();
+                }, 10000);
+            }
+            
+            // 每3秒创建一朵飘落的玉兰花
+            setInterval(createMagnolia, 3000);
+            
+            // 每10秒创建一个玉兰花枝
+            setInterval(createMagnoliaBranch, 10000);
+            
+            // 初始化创建一些玉兰花
+            for(let i = 0; i < 8; i++) {
+                setTimeout(() => createMagnolia(), i * 500);
+            }
+            
+            // 初始化创建一些玉兰花枝
+            for(let i = 0; i < 3; i++) {
+                setTimeout(() => createMagnoliaBranch(), i * 2000);
+            }
+        });
+    </script>
+</body>
+</html>
