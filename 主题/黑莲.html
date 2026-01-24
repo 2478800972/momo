@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑莲主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #3b261f;
+            color: #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(59, 38, 31, 0.3);
+        }
+        
+        .back-btn:hover {
+            background-color: #4a3129;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(59, 38, 31, 0.5);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #3b261f;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-top: 25px;
+            color: #b0b0b0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            font-style: italic;
+        }
+        
+        .theme-description {
+            background-color: rgba(23, 24, 28, 0.9);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border-left: 5px solid #3b261f;
+            border: 1px solid rgba(59, 38, 31, 0.3);
+        }
+        
+        .theme-quote {
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(23, 24, 28, 0.9);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(59, 38, 31, 0.3);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #3b261f;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+        
+        .json-code {
+            background-color: rgba(10, 10, 10, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid rgba(59, 38, 31, 0.3);
+            color: #b0b0b0;
+        }
+        
+        .json-code .property {
+            color: #8f9d6a;
+        }
+        
+        .json-code .string {
+            color: #cf6a4c;
+        }
+        
+        .json-code .boolean {
+            color: #d8a941;
+        }
+        
+        .download-section {
+            background-color: rgba(23, 24, 28, 0.9);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            border-top: 5px solid #3b261f;
+            border: 1px solid rgba(59, 38, 31, 0.3);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #3b261f;
+            color: #e0e0e0;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(59, 38, 31, 0.5);
+        }
+        
+        .download-btn:hover {
+            background-color: #4a3129;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #e0e0e0;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            background-color: rgba(23, 24, 28, 0.9);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(59, 38, 31, 0.3);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(10, 10, 10, 0.8);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: rgba(23, 24, 28, 0.9);
+            font-weight: 500;
+            text-decoration: none; 
+            color: #b0b0b0;
+            border-top: 1px solid rgba(59, 38, 31, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #b0b0b0;
+            border-top: 1px solid rgba(59, 38, 31, 0.5);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .night-theme-badge {
+            display: inline-block;
+            background-color: #3b261f;
+            color: #e0e0e0;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            border: 1px solid rgba(59, 38, 31, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>黑莲</h1>
+            <p class="subtitle">"从来不著水，清净本因心。"</p>
+            <div class="night-theme-badge">
+                <i class="fas fa-moon"></i> 夜间主题
+            </div>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                从来不著水，清净本因心。
+            </div>
+            <p>这是一个深色主题，以"黑莲"为意象，表达超凡脱俗、清净自在的意境。在深邃的黑色背景中，体验宁静致远的阅读氛围，远离尘嚣，回归本心。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff3b261f;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff3b261f</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff17181c;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ff17181c</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff17181c;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ff17181c</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff17181c;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ff17181c</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 10px; background-color: rgba(59, 38, 31, 0.2); border-radius: 8px;">
+                    <p style="font-size: 0.9rem; color: #b0b0b0;"><i class="fas fa-info-circle"></i> 这是一个夜间主题 (isNightTheme: true)</p>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  <span class="property">"accentColor"</span>: <span class="string">"#ff3b261f"</span>,
+  <span class="property">"backgroundColor"</span>: <span class="string">"#ff17181c"</span>,
+  <span class="property">"bottomBackground"</span>: <span class="string">"#ff17181c"</span>,
+  <span class="property">"isNightTheme"</span>: <span class="boolean">true</span>,
+  <span class="property">"primaryColor"</span>: <span class="string">"#ff17181c"</span>,
+  <span class="property">"themeName"</span>: <span class="string">"黑莲"</span>
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"黑莲"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/iQeMw0kucvyd" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171922.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171922.png" alt="黑莲主题预览图1">
+                    </a>
+                    <div class="image-caption">黑莲主题预览 - 首页界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171017.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171017.png" alt="黑莲主题预览图2">
+                    </a>
+                    <div class="image-caption">黑莲主题预览 - 阅读界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171204.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171204.png" alt="黑莲主题预览图3">
+                    </a>
+                    <div class="image-caption">黑莲主题预览 - 设置界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171255.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171255.png" alt="黑莲主题预览图4">
+                    </a>
+                    <div class="image-caption">黑莲主题预览 - 书籍详情</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171334.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171334.png" alt="黑莲主题预览图5">
+                    </a>
+                    <div class="image-caption">黑莲主题预览 - 夜间模式</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171353.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_171353.png" alt="黑莲主题预览图6">
+                    </a>
+                    <div class="image-caption">黑莲主题预览 - 功能菜单</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 黑莲主题 | 设计理念：深邃、清净、超凡
+        </footer>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 150);
+                }
+            }
+            
+            setTimeout(typeWriter, 300);
+            
+            // 图片悬停效果增强
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.8)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
+                });
+            });
+            
+            // 添加黑莲主题的动态效果
+            const lotusEffect = document.createElement('div');
+            lotusEffect.style.position = 'fixed';
+            lotusEffect.style.top = '0';
+            lotusEffect.style.left = '0';
+            lotusEffect.style.width = '100%';
+            lotusEffect.style.height = '100%';
+            lotusEffect.style.pointerEvents = 'none';
+            lotusEffect.style.zIndex = '-1';
+            lotusEffect.style.background = 'radial-gradient(circle at 20% 80%, rgba(59, 38, 31, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(23, 24, 28, 0.2) 0%, transparent 50%)';
+            document.body.appendChild(lotusEffect);
+            
+            // 高亮JSON代码中的关键词
+            const jsonCode = document.querySelector('.json-code');
+            if (jsonCode) {
+                let html = jsonCode.innerHTML;
+                html = html.replace(/"([^"]+)"/g, '<span class="string">"$1"</span>');
+                html = html.replace(/(true|false)/g, '<span class="boolean">$1</span>');
+                const properties = ['accentColor', 'backgroundColor', 'bottomBackground', 'isNightTheme', 'primaryColor', 'themeName'];
+                properties.forEach(prop => {
+                    const regex = new RegExp(`"${prop}"`, 'g');
+                    html = html.replace(regex, `<span class="property">"${prop}"</span>`);
+                });
+                jsonCode.innerHTML = html;
+            }
+        });
+    </script>
+</body>
+</html>
