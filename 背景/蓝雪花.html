@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蓝雪花</title>
+    <!-- Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f5f9;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-image: linear-gradient(to bottom, #f0f5f9 0%, #e6eff5 100%);
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-top: 20px;
+            border: 1px solid rgba(52, 152, 219, 0.1);
+        }
+        
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: 1px solid #aed6f1;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            background-color: #ebf5fb;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background-color: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #2980b9;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #aed6f1, transparent);
+            margin: 40px 0;
+        }
+        
+        /* 诗句区域 */
+        .poem-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background-color: #ebf5fb;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .poem-text {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-family: 'STKaiti', 'SimSun', serif;
+        }
+        
+        /* 图片展示区域 */
+        .image-section {
+            margin: 40px 0;
+        }
+        
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .image-item {
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #f5fafd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-item img:hover {
+            transform: scale(1.03);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #2c3e50;
+            background-color: #f5fafd;
+        }
+        
+        /* 不同尺寸的图片 */
+        .small-image {
+            max-width: 200px;
+        }
+        
+        .medium-image {
+            max-width: 300px;
+        }
+        
+        .large-image {
+            max-width: 400px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #aed6f1;
+            color: #5d6d7e;
+            font-size: 0.9rem;
+        }
+        
+        /* 蓝雪花装饰 */
+        .snowflake-decoration {
+            text-align: center;
+            margin: 30px 0;
+            color: #3498db;
+        }
+        
+        .snowflake-decoration i {
+            font-size: 1.8rem;
+            margin: 0 15px;
+            animation: spin 6s linear infinite;
+        }
+        
+        .snowflake-decoration i:nth-child(2) {
+            animation-delay: 1s;
+        }
+        
+        .snowflake-decoration i:nth-child(3) {
+            animation-delay: 2s;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 雪花飘落效果 */
+        .snowflake {
+            position: absolute;
+            color: #aed6f1;
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .poem-text {
+                font-size: 1.3rem;
+            }
+            
+            .image-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .image-item {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+        
+        /* 图片加载占位符 */
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(90deg, #ebf5fb 25%, #d4e6f1 50%, #ebf5fb 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        .medium-placeholder {
+            height: 300px;
+        }
+        
+        .large-placeholder {
+            height: 400px;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        
+        /* 蓝雪花描述区域 */
+        .description-section {
+            background-color: #ebf5fb;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .description-section p {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <!-- 蓝雪花装饰 -->
+        <div class="snowflake-decoration">
+            <i class="fas fa-snowflake"></i>
+            <i class="fas fa-snowflake"></i>
+            <i class="fas fa-snowflake"></i>
+        </div>
+        
+        <header>
+            <h1>蓝雪花</h1>
+        </header>
+        
+        <div class="divider"></div>
+        
+        <!-- 诗句区域 -->
+        <div class="poem-section">
+            <div class="poem-text">"细叶交缠翠满篮，星星一簇韵幽含。"</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 蓝雪花描述 -->
+        <div class="description-section">
+            <p>蓝雪花，又名蓝花丹、蓝茉莉，是白花丹科白花丹属的植物。其花色淡雅清新，呈淡蓝色或蓝紫色，盛开时如星星点点，散发着幽雅的韵味。</p>
+            <p>蓝雪花的花语是"冷淡、忧郁"，但也代表着"变革"和"希望"，在炎炎夏日中给人带来一丝清凉与宁静。</p>
+        </div>
+        
+        <!-- 图片展示区域 -->
+        <div class="image-section">
+            <div class="image-container">
+                <!-- 第一张图片（小图标） -->
+                <div class="image-item small-image">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-010222-3da052.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder1"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-010222-3da052.png" 
+                             alt="蓝雪花图标1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder1')">
+                    </a>
+                    <div class="image-caption">蓝雪花元素</div>
+                </div>
+                
+                <!-- 第二张图片（中等） -->
+                <div class="image-item medium-image">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005235-8f2964.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder medium-placeholder" id="placeholder2"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005235-8f2964.jpeg" 
+                             alt="蓝雪花图片1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder2')">
+                    </a>
+                    <div class="image-caption">蓝雪花盛开</div>
+                </div>
+                
+                <!-- 第三张图片（中等） -->
+                <div class="image-item medium-image">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005231-c352f0.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder medium-placeholder" id="placeholder3"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-005231-c352f0.jpeg" 
+                             alt="蓝雪花图片2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder3')">
+                    </a>
+                    <div class="image-caption">蓝雪花细节</div>
+                </div>
+                
+                <!-- 第四张图片（大图） -->
+                <div class="image-item large-image">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/蓝雪花1.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder large-placeholder" id="placeholder4"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/蓝雪花1.png" 
+                             alt="蓝雪花主图1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder4')">
+                    </a>
+                    <div class="image-caption">蓝雪花丛</div>
+                </div>
+                
+                <!-- 第五张图片（大图） -->
+                <div class="image-item large-image">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/蓝雪花2.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder large-placeholder" id="placeholder5"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/蓝雪花2.png" 
+                             alt="蓝雪花主图2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder5')">
+                    </a>
+                    <div class="image-caption">蓝雪花特写</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 结束语 -->
+        <div class="poem-section">
+            <div class="poem-text">蓝雪花，夏日里的清凉使者</div>
+            <div class="poem-text">淡雅蓝色点缀炎炎夏日</div>
+            <div class="poem-text">细叶交缠，星星一簇，韵幽含</div>
+        </div>
+        
+        <footer>
+            <p>兮心阅读 © 蓝雪花 | 细叶交缠翠满篮，星星一簇韵幽含</p>
+        </footer>
+    </div>
+
+    <script>
+        // 图片加载完成后的处理
+        function imageLoaded(imgElement, placeholderId) {
+            // 添加loaded类触发动画
+            imgElement.classList.add('loaded');
+            
+            // 移除占位符
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+            
+            // 确保图片显示
+            imgElement.style.opacity = '1';
+            imgElement.style.transform = 'translateY(0)';
+        }
+        
+        // 为图片添加错误处理
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.image-item img');
+            
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.error('图片加载失败:', this.src);
+                    // 可以在这里显示一个错误占位符
+                    const placeholderId = this.getAttribute('onload').match(/imageLoaded\(this, '(\w+)'\)/)[1];
+                    const placeholder = document.getElementById(placeholderId);
+                    if (placeholder) {
+                        placeholder.innerHTML = '<div style="text-align:center; padding: 50px; color: #3498db;">图片加载失败</div>';
+                        placeholder.style.background = '#ebf5fb';
+                        placeholder.style.animation = 'none';
+                    }
+                });
+            });
+            
+            // 优化图片加载 - 使用Intersection Observer API实现懒加载
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                // 为所有图片添加观察
+                const images = document.querySelectorAll('.image-item img');
+                images.forEach(img => {
+                    if (img.getAttribute('loading') !== 'lazy') {
+                        img.setAttribute('loading', 'lazy');
+                    }
+                    imageObserver.observe(img);
+                });
+            }
+        });
+        
+        // 创建雪花飘落效果
+        function createSnowflakes() {
+            const snowflakeCount = 15;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = '❄';
+                
+                // 随机位置
+                const leftPos = Math.random() * 100;
+                snowflake.style.left = `${leftPos}vw`;
+                
+                // 随机大小
+                const size = 10 + Math.random() * 15;
+                snowflake.style.fontSize = `${size}px`;
+                
+                // 随机透明度
+                snowflake.style.opacity = 0.3 + Math.random() * 0.4;
+                
+                // 随机动画
+                const duration = 10 + Math.random() * 15;
+                const delay = Math.random() * 5;
+                const sway = 50 + Math.random() * 100;
+                snowflake.style.animation = `snowfall ${duration}s linear ${delay}s infinite`;
+                
+                // 添加动画关键帧
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes snowfall {
+                        0% {
+                            transform: translateY(-50px) translateX(0);
+                            opacity: 0;
+                        }
+                        10% {
+                            opacity: 0.7;
+                        }
+                        90% {
+                            opacity: 0.7;
+                        }
+                        100% {
+                            transform: translateY(calc(100vh + 50px)) translateX(${sway}px);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                document.body.appendChild(snowflake);
+            }
+        }
+        
+        // 页面加载完成后创建雪花
+        document.addEventListener('DOMContentLoaded', createSnowflakes);
+    </script>
+</body>
+</html>
