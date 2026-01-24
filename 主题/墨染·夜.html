@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>墨染·夜主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+    color: #e0e0e0;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* 为深色背景添加墨染效果的微妙纹理 */
+body:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 15% 25%, rgba(47, 47, 47, 0.08) 0%, transparent 15%),
+        radial-gradient(circle at 85% 75%, rgba(77, 77, 77, 0.08) 0%, transparent 15%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 20%);
+    pointer-events: none;
+    z-index: -2;
+}
+        
+        .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    background-color: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    margin-top: 20px;
+    border: 1px solid rgba(77, 77, 77, 0.2);
+}
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #2f2f2f;
+            color: #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(77, 77, 77, 0.5);
+        }
+        
+        .back-btn:hover {
+            background-color: #4d4d4d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(77, 77, 77, 0.5);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #f0f0f0;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #2f2f2f;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #aaa;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(40, 40, 40, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border-left: 5px solid #2f2f2f;
+        }
+        
+        .theme-quote {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-insight {
+            font-size: 1rem;
+            color: #aaa;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 20px auto 0;
+            text-align: left;
+            padding: 0 10px;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(40, 40, 40, 0.85);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #2f2f2f;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .json-code {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #3a3a3a;
+        }
+        
+        .download-section {
+            background-color: rgba(40, 40, 40, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #2f2f2f;
+            color: #f0f0f0;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #4d4d4d;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .external-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2f2f2f;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .external-link:hover {
+            text-decoration: underline;
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #f0f0f0;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            background-color: #2a2a2a;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1b1b1b;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: #2a2a2a;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #aaa;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #aaa;
+            border-top: 1px solid rgba(77, 77, 77, 0.5);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 墨染主题效果 - 墨点、墨水晕染效果 */
+        .ink-blot {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .ink-drop {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .ink-cloud {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>墨染·夜</h1>
+            <p class="subtitle">"恰似人间惊鸿客,墨染星辰云水间。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                恰似人间惊鸿客,墨染星辰云水间。
+            </div>
+            <div class="theme-insight">
+                墨染·夜主题以中国传统水墨画为设计灵感，融合了深邃的夜色与墨色渲染的美感。深灰色调背景象征着墨色浸染的夜空，简约而富有层次的颜色搭配营造出宁静而富有诗意的阅读氛围，让你在阅读时仿佛置身于墨色山水之间，感受文人雅士的闲情逸致。
+                <br><br>
+                这是一个纯粹的夜间主题，采用深色背景和低对比度的色彩搭配，适合在光线较暗的环境中使用，可以有效减少眼睛疲劳，让你沉浸在宁静雅致的阅读氛围中。
+            </div>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff2f2f2f;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff2f2f2f</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff4d4d4d;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ff4d4d4d</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff4d4d4d;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ff4d4d4d</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff4d4d4d;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ff4d4d4d</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #2a2a2a;"></div>
+                        <div class="color-info">
+                            <span class="color-name">夜间主题</span>
+                            <span class="color-value">isNightTheme: true</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ff2f2f2f",
+  "backgroundColor": "#ff4d4d4d",
+  "bottomBackground": "#ff4d4d4d",
+  "isNightTheme": true,
+  "primaryColor": "#ff4d4d4d",
+  "themeName": "墨染·夜"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"墨染·夜"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/iOYMC11nf1pc" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230707_213821_2127d7.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230707_213821_2127d7.png" alt="墨染·夜主题预览图1" loading="lazy">
+                    </a>
+                    <div class="image-caption">墨染·夜主题预览 - 1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230707_213635_e0780c.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230707_213635_e0780c.png" alt="墨染·夜主题预览图2" loading="lazy">
+                    </a>
+                    <div class="image-caption">墨染·夜主题预览 - 2</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230707_213849_b04607.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230707_213849_b04607.png" alt="墨染·夜主题预览图3" loading="lazy">
+                    </a>
+                    <div class="image-caption">墨染·夜主题预览 - 3</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 墨染·夜主题 | 设计理念：水墨、夜色、诗意
+        </footer>
+    </div>
+    
+    <script>
+        // 页面加载动画 - 立即执行，不等待图片
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // 打字机效果 - 立即执行，不等待图片
+        const title = document.querySelector('h1');
+        const originalText = title.textContent;
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                title.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        setTimeout(typeWriter, 300);
+        
+        // 创建墨点效果
+        function createInkDrop() {
+            const inkDrop = document.createElement('div');
+            inkDrop.classList.add('ink-drop');
+            
+            // 随机大小
+            const size = Math.random() * 8 + 4;
+            
+            inkDrop.style.width = `${size}px`;
+            inkDrop.style.height = `${size}px`;
+            
+            // 墨点颜色（深灰色系）
+            const colors = [
+                `rgba(47, 47, 47, ${Math.random() * 0.7 + 0.3})`,
+                `rgba(77, 77, 77, ${Math.random() * 0.6 + 0.2})`,
+                `rgba(30, 30, 30, ${Math.random() * 0.5 + 0.2})`,
+                `rgba(60, 60, 60, ${Math.random() * 0.6 + 0.2})`
+            ];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            inkDrop.style.backgroundColor = color;
+            inkDrop.style.borderRadius = '50%';
+            inkDrop.style.boxShadow = `0 0 ${size}px ${color}`;
+            
+            // 随机起始位置
+            inkDrop.style.left = `${Math.random() * 100}vw`;
+            inkDrop.style.top = `-10px`;
+            
+            document.body.appendChild(inkDrop);
+            
+            // 墨点飘落动画
+            const duration = Math.random() * 20000 + 15000;
+            const endLeft = parseFloat(inkDrop.style.left) + (Math.random() * 40 - 20);
+            
+            inkDrop.animate([
+                { 
+                    transform: 'translateY(0)',
+                    opacity: 0.9
+                },
+                { 
+                    transform: `translateY(120vh) translateX(${endLeft - parseFloat(inkDrop.style.left)}vw)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除墨点
+            setTimeout(() => {
+                inkDrop.remove();
+            }, duration);
+        }
+        
+        // 创建墨团效果
+        function createInkBlot() {
+            const inkBlot = document.createElement('div');
+            inkBlot.classList.add('ink-blot');
+            
+            // 随机大小
+            const size = Math.random() * 80 + 40;
+            
+            inkBlot.style.width = `${size}px`;
+            inkBlot.style.height = `${size}px`;
+            
+            // 创建墨团的形状（不规则圆形）
+            const borderRadius = `${Math.random() * 30 + 35}% ${Math.random() * 30 + 35}% ${Math.random() * 30 + 35}% ${Math.random() * 30 + 35}%`;
+            inkBlot.style.borderRadius = borderRadius;
+            
+            // 墨团颜色
+            const opacity = Math.random() * 0.08 + 0.04;
+            inkBlot.style.backgroundColor = `rgba(30, 30, 30, ${opacity})`;
+            
+            // 随机位置
+            inkBlot.style.left = `${Math.random() * 100}vw`;
+            inkBlot.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(inkBlot);
+            
+            // 墨团淡入淡出动画
+            const duration = Math.random() * 35000 + 25000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            inkBlot.animate([
+                { 
+                    transform: 'translate(0, 0) scale(0.8)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: opacity
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(inkBlot.style.left)}vw, ${endTop - parseFloat(inkBlot.style.top)}vh) scale(1.2)`,
+                    opacity: opacity
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(inkBlot.style.left)}vw, ${endTop - parseFloat(inkBlot.style.top)}vh) scale(0.8)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除墨团
+            setTimeout(() => {
+                inkBlot.remove();
+            }, duration);
+        }
+        
+        // 创建墨云效果
+        function createInkCloud() {
+            const inkCloud = document.createElement('div');
+            inkCloud.classList.add('ink-cloud');
+            
+            // 随机大小
+            const width = Math.random() * 150 + 100;
+            const height = width * 0.6;
+            
+            inkCloud.style.width = `${width}px`;
+            inkCloud.style.height = `${height}px`;
+            
+            // 创建墨云的形状
+            const borderRadius = `${Math.random() * 40 + 30}% ${Math.random() * 40 + 30}% ${Math.random() * 40 + 30}% ${Math.random() * 40 + 30}%`;
+            inkCloud.style.borderRadius = borderRadius;
+            
+            // 墨云颜色
+            const opacity = Math.random() * 0.05 + 0.03;
+            inkCloud.style.backgroundColor = `rgba(40, 40, 40, ${opacity})`;
+            
+            // 随机位置
+            inkCloud.style.left = `${Math.random() * 100}vw`;
+            inkCloud.style.top = `${Math.random() * 100}vh`;
+            
+            document.body.appendChild(inkCloud);
+            
+            // 墨云淡入淡出动画
+            const duration = Math.random() * 40000 + 30000;
+            const endLeft = Math.random() * 100;
+            const endTop = Math.random() * 100;
+            
+            inkCloud.animate([
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0
+                },
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: opacity
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(inkCloud.style.left)}vw, ${endTop - parseFloat(inkCloud.style.top)}vh)`,
+                    opacity: opacity
+                },
+                { 
+                    transform: `translate(${endLeft - parseFloat(inkCloud.style.left)}vw, ${endTop - parseFloat(inkCloud.style.top)}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 从墨云飘出小墨点
+            const dropInterval = setInterval(() => {
+                createCloudDrop(inkCloud);
+            }, 1800);
+            
+            // 移除墨云
+            setTimeout(() => {
+                clearInterval(dropInterval);
+                inkCloud.remove();
+            }, duration);
+        }
+        
+        // 从墨云飘出的小墨点
+        function createCloudDrop(cloudElement) {
+            const drop = document.createElement('div');
+            drop.classList.add('ink-drop');
+            
+            // 小墨点
+            const size = Math.random() * 5 + 2;
+            
+            drop.style.width = `${size}px`;
+            drop.style.height = `${size}px`;
+            
+            // 墨点颜色
+            const opacity = Math.random() * 0.5 + 0.3;
+            drop.style.backgroundColor = `rgba(40, 40, 40, ${opacity})`;
+            drop.style.borderRadius = '50%';
+            drop.style.boxShadow = `0 0 ${size}px rgba(40, 40, 40, ${opacity})`;
+            
+            // 从墨云位置开始
+            const cloudLeft = parseFloat(cloudElement.style.left);
+            const cloudTop = parseFloat(cloudElement.style.top);
+            const cloudWidth = parseFloat(cloudElement.style.width);
+            const cloudHeight = parseFloat(cloudElement.style.height);
+            
+            drop.style.left = `${cloudLeft + (Math.random() * cloudWidth)}px`;
+            drop.style.top = `${cloudTop + (Math.random() * cloudHeight)}px`;
+            
+            document.body.appendChild(drop);
+            
+            // 墨点飘落动画
+            const duration = Math.random() * 18000 + 12000;
+            const floatDistance = Math.random() * 150 + 80;
+            const floatLeft = (Math.random() * 100 - 50);
+            
+            drop.animate([
+                { 
+                    transform: 'translate(0, 0)',
+                    opacity: 0.8
+                },
+                { 
+                    transform: `translate(${floatLeft}px, ${floatDistance}vh)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除墨点
+            setTimeout(() => {
+                drop.remove();
+            }, duration);
+        }
+        
+        // 立即开始动画，不等待图片加载
+        // 每1.5秒创建一个飘落的墨点
+        setInterval(createInkDrop, 1500);
+        
+        // 每30秒创建一个墨团
+        setInterval(createInkBlot, 30000);
+        
+        // 每40秒创建一个墨云
+        setInterval(createInkCloud, 40000);
+        
+        // 初始化创建一些墨点
+        for(let i = 0; i < 25; i++) {
+            setTimeout(() => createInkDrop(), i * 400);
+        }
+        
+        // 初始化创建一个墨团
+        setTimeout(() => createInkBlot(), 10000);
+        
+        // 初始化创建一个墨云
+        setTimeout(() => createInkCloud(), 20000);
+        
+        // 图片悬停效果增强 - 等DOMContentLoaded完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(47, 47, 47, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.2)';
+                });
+            });
+            
+            // 为图片添加懒加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 添加加载失败处理
+                img.addEventListener('error', function() {
+                    this.style.backgroundColor = '#1b1b1b';
+                    this.style.padding = '20px';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.style.minHeight = '200px';
+                    
+                    // 创建一个替代文本
+                    const altText = document.createElement('div');
+                    altText.textContent = this.alt || '图片加载失败';
+                    altText.style.color = '#666';
+                    altText.style.fontSize = '14px';
+                    
+                    // 清空图片内容并添加替代文本
+                    this.parentNode.replaceChild(altText, this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
