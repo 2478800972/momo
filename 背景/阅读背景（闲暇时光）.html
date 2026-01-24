@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读背景『闲暇时光』</title>
+    <!-- Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f5f0;
+            color: #5d4037;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background-color: #fffefc;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            margin-top: 20px;
+        }
+        
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #8d6e63;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: 1px solid #d7ccc8;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            background-color: #f5f0eb;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background-color: #8d6e63;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(141, 110, 99, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #6d4c41;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8d6e63;
+            font-style: italic;
+        }
+        
+        /* 图片容器样式 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .image-item {
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #f5f0eb;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-item img:hover {
+            transform: scale(1.03);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #5d4037;
+            background-color: #f9f9f9;
+        }
+        
+        /* 描述区域 */
+        .description {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f5f0eb;
+            border-radius: 8px;
+            border-left: 4px solid #a1887f;
+        }
+        
+        .description p {
+            font-size: 1.1rem;
+            color: #5d4037;
+            line-height: 1.8;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #8d6e63;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .description p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* 图片加载占位符 */
+        .image-placeholder {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(90deg, #f5f0eb 25%, #ede7e0 50%, #f5f0eb 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        
+        /* 顶部装饰元素 */
+        .decoration {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #a1887f;
+        }
+        
+        .decoration i {
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <!-- 顶部装饰 -->
+        <div class="decoration">
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+        </div>
+        
+        <header>
+            <h1>阅读背景『闲暇时光』</h1>
+            <div class="subtitle">宁静时光，优雅阅读</div>
+        </header>
+        
+        <!-- 图片展示区域 -->
+        <div class="image-grid">
+            <div class="image-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景645.png" 
+                   target="_blank" 
+                   class="image-link">
+                    <div class="image-placeholder" id="placeholder1"></div>
+                    <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景645.png" 
+                         alt="阅读背景『闲暇时光』1" 
+                         loading="lazy"
+                         onload="imageLoaded(this, 'placeholder1')">
+                </a>
+                <div class="image-caption">宁静阅读时光背景</div>
+            </div>
+            
+            <div class="image-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景644.png" 
+                   target="_blank" 
+                   class="image-link">
+                    <div class="image-placeholder" id="placeholder2"></div>
+                    <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景644.png" 
+                         alt="阅读背景『闲暇时光』2" 
+                         loading="lazy"
+                         onload="imageLoaded(this, 'placeholder2')">
+                </a>
+                <div class="image-caption">优雅阅读背景</div>
+            </div>
+            
+            <div class="image-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景646.png" 
+                   target="_blank" 
+                   class="image-link">
+                    <div class="image-placeholder" id="placeholder3"></div>
+                    <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景646.png" 
+                         alt="阅读背景『闲暇时光』3" 
+                         loading="lazy"
+                         onload="imageLoaded(this, 'placeholder3')">
+                </a>
+                <div class="image-caption">舒适阅读背景</div>
+            </div>
+            
+            <div class="image-item">
+                <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景647.png" 
+                   target="_blank" 
+                   class="image-link">
+                    <div class="image-placeholder" id="placeholder4"></div>
+                    <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/背景647.png" 
+                         alt="阅读背景『闲暇时光』4" 
+                         loading="lazy"
+                         onload="imageLoaded(this, 'placeholder4')">
+                </a>
+                <div class="image-caption">温馨阅读背景</div>
+            </div>
+        </div>
+        
+        <!-- 描述区域 -->
+        <div class="description">
+            <p>闲暇时光，是灵魂的休憩之地。这些阅读背景专为宁静的阅读时刻设计，温暖的色调与优雅的布局，为你的阅读体验增添一份舒适与宁静。</p>
+            <p style="margin-top: 15px;">选择一个你喜欢的背景，开启一段美好的阅读之旅吧！</p>
+        </div>
+        
+        <footer>
+            <p>兮心阅读 © 阅读背景『闲暇时光』| 宁静时光，优雅阅读</p>
+        </footer>
+    </div>
+
+    <script>
+        // 图片加载完成后的处理
+        function imageLoaded(imgElement, placeholderId) {
+            // 添加loaded类触发动画
+            imgElement.classList.add('loaded');
+            
+            // 移除占位符
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+            
+            // 确保图片显示
+            imgElement.style.opacity = '1';
+            imgElement.style.transform = 'translateY(0)';
+        }
+        
+        // 为图片添加错误处理
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.image-item img');
+            
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.error('图片加载失败:', this.src);
+                    // 可以在这里显示一个错误占位符
+                    const placeholderId = this.getAttribute('onload').match(/imageLoaded\(this, '(\w+)'\)/)[1];
+                    const placeholder = document.getElementById(placeholderId);
+                    if (placeholder) {
+                        placeholder.innerHTML = '<div style="text-align:center; padding: 50px; color: #8d6e63;">图片加载失败</div>';
+                        placeholder.style.background = '#f5f0eb';
+                        placeholder.style.animation = 'none';
+                    }
+                });
+            });
+            
+            // 优化图片加载 - 使用Intersection Observer API实现懒加载
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                // 为所有图片添加观察
+                const images = document.querySelectorAll('.image-item img');
+                images.forEach(img => {
+                    if (img.getAttribute('loading') !== 'lazy') {
+                        img.setAttribute('loading', 'lazy');
+                    }
+                    imageObserver.observe(img);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
