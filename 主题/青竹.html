@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青竹主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f5f0;
+            color: #2d3a2d;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #818d8d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #6f7a7a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(129, 141, 141, 0.3);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #2d3a2d;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #818d8d;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-top: 25px;
+            color: #4a5a4a;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+            font-style: italic;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border-left: 5px solid #818d8d;
+        }
+        
+        .theme-quote {
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1.8;
+            color: #2d3a2d;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2d3a2d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #818d8d;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            color: #2d3a2d;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .json-code {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .json-code .property {
+            color: #2d3a2d;
+            font-weight: bold;
+        }
+        
+        .json-code .string {
+            color: #4a5a4a;
+        }
+        
+        .json-code .boolean {
+            color: #818d8d;
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid #818d8d;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #818d8d;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(129, 141, 141, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #6f7a7a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(129, 141, 141, 0.4);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #2d3a2d;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(129, 141, 141, 0.15);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #2d3a2d;
+            border-top: 1px solid rgba(129, 141, 141, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #4a5a4a;
+            border-top: 1px solid rgba(129, 141, 141, 0.3);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .light-theme-badge {
+            display: inline-block;
+            background-color: #818d8d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>青竹</h1>
+            <p class="subtitle">"翠竹招摇节节高，微语吟吟悟禅新。"</p>
+            <div class="light-theme-badge">
+                <i class="fas fa-sun"></i> 浅色主题
+            </div>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                翠竹招摇节节高，微语吟吟悟禅新。
+            </div>
+            <p>这是一个清新自然的主题，以"青竹"为意象，表达生机勃勃、清新脱俗的意境。在淡雅的青色与白色背景中，体验清新宁静的阅读氛围，感受竹子的高洁与禅意。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff818d8d;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff818d8d</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffdfdfdf;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ffdfdfdf</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffdfdfdf;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ffdfdfdf</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffdfdfdf;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ffdfdfdf</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 10px; background-color: rgba(129, 141, 141, 0.1); border-radius: 8px;">
+                    <p style="font-size: 0.9rem; color: #4a5a4a;"><i class="fas fa-info-circle"></i> 这是一个浅色主题 (isNightTheme: false)</p>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  <span class="property">"accentColor"</span>: <span class="string">"#ff818d8d"</span>,
+  <span class="property">"backgroundColor"</span>: <span class="string">"#ffdfdfdf"</span>,
+  <span class="property">"bottomBackground"</span>: <span class="string">"#ffdfdfdf"</span>,
+  <span class="property">"isNightTheme"</span>: <span class="boolean">false</span>,
+  <span class="property">"primaryColor"</span>: <span class="string">"#ffdfdfdf"</span>,
+  <span class="property">"themeName"</span>: <span class="string">"青竹"</span>
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"青竹"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/iXJ040lfb5fi" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201423.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201423.png" alt="青竹主题预览图1">
+                    </a>
+                    <div class="image-caption">青竹主题预览 - 首页界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201507.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201507.png" alt="青竹主题预览图2">
+                    </a>
+                    <div class="image-caption">青竹主题预览 - 阅读界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201549.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201549.png" alt="青竹主题预览图3">
+                    </a>
+                    <div class="image-caption">青竹主题预览 - 设置界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201656.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201656.png" alt="青竹主题预览图4">
+                    </a>
+                    <div class="image-caption">青竹主题预览 - 书籍详情</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201738.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201738.png" alt="青竹主题预览图5">
+                    </a>
+                    <div class="image-caption">青竹主题预览 - 分类浏览</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201816.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201816.png" alt="青竹主题预览图6">
+                    </a>
+                    <div class="image-caption">青竹主题预览 - 搜索界面</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201901.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230103_201901.png" alt="青竹主题预览图7">
+                    </a>
+                    <div class="image-caption">青竹主题预览 - 个人中心</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 青竹主题 | 设计理念：清新、自然、禅意
+        </footer>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 150);
+                }
+            }
+            
+            setTimeout(typeWriter, 300);
+            
+            // 图片悬停效果增强
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(129, 141, 141, 0.2)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+            
+            // 添加青竹主题的动态效果
+            const bambooEffect = document.createElement('div');
+            bambooEffect.style.position = 'fixed';
+            bambooEffect.style.top = '0';
+            bambooEffect.style.left = '0';
+            bambooEffect.style.width = '100%';
+            bambooEffect.style.height = '100%';
+            bambooEffect.style.pointerEvents = 'none';
+            bambooEffect.style.zIndex = '-1';
+            bambooEffect.style.background = 'radial-gradient(circle at 20% 80%, rgba(129, 141, 141, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(223, 223, 223, 0.2) 0%, transparent 50%)';
+            document.body.appendChild(bambooEffect);
+            
+            // 高亮JSON代码中的关键词
+            const jsonCode = document.querySelector('.json-code');
+            if (jsonCode) {
+                let html = jsonCode.innerHTML;
+                html = html.replace(/"([^"]+)"/g, '<span class="string">"$1"</span>');
+                html = html.replace(/(true|false)/g, '<span class="boolean">$1</span>');
+                const properties = ['accentColor', 'backgroundColor', 'bottomBackground', 'isNightTheme', 'primaryColor', 'themeName'];
+                properties.forEach(prop => {
+                    const regex = new RegExp(`"${prop}"`, 'g');
+                    html = html.replace(regex, `<span class="property">"${prop}"</span>`);
+                });
+                jsonCode.innerHTML = html;
+            }
+            
+            // 添加竹叶飘落效果
+            const fallingLeaves = document.createElement('div');
+            fallingLeaves.style.position = 'fixed';
+            fallingLeaves.style.top = '0';
+            fallingLeaves.style.left = '0';
+            fallingLeaves.style.width = '100%';
+            fallingLeaves.style.height = '100%';
+            fallingLeaves.style.pointerEvents = 'none';
+            fallingLeaves.style.zIndex = '-1';
+            fallingLeaves.style.overflow = 'hidden';
+            document.body.appendChild(fallingLeaves);
+            
+            // 创建竹叶
+            for (let i = 0; i < 15; i++) {
+                const leaf = document.createElement('div');
+                leaf.style.position = 'absolute';
+                leaf.style.width = '20px';
+                leaf.style.height = '5px';
+                leaf.style.backgroundColor = 'rgba(129, 141, 141, 0.3)';
+                leaf.style.borderRadius = '10px';
+                leaf.style.top = Math.random() * 100 + 'vh';
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.opacity = '0.7';
+                fallingLeaves.appendChild(leaf);
+                
+                // 简单的动画
+                animateLeaf(leaf);
+            }
+            
+            function animateLeaf(leaf) {
+                let x = parseFloat(leaf.style.left);
+                let y = parseFloat(leaf.style.top);
+                let speedX = (Math.random() - 0.5) * 0.5;
+                let speedY = Math.random() * 0.5 + 0.2;
+                
+                function move() {
+                    x += speedX;
+                    y += speedY;
+                    
+                    if (y > 100) {
+                        y = -5;
+                        x = Math.random() * 100;
+                    }
+                    
+                    if (x > 100) x = 0;
+                    if (x < 0) x = 100;
+                    
+                    leaf.style.left = x + 'vw';
+                    leaf.style.top = y + 'vh';
+                    
+                    requestAnimationFrame(move);
+                }
+                
+                move();
+            }
+        });
+    </script>
+</body>
+</html>
