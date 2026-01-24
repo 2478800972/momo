@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金秋</title>
+    <!-- Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+        
+        body {
+            background-color: #fef9f0;
+            color: #5d4037;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-image: linear-gradient(to bottom, #fff8e1 0%, #fff 100%);
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-top: 20px;
+        }
+        
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ff9800;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: 1px solid #ffcc80;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            background-color: #fff3e0;
+            transition: all 0.3s ease;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background-color: #ff9800;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ffcc80;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #ef6c00;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ffb74d, transparent);
+            margin: 40px 0;
+        }
+        
+        /* 图片展示区域 */
+        .image-section {
+            margin-bottom: 50px;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .image-item {
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff8e1;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-item img:hover {
+            transform: scale(1.03);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #5d4037;
+            background-color: #fff8e1;
+        }
+        
+        /* 金秋主题装饰 */
+        .autumn-decoration {
+            text-align: center;
+            margin: 30px 0;
+            color: #ff9800;
+        }
+        
+        .autumn-decoration i {
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+        
+        /* 金秋诗句 */
+        .autumn-poem {
+            background-color: #fff8e1;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .poem-line {
+            font-size: 1.4rem;
+            color: #ef6c00;
+            margin: 15px 0;
+            font-family: 'STKaiti', 'SimSun', serif;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ffcc80;
+            color: #8d6e63;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .poem-line {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* 图片加载占位符 */
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(90deg, #fff8e1 25%, #ffecb3 50%, #fff8e1 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        
+        /* 落叶飘落效果 */
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ff9800;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .leaf::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff9800;
+            border-radius: 50%;
+            top: -5px;
+            left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <!-- 金秋装饰 -->
+        <div class="autumn-decoration">
+            <i class="fas fa-leaf"></i>
+            <i class="fas fa-leaf"></i>
+            <i class="fas fa-leaf"></i>
+        </div>
+        
+        <header>
+            <h1>金秋</h1>
+        </header>
+        
+        <!-- 金秋诗句 -->
+        <div class="autumn-poem">
+            <div class="poem-line">秋风送爽，硕果累累</div>
+            <div class="poem-line">金黄的叶片，铺满大地</div>
+            <div class="poem-line">收获的季节，丰收的喜悦</div>
+            <div class="poem-line">金秋时节，美景如画</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 图片展示区域 -->
+        <div class="image-section">
+            <div class="image-grid">
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-004426-8da2d3.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder1"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-004426-8da2d3.jpeg" 
+                             alt="金秋景色1" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder1')">
+                    </a>
+                    <div class="image-caption">金秋丰收景色</div>
+                </div>
+                
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-004428-edc9de.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder2"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-004428-edc9de.jpeg" 
+                             alt="金秋景色2" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder2')">
+                    </a>
+                    <div class="image-caption">秋日金黄落叶</div>
+                </div>
+                
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-004432-1f18fe.jpeg" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder3"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/20260125-004432-1f18fe.jpeg" 
+                             alt="金秋景色3" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder3')">
+                    </a>
+                    <div class="image-caption">秋日宁静风光</div>
+                </div>
+                
+                <div class="image-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220817_105411.png" 
+                       target="_blank" 
+                       class="image-link">
+                        <div class="image-placeholder" id="placeholder4"></div>
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20220817_105411.png" 
+                             alt="金秋景色4" 
+                             loading="lazy"
+                             onload="imageLoaded(this, 'placeholder4')">
+                    </a>
+                    <div class="image-caption">金秋丰收果实</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- 金秋描述 -->
+        <div class="autumn-poem">
+            <div class="poem-line">秋天是收获的季节，金黄的稻谷、硕果累累的果树，</div>
+            <div class="poem-line">都展示着大自然的慷慨馈赠。枫叶红了，银杏黄了，</div>
+            <div class="poem-line">大地披上了一层金色的外衣，美不胜收。</div>
+        </div>
+        
+        <footer>
+            <p>兮心阅读 © 金秋 | 丰收的季节，金色的美景</p>
+        </footer>
+    </div>
+
+    <script>
+        // 图片加载完成后的处理
+        function imageLoaded(imgElement, placeholderId) {
+            // 添加loaded类触发动画
+            imgElement.classList.add('loaded');
+            
+            // 移除占位符
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+            
+            // 确保图片显示
+            imgElement.style.opacity = '1';
+            imgElement.style.transform = 'translateY(0)';
+        }
+        
+        // 为图片添加错误处理
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.image-item img');
+            
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.error('图片加载失败:', this.src);
+                    // 可以在这里显示一个错误占位符
+                    const placeholderId = this.getAttribute('onload').match(/imageLoaded\(this, '(\w+)'\)/)[1];
+                    const placeholder = document.getElementById(placeholderId);
+                    if (placeholder) {
+                        placeholder.innerHTML = '<div style="text-align:center; padding: 50px; color: #ef6c00;">图片加载失败</div>';
+                        placeholder.style.background = '#fff8e1';
+                        placeholder.style.animation = 'none';
+                    }
+                });
+            });
+            
+            // 优化图片加载 - 使用Intersection Observer API实现懒加载
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                // 为所有图片添加观察
+                const images = document.querySelectorAll('.image-item img');
+                images.forEach(img => {
+                    if (img.getAttribute('loading') !== 'lazy') {
+                        img.setAttribute('loading', 'lazy');
+                    }
+                    imageObserver.observe(img);
+                });
+            }
+        });
+        
+        // 创建落叶飘落效果
+        function createLeaves() {
+            const leafCount = 12;
+            
+            for (let i = 0; i < leafCount; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                
+                // 随机位置
+                const leftPos = Math.random() * 100;
+                leaf.style.left = `${leftPos}vw`;
+                
+                // 随机大小
+                const size = 15 + Math.random() * 25;
+                leaf.style.width = `${size}px`;
+                leaf.style.height = `${size}px`;
+                
+                // 随机颜色
+                const hue = 30 + Math.random() * 20;
+                leaf.style.backgroundColor = `hsl(${hue}, 80%, 60%)`;
+                leaf.style.opacity = 0.4 + Math.random() * 0.4;
+                
+                // 随机动画
+                const duration = 10 + Math.random() * 15;
+                const delay = Math.random() * 5;
+                leaf.style.animation = `leafFall ${duration}s linear ${delay}s infinite`;
+                
+                document.body.appendChild(leaf);
+            }
+        }
+        
+        // 添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes leafFall {
+                0% {
+                    transform: translateY(-100px) rotate(-45deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.7;
+                }
+                90% {
+                    opacity: 0.7;
+                }
+                100% {
+                    transform: translateY(calc(100vh + 100px)) rotate(45deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 页面加载完成后创建落叶
+        document.addEventListener('DOMContentLoaded', createLeaves);
+    </script>
+</body>
+</html>
