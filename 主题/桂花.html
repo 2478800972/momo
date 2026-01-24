@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桂花主题 - 兮心阅读</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #ffeeddc8;
+            color: #363636;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff81897d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(129, 137, 125, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #6a7265;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(129, 137, 125, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 30px;
+            border-bottom: 1px solid rgba(54, 54, 54, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: #81897d;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background-color: #81897d;
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #666;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .theme-description {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-left: 5px solid #81897d;
+        }
+        
+        .theme-quote {
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #81897d;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            font-style: italic;
+        }
+        
+        .theme-config {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .config-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .config-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #81897d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-card h2 i {
+            color: #81897d;
+        }
+        
+        .color-palette {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .color-sample {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .color-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-name {
+            font-weight: 600;
+        }
+        
+        .color-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .json-code {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .download-section {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #81897d;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(129, 137, 125, 0.3);
+        }
+        
+        .download-btn:hover {
+            background-color: #6a7265;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(129, 137, 125, 0.4);
+        }
+        
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+        
+        .gallery-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #81897d;
+            text-align: center;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-decoration: none; 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .image-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            font-weight: 500;
+            text-decoration: none; 
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            border-top: 1px solid rgba(54, 54, 54, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-config {
+                flex-direction: column;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item img {
+                max-height: 400px;
+            }
+        }
+        
+        /* 桂花飘落效果 */
+        .osmanthus {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        
+        .osmanthus-flower {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .osmanthus-leaf {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 返回按钮 -->
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回主题合集
+        </a>
+        
+        <header>
+            <h1>桂花</h1>
+            <p class="subtitle">"人闲桂花落，夜静春山空。"</p>
+        </header>
+        
+        <section class="theme-description">
+            <div class="theme-quote">
+                人闲桂花落，夜静春山空。
+            </div>
+            <p>这是一个充满秋日诗意与桂花芬芳的主题，以桂花为意象，营造出宁静、闲适的阅读氛围。桂花的淡雅香气与温暖的米黄色调相结合，让人感受到秋天的宁静与美好，体验"人闲桂花落"的悠然意境。</p>
+        </section>
+        
+        <section class="theme-config">
+            <div class="config-card">
+                <h2><i class="fas fa-palette"></i> 颜色配置</h2>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ff81897d;"></div>
+                        <div class="color-info">
+                            <span class="color-name">强调色</span>
+                            <span class="color-value">#ff81897d</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffeeddc8;"></div>
+                        <div class="color-info">
+                            <span class="color-name">背景色</span>
+                            <span class="color-value">#ffeeddc8</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffeeddc8;"></div>
+                        <div class="color-info">
+                            <span class="color-name">底部背景色</span>
+                            <span class="color-value">#ffeeddc8</span>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-sample" style="background-color: #ffeeddc8;"></div>
+                        <div class="color-info">
+                            <span class="color-name">主色调</span>
+                            <span class="color-value">#ffeeddc8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2><i class="fas fa-code"></i> JSON 配置</h2>
+                <div class="json-code">
+{
+  "accentColor": "#ff81897d",
+  "backgroundColor": "#ffeeddc8",
+  "bottomBackground": "#ffeeddc8",
+  "isNightTheme": false,
+  "primaryColor": "#ffeeddc8",
+  "themeName": "桂花"
+}
+                </div>
+            </div>
+        </section>
+        
+        <section class="download-section">
+            <h2>下载主题</h2>
+            <p>点击下方按钮下载"桂花"主题文件，安装后即可使用</p>
+            <a href="https://moshanging.lanzout.com/imHY21a5aazc" class="download-btn" target="_blank">
+                <i class="fas fa-download"></i> 下载主题文件
+            </a>
+        </section>
+        
+        <section class="gallery-section">
+            <h2>主题预览</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230928_225841.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230928_225841.png" alt="桂花主题预览图1" loading="lazy">
+                    </a>
+                    <div class="image-caption">桂花主题预览 - 1</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230928_225956.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230928_225956.png" alt="桂花主题预览图2" loading="lazy">
+                    </a>
+                    <div class="image-caption">桂花主题预览 - 2</div>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230928_230026.png" target="_blank">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/IMG_20230928_230026.png" alt="桂花主题预览图3" loading="lazy">
+                    </a>
+                    <div class="image-caption">桂花主题预览 - 3</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            兮心阅读 © 桂花主题 | 设计理念：桂花、秋意、闲适
+        </footer>
+    </div>
+    
+    <script>
+        // 页面加载动画 - 立即执行，不等待图片
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+        
+        // 打字机效果 - 立即执行，不等待图片
+        const title = document.querySelector('h1');
+        const originalText = title.textContent;
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                title.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        setTimeout(typeWriter, 300);
+        
+        // 创建桂花飘落效果 - 立即执行，不等待图片
+        function createOsmanthusFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('osmanthus-flower');
+            
+            // 随机大小
+            const size = Math.random() * 15 + 8;
+            flower.style.width = `${size}px`;
+            flower.style.height = `${size}px`;
+            
+            // 桂花颜色（淡黄色）
+            const opacity = Math.random() * 0.3 + 0.2;
+            flower.style.backgroundColor = `rgba(255, 218, 121, ${opacity})`;
+            flower.style.borderRadius = '50%';
+            
+            // 随机起始位置
+            flower.style.left = `${Math.random() * 100}vw`;
+            flower.style.top = `-20px`;
+            
+            document.body.appendChild(flower);
+            
+            // 桂花飘落动画
+            const duration = Math.random() * 10000 + 8000;
+            const endLeft = parseFloat(flower.style.left) + (Math.random() * 30 - 15);
+            
+            flower.animate([
+                { 
+                    transform: 'translateY(0) rotate(0deg)',
+                    opacity: opacity
+                },
+                { 
+                    transform: `translateY(110vh) translateX(${endLeft - parseFloat(flower.style.left)}vw) rotate(${Math.random() * 360}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除桂花
+            setTimeout(() => {
+                flower.remove();
+            }, duration);
+        }
+        
+        // 创建桂花叶子飘落效果 - 立即执行，不等待图片
+        function createOsmanthusLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('osmanthus-leaf');
+            
+            // 随机大小
+            const width = Math.random() * 20 + 15;
+            const height = width * 0.4;
+            
+            leaf.style.width = `${width}px`;
+            leaf.style.height = `${height}px`;
+            
+            // 叶子颜色（绿色调）
+            const opacity = Math.random() * 0.25 + 0.15;
+            leaf.style.backgroundColor = `rgba(129, 137, 125, ${opacity})`;
+            leaf.style.borderRadius = '2px';
+            
+            // 随机起始位置
+            leaf.style.left = `${Math.random() * 100}vw`;
+            leaf.style.top = `-30px`;
+            
+            document.body.appendChild(leaf);
+            
+            // 叶子飘落动画
+            const duration = Math.random() * 12000 + 10000;
+            const endLeft = parseFloat(leaf.style.left) + (Math.random() * 40 - 20);
+            const rotate = Math.random() * 720 - 360; // 随机旋转角度
+            
+            leaf.animate([
+                { 
+                    transform: 'translateY(0) rotate(0deg)',
+                    opacity: opacity
+                },
+                { 
+                    transform: `translateY(120vh) translateX(${endLeft - parseFloat(leaf.style.left)}vw) rotate(${rotate}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除叶子
+            setTimeout(() => {
+                leaf.remove();
+            }, duration);
+        }
+        
+        // 创建桂花树效果（静态背景） - 立即执行，不等待图片
+        function createOsmanthusTree() {
+            const tree = document.createElement('div');
+            tree.classList.add('osmanthus');
+            
+            // 随机大小
+            const width = Math.random() * 100 + 80;
+            const height = width * 1.5;
+            
+            tree.style.width = `${width}px`;
+            tree.style.height = `${height}px`;
+            
+            // 随机位置
+            tree.style.left = `${Math.random() * 100}vw`;
+            tree.style.top = `${Math.random() * 100}vh`;
+            
+            // 创建树的形状
+            tree.style.background = `radial-gradient(ellipse at center, rgba(129, 137, 125, 0.03) 0%, rgba(129, 137, 125, 0) 70%)`;
+            tree.style.borderRadius = '50%';
+            
+            document.body.appendChild(tree);
+            
+            // 树的存在时间
+            const duration = Math.random() * 30000 + 20000;
+            
+            tree.animate([
+                { 
+                    opacity: 0
+                },
+                { 
+                    opacity: 0.05
+                },
+                { 
+                    opacity: 0.05
+                },
+                { 
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除树
+            setTimeout(() => {
+                tree.remove();
+            }, duration);
+            
+            // 从树上飘落桂花
+            const flowerInterval = setInterval(() => {
+                createTreeFlower(tree);
+            }, 800);
+            
+            // 从树上飘落叶子
+            const leafInterval = setInterval(() => {
+                createTreeLeaf(tree);
+            }, 1200);
+            
+            // 清除定时器
+            setTimeout(() => {
+                clearInterval(flowerInterval);
+                clearInterval(leafInterval);
+            }, duration);
+        }
+        
+        // 从树上飘落桂花 - 立即执行，不等待图片
+        function createTreeFlower(treeElement) {
+            const flower = document.createElement('div');
+            flower.classList.add('osmanthus-flower');
+            
+            // 小桂花
+            const size = Math.random() * 10 + 5;
+            flower.style.width = `${size}px`;
+            flower.style.height = `${size}px`;
+            
+            // 桂花颜色
+            const opacity = Math.random() * 0.4 + 0.2;
+            flower.style.backgroundColor = `rgba(255, 218, 121, ${opacity})`;
+            flower.style.borderRadius = '50%';
+            
+            // 从树的位置开始
+            const treeLeft = parseFloat(treeElement.style.left);
+            const treeTop = parseFloat(treeElement.style.top);
+            
+            flower.style.left = `${treeLeft + (Math.random() * parseFloat(treeElement.style.width))}px`;
+            flower.style.top = `${treeTop + (Math.random() * parseFloat(treeElement.style.height) * 0.5)}px`;
+            
+            document.body.appendChild(flower);
+            
+            // 桂花飘落动画
+            const duration = Math.random() * 8000 + 6000;
+            const endLeft = parseFloat(flower.style.left) + (Math.random() * 60 - 30);
+            
+            flower.animate([
+                { 
+                    transform: 'translateY(0) rotate(0deg)',
+                    opacity: opacity
+                },
+                { 
+                    transform: `translateY(80vh) translateX(${endLeft - parseFloat(flower.style.left)}px) rotate(${Math.random() * 360}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除桂花
+            setTimeout(() => {
+                flower.remove();
+            }, duration);
+        }
+        
+        // 从树上飘落叶子 - 立即执行，不等待图片
+        function createTreeLeaf(treeElement) {
+            const leaf = document.createElement('div');
+            leaf.classList.add('osmanthus-leaf');
+            
+            // 叶子大小
+            const width = Math.random() * 15 + 10;
+            const height = width * 0.4;
+            
+            leaf.style.width = `${width}px`;
+            leaf.style.height = `${height}px`;
+            
+            // 叶子颜色
+            const opacity = Math.random() * 0.3 + 0.15;
+            leaf.style.backgroundColor = `rgba(129, 137, 125, ${opacity})`;
+            leaf.style.borderRadius = '2px';
+            
+            // 从树的位置开始
+            const treeLeft = parseFloat(treeElement.style.left);
+            const treeTop = parseFloat(treeElement.style.top);
+            
+            leaf.style.left = `${treeLeft + (Math.random() * parseFloat(treeElement.style.width))}px`;
+            leaf.style.top = `${treeTop + (Math.random() * parseFloat(treeElement.style.height) * 0.5)}px`;
+            
+            document.body.appendChild(leaf);
+            
+            // 叶子飘落动画
+            const duration = Math.random() * 10000 + 8000;
+            const endLeft = parseFloat(leaf.style.left) + (Math.random() * 80 - 40);
+            const rotate = Math.random() * 720 - 360;
+            
+            leaf.animate([
+                { 
+                    transform: 'translateY(0) rotate(0deg)',
+                    opacity: opacity
+                },
+                { 
+                    transform: `translateY(90vh) translateX(${endLeft - parseFloat(leaf.style.left)}px) rotate(${rotate}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            // 移除叶子
+            setTimeout(() => {
+                leaf.remove();
+            }, duration);
+        }
+        
+        // 立即开始动画，不等待图片加载
+        // 每2秒创建一朵飘落的桂花
+        setInterval(createOsmanthusFlower, 2000);
+        
+        // 每3秒创建一片飘落的叶子
+        setInterval(createOsmanthusLeaf, 3000);
+        
+        // 每30秒创建一棵桂花树
+        setInterval(createOsmanthusTree, 30000);
+        
+        // 初始化创建一些桂花和叶子
+        for(let i = 0; i < 20; i++) {
+            setTimeout(() => createOsmanthusFlower(), i * 300);
+            setTimeout(() => createOsmanthusLeaf(), i * 450);
+        }
+        
+        // 初始化创建一棵桂花树
+        setTimeout(() => createOsmanthusTree(), 5000);
+        
+        // 图片悬停效果增强 - 等DOMContentLoaded完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(129, 137, 125, 0.15)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                });
+            });
+            
+            // 为图片添加懒加载效果
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 添加加载失败处理
+                img.addEventListener('error', function() {
+                    this.style.backgroundColor = '#f5f5f5';
+                    this.style.padding = '20px';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.style.minHeight = '200px';
+                    
+                    // 创建一个替代文本
+                    const altText = document.createElement('div');
+                    altText.textContent = this.alt || '图片加载失败';
+                    altText.style.color = '#666';
+                    altText.style.fontSize = '14px';
+                    
+                    // 清空图片内容并添加替代文本
+                    this.parentNode.replaceChild(altText, this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
