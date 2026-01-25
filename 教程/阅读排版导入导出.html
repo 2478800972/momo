@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读排版导入导出教程</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #4a6fa5;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(74, 111, 165, 0.2);
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+        
+        .back-btn:hover {
+            background-color: #3a5a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(74, 111, 165, 0.3);
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            padding: 60px 40px 40px;
+            margin-top: 30px;
+            position: relative;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        h2 {
+            color: #3498db;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2 i {
+            color: #2980b9;
+        }
+        
+        .step {
+            background-color: #f8fafc;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .step-content {
+            margin-left: 42px;
+            color: #555;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-container img:hover {
+            transform: scale(1.01);
+        }
+        
+        .image-caption {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .video-section {
+            background-color: #f0f7ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .video-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .video-title i {
+            color: #e74c3c;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .video-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .summary {
+            background-color: #f9fdf9;
+            border-left: 4px solid #2ecc71;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .summary h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #95a5a6;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 50px 20px 30px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> 返回主题合集
+    </a>
+    
+    <div class="container">
+        <header>
+            <h1>阅读排版导入导出教程</h1>
+            <p class="subtitle">学习如何导出阅读背景、排版配置，以及导入他人分享的优质阅读排版设置</p>
+        </header>
+        
+        <div class="section">
+            <h2><i class="fas fa-info-circle"></i> 功能简介</h2>
+            <div class="step">
+                <div class="step-title"><span class="step-number">1</span> 功能介绍</div>
+                <div class="step-content">
+                    <p>本功能允许您导出自己的阅读背景和排版设置，方便备份或分享给他人。同时，您也可以导入他人分享的优秀排版配置，快速应用美观的阅读界面。</p>
+                    <p><strong>主要特点：</strong></p>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>导出个性化阅读配置</li>
+                        <li>导入他人分享的优质排版</li>
+                        <li>快速切换不同阅读主题</li>
+                        <li>备份和恢复个人设置</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2><i class="fas fa-list-ol"></i> 操作步骤</h2>
+            
+            <div class="step">
+                <div class="step-title"><span class="step-number">1</span> 点击界面</div>
+                <div class="step-content">
+                    <p>首先，在阅读应用中找到并点击"界面"设置选项。</p>
+                    <div class="image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/539be8fc-e753-45a1-8dd2-d17834954c88.jpg" alt="步骤1：点击界面">
+                        <p class="image-caption">图1：找到并点击"界面"选项</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title"><span class="step-number">2</span> 长按自定义背景选项</div>
+                <div class="step-content">
+                    <p>在界面设置中，找到您想要导出或替换的自定义背景选项，长按该选项以弹出操作菜单。</p>
+                    <div class="image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/ab2937db-673b-4518-a721-668988f8f709.jpg" alt="步骤2：长按自定义背景选项">
+                        <p class="image-caption">图2：长按自定义背景选项以弹出操作菜单</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title"><span class="step-number">3</span> 选择导入或导出</div>
+                <div class="step-content">
+                    <p>在弹出的操作菜单中，选择"导入"或"导出"功能，根据您的需求进行操作。</p>
+                    <div class="image-container">
+                        <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/img/a48af66c-7304-449d-b212-99319a89f14e.jpg" alt="步骤3：选择导入或导出">
+                        <p class="image-caption">图3：选择导入或导出功能</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-section">
+            <h3 class="video-title"><i class="fas fa-video"></i> 视频教程</h3>
+            <p>观看以下视频教程，了解详细操作步骤：视频来源于小红书@芫粥绿</p>
+            
+            <div class="video-container">
+                <video controls>
+                    <source src="https://sns-video-hs.xhscdn.com/stream/79/110/114/01e9207072347e3b4f0370019aa6b800f1_114.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放，请直接<a href="https://sns-video-hs.xhscdn.com/stream/79/110/114/01e9207072347e3b4f0370019aa6b800f1_114.mp4" class="video-link">点击此处查看视频</a>
+                </video>
+            </div>
+            
+            <a href="https://sns-video-hs.xhscdn.com/stream/79/110/114/01e9207072347e3b4f0370019aa6b800f1_114.mp4" class="video-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> 在新窗口中打开视频
+            </a>
+        </div>
+        
+        <div class="summary">
+            <h3><i class="fas fa-lightbulb"></i> 使用提示</h3>
+            <ul style="padding-left: 20px;">
+                <li>导出功能会生成一个配置文件，您可以分享给其他用户</li>
+                <li>导入前请确保配置文件来源可靠，避免安全隐患</li>
+                <li>建议定期导出您的配置，防止意外丢失</li>
+                <li>不同版本的阅读应用可能配置格式不完全兼容</li>
+                <li>导入配置后，可能需要重新启动应用才能完全生效</li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>阅读排版教程 © 始于2020 阅读排版教程 | 本教程仅供参考，具体操作可能因应用版本不同而略有差异</p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加图片加载失败的处理
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    this.src = 'https://via.placeholder.com/800x450/3498db/ffffff?text=图片加载失败';
+                    this.alt = '图片加载失败';
+                });
+            });
+            
+            // 视频加载失败的处理
+            const video = document.querySelector('video');
+            video.addEventListener('error', function() {
+                const videoLink = document.querySelector('.video-link');
+                videoLink.style.backgroundColor = '#ffebee';
+                videoLink.style.padding = '10px';
+                videoLink.style.borderRadius = '5px';
+                videoLink.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 视频加载失败，请直接点击链接查看';
+            });
+            
+            // 返回按钮点击动画
+            const backBtn = document.querySelector('.back-btn');
+            backBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
