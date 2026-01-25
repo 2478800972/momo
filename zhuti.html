@@ -151,23 +151,29 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 12px; /* 与主题标签间距一致 */
+    gap: 12px; /* 标签之间的间距 */
     justify-content: space-between; /* 让标签在每行均匀分布 */
-    align-items: stretch; /* 让每行的标签高度一致 */
+    align-items: stretch; /* 让每行标签高度一致 */
 }
 /* 资源链接标签：与主题标签样式统一 */
 .group-list .resource-tag {
     margin: 0;
-    flex: 1 1 calc(50% - 6px); /* 每行显示2个标签，自动均分宽度 */
-    min-width: 140px; /* 保证小屏幕下标签不会太窄 */
-    max-width: 100%; /* 防止标签过宽 */
-    text-align: center; /* 文字居中 */
-    padding: 10px 12px; /* 增加内边距，让换行文字更舒适 */
+    flex: 1 1 calc(50% - 6px); /* 核心：每行2个标签，自动计算宽度 */
+    min-width: 140px; /* 小屏幕下最小宽度，防止标签太窄 */
+    max-width: 100%;
+    min-height: 70px; /* 强制所有标签高度统一 */
+    padding: 16px 12px; /* 上下内边距充足，文字居中更舒适 */
     word-break: break-word; /* 文字过长时自动换行 */
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    text-align: center; /* 多行文字也能水平居中 */
 }
+
+
+
+
+
 
 
         .note-content {
