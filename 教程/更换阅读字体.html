@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更换阅读字体教程</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a6fa5;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 3px 8px rgba(74, 111, 165, 0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #3a5a8c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(74, 111, 165, 0.4);
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-top: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+            list-style-type: none;
+            margin: 30px 0;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #f9fafc;
+            border-radius: 8px;
+            border-left: 4px solid #4a6fa5;
+            position: relative;
+            padding-left: 70px;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #4a6fa5;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .note {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-size: 0.95em;
+        }
+        
+        .note-title {
+            font-weight: bold;
+            color: #e6a700;
+            margin-bottom: 5px;
+        }
+        
+        .version-note {
+            background-color: #e8f4fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px 15px;
+            margin: 10px 0 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+        
+        .video-section {
+            margin: 40px 0;
+            padding: 25px;
+            background-color: #f0f7ff;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .video-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .original-video {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px dashed #ccc;
+        }
+        
+        .path-info {
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .back-btn {
+                position: relative;
+                top: 0;
+                left: 0;
+                display: inline-flex;
+                margin-bottom: 20px;
+            }
+            
+            .step-list li {
+                padding-left: 60px;
+            }
+            
+            .step-list li::before {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回按钮 -->
+    <a href="https://2478800972.github.io/momo/zhuti.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> 返回主题合集
+    </a>
+    
+    <div class="container">
+        <h1>更换阅读字体教程</h1>
+        
+        <p style="text-align: center; margin-bottom: 30px; color: #555;">
+            本教程将指导您如何为阅读软件更换字体，提供2.0和3.0版本的不同操作步骤。
+        </p>
+        
+        <ol class="step-list">
+            <li>
+                <strong>下载字体文件</strong>
+                <p>从群文件下载需要的字体文件，或者您自己从网上寻找.ttf或.otf格式的字体文件。</p>
+            </li>
+            
+            <li>
+                <strong>准备字体文件夹</strong>
+                <p>2.0版本：请在手机系统自带内存根目录里新建Fonts文件夹（如果已有则不需要新建）。</p>
+                
+                <div class="note">
+                    <div class="note-title">温馨提示</div>
+                    <p>3.0版本自定义字体文件夹可以自行选择字体文件夹，可不进行建立。</p>
+                </div>
+            </li>
+            
+            <li>
+                <strong>找到字体文件</strong>
+                <p>找到您在群文件下载的字体文件：</p>
+                <div class="path-info">QQ文件路径: Android/data/com.tencent.mobileqq/Tencent/QQfile_recv</div>
+                <p>或者找到您在网上下载的字体位置。</p>
+            </li>
+            
+            <li>
+                <strong>移动字体文件</strong>
+                <p>2.0版本：将字体文件移动到Fonts文件夹里。</p>
+                <div class="version-note">
+                    3.0版本请自行选择自己下载的字体文件所在的文件夹。
+                </div>
+            </li>
+            
+            <li>
+                <strong>打开阅读软件</strong>
+            </li>
+            
+            <li>
+                <strong>进入书籍</strong>
+            </li>
+            
+            <li>
+                <strong>点击阅读界面中心</strong>
+            </li>
+            
+            <li>
+                <strong>选择字体</strong>
+                <p>点击字体选项，选择您需要使用的字体。</p>
+            </li>
+            
+            <li>
+                <strong>操作完成</strong>
+                <p>至此，更换阅读字体的操作已完成。</p>
+            </li>
+        </ol>
+        
+        <div class="video-section">
+            <h2><i class="fas fa-video"></i> 更换阅读字体视频教程</h2>
+            
+            <div class="video-container">
+                <iframe src="https://player.bilibili.com/player.html?bvid=BV1RB4y1Q7fR&page=1&high_quality=1&as_wide=1&allowfullscreen=true" 
+                        allowfullscreen></iframe>
+            </div>
+            
+         
+        </div>
+        
+        <div class="footer">
+            <p>教程制作 © 始于2020 | 使用愉快！</p>
+        </div>
+    </div>
+
+    <script>
+        // 添加简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为步骤列表项添加悬停效果
+            const stepItems = document.querySelectorAll('.step-list li');
+            stepItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.1)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // 返回按钮点击效果
+            const backBtn = document.querySelector('.back-btn');
+            backBtn.addEventListener('click', function(e) {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
