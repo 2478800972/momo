@@ -223,7 +223,6 @@
     
 <!-- 不蒜子新版（适配GitHub Pages，双CDN防失效） -->
 <script async src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
-<script async src="https://cdn.jsdelivr.net/npm/busuanzi@3.6.9/busuanzi.min.js"></script>
 
 
 </head>
@@ -485,6 +484,7 @@
                 this.textContent = targetContainer.classList.contains('collapsed') ? '▲' : '▼';
             });
         });
+        busuanzi.init(); // 不蒜子3.x强制初始化，必须加
     </script>
 </body>
 </html>
