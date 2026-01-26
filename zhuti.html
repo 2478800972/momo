@@ -131,7 +131,7 @@
             width: 100%;
             height: 100%;
         }
-        //* 资源链接组样式调整（适配折叠容器） */
+        /* 资源链接组样式调整（适配折叠容器） */
 .links .collapse-container {
     flex-direction: column; /* 资源链接垂直排列，保持原有分组结构 */
     gap: 25px; /* 分组之间间距 */
@@ -431,9 +431,16 @@
     </section>
 
     <footer>
-        <p>整理者：墨殇（酷安@墨迹染流年） | 所有主题均为原创制作</p>
-        <p>温馨提示：加群仅提供交流平台，主要分享书籍资源及主题讨论</p>
-    </footer>
+    <p>整理者：墨殇（酷安@墨迹染流年） | 所有主题均为原创制作</p>
+    <p>温馨提示：加群仅提供交流平台，主要分享书籍资源及主题讨论</p>
+    <p style="margin-top:15px; color:#718096; font-size:0.9rem;">
+        总访问量：<span id="busuanzi_value_site_pv"></span> 次 | 总访客数：<span id="busuanzi_value_site_uv"></span> 人
+    </p>
+</footer>
+
+    
+<!-- 不蒜子访问统计脚本 -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <script>
         // 平滑滚动效果
