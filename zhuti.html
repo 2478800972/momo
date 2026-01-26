@@ -431,12 +431,16 @@
     </section>
 
     <footer>
-    <p>整理者：墨殇（酷安@墨迹染流年） | 所有主题均为原创制作</p>
-    <p>温馨提示：加群仅提供交流平台，主要分享书籍资源及主题讨论</p>
-    <p style="margin-top:15px; color:#718096; font-size:0.9rem;">
-        总访问量：<span id="busuanzi_value_site_pv"></span> 次 | 总访客数：<span id="busuanzi_value_site_uv"></span> 人
-    </p>
+<p>整理者：墨殇（酷安@墨迹染流年） | 所有主题均为原创制作</p>
+<p>温馨提示：加群仅提供交流平台，主要分享书籍资源及主题讨论</p>
+<p style="margin-top:15px; color:#718096; font-size:0.9rem;">
+    总访问量：<span id="busuanzi_value_site_pv"></span> 次 | 总访客数：<span id="busuanzi_value_site_uv"></span> 人
+</p>
+<p style="color:#718096; font-size:0.9rem;">
+    今日访问量：<span id="today_pv">0</span> 次 | 今日访客数：<span id="today_uv">0</span> 人
+</p>
 </footer>
+
 
     
 <!-- 不蒜子访问统计脚本 -->
@@ -478,6 +482,29 @@
                 this.textContent = targetContainer.classList.contains('collapsed') ? '▲' : '▼';
             });
         });
+        // 今日访问量+访客数统计（本地存储，跨天自动重置）
+const todayDate = new Date().toISOString().split('T')[0];
+let todayStats = JSON.parse(localStorage.getItem('site_today_stats') || '{"date":"","pv":0,"uv":0}');
+
+// 跨天重置统计数据
+if (todayStats.date !== todayDate) {
+  todayStats = { date: todayDate, pv: 1, uv: 0 };
+  localStorage.setItem('has_visited_today', 'false');
+} else {
+  todayStats.pv++;
+}
+
+// 今日访客数（同一浏览器今日仅算1次）
+if (localStorage.getItem('has_visited_today') !== 'true') {
+  todayStats.uv++;
+  localStorage.setItem('has_visited_today', 'true');
+}
+
+// 保存数据并渲染到页面
+localStorage.setItem('site_today_stats', JSON.stringify(todayStats));
+document.getElementById('today_pv').textContent = todayStats.pv;
+document.getElementById('today_uv').textContent = todayStats.uv;
+
     </script>
 </body>
 </html>
