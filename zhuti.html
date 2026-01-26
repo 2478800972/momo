@@ -132,43 +132,50 @@
             height: 100%;
         }
         /* 资源链接组样式调整（适配折叠容器） */
-        .links .collapse-container {
-            flex-direction: column; /* 资源链接垂直排列，保持原有分组结构 */
-            gap: 25px; /* 分组之间间距 */
-        }
-        .link-group {
-            margin-bottom: 0; /* 取消原有底部间距，由折叠容器gap控制 */
-            width: 100%;
-        }
-        .link-title {
-            color: #4a5568;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        /* 资源链接列表：统一布局和间距 */
-        .group-list {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px; /* 标签之间的间距 */
-            justify-content: space-between; /* 让标签在每行均匀分布 */
-            align-items: stretch; /* 让每行标签高度一致 */
-        }
-        /* 资源链接标签：与主题标签样式统一 */
-        .group-list .resource-tag {
-            margin: 0;
-            flex: 1 1 calc(50% - 6px); /* 核心：每行2个标签，自动计算宽度 */
-            min-width: 140px; /* 小屏幕下最小宽度，防止标签太窄 */
-            max-width: 100%;
-            min-height: 70px; /* 强制所有标签高度统一 */
-            padding: 16px 12px; /* 上下内边距充足，文字居中更舒适 */
-            word-break: break-word; /* 文字过长时自动换行 */
-            display: flex;
-            align-items: center; /* 垂直居中 */
-            justify-content: center; /* 水平居中 */
-            text-align: center; /* 多行文字也能水平居中 */
-        }
+.links .collapse-container {
+    flex-direction: column; /* 资源链接垂直排列，保持原有分组结构 */
+    gap: 25px; /* 分组之间间距 */
+}
+.link-group {
+    margin-bottom: 0; /* 取消原有底部间距，由折叠容器gap控制 */
+    width: 100%;
+}
+.link-title {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+/* 资源链接列表：统一布局和间距 */
+.group-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px; /* 标签之间的间距 */
+    justify-content: space-between; /* 让标签在每行均匀分布 */
+    align-items: stretch; /* 让每行标签高度一致 */
+}
+/* 资源链接标签：与主题标签样式统一 */
+.group-list .resource-tag {
+    margin: 0;
+    flex: 1 1 calc(50% - 6px); /* 核心：每行2个标签，自动计算宽度 */
+    min-width: 140px; /* 小屏幕下最小宽度，防止标签太窄 */
+    max-width: 100%;
+    min-height: 70px; /* 强制所有标签高度统一 */
+    padding: 16px 12px; /* 上下内边距充足，文字居中更舒适 */
+    word-break: break-word; /* 文字过长时自动换行 */
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    text-align: center; /* 多行文字也能水平居中 */
+}
+
+
+
+
+
+
+
         .note-content {
             background: #fffaf0;
             border-left: 4px solid #ed8936;
@@ -212,15 +219,7 @@
                 font-size: 0.9rem; /* 响应式统一大小 */
             }
         }
-        /* 统计加载样式 */
-        .busuanzi-loading {
-            color: #ccc;
-            font-style: italic;
-        }
     </style>
-    
-    <!-- 不蒜子3.x统计代码（只保留一个CDN） -->
-    <script src="https://busuanzi.ibruce.info/busuanzi/3.6.9/busuanzi.min.js"></script>
 </head>
 <body>
     <header>
@@ -432,15 +431,16 @@
     </section>
 
     <footer>
-        <p>整理者：墨殇（酷安@墨迹染流年） | 所有主题均为原创制作</p>
-        <p>温馨提示：加群仅提供交流平台，主要分享书籍资源及主题讨论</p>
-        <p style="margin-top:15px; color:#718096; font-size:0.9rem;">
-            总访问量：<span id="busuanzi_value_site_pv" class="busuanzi-loading">加载中…</span> 次 | 总访客数：<span id="busuanzi_value_site_uv" class="busuanzi-loading">加载中…</span> 人
-        </p>
-        <p style="color:#718096; font-size:0.9rem;">
-            今日访问量：<span id="busuanzi_value_site_today_pv" class="busuanzi-loading">加载中...</span> 次 | 今日访客数：<span id="busuanzi_value_site_today_uv" class="busuanzi-loading">加载中...</span> 人
-        </p>
-    </footer>
+    <p>整理者：墨殇（酷安@墨迹染流年） | 所有主题均为原创制作</p>
+    <p>温馨提示：加群仅提供交流平台，主要分享书籍资源及主题讨论</p>
+    <p style="margin-top:15px; color:#718096; font-size:0.9rem;">
+        总访问量：<span id="busuanzi_value_site_pv"></span> 次 | 总访客数：<span id="busuanzi_value_site_uv"></span> 人
+    </p>
+</footer>
+
+    
+<!-- 不蒜子访问统计脚本 -->
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <script>
         // 平滑滚动效果
@@ -478,50 +478,6 @@
                 this.textContent = targetContainer.classList.contains('collapsed') ? '▲' : '▼';
             });
         });
-
-        // 不蒜子3.x统计初始化（修复版）
-        function initBusuanzi() {
-            // 检查不蒜子是否已加载
-            if (typeof busuanzi !== 'undefined') {
-                console.log('不蒜子3.x已加载，开始初始化统计...');
-                
-                // 移除加载中的样式
-                document.querySelectorAll('.busuanzi-loading').forEach(el => {
-                    el.classList.remove('busuanzi-loading');
-                });
-                
-                // 不蒜子3.x需要调用fetch来触发统计
-                if (typeof busuanzi.fetch === 'function') {
-                    busuanzi.fetch();
-                    
-                    // 设置一个定时器，以防第一次加载失败
-                    setTimeout(() => {
-                        busuanzi.fetch();
-                    }, 1000);
-                }
-            } else {
-                console.log('不蒜子3.x未加载，等待加载...');
-                // 如果未加载，等待一段时间后重试
-                setTimeout(initBusuanzi, 500);
-            }
-        }
-
-        // 页面加载完成后初始化统计
-        document.addEventListener('DOMContentLoaded', initBusuanzi);
-        
-        // 页面完全加载后再次尝试（确保脚本已加载）
-        window.addEventListener('load', function() {
-            setTimeout(initBusuanzi, 1000);
-        });
-
-        // 监听不蒜子脚本加载完成
-        const busuanziScript = document.querySelector('script[src*="busuanzi"]');
-        if (busuanziScript) {
-            busuanziScript.onload = function() {
-                console.log('不蒜子脚本已加载完成');
-                initBusuanzi();
-            };
-        }
     </script>
 </body>
 </html>
