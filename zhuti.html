@@ -221,7 +221,43 @@
         }
     </style>
 </head>
+
 <body>
+<!-- 微信/QQ 防红引导（内置浏览器自动显示提示，外部浏览器正常访问） -->
+<script>
+const ua = navigator.userAgent.toLowerCase();
+const isWechatOrQQ = /micromessenger|qq/i.test(ua);
+
+if (isWechatOrQQ) {
+  document.body.innerHTML = `
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,"Microsoft YaHei",sans-serif;}
+    .wrap{position:fixed;top:0;left:0;width:100%;height:100%;background:#f5f7fa;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 24px;}
+    h2{font-size:24px;color:#222;margin-bottom:16px;}
+    p{font-size:16px;color:#666;text-align:center;line-height:1.7;margin-bottom:32px;}
+    button{padding:14px 30px;background:#007aff;color:#fff;border:none;border-radius:10px;font-size:16px;}
+  </style>
+  <div class="wrap">
+    <h2>请用浏览器打开</h2>
+    <p>微信/QQ内置浏览器限制访问<br>请点击右上角 ··· → 选择浏览器打开</p>
+    <button onclick="copyUrl()">复制链接</button>
+  </div>
+  `;
+
+  function copyUrl() {
+    const i = document.createElement('input');
+    i.value = location.href;
+    document.body.appendChild(i);
+    i.select();
+    document.execCommand('copy');
+    document.body.removeChild(i);
+    alert('链接已复制，请到浏览器粘贴访问');
+  }
+  // 终止后续页面渲染，只显示引导页
+  throw new Error('WeChat/QQ browser redirect');
+}
+</script>
+
     <header>
         <h1>兮心阅读主题合集</h1>
         <p class="subtitle">纸质护眼模式优化 | 全部分类可折叠 | 点击跳转</p>
