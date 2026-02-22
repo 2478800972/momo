@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>阅读APP四版本下载 - 原版 + Sigma + MD3 + 轻悦时光</title>
+    <title>阅读APP五版本下载 - 原版 + Sigma + MD3 + 阅读T + 轻悦时光</title>
     <style>
         /* 基础重置 */
         * {
@@ -148,6 +148,12 @@
 
         .md3 .repo-icon {
             background: linear-gradient(135deg, #ff4081 0%, #f50057 100%);
+            color: white;
+        }
+
+        /* 新增阅读T图标样式 */
+        .t .repo-icon {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
             color: white;
         }
 
@@ -305,7 +311,7 @@
             gap: 4px;
             user-select: none;
             -webkit-user-select: none;
-            min-height: 40px; /* 确保触摸区域足够大 */
+            min-height: 40px;
         }
 
         .btn-primary {
@@ -348,7 +354,7 @@
 
         .accelerated-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 三列布局 */
+            grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             margin-bottom: 16px;
         }
@@ -609,14 +615,13 @@
             
             .btn {
                 width: 100%;
-                min-height: 44px; /* 确保触摸区域足够大 */
+                min-height: 44px;
             }
             
             .custom-input {
                 flex-direction: column;
             }
             
-            /* 移动端加速链接改为两列 */
             .accelerated-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
@@ -632,7 +637,6 @@
                 margin-top: 20px;
             }
             
-            /* 确保内容不会溢出屏幕 */
             .container {
                 overflow-x: hidden;
             }
@@ -672,13 +676,11 @@
                 font-size: 14px;
             }
             
-            /* 小屏幕加速链接改为单列 */
             .accelerated-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* 平板和桌面 - 自适应网格布局 */
         @media (min-width: 768px) {
             .repo-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -696,7 +698,6 @@
                 font-size: 16px;
             }
             
-            /* 桌面端加速链接保持三列 */
             .accelerated-grid {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 8px;
@@ -721,13 +722,11 @@
             }
         }
 
-        /* 防止iOS橡皮筋效果影响 */
         .container {
             position: relative;
             z-index: 1;
         }
 
-        /* 确保所有交互元素可点击 */
         button, 
         a, 
         input, 
@@ -735,7 +734,6 @@
             touch-action: manipulation;
         }
 
-        /* 修复iOS Safari的点击延迟 */
         a, 
         button, 
         input, 
@@ -743,7 +741,6 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
         }
 
-        /* 防止文本选择 */
         .no-select {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -755,8 +752,8 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>📚 阅读APP四版本下载</h1>
-            <p>原版 + Sigma版 + MD3版 + 轻悦时光 • 支持正式版与测试版 • 多个加速下载通道</p>
+            <h1>📚 阅读APP五版本下载</h1>
+            <p>原版 + Sigma版 + MD3版 + 阅读T + 轻悦时光 • 支持正式版与测试版 • 多个加速下载通道</p>
         </header>
         
         <div class="repo-container">
@@ -1086,6 +1083,116 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ===== 新增：阅读T ===== 放在轻悦时光之前 -->
+            <div class="repo-card t" id="t-repo">
+                <div class="repo-header">
+                    <div class="repo-icon">T</div>
+                    <div class="repo-title">
+                        <h2>阅读T</h2>
+                        <p>skybbk1001/legado • 特色版本</p>
+                    </div>
+                </div>
+                
+                <div class="version-container">
+                    <!-- 正式版 -->
+                    <div class="version-card stable">
+                        <div class="version-header">
+                            <div class="version-title">
+                                <span class="version-icon">🏆</span>
+                                <h3>正式版本</h3>
+                            </div>
+                            <span class="version-tag tag-stable">稳定</span>
+                        </div>
+                        
+                        <div id="t-stable-loading" class="loading">
+                            <div class="spinner"></div>
+                            <div>正在获取正式版信息...</div>
+                        </div>
+                        
+                        <div id="t-stable-error" class="error hidden">
+                            <h4>⚠️ 获取失败</h4>
+                            <p id="t-stable-error-message"></p>
+                            <button class="btn btn-primary mt-2" onclick="loadRelease('t', 'stable')">重新加载</button>
+                        </div>
+                        
+                        <div id="t-stable-content" class="hidden">
+                            <div class="version-info">
+                                <div class="info-row">
+                                    <span class="info-icon">🏷️</span>
+                                    <span>版本：<strong id="t-stable-version"></strong></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-icon">📅</span>
+                                    <span>发布时间：<strong id="t-stable-date"></strong></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-icon">🔖</span>
+                                    <span>标签：<code id="t-stable-tag"></code></span>
+                                </div>
+                            </div>
+                            
+                            <div id="t-stable-assets">
+                                <!-- 动态生成下载卡片 -->
+                            </div>
+                            
+                            <div id="t-stable-release-notes" class="release-notes hidden">
+                                <h4>📝 更新说明</h4>
+                                <div class="release-notes-content" id="t-stable-notes-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 测试版 -->
+                    <div class="version-card beta">
+                        <div class="version-header">
+                            <div class="version-title">
+                                <span class="version-icon">🧪</span>
+                                <h3>测试版本</h3>
+                            </div>
+                            <span class="version-tag tag-beta">测试</span>
+                        </div>
+                        
+                        <div id="t-beta-loading" class="loading">
+                            <div class="spinner"></div>
+                            <div>正在获取测试版信息...</div>
+                        </div>
+                        
+                        <div id="t-beta-error" class="error hidden">
+                            <h4>⚠️ 获取失败</h4>
+                            <p id="t-beta-error-message"></p>
+                            <button class="btn btn-primary mt-2" onclick="loadRelease('t', 'beta')">重新加载</button>
+                        </div>
+                        
+                        <div id="t-beta-content" class="hidden">
+                            <div class="version-info">
+                                <div class="info-row">
+                                    <span class="info-icon">🏷️</span>
+                                    <span>版本：<strong id="t-beta-version"></strong></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-icon">📅</span>
+                                    <span>发布时间：<strong id="t-beta-date"></strong></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-icon">🔖</span>
+                                    <span>标签：<code id="t-beta-tag"></code></span>
+                                </div>
+                            </div>
+                            
+                            <div id="t-beta-assets">
+                                <!-- 动态生成下载卡片 -->
+                            </div>
+                            
+                            <div id="t-beta-release-notes" class="release-notes hidden">
+                                <h4>📝 更新说明</h4>
+                                <div class="release-notes-content" id="t-beta-notes-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===== 阅读T结束 ===== -->
             
             <!-- 轻悦时光 -->
             <div class="repo-card qysg" id="qysg-repo">
@@ -1203,13 +1310,15 @@
                 <a href="https://github.com/gedoor/legado" class="footer-link" target="_blank">原版阅读</a>
                 <a href="https://github.com/Luoyacheng/legado" class="footer-link" target="_blank">阅读Sigma</a>
                 <a href="https://github.com/HapeLee/legado-with-MD3" class="footer-link" target="_blank">MD3阅读</a>
+                <a href="https://github.com/skybbk1001/legado" class="footer-link" target="_blank">阅读T</a>   <!-- 新增阅读T链接 -->
                 <a href="https://github.com/autobcb/qysg" class="footer-link" target="_blank">轻悦时光</a>
                 
                 <a href="https://t.me/Legado_Channels" class="footer-link" target="_blank">阅读官方Telegram</a>
                 <a href="https://t.me/readsigma" class="footer-link" target="_blank">阅读SingmaTelegram</a>
+                
+            <a href="https://skybook.legado1.top/" class="footer-link" target="_blank">阅读T明月书阁</a>
             
-            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=slk0MilJhQ0HIEaXwf2Lux6YM5YiBsrzXeR01hkVRYXiNcAVtw1Ja3yykVnzwrmG&busi_data=eyJncm91cENvZGUiOiI1MTk2MjAyMjAiLCJ0b2tlbiI6IkJmRFlnMFgvN0NWVFhNYVREdGpOZW13Zlp1UXNOMmFKcituRmVicG8wd3pXYVhZZldXTWt2Z0ZnQ2QwUWNzOFYiLCJ1aW4iOiIyNDc4ODAwOTcyIn0%3D&data=nuu2aJVGXuq5aDiFSvFJatYoK9oxGIzQoE0Bzp013-jmOazvCxvngky12T0YnFlW1esHHLn0btRX8oyBVNN6Hg&svctype=4&tempid=h5_group_info" class="footer-link" target="_blank">轻悦时光QQ群</a>
-            
+                <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=slk0MilJhQ0HIEaXwf2Lux6YM5YiBsrzXeR01hkVRYXiNcAVtw1Ja3yykVnzwrmG&busi_data=eyJncm91cENvZGUiOiI1MTk2MjAyMjAiLCJ0b2tlbiI6IkJmRFlnMFgvN0NWVFhNYVREdGpOZW13Zlp1UXNOMmFKcituRmVicG8wd3pXYVhZZldXTWt2Z0ZnQ2QwUWNzOFYiLCJ1aW4iOiIyNDc4ODAwOTcyIn0%3D&data=nuu2aJVGXuq5aDiFSvFJatYoK9oxGIzQoE0Bzp013-jmOazvCxvngky12T0YnFlW1esHHLn0btRX8oyBVNN6Hg&svctype=4&tempid=h5_group_info" class="footer-link" target="_blank">轻悦时光QQ群</a>
             </div>
             
             <div class="last-updated" id="last-updated-time">
@@ -1219,7 +1328,7 @@
     </div>
 
     <script>
-        // 配置信息 - 更新仓库列表
+        // 配置信息 - 增加阅读T仓库
         const CONFIG = {
             repos: {
                 original: {
@@ -1246,6 +1355,15 @@
                     stableApi: 'latest',
                     betaApi: 'tags/beta'
                 },
+                // 新增阅读T
+                t: {
+                    name: '阅读T',
+                    owner: 'skybbk1001',
+                    repo: 'legado',
+                    betaTag: 'beta',
+                    stableApi: 'latest',
+                    betaApi: 'tags/beta'
+                },
                 qysg: {
                     name: '轻悦时光',
                     owner: 'autobcb',
@@ -1257,31 +1375,31 @@
             },
             // 加速代理列表
             proxies: [
-    { name: '原链接', url: '' },
-    { name: '加速1', url: 'https://gh-proxy.com/' },
-    { name: '加速2', url: 'https://ghproxy.net/' },
-    { name: '加速3', url: 'https://gh.llkk.cc/' },
-    { name: '加速4', url: 'https://ghproxy.cn/' },
-    { name: '加速5', url: 'https://fastgit.cc/' },
-    { name: '加速6', url: 'https://github.akams.cn/' },
-    { name: '加速7', url: 'https://g.blfrp.cn/' },
-    { name: '加速8', url: 'https://ghp.keleyaa.com/' },
-    { name: '加速9', url: 'https://ghpxy.hwinzniej.top/' },
-    { name: '加速10', url: 'https://ghfile.geekertao.top/' },
-    { name: '加速11', url: 'https://ghproxy.cxkpro.top/' },
-    { name: '加速12', url: 'https://gitproxy.mrhjx.cn/' },
-    { name: '加速13', url: 'https://gh.idayer.com/' },
-    { name: '加速14', url: 'https://gh.jasonzeng.dev/' },
-    { name: '加速15', url: 'https://ghproxy.imciel.com/' },
-    { name: '加速16', url: 'https://gh.xxooo.cf/' },
-    { name: '加速17', url: 'https://ghproxy.cc/' },
-    { name: '加速18', url: 'https://github.ednovas.xyz/' },
-    { name: '加速19', url: 'https://cf.ghproxy.cc/' },
-    { name: '加速20', url: 'https://gh.catmak.name/' },
-    { name: '加速21', url: 'https://gh.ddlc.top/' },
-    { name: '加速22', url: 'https://github.tbedu.top/' },
-    { name: '加速23', url: 'https://gp.zkitefly.eu.org/' }
-],
+                { name: '原链接', url: '' },
+                { name: '加速1', url: 'https://gh-proxy.com/' },
+                { name: '加速2', url: 'https://ghproxy.net/' },
+                { name: '加速3', url: 'https://gh.llkk.cc/' },
+                { name: '加速4', url: 'https://ghproxy.cn/' },
+                { name: '加速5', url: 'https://fastgit.cc/' },
+                { name: '加速6', url: 'https://github.akams.cn/' },
+                { name: '加速7', url: 'https://g.blfrp.cn/' },
+                { name: '加速8', url: 'https://ghp.keleyaa.com/' },
+                { name: '加速9', url: 'https://ghpxy.hwinzniej.top/' },
+                { name: '加速10', url: 'https://ghfile.geekertao.top/' },
+                { name: '加速11', url: 'https://ghproxy.cxkpro.top/' },
+                { name: '加速12', url: 'https://gitproxy.mrhjx.cn/' },
+                { name: '加速13', url: 'https://gh.idayer.com/' },
+                { name: '加速14', url: 'https://gh.jasonzeng.dev/' },
+                { name: '加速15', url: 'https://ghproxy.imciel.com/' },
+                { name: '加速16', url: 'https://gh.xxooo.cf/' },
+                { name: '加速17', url: 'https://ghproxy.cc/' },
+                { name: '加速18', url: 'https://github.ednovas.xyz/' },
+                { name: '加速19', url: 'https://cf.ghproxy.cc/' },
+                { name: '加速20', url: 'https://gh.catmak.name/' },
+                { name: '加速21', url: 'https://gh.ddlc.top/' },
+                { name: '加速22', url: 'https://github.tbedu.top/' },
+                { name: '加速23', url: 'https://gp.zkitefly.eu.org/' }
+            ],
             apiConfig: {
                 headers: {
                     'Accept': 'application/vnd.github.v3+json'
@@ -1334,7 +1452,7 @@
                 return filename.includes('releaseA') || 
                        filename.includes('coexist') || 
                        filename.includes('共存') ||
-                       filename.includes('qysg'); // 轻悦时光可能也有共存版
+                       filename.includes('qysg');
             },
             
             extractVersion(tagName, releaseName) {
@@ -1399,6 +1517,7 @@
                         ${isCoexist ? '<span class="tag tag-coexist">共存</span>' : ''}
                         ${repoId === 'md3' ? '<span class="tag tag-md3">MD3</span>' : ''}
                         ${repoId === 'qysg' ? '<span class="tag tag-qysg">轻悦</span>' : ''}
+                        ${repoId === 't' ? '<span class="tag" style="background:#FF9800;color:white;">阅读T</span>' : ''}
                     </div>
                     
                     <div class="file-meta">
@@ -1689,8 +1808,8 @@
             async initAllReleases() {
                 const promises = [];
                 
-                // 为所有仓库加载正式版和测试版
-                for (const repoId of ['original', 'sigma', 'md3', 'qysg']) {
+                // 为所有仓库加载正式版和测试版，包括新增的 't'
+                for (const repoId of ['original', 'sigma', 'md3', 't', 'qysg']) {
                     for (const releaseType of ['stable', 'beta']) {
                         promises.push(this.loadRelease(repoId, releaseType));
                     }
@@ -1721,21 +1840,16 @@
 
         window.DownloadManager = DownloadManager;
 
-        // 页面初始化 - 修复滑动问题的关键
+        // 页面初始化
         document.addEventListener('DOMContentLoaded', function() {
-            // 初始化最后更新时间
             Utils.updateLastUpdatedTime();
-            
-            // 立即加载所有版本
             ApiManager.initAllReleases();
             
-            // 修复iOS Safari的滑动问题
             if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
                 document.body.style.overflow = 'auto';
                 document.body.style.WebkitOverflowScrolling = 'touch';
             }
             
-            // 防止双击缩放导致的布局问题
             let lastTouchEnd = 0;
             document.addEventListener('touchend', function(event) {
                 const now = Date.now();
@@ -1745,7 +1859,6 @@
                 lastTouchEnd = now;
             }, false);
             
-            // 添加键盘快捷键
             document.addEventListener('keydown', function(event) {
                 if (event.ctrlKey && event.key === 'r') {
                     event.preventDefault();
@@ -1758,32 +1871,26 @@
                 }
             });
             
-            // 确保body可以滚动
             document.body.style.minHeight = window.innerHeight + 'px';
             
-            // 监听窗口大小变化，确保滚动正常
             window.addEventListener('resize', function() {
                 document.body.style.minHeight = window.innerHeight + 'px';
             });
         });
 
-        // 确保页面完全加载后处理滚动
         window.addEventListener('load', function() {
-            // 确保内容高度足够
             const container = document.querySelector('.container');
             if (container) {
                 const containerHeight = container.offsetHeight;
                 const windowHeight = window.innerHeight;
                 
                 if (containerHeight < windowHeight) {
-                    // 如果内容高度小于窗口高度，确保body可以滚动
                     document.body.style.minHeight = (windowHeight + 100) + 'px';
                 }
             }
             
-            // 强制重绘，解决某些浏览器的滚动问题
             document.body.style.display = 'none';
-            document.body.offsetHeight; // 触发重绘
+            document.body.offsetHeight;
             document.body.style.display = '';
         });
     </script>
