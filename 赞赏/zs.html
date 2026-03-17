@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赞赏页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.8;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+        /* 顶部导航栏 */
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 24px 24px 12px;
+        }
+        .close-btn {
+            font-size: 28px;
+            color: #333;
+            text-decoration: none;
+            line-height: 1;
+            font-weight: 300;
+        }
+        /* 曲线装饰元素 */
+        .curve-decor {
+            width: 100%;
+            height: 220px;
+            padding: 0 24px;
+        }
+        .curve-decor path {
+            stroke: #cccccc;
+            stroke-width: 1.2;
+            fill: none;
+        }
+        /* 核心主文案 */
+        .main-slogan {
+            text-align: right;
+            padding: 0 24px;
+            margin: 20px 0 80px;
+        }
+        .slogan-item {
+            display: inline-block;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 5px 12px;
+            margin: 6px 0;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        /* 正文段落区域 */
+        .content-section {
+            padding: 0 24px;
+            margin-bottom: 100px;
+        }
+        .paragraph-item {
+            margin-bottom: 50px;
+        }
+        .paragraph-num {
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .paragraph-text {
+            font-size: 18px;
+            color: #333;
+            line-height: 2;
+        }
+        /* 底部栏 核心修改：左右两端对齐，按钮靠右 */
+        .footer {
+            padding: 20px 24px 40px;
+            border-top: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+            /* 左右两端分布，实现左作者、右按钮 */
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            /* 小屏防止溢出，可横向滑动 */
+            overflow-x: auto;
+            gap: 12px;
+        }
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+        /* 头像容器 支持头像加载+失败默认显示 */
+        .author-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .author-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .logo-default {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+            background-color: #f5f5f5;
+            border-radius: 50%;
+        }
+        /* 赞赏按钮组 统一黑底白字 */
+        .reward-btns {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .reward-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="header">
+        <a href="https://2478800972.github.io/momo/zhuti.html" class="close-btn">&lt;</a>
+    </div>
+
+    <!-- 曲线装饰 -->
+    <svg class="curve-decor" viewBox="0 0 480 220">
+        <path d="M20,120 C120,30 320,190 460,220" />
+    </svg>
+
+    <!-- 核心主文案 -->
+    <div class="main-slogan">
+        <div class="slogan-item">我开始相信</div>
+        <br>
+        <div class="slogan-item">共鸣是被文字熨平了褶皱的心房</div>
+    </div>
+
+    <!-- 正文段落 -->
+    <div class="content-section">
+        <div class="paragraph-item">
+            <span class="paragraph-num">01</span>
+            <p class="paragraph-text">
+                你指尖落下的心意很轻<br>
+                却像深夜里推开窗时<br>
+                撞进怀里的，带着桂香的晚风
+            </p>
+        </div>
+
+        <div class="paragraph-item">
+            <span class="paragraph-num">02</span>
+            <p class="paragraph-text">
+                我总在文字里藏起细碎的情绪<br>
+                没想到隔着茫茫人海<br>
+                还是被你一一接住
+            </p>
+        </div>
+
+        <div class="paragraph-item">
+            <span class="paragraph-num">03</span>
+            <p class="paragraph-text">
+                原来最好的共鸣<br>
+                是我刚写下半句孤独<br>
+                你就递来了满杯的温柔
+            </p>
+        </div>
+    </div>
+
+    <!-- 底部栏 左作者名，右按钮组 -->
+    <div class="footer">
+        <div class="author-info">
+            <div class="author-logo">
+                <!-- 这里替换为你的头像链接地址 -->
+                <img src="https://2478800972.github.io/boke/assets/img/头像.jpg" alt="头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="logo-default">字</div>
+            </div>
+            <span>墨迹染流年</span>
+        </div>
+        <!-- 按钮组 靠右排列 替换href里的链接即可 -->
+        <div class="reward-btns">
+            <a href="https://2478800972.github.io/momo/赞赏/zc.html" class="reward-btn">赞赏支持</a>
+            
+        </div>
+    </div>
+</body>
+</html>
