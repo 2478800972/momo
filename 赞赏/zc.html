@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赞赏支持</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.8;
+            max-width: 750px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+        /* 顶部导航栏 */
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 24px 24px 12px;
+        }
+        .close-btn {
+            font-size: 28px;
+            color: #333;
+            text-decoration: none;
+            line-height: 1;
+            font-weight: 300;
+        }
+        /* 曲线装饰元素 */
+        .curve-decor {
+            width: 100%;
+            height: 220px;
+            padding: 0 24px;
+        }
+        .curve-decor path {
+            stroke: #cccccc;
+            stroke-width: 1.2;
+            fill: none;
+        }
+        /* 核心主文案 */
+        .main-slogan {
+            text-align: right;
+            padding: 0 24px;
+            margin: 20px 0 80px;
+        }
+        .slogan-item {
+            display: inline-block;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 5px 12px;
+            margin: 6px 0;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        /* 正文段落区域 */
+        .content-section {
+            padding: 0 24px;
+            margin-bottom: 40px;
+        }
+        .paragraph-item {
+            margin-bottom: 50px;
+        }
+        .paragraph-num {
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .paragraph-text {
+            font-size: 18px;
+            color: #333;
+            line-height: 2;
+        }
+        /* 新增：赞助图片区域 与原设计风格完全统一 */
+        .sponsor-img-section {
+            padding: 0 24px;
+            margin-bottom: 80px;
+        }
+        .sponsor-img-wrap {
+            display: flex;
+            gap: 16px;
+            width: 100%;
+        }
+        .sponsor-img-item {
+            flex: 1;
+            min-width: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            aspect-ratio: 1 / 1; /* 保持正方形，如需自适应高度可删除此行 */
+            position: relative;
+        }
+        .sponsor-img-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .sponsor-img-default {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #999;
+            background-color: #f5f5f5;
+        }
+        /* 赞赏列表区域 */
+        .reward-list-section {
+            padding: 0 24px;
+        }
+        .reward-list-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 24px;
+            display: block;
+        }
+        .reward-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .reward-item {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .reward-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        /* 赞赏用户头像 */
+        .reward-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .reward-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .avatar-default {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #999;
+            background-color: #f5f5f5;
+            border-radius: 50%;
+        }
+        .reward-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .reward-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .reward-user {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+        .reward-amount {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+            flex-shrink: 0;
+        }
+        .reward-meta {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+        .reward-message {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+        /* 赞赏列表空状态 */
+        .reward-empty {
+            text-align: center;
+            padding: 40px 0;
+            color: #999;
+            font-size: 16px;
+        }
+        /* 底部栏 如需恢复可取消注释
+        .footer {
+            padding: 20px 24px 40px;
+            border-top: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 12px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 750px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+        .author-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .author-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .logo-default {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+            background-color: #f5f5f5;
+            border-radius: 50%;
+        }
+        .reward-btns {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .reward-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        */
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 保留返回主题合集页链接 -->
+    <div class="header">
+        <a href="https://2478800972.github.io/momo/赞赏/zs.html" class="close-btn">&lt;</a>
+    </div>
+
+    <!-- 曲线装饰 -->
+    <svg class="curve-decor" viewBox="0 0 480 220">
+        <path d="M20,120 C120,30 320,190 460,220" />
+    </svg>
+
+    <!-- 核心主文案 -->
+    <div class="main-slogan">
+        <div class="slogan-item">感谢你的偏爱</div>
+        <br>
+        <div class="slogan-item">让细碎的创作有了继续的底气</div>
+    </div>
+
+    <!-- 正文感谢段落 -->
+    <div class="content-section">
+        <div class="paragraph-item">
+            <span class="paragraph-num">01</span>
+            <p class="paragraph-text">
+                从第一个主题的落笔，到如今上百款主题的打磨<br>
+                每一份心意都被我妥帖收藏<br>
+                你的每一次支持，都是我继续创作的光
+            </p>
+        </div>
+    </div>
+
+    <!-- 新增：并排赞助图片区域 框选位置插入 -->
+    <div class="sponsor-img-section">
+        <div class="sponsor-img-wrap">
+            <div class="sponsor-img-item">
+                <!-- 替换为第一张赞助图片的真实链接 -->
+                <img src="https://cloudflare-imgbed-1t9.pages.dev/file/赞赏/1773752330180_赞赏码.png" alt="赞助图片1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="sponsor-img-default">赞助图1</div>
+            </div>
+            <div class="sponsor-img-item">
+                <!-- 替换为第二张赞助图片的真实链接 -->
+                <img src="https://cloudflare-imgbed-1t9.pages.dev/file/赞赏/1773752330291_收款链接.png" alt="赞助图片2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="sponsor-img-default">赞助图2</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 核心赞赏列表模块 -->
+    <div class="reward-list-section">
+        <span class="reward-list-title">感谢每一份心意</span>
+        <div class="reward-list">
+            <!-- 赞赏记录项 -->
+            <div class="reward-item">
+                <div class="reward-avatar">
+                    <img src="" alt="用户头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="avatar-default">用</div>
+                </div>
+                <div class="reward-content">
+                    <div class="reward-header">
+                        <span class="reward-user">晚风来信</span>
+                        <span class="reward-amount">¥ 50</span>
+                    </div>
+                    <div class="reward-meta">2026-03-10</div>
+                    <p class="reward-message">主题太好看了，一直在用，感谢创作！</p>
+                </div>
+            </div>
+
+            <div class="reward-item">
+                <div class="reward-avatar">
+                    <img src="" alt="用户头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="avatar-default">用</div>
+                </div>
+                <div class="reward-content">
+                    <div class="reward-header">
+                        <span class="reward-user">落日归山海</span>
+                        <span class="reward-amount">¥ 20</span>
+                    </div>
+                    <div class="reward-meta">2026-03-08</div>
+                    <p class="reward-message">很喜欢落日主题，质感超棒，辛苦啦</p>
+                </div>
+            </div>
+
+            <div class="reward-item">
+                <div class="reward-avatar">
+                    <img src="" alt="用户头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="avatar-default">用</div>
+                </div>
+                <div class="reward-content">
+                    <div class="reward-header">
+                        <span class="reward-user">青山</span>
+                        <span class="reward-amount">¥ 10</span>
+                    </div>
+                    <div class="reward-meta">2026-03-05</div>
+                    <p class="reward-message">感谢分享这么多优质主题，加油！</p>
+                </div>
+            </div>
+            
+            <div class="reward-item">
+                <div class="reward-avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/2478800972/pic@main/tx/早睡早起身体好.jpg" alt="用户头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="avatar-default">用</div>
+                </div>
+                <div class="reward-content">
+                    <div class="reward-header">
+                        <span class="reward-user">早睡早起身体好</span>
+                        <span class="reward-amount">¥ 28</span>
+                    </div>
+                    <div class="reward-meta">2026-03-17</div>
+                    <p class="reward-message">感谢分享这么多优质主题，加油！</p>
+                </div>
+            </div>
+
+            <!-- 无赞赏记录时启用下方空状态 -->
+            <!-- <div class="reward-empty">
+                暂无赞赏记录，你的心意将在这里被永久记录
+            </div> -->
+        </div>
+    </div>
+
+    <!-- 底部栏 如需恢复可取消注释
+    <div class="footer">
+        <div class="author-info">
+            <div class="author-logo">
+                <img src="https://2478800972.github.io/boke/assets/img/头像.jpg" alt="头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="logo-default">字</div>
+            </div>
+            <span>墨迹染流年</span>
+        </div>
+        <div class="reward-btns">
+            <a href="https://2478800972.github.io/momo/zhuti.html" class="reward-btn">主题合集</a>
+            <a href="你的赞赏支持跳转链接" class="reward-btn">赞赏支持</a>
+        </div>
+    </div>
+    -->
+</body>
+</html>
