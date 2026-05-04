@@ -412,13 +412,17 @@
         async initAllReleases() { for(const rid of ['original','sigma','md3','t','qysg']) { await this.loadRelease(rid,'stable'); await this.loadRelease(rid,'beta'); } setTimeout(()=>{ document.addEventListener('click',(e)=>{ if(!e.target.closest('.file-card') && !e.target.closest('.btn-secondary') && !e.target.closest('.custom-input')) document.querySelectorAll('.accelerated-links').forEach(div=>div.style.display='none'); }); },500); }
     };
 
-    // 折叠功能
+    // 折叠功能 + 默认折叠状态
     function initCollapse() {
         document.querySelectorAll('.repo-card').forEach(card => {
             const header = card.querySelector('.repo-header');
             const icon = header.querySelector('.collapse-icon');
+            // 设置默认折叠
+            card.classList.add('collapsed');
+            if (icon) icon.textContent = '▶';   // 折叠状态显示右箭头
+            
+            // 绑定点击切换事件
             header.addEventListener('click', (e) => {
-                // 避免点击内部按钮时触发折叠（但按钮不在header内，全部在header内，但加速按钮等都不在header，所以安全）
                 card.classList.toggle('collapsed');
                 icon.textContent = card.classList.contains('collapsed') ? '▶' : '▼';
             });
@@ -431,7 +435,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         Utils.updateLastUpdatedTime();
         ApiManager.initAllReleases();
-        initCollapse();
+        initCollapse();          // 设置默认折叠并绑定点击
         if (/iPhone|iPad|iPod/.test(navigator.userAgent)) document.body.style.WebkitOverflowScrolling = 'touch';
     });
 </script>
