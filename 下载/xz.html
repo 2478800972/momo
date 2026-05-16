@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>阅读APP五版本下载 - 原版 + Sigma + MD3 + 阅读T + 轻悦时光</title>
+    <title>阅读APP全版本下载</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { height: 100%; overflow: auto; -webkit-overflow-scrolling: touch; }
@@ -21,12 +21,12 @@
             text-align: center;
             margin-bottom: 20px;
             padding: 20px 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e2b3c 0%, #0f2027 100%);
             border-radius: 20px;
             color: white;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        .header h1 { font-size: 22px; margin-bottom: 8px; }
+        .header h1 { font-size: 22px; margin-bottom: 8px; letter-spacing: -0.3px; }
         .header p { font-size: 14px; opacity: 0.9; }
         .repo-container {
             display: grid;
@@ -36,30 +36,30 @@
         }
         .repo-card {
             background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             overflow: hidden;
             border: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
-        /* 折叠状态：隐藏 .version-container */
         .repo-card.collapsed .version-container {
             display: none;
         }
         .repo-header {
-            padding: 16px;
+            padding: 16px 18px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-bottom: 1px solid #eaeaea;
+            gap: 14px;
+            background: linear-gradient(135deg, #f9fbfd 0%, #eef2f6 100%);
+            border-bottom: 1px solid #e9edf2;
             cursor: pointer;
             user-select: none;
+            transition: background 0.2s;
         }
-        .repo-header:hover { background: linear-gradient(135deg, #eef2f5 0%, #dfe3e8 100%); }
+        .repo-header:hover { background: linear-gradient(135deg, #eef2f8 0%, #e2e8f0 100%); }
         .collapse-icon {
             margin-left: auto;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             color: #2c3e50;
             transition: transform 0.2s;
@@ -67,98 +67,115 @@
             text-align: center;
         }
         .repo-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 21px;
+            width: 48px;
+            height: 48px;
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
             flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        /* 原有配色保留 */
         .original .repo-icon { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
         .sigma .repo-icon { background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%); color: white; }
         .md3 .repo-icon { background: linear-gradient(135deg, #ff4081 0%, #f50057 100%); color: white; }
         .t .repo-icon { background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); color: white; }
         .qysg .repo-icon { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%); color: white; }
-        .repo-title h2 { font-size: 18px; font-weight: 600; color: #2c3e50; }
-        .repo-title p { font-size: 12px; color: #7f8c8d; }
+        /* 新增仓库个性色彩 */
+        .hongmeng .repo-icon { background: linear-gradient(135deg, #00b4aa 0%, #00897b 100%); color: white; }
+        .tauri .repo-icon { background: linear-gradient(135deg, #6c5ce7 0%, #4834d4 100%); color: white; }
+        .cichen .repo-icon { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); color: white; }
+        .youfeng .repo-icon { background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; }
+        .archive .repo-icon { background: linear-gradient(135deg, #607d8b 0%, #455a64 100%); color: white; }
+        .jingshiro .repo-icon { background: linear-gradient(135deg, #e84393 0%, #fd79a8 100%); color: white; }
+        .morealm .repo-icon { background: linear-gradient(135deg, #00cec9 0%, #0984e3 100%); color: white; }
+        
+        .repo-title h2 { font-size: 18px; font-weight: 700; color: #1e293b; }
+        .repo-title p { font-size: 11px; color: #5b6e8c; margin-top: 2px; }
         .version-container {
-            padding: 16px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
         .version-card {
-            background: #f8fafc;
-            border-radius: 12px;
+            background: #ffffff;
+            border-radius: 20px;
             padding: 16px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #eef2ff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
         .version-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             padding-bottom: 12px;
             border-bottom: 2px solid;
         }
         .stable .version-header { border-color: #2ecc71; }
         .beta .version-header { border-color: #e74c3c; }
         .version-title { display: flex; align-items: center; gap: 8px; }
-        .version-title h3 { font-size: 16px; font-weight: 600; }
-        .version-tag { font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
-        .tag-stable { background: #2ecc71; color: white; }
+        .version-title h3 { font-size: 17px; font-weight: 600; }
+        .version-tag { font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 600; letter-spacing: 0.3px; }
+        .tag-stable { background: #2ecc71; color: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1);}
         .tag-beta { background: #e74c3c; color: white; }
-        .info-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 14px; }
-        .info-icon { width: 18px; opacity: 0.7; }
+        .info-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 14px; flex-wrap: wrap; }
+        .info-icon { width: 20px; opacity: 0.7; }
         .file-card {
-            background: white;
-            border-radius: 10px;
+            background: #fafcff;
+            border-radius: 16px;
             padding: 16px;
-            margin-bottom: 16px;
-            border: 1px solid #e2e8f0;
+            margin-bottom: 14px;
+            border: 1px solid #e9edf2;
+            transition: all 0.1s;
         }
-        .file-name { font-weight: 600; margin-bottom: 12px; word-break: break-word; font-size: 15px; }
-        .file-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
-        .meta-item { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #7f8c8d; }
+        .file-name { font-weight: 650; margin-bottom: 12px; word-break: break-word; font-size: 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+        .file-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 16px; }
+        .meta-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #5e6f8d; background: #f1f5f9; padding: 4px 10px; border-radius: 30px; }
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 10px 12px;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 500;
             font-size: 13px;
             cursor: pointer;
             text-decoration: none;
-            gap: 4px;
-            min-height: 40px;
+            gap: 6px;
+            min-height: 42px;
+            transition: all 0.2s;
         }
-        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; flex: 1; }
-        .btn-secondary { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
-        .download-actions { display: flex; gap: 8px; margin-top: 12px; }
-        .accelerated-links { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px dashed #cbd5e1; }
-        .accelerated-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 16px; }
-        .custom-download { background: #f8fafc; padding: 12px; border-radius: 10px; margin-top: 12px; border: 1px solid #e2e8f0; }
-        .custom-input { display: flex; gap: 8px; margin-top: 8px; }
-        .custom-input input { flex: 1; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; min-height: 44px; }
-        .release-notes { background: #f1f8ff; border-radius: 10px; padding: 16px; margin-top: 16px; border-left: 4px solid #667eea; }
-        .release-notes h4 { font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-        .release-notes-content { max-height: 200px; overflow-y: auto; font-size: 13px; line-height: 1.6; }
-        .loading { padding: 40px 20px; text-align: center; color: #7f8c8d; }
-        .spinner { width: 32px; height: 32px; border: 3px solid rgba(102,126,234,0.2); border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 12px; }
+        .btn-primary { background: linear-gradient(135deg, #2c3e66 0%, #1a2a4f 100%); color: white; flex: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px);}
+        .btn-secondary { background: #f0f4f9; color: #2c3e50; border: 1px solid #cfdee9; }
+        .btn-secondary:hover { background: #e6edf4; }
+        .download-actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+        .accelerated-links { display: none; margin-top: 16px; padding-top: 14px; border-top: 1px dashed #cbd5e6; }
+        .accelerated-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+        .custom-download { background: #f8fafd; padding: 12px; border-radius: 14px; margin-top: 8px; border: 1px solid #e2e8f0; }
+        .custom-input { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+        .custom-input input { flex: 1; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 14px; min-height: 44px; background: white; }
+        .release-notes { background: #f8f3e8; border-radius: 16px; padding: 14px; margin-top: 16px; border-left: 4px solid #e67e22; }
+        .release-notes h4 { font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .release-notes-content { max-height: 200px; overflow-y: auto; font-size: 13px; line-height: 1.55; white-space: pre-wrap; }
+        .loading { padding: 32px 20px; text-align: center; color: #7f8c8d; }
+        .spinner { width: 32px; height: 32px; border: 3px solid rgba(102,126,234,0.2); border-top-color: #2c3e66; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 12px; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .error { background: rgba(244,67,54,0.1); border: 1px solid rgba(244,67,54,0.2); border-radius: 10px; padding: 16px; margin: 16px 0; color: #f44336; }
-        .empty-state { text-align: center; padding: 40px 20px; color: #7f8c8d; }
-        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 12px; }
+        .error { background: rgba(244,67,54,0.08); border: 1px solid rgba(244,67,54,0.3); border-radius: 16px; padding: 16px; margin: 16px 0; color: #c0392b; }
+        .empty-state { text-align: center; padding: 28px 16px; color: #7f8c8d; }
+        .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 12px; }
         .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-        .footer-link { color: #667eea; text-decoration: none; font-size: 11px; }
-        .last-updated { margin-top: 8px; font-size: 11px; opacity: 0.7; }
-        .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-left: 6px; vertical-align: middle; }
+        .footer-link { color: #2c3e66; text-decoration: none; font-size: 11px; font-weight: 500; }
+        .last-updated { margin-top: 10px; font-size: 11px; opacity: 0.7; }
+        .tag { display: inline-block; padding: 3px 10px; border-radius: 30px; font-size: 10px; font-weight: 600; margin-left: 6px; vertical-align: middle; background: #e9ecef; color: #2c3e50; }
         .tag-coexist { background: #ffb300; color: white; }
+        .tag-hap { background: #00b4aa; color: white; }
         .hidden { display: none !important; }
         @media (max-width: 767px) {
             body { padding: 10px; }
@@ -177,172 +194,60 @@
 <body>
 <div class="container">
     <header class="header">
-        <h1>📚 阅读APP五版本下载</h1>
-        <p>原版 + Sigma版 + MD3版 + 阅读T + 轻悦时光 • 支持正式版与测试版 • 点击标题栏折叠/展开</p>
+        <h1>📚 阅读APP · 全版本集散地</h1>
+        <p>原版 · Sigma · MD3 · 阅读T · 轻悦时光 · 喵公子鸿蒙 · Tauri · 辞晨Max · 怣疯Max · Archive · Jingshiro · MoRealm<br>✨ 正式版+测试版双通道 | 支持 APK + HAP (鸿蒙) | 23+加速线路 | 点击标题栏折叠/展开</p>
     </header>
     
-    <div class="repo-container">
-        <!-- 原版阅读卡片 -->
-        <div class="repo-card original" data-repo="original">
-            <div class="repo-header">
-                <div class="repo-icon">📖</div>
-                <div class="repo-title">
-                    <h2>原版阅读</h2>
-                    <p>gedoor/legado • 官方版本</p>
-                </div>
-                <div class="collapse-icon">▼</div>
-            </div>
-            <div class="version-container">
-                <!-- 正式版 -->
-                <div class="version-card stable">
-                    <div class="version-header">
-                        <div class="version-title"><span class="version-icon">🏆</span><h3>正式版本</h3></div>
-                        <span class="version-tag tag-stable">稳定</span>
-                    </div>
-                    <div id="original-stable-loading" class="loading"><div class="spinner"></div><div>正在获取正式版信息...</div></div>
-                    <div id="original-stable-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="original-stable-error-message"></p><button class="btn btn-primary" onclick="loadRelease('original','stable')">重新加载</button></div>
-                    <div id="original-stable-content" class="hidden">
-                        <div class="version-info">
-                            <div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="original-stable-version"></strong></span></div>
-                            <div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="original-stable-date"></strong></span></div>
-                            <div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="original-stable-tag"></code></span></div>
-                        </div>
-                        <div id="original-stable-assets"></div>
-                        <div id="original-stable-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="original-stable-notes-content"></div></div>
-                    </div>
-                </div>
-                <!-- 测试版 -->
-                <div class="version-card beta">
-                    <div class="version-header">
-                        <div class="version-title"><span class="version-icon">🧪</span><h3>测试版本</h3></div>
-                        <span class="version-tag tag-beta">测试</span>
-                    </div>
-                    <div id="original-beta-loading" class="loading"><div class="spinner"></div><div>正在获取测试版信息...</div></div>
-                    <div id="original-beta-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="original-beta-error-message"></p><button class="btn btn-primary" onclick="loadRelease('original','beta')">重新加载</button></div>
-                    <div id="original-beta-content" class="hidden">
-                        <div class="version-info">
-                            <div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="original-beta-version"></strong></span></div>
-                            <div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="original-beta-date"></strong></span></div>
-                            <div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="original-beta-tag"></code></span></div>
-                        </div>
-                        <div id="original-beta-assets"></div>
-                        <div id="original-beta-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="original-beta-notes-content"></div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 阅读Sigma卡片 -->
-        <div class="repo-card sigma" data-repo="sigma">
-            <div class="repo-header">
-                <div class="repo-icon">Σ</div>
-                <div class="repo-title"><h2>阅读Sigma</h2><p>Luoyacheng/legado • 增强版本</p></div>
-                <div class="collapse-icon">▼</div>
-            </div>
-            <div class="version-container">
-                <div class="version-card stable">
-                    <div class="version-header"><div class="version-title"><span class="version-icon">🏆</span><h3>正式版本</h3></div><span class="version-tag tag-stable">稳定</span></div>
-                    <div id="sigma-stable-loading" class="loading"><div class="spinner"></div><div>正在获取正式版信息...</div></div>
-                    <div id="sigma-stable-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="sigma-stable-error-message"></p><button class="btn btn-primary" onclick="loadRelease('sigma','stable')">重新加载</button></div>
-                    <div id="sigma-stable-content" class="hidden">
-                        <div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="sigma-stable-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="sigma-stable-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="sigma-stable-tag"></code></span></div></div>
-                        <div id="sigma-stable-assets"></div>
-                        <div id="sigma-stable-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="sigma-stable-notes-content"></div></div>
-                    </div>
-                </div>
-                <div class="version-card beta">
-                    <div class="version-header"><div class="version-title"><span class="version-icon">🧪</span><h3>测试版本</h3></div><span class="version-tag tag-beta">测试</span></div>
-                    <div id="sigma-beta-loading" class="loading"><div class="spinner"></div><div>正在获取测试版信息...</div></div>
-                    <div id="sigma-beta-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="sigma-beta-error-message"></p><button class="btn btn-primary" onclick="loadRelease('sigma','beta')">重新加载</button></div>
-                    <div id="sigma-beta-content" class="hidden">
-                        <div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="sigma-beta-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="sigma-beta-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="sigma-beta-tag"></code></span></div></div>
-                        <div id="sigma-beta-assets"></div>
-                        <div id="sigma-beta-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="sigma-beta-notes-content"></div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MD3阅读卡片 -->
-        <div class="repo-card md3" data-repo="md3">
-            <div class="repo-header">
-                <div class="repo-icon">🎨</div><div class="repo-title"><h2>MD3阅读</h2><p>HapeLee/legado-with-MD3 • Material Design 3</p></div>
-                <div class="collapse-icon">▼</div>
-            </div>
-            <div class="version-container">
-                <div class="version-card stable"><div class="version-header"><div class="version-title"><span class="version-icon">🏆</span><h3>正式版本</h3></div><span class="version-tag tag-stable">稳定</span></div>
-                    <div id="md3-stable-loading" class="loading"><div class="spinner"></div><div>正在获取正式版信息...</div></div>
-                    <div id="md3-stable-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="md3-stable-error-message"></p><button class="btn btn-primary" onclick="loadRelease('md3','stable')">重新加载</button></div>
-                    <div id="md3-stable-content" class="hidden"><div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="md3-stable-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="md3-stable-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="md3-stable-tag"></code></span></div></div><div id="md3-stable-assets"></div><div id="md3-stable-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="md3-stable-notes-content"></div></div></div>
-                </div>
-                <div class="version-card beta"><div class="version-header"><div class="version-title"><span class="version-icon">🧪</span><h3>测试版本</h3></div><span class="version-tag tag-beta">测试</span></div>
-                    <div id="md3-beta-loading" class="loading"><div class="spinner"></div><div>正在获取测试版信息...</div></div>
-                    <div id="md3-beta-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="md3-beta-error-message"></p><button class="btn btn-primary" onclick="loadRelease('md3','beta')">重新加载</button></div>
-                    <div id="md3-beta-content" class="hidden"><div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="md3-beta-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="md3-beta-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="md3-beta-tag"></code></span></div></div><div id="md3-beta-assets"></div><div id="md3-beta-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="md3-beta-notes-content"></div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 阅读T卡片 -->
-        <div class="repo-card t" data-repo="t">
-            <div class="repo-header">
-                <div class="repo-icon">T</div><div class="repo-title"><h2>阅读T</h2><p>skybbk1001/legado • 特色版本</p></div>
-                <div class="collapse-icon">▼</div>
-            </div>
-            <div class="version-container">
-                <div class="version-card stable"><div class="version-header"><div class="version-title"><span class="version-icon">🏆</span><h3>正式版本</h3></div><span class="version-tag tag-stable">稳定</span></div>
-                    <div id="t-stable-loading" class="loading"><div class="spinner"></div><div>正在获取正式版信息...</div></div>
-                    <div id="t-stable-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="t-stable-error-message"></p><button class="btn btn-primary" onclick="loadRelease('t','stable')">重新加载</button></div>
-                    <div id="t-stable-content" class="hidden"><div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="t-stable-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="t-stable-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="t-stable-tag"></code></span></div></div><div id="t-stable-assets"></div><div id="t-stable-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="t-stable-notes-content"></div></div></div>
-                </div>
-                <div class="version-card beta"><div class="version-header"><div class="version-title"><span class="version-icon">🧪</span><h3>测试版本</h3></div><span class="version-tag tag-beta">测试</span></div>
-                    <div id="t-beta-loading" class="loading"><div class="spinner"></div><div>正在获取测试版信息...</div></div>
-                    <div id="t-beta-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="t-beta-error-message"></p><button class="btn btn-primary" onclick="loadRelease('t','beta')">重新加载</button></div>
-                    <div id="t-beta-content" class="hidden"><div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="t-beta-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="t-beta-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="t-beta-tag"></code></span></div></div><div id="t-beta-assets"></div><div id="t-beta-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="t-beta-notes-content"></div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 轻悦时光卡片 -->
-        <div class="repo-card qysg" data-repo="qysg">
-            <div class="repo-header">
-                <div class="repo-icon">⏱️</div><div class="repo-title"><h2>轻悦时光</h2><p>autobcb/qysg • 轻量版本</p></div>
-                <div class="collapse-icon">▼</div>
-            </div>
-            <div class="version-container">
-                <div class="version-card stable"><div class="version-header"><div class="version-title"><span class="version-icon">🏆</span><h3>正式版本</h3></div><span class="version-tag tag-stable">稳定</span></div>
-                    <div id="qysg-stable-loading" class="loading"><div class="spinner"></div><div>正在获取正式版信息...</div></div>
-                    <div id="qysg-stable-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="qysg-stable-error-message"></p><button class="btn btn-primary" onclick="loadRelease('qysg','stable')">重新加载</button></div>
-                    <div id="qysg-stable-content" class="hidden"><div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="qysg-stable-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="qysg-stable-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="qysg-stable-tag"></code></span></div></div><div id="qysg-stable-assets"></div><div id="qysg-stable-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="qysg-stable-notes-content"></div></div></div>
-                </div>
-                <div class="version-card beta"><div class="version-header"><div class="version-title"><span class="version-icon">🧪</span><h3>测试版本</h3></div><span class="version-tag tag-beta">测试</span></div>
-                    <div id="qysg-beta-loading" class="loading"><div class="spinner"></div><div>正在获取测试版信息...</div></div>
-                    <div id="qysg-beta-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="qysg-beta-error-message"></p><button class="btn btn-primary" onclick="loadRelease('qysg','beta')">重新加载</button></div>
-                    <div id="qysg-beta-content" class="hidden"><div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="qysg-beta-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="qysg-beta-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="qysg-beta-tag"></code></span></div></div><div id="qysg-beta-assets"></div><div id="qysg-beta-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="qysg-beta-notes-content"></div></div></div>
-                </div>
-            </div>
-        </div>
+    <div class="repo-container" id="repoContainer">
+        <!-- 所有卡片由js动态生成，确保完整支持.hap格式 -->
     </div>
 
     <div class="footer">
-        <p>数据来源于GitHub官方API • 仅提供便捷的版本管理和下载服务</p>
-        <div class="footer-links"><a href="https://github.com/gedoor/legado" class="footer-link" target="_blank">原版阅读</a><a href="https://github.com/Luoyacheng/legado" class="footer-link" target="_blank">阅读Sigma</a><a href="https://github.com/HapeLee/legado-with-MD3" class="footer-link" target="_blank">MD3阅读</a><a href="https://github.com/skybbk1001/legado" class="footer-link" target="_blank">阅读T</a><a href="https://github.com/autobcb/qysg" class="footer-link" target="_blank">轻悦时光</a><a href="https://t.me/Legado_Channels" class="footer-link" target="_blank">阅读官方Telegram</a><a href="https://t.me/readsigma" class="footer-link" target="_blank">阅读Sigma Telegram</a><a href="https://skybook.legado1.top/" class="footer-link" target="_blank">阅读T明月书阁</a><a href="https://qun.qq.com/universal-share/share?ac=1&authKey=slk0MilJhQ0HIEaXwf2Lux6YM5YiBsrzXeR01hkVRYXiNcAVtw1Ja3yykVnzwrmG&busi_data=eyJncm91cENvZGUiOiI1MTk2MjAyMjAiLCJ0b2tlbiI6IkJmRFlnMFgvN0NWVFhNYVREdGpOZW13Zlp1UXNOMmFKcituRmVicG8wd3pXYVhZZldXTWt2Z0ZnQ2QwUWNzOFYiLCJ1aW4iOiIyNDc4ODAwOTcyIn0%3D&data=nuu2aJVGXuq5aDiFSvFJatYoK9oxGIzQoE0Bzp013-jmOazvCxvngky12T0YnFlW1esHHLn0btRX8oyBVNN6Hg&svctype=4&tempid=h5_group_info" class="footer-link" target="_blank">轻悦时光QQ群</a></div>
+        <p>📡 数据来源于GitHub官方API · 提供APK/HAP版本管理及加速下载</p>
+        <div class="footer-links">
+            <a href="https://github.com/gedoor/legado" class="footer-link" target="_blank">原版阅读</a>
+            <a href="https://github.com/Luoyacheng/legado" class="footer-link" target="_blank">阅读Sigma</a>
+            <a href="https://github.com/HapeLee/legado-with-MD3" class="footer-link" target="_blank">MD3阅读</a>
+            <a href="https://github.com/skybbk1001/legado" class="footer-link" target="_blank">阅读T</a>
+            <a href="https://github.com/autobcb/qysg" class="footer-link" target="_blank">轻悦时光</a>
+            <a href="https://t.me/Legado_Channels" class="footer-link" target="_blank">阅读官方Telegram</a>
+            <a href="https://t.me/readsigma" class="footer-link" target="_blank">阅读Sigma Telegram</a>
+            <a href="https://skybook.legado1.top/" class="footer-link" target="_blank">阅读T明月书阁</a>
+            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=slk0MilJhQ0HIEaXwf2Lux6YM5YiBsrzXeR01hkVRYXiNcAVtw1Ja3yykVnzwrmG&busi_data=eyJncm91cENvZGUiOiI1MTk2MjAyMjAiLCJ0b2tlbiI6IkJmRFlnMFgvN0NWVFhNYVREdGpOZW13Zlp1UXNOMmFKcituRmVicG8wd3pXYVhZZldXTWt2Z0ZnQ2QwUWNzOFYiLCJ1aW4iOiIyNDc4ODAwOTcyIn0%3D&data=nuu2aJVGXuq5aDiFSvFJatYoK9oxGIzQoE0Bzp013-jmOazvCxvngky12T0YnFlW1esHHLn0btRX8oyBVNN6Hg&svctype=4&tempid=h5_group_info" class="footer-link" target="_blank">轻悦时光QQ群</a>
+            
+            <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">喵公子鸿蒙</a>
+            <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Legado-Tauri</a>
+            <a href="https://github.com/GEd520/legados" class="footer-link" target="_blank">辞晨阅读·Max</a>
+            <a href="https://github.com/youfengknight/Legado_Max" class="footer-link" target="_blank">怣疯阅读·Max</a>
+            <a href="https://github.com/Rimchars/legado" class="footer-link" target="_blank">阅读Archive</a>
+            <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro阅读</a>
+            <a href="https://github.com/keys-cherish/morealm-reader" class="footer-link" target="_blank">MoRealm</a>
+        </div>
         <div class="last-updated" id="last-updated-time">最后更新时间：加载中...</div>
     </div>
 </div>
 
+
 <script>
-    // 配置信息 (完整保留原逻辑)
+    // ---------- 全局配置 ----------
     const CONFIG = {
         repos: {
             original: { name:'原版阅读', owner:'gedoor', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
             sigma: { name:'阅读Sigma', owner:'Luoyacheng', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
-            md3: { name:'Material Design 3阅读', owner:'HapeLee', repo:'legado-with-MD3', stableApi:'latest', betaApi:'tags/beta' },
+            md3: { name:'MD3阅读', owner:'HapeLee', repo:'legado-with-MD3', stableApi:'latest', betaApi:'tags/beta' },
             t: { name:'阅读T', owner:'skybbk1001', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
-            qysg: { name:'轻悦时光', owner:'autobcb', repo:'qysg', stableApi:'latest', betaApi:'tags/beta' }
+            qysg: { name:'轻悦时光', owner:'autobcb', repo:'qysg', stableApi:'latest', betaApi:'tags/beta' },
+            // 新增仓库 ⭐
+            hongmeng: { name:'喵公子鸿蒙阅读', owner:'mgz0227', repo:'legado-Harmony', stableApi:'latest', betaApi:'tags/beta' },
+            tauri: { name:'Legado-Tauri', owner:'LegadoTeam', repo:'Legado-Tauri-Release', stableApi:'latest', betaApi:'tags/beta' },
+            cichen: { name:'辞晨阅读·Max', owner:'GEd520', repo:'legados', stableApi:'latest', betaApi:'tags/beta' },
+            youfeng: { name:'怣疯阅读·Max', owner:'youfengknight', repo:'Legado_Max', stableApi:'latest', betaApi:'tags/beta' },
+            archive: { name:'阅读Archive', owner:'Rimchars', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
+            jingshiro: { name:'Jingshiro阅读', owner:'Jingshiro', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
+            morealm: { name:'MoRealm', owner:'keys-cherish', repo:'morealm-reader', stableApi:'latest', betaApi:'tags/beta' }
         },
         proxies: [
-            { name:'原链接', url:'' }, { name:'加速1', url:'https://gh-proxy.com/' }, { name:'加速2', url:'https://ghproxy.net/' },
+            { name:'原链', url:'' }, { name:'加速1', url:'https://gh-proxy.com/' }, { name:'加速2', url:'https://ghproxy.net/' },
             { name:'加速3', url:'https://gh.llkk.cc/' }, { name:'加速4', url:'https://ghproxy.cn/' }, { name:'加速5', url:'https://fastgit.cc/' },
             { name:'加速6', url:'https://github.akams.cn/' }, { name:'加速7', url:'https://g.blfrp.cn/' }, { name:'加速8', url:'https://ghp.keleyaa.com/' },
             { name:'加速9', url:'https://ghpxy.hwinzniej.top/' }, { name:'加速10', url:'https://ghfile.geekertao.top/' }, { name:'加速11', url:'https://ghproxy.cxkpro.top/' },
@@ -358,9 +263,10 @@
         formatDate(dateString) { if(!dateString) return '未知'; const d=new Date(dateString); const diff=Math.floor((Date.now()-d)/86400000); if(diff===0) return '今天'; if(diff===1) return '昨天'; if(diff<7) return `${diff}天前`; if(diff<30) return `${Math.floor(diff/7)}周前`; return d.toLocaleDateString('zh-CN'); },
         formatFileSize(b) { if(b===0) return '0 B'; const k=1024; const sizes=['B','KB','MB','GB']; const i=Math.floor(Math.log(b)/Math.log(k)); return parseFloat((b/Math.pow(k,i)).toFixed(2))+' '+sizes[i]; },
         escapeHtml(t) { const div=document.createElement('div'); div.textContent=t; return div.innerHTML; },
-        isCoexistVersion(f) { return f.includes('releaseA')||f.includes('coexist')||f.includes('共存')||f.includes('qysg'); },
+        isCoexistVersion(f) { return f.includes('releaseA')||f.includes('coexist')||f.includes('共存')||f.includes('qysg')||f.includes('Coexist'); },
+        isHapFile(f) { return f.toLowerCase().endsWith('.hap'); },
         extractVersion(tag,name) { if(name) { const m=name.match(/(\d+\.\d+\.\d+)/); if(m) return m[1]; } if(tag) return tag.replace(/^v/,''); return tag||'未知'; },
-        updateLastUpdatedTime() { const el=document.getElementById('last-updated-time'); if(el) el.textContent=`最后更新时间：${new Date().toLocaleTimeString('zh-CN',{hour12:false,hour:'2-digit',minute:'2-digit'})}`; }
+        updateLastUpdatedTime() { const el=document.getElementById('last-updated-time'); if(el) el.textContent=`最后更新时间：${new Date().toLocaleTimeString('zh-CN',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})}`; }
     };
 
     const DownloadManager = {
@@ -369,18 +275,20 @@
             const cardId=`${repoId}-${releaseType}-${asset.id}`;
             const acceleratedLinks=this.createAcceleratedLinks(asset.browser_download_url);
             const isCoexist=Utils.isCoexistVersion(asset.name);
+            const isHap=Utils.isHapFile(asset.name);
+            const extraTag = isHap ? '<span class="tag tag-hap">鸿蒙HAP</span>' : (isCoexist ? '<span class="tag tag-coexist">共存版</span>' : '');
             const card=document.createElement('div'); card.className='file-card';
             card.innerHTML=`
-                <div class="file-name">${Utils.escapeHtml(asset.name)}${isCoexist?'<span class="tag tag-coexist">共存</span>':''}${repoId==='md3'?'<span class="tag" style="background:#ff4081;color:white;">MD3</span>':''}${repoId==='qysg'?'<span class="tag" style="background:#4CAF50;color:white;">轻悦</span>':''}${repoId==='t'?'<span class="tag" style="background:#FF9800;color:white;">阅读T</span>':''}</div>
-                <div class="file-meta"><div class="meta-item"><span>📦</span><span>${Utils.formatFileSize(asset.size)}</span></div><div class="meta-item"><span>⬇️</span><span>${asset.download_count.toLocaleString()}次下载</span></div><div class="meta-item"><span>🏷️</span><span>${isCoexist?'共存版':'原版'}</span></div></div>
+                <div class="file-name">${Utils.escapeHtml(asset.name)}${extraTag}<span class="tag" style="background:#e2e8f0;">${Utils.formatFileSize(asset.size)}</span></div>
+                <div class="file-meta"><div class="meta-item"><span>⬇️</span><span>${asset.download_count.toLocaleString()}次下载</span></div><div class="meta-item"><span>📱</span><span>${isHap ? '鸿蒙安装包' : '安卓APK'}</span></div></div>
                 <div class="download-actions"><a href="${asset.browser_download_url}" class="btn btn-primary" download="${asset.name}" target="_blank"><span>⬇️</span>直接下载</a><button class="btn btn-secondary" onclick="DownloadManager.toggleAcceleratedLinks('${cardId}', event)"><span>🚀</span>加速下载</button></div>
-                <div id="accelerated-${cardId}" class="accelerated-links"><div class="accelerated-grid">${acceleratedLinks.map(l=>`<a href="${l.url}" class="btn btn-secondary" download="${asset.name}" target="_blank">${l.name}</a>`).join('')}</div><div class="custom-download"><div style="font-size:13px;margin-bottom:8px;">自定义加速链接：</div><div class="custom-input"><input type="text" id="custom-url-${cardId}" placeholder="输入加速链接前缀" value="https://ghproxy.net/"><button class="btn btn-primary" onclick="DownloadManager.useCustomLink('${cardId}','${Utils.escapeHtml(asset.browser_download_url)}','${Utils.escapeHtml(asset.name)}',event)">使用</button></div></div></div>
+                <div id="accelerated-${cardId}" class="accelerated-links"><div class="accelerated-grid">${acceleratedLinks.map(l=>`<a href="${l.url}" class="btn btn-secondary" download="${asset.name}" target="_blank">${l.name}</a>`).join('')}</div><div class="custom-download"><div style="font-size:13px;margin-bottom:8px;">🔗 自定义加速前缀：</div><div class="custom-input"><input type="text" id="custom-url-${cardId}" placeholder="例如 https://ghproxy.net/" value="https://ghproxy.net/"><button class="btn btn-primary" onclick="DownloadManager.useCustomLink('${cardId}','${Utils.escapeHtml(asset.browser_download_url)}','${Utils.escapeHtml(asset.name)}',event)">使用</button></div></div></div>
             `;
             return card;
         },
         toggleAcceleratedLinks(cardId, ev) { if(ev) ev.stopPropagation(); const div=document.getElementById(`accelerated-${cardId}`); if(div) div.style.display=div.style.display==='block'?'none':'block'; },
-        useCustomLink(cardId, originalUrl, fileName, ev) { if(ev) ev.stopPropagation(); const input=document.getElementById(`custom-url-${cardId}`); if(!input) return; let prefix=input.value.trim(); if(!prefix) return alert('请输入前缀'); if(!prefix.endsWith('/')) prefix+='/'; const a=document.createElement('a'); a.href=prefix+originalUrl; a.download=fileName; a.target='_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a); alert(`使用自定义链接下载`); },
-        formatReleaseNotes(body) { if(!body) return ''; return body.replace(/\r\n/g,'\n').replace(/\n{3,}/g,'\n\n').replace(/^### (.*$)/gm,'<h4>$1</h4>').replace(/^## (.*$)/gm,'<h3>$1</h3>').replace(/^# (.*$)/gm,'<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/`(.*?)`/g,'<code>$1</code>').replace(/\[(.*?)\]\((.*?)\)/g,'<a href="$2" target="_blank">$1</a>').replace(/\n/g,'<br>'); }
+        useCustomLink(cardId, originalUrl, fileName, ev) { if(ev) ev.stopPropagation(); const input=document.getElementById(`custom-url-${cardId}`); if(!input) return; let prefix=input.value.trim(); if(!prefix) return alert('请输入加速前缀'); if(!prefix.endsWith('/')) prefix+='/'; const a=document.createElement('a'); a.href=prefix+originalUrl; a.download=fileName; a.target='_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a); alert(`使用自定义链接下载`); },
+        formatReleaseNotes(body) { if(!body) return '暂无更新日志'; return body.replace(/\r\n/g,'\n').replace(/\n{3,}/g,'\n\n').replace(/^### (.*$)/gm,'<h4>$1</h4>').replace(/^## (.*$)/gm,'<h3>$1</h3>').replace(/^# (.*$)/gm,'<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/`(.*?)`/g,'<code>$1</code>').replace(/\[(.*?)\]\((.*?)\)/g,'<a href="$2" target="_blank">$1</a>').replace(/\n/g,'<br>'); }
     };
 
     const ApiManager = {
@@ -393,8 +301,16 @@
             return res.json();
         },
         async fetchLatestPrerelease(repoId) { const cfg=CONFIG.repos[repoId]; const res=await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/releases`,CONFIG.apiConfig); const releases=await res.json(); const pre=releases.find(r=>r.prerelease===true); if(!pre) throw new Error('无预发布版本'); return pre; },
-        showLoading(repoId,type) { document.getElementById(`${repoId}-${type}-loading`).classList.remove('hidden'); document.getElementById(`${repoId}-${type}-content`).classList.add('hidden'); document.getElementById(`${repoId}-${type}-error`).classList.add('hidden'); },
-        showError(repoId,type,err) { const l=document.getElementById(`${repoId}-${type}-loading`); const c=document.getElementById(`${repoId}-${type}-content`); const e=document.getElementById(`${repoId}-${type}-error`); l.classList.add('hidden'); c.classList.add('hidden'); e.classList.remove('hidden'); document.getElementById(`${repoId}-${type}-error-message`).textContent=err.message||'未知错误'; },
+        showLoading(repoId,type) { 
+            const loadDiv=document.getElementById(`${repoId}-${type}-loading`); if(loadDiv) loadDiv.classList.remove('hidden');
+            const contentDiv=document.getElementById(`${repoId}-${type}-content`); if(contentDiv) contentDiv.classList.add('hidden');
+            const errorDiv=document.getElementById(`${repoId}-${type}-error`); if(errorDiv) errorDiv.classList.add('hidden');
+        },
+        showError(repoId,type,err) {
+            const loadDiv=document.getElementById(`${repoId}-${type}-loading`); if(loadDiv) loadDiv.classList.add('hidden');
+            const contentDiv=document.getElementById(`${repoId}-${type}-content`); if(contentDiv) contentDiv.classList.add('hidden');
+            const errorDiv=document.getElementById(`${repoId}-${type}-error`); if(errorDiv) { errorDiv.classList.remove('hidden'); document.getElementById(`${repoId}-${type}-error-message`).textContent=err.message||'获取失败，可能仓库无release或网络问题'; }
+        },
         showContent(repoId,type,release) {
             document.getElementById(`${repoId}-${type}-loading`).classList.add('hidden');
             document.getElementById(`${repoId}-${type}-content`).classList.remove('hidden');
@@ -402,30 +318,106 @@
             document.getElementById(`${repoId}-${type}-version`).textContent=Utils.extractVersion(release.tag_name, release.name);
             document.getElementById(`${repoId}-${type}-date`).textContent=Utils.formatDate(release.published_at);
             document.getElementById(`${repoId}-${type}-tag`).textContent=release.tag_name;
-            const container=document.getElementById(`${repoId}-${type}-assets`); container.innerHTML='';
-            if(!release.assets || release.assets.length===0) container.innerHTML='<div class="empty-state"><div class="empty-icon">📭</div><p>暂无文件</p></div>';
-            else { const relevant=release.assets.filter(a=>a.name.endsWith('.apk')||a.name.endsWith('.zip')||a.name.includes('release')); if(relevant.length===0) container.innerHTML='<div class="empty-state"><div class="empty-icon">📱</div><p>无相关文件</p></div>'; else relevant.forEach(asset=>container.appendChild(DownloadManager.createDownloadCard(asset, repoId, type))); }
+            const container=document.getElementById(`${repoId}-${type}-assets`); if(!container) return;
+            container.innerHTML='';
+            if(!release.assets || release.assets.length===0) container.innerHTML='<div class="empty-state"><div class="empty-icon">📭</div><p>暂无安装包文件</p></div>';
+            else {
+                // 🔥 关键修改：增加对 .hap 文件的识别，同时保留原有 .apk .zip 及包含 release 的包
+                const relevant = release.assets.filter(a => 
+                    a.name.endsWith('.apk') || 
+                    a.name.endsWith('.hap') ||   // 鸿蒙应用包支持
+                    a.name.endsWith('.zip') || 
+                    a.name.includes('release')
+                );
+                if(relevant.length===0) container.innerHTML='<div class="empty-state"><div class="empty-icon">📱</div><p>暂无可下载的APK/HAP文件</p></div>';
+                else relevant.forEach(asset=>container.appendChild(DownloadManager.createDownloadCard(asset, repoId, type)));
+            }
             const noteDiv=document.getElementById(`${repoId}-${type}-release-notes`); const noteCont=document.getElementById(`${repoId}-${type}-notes-content`);
             if(release.body && release.body.trim()) { noteCont.innerHTML=DownloadManager.formatReleaseNotes(release.body); noteDiv.classList.remove('hidden'); } else noteDiv.classList.add('hidden');
         },
         async loadRelease(repoId,type) { this.showLoading(repoId,type); try { const release=await this.fetchRelease(repoId,type); this.showContent(repoId,type,release); Utils.updateLastUpdatedTime(); } catch(e) { this.showError(repoId,type,e); } },
-        async initAllReleases() { for(const rid of ['original','sigma','md3','t','qysg']) { await this.loadRelease(rid,'stable'); await this.loadRelease(rid,'beta'); } setTimeout(()=>{ document.addEventListener('click',(e)=>{ if(!e.target.closest('.file-card') && !e.target.closest('.btn-secondary') && !e.target.closest('.custom-input')) document.querySelectorAll('.accelerated-links').forEach(div=>div.style.display='none'); }); },500); }
+        async initAllReleases() { const repoIds=Object.keys(CONFIG.repos); for(const rid of repoIds) { await this.loadRelease(rid,'stable'); await this.loadRelease(rid,'beta'); } setTimeout(()=>{ document.addEventListener('click',(e)=>{ if(!e.target.closest('.file-card') && !e.target.closest('.btn-secondary') && !e.target.closest('.custom-input')) document.querySelectorAll('.accelerated-links').forEach(div=>div.style.display='none'); }); },500); }
     };
 
-    // 折叠功能 + 默认折叠状态
+    // ---------- 动态生成所有卡片（确保id一致，样式类完整）----------
+    function buildAllCards() {
+        const container = document.getElementById('repoContainer');
+        if(!container) return;
+        container.innerHTML = '';
+        const repoEntries = Object.entries(CONFIG.repos);
+        for(const [repoId, repoInfo] of repoEntries) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = `repo-card ${repoId}`;
+            cardDiv.setAttribute('data-repo', repoId);
+            // header
+            let iconEmoji = '📖';
+            if(repoId === 'sigma') iconEmoji = 'Σ';
+            else if(repoId === 'md3') iconEmoji = '🎨';
+            else if(repoId === 't') iconEmoji = 'T';
+            else if(repoId === 'qysg') iconEmoji = '⏱️';
+            else if(repoId === 'hongmeng') iconEmoji = '🐱';
+            else if(repoId === 'tauri') iconEmoji = '⚡';
+            else if(repoId === 'cichen') iconEmoji = '📘';
+            else if(repoId === 'youfeng') iconEmoji = '🌀';
+            else if(repoId === 'archive') iconEmoji = '🗃️';
+            else if(repoId === 'jingshiro') iconEmoji = '✨';
+            else if(repoId === 'morealm') iconEmoji = '🌙';
+            else iconEmoji = '📚';
+            
+            cardDiv.innerHTML = `
+                <div class="repo-header">
+                    <div class="repo-icon">${iconEmoji}</div>
+                    <div class="repo-title"><h2>${repoInfo.name}</h2><p>${repoInfo.owner}/${repoInfo.repo}</p></div>
+                    <div class="collapse-icon">▶</div>
+                </div>
+                <div class="version-container">
+                    <!-- 稳定版 -->
+                    <div class="version-card stable">
+                        <div class="version-header"><div class="version-title"><span class="version-icon">🏆</span><h3>正式版本</h3></div><span class="version-tag tag-stable">稳定</span></div>
+                        <div id="${repoId}-stable-loading" class="loading"><div class="spinner"></div><div>获取正式版信息...</div></div>
+                        <div id="${repoId}-stable-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="${repoId}-stable-error-message"></p><button class="btn btn-primary" onclick="window.loadRelease('${repoId}','stable')">重新加载</button></div>
+                        <div id="${repoId}-stable-content" class="hidden">
+                            <div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="${repoId}-stable-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="${repoId}-stable-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="${repoId}-stable-tag"></code></span></div></div>
+                            <div id="${repoId}-stable-assets"></div>
+                            <div id="${repoId}-stable-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="${repoId}-stable-notes-content"></div></div>
+                        </div>
+                    </div>
+                    <!-- 测试版 -->
+                    <div class="version-card beta">
+                        <div class="version-header"><div class="version-title"><span class="version-icon">🧪</span><h3>测试版本</h3></div><span class="version-tag tag-beta">测试</span></div>
+                        <div id="${repoId}-beta-loading" class="loading"><div class="spinner"></div><div>获取测试版信息...</div></div>
+                        <div id="${repoId}-beta-error" class="error hidden"><h4>⚠️ 获取失败</h4><p id="${repoId}-beta-error-message"></p><button class="btn btn-primary" onclick="window.loadRelease('${repoId}','beta')">重新加载</button></div>
+                        <div id="${repoId}-beta-content" class="hidden">
+                            <div class="version-info"><div class="info-row"><span class="info-icon">🏷️</span><span>版本：<strong id="${repoId}-beta-version"></strong></span></div><div class="info-row"><span class="info-icon">📅</span><span>发布时间：<strong id="${repoId}-beta-date"></strong></span></div><div class="info-row"><span class="info-icon">🔖</span><span>标签：<code id="${repoId}-beta-tag"></code></span></div></div>
+                            <div id="${repoId}-beta-assets"></div>
+                            <div id="${repoId}-beta-release-notes" class="release-notes hidden"><h4>📝 更新说明</h4><div class="release-notes-content" id="${repoId}-beta-notes-content"></div></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(cardDiv);
+        }
+        // 重新绑定折叠 + 默认全部折叠
+        initCollapse();
+    }
+
     function initCollapse() {
         document.querySelectorAll('.repo-card').forEach(card => {
             const header = card.querySelector('.repo-header');
             const icon = header.querySelector('.collapse-icon');
-            // 设置默认折叠
-            card.classList.add('collapsed');
-            if (icon) icon.textContent = '▶';   // 折叠状态显示右箭头
-            
-            // 绑定点击切换事件
-            header.addEventListener('click', (e) => {
+            // 确保默认折叠
+            if (!card.classList.contains('collapsed')) card.classList.add('collapsed');
+            if (icon) icon.textContent = '▶';
+            // 避免下载按钮触发折叠
+            header.removeEventListener('click', header._clickHandler);
+            const clickHandler = (e) => {
+                if(e.target.closest('.btn') || e.target.closest('.download-actions') || e.target.closest('.accelerated-links') || e.target.closest('.custom-input')) return;
                 card.classList.toggle('collapsed');
-                icon.textContent = card.classList.contains('collapsed') ? '▶' : '▼';
-            });
+                const iconElem = card.querySelector('.collapse-icon');
+                if(iconElem) iconElem.textContent = card.classList.contains('collapsed') ? '▶' : '▼';
+            };
+            header.addEventListener('click', clickHandler);
+            header._clickHandler = clickHandler;
         });
     }
 
@@ -433,9 +425,11 @@
     window.DownloadManager = DownloadManager;
 
     document.addEventListener('DOMContentLoaded', () => {
+        buildAllCards();        // 动态生成12个卡片（原有+新增），保证id精准
         Utils.updateLastUpdatedTime();
-        ApiManager.initAllReleases();
-        initCollapse();          // 设置默认折叠并绑定点击
+        ApiManager.initAllReleases().then(() => {
+            console.log('所有版本加载完成，支持 .hap 格式');
+        }).catch(e=>console.warn);
         if (/iPhone|iPad|iPod/.test(navigator.userAgent)) document.body.style.WebkitOverflowScrolling = 'touch';
     });
 </script>
