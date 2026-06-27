@@ -98,6 +98,8 @@
         /* 新增配色 */
         .miaogongzi .repo-icon { background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%); color: white; }
         .legadong .repo-icon { background: linear-gradient(135deg, #00b894 0%, #00a86b 100%); color: white; }
+        .md3diy .repo-icon { background: linear-gradient(135deg, #ff6b81 0%, #e74c3c 100%); color: white; }
+        .dandan .repo-icon { background: linear-gradient(135deg, #f8a5c2 0%, #f78fb3 100%); color: white; }
 
         .repo-title h2 { font-size: 18px; font-weight: 700; color: #1e293b; }
         .repo-title p { font-size: 11px; color: #5b6e8c; margin-top: 2px; }
@@ -202,7 +204,7 @@
 <div class="container">
     <header class="header">
         <h1>📚 阅读APP · 全版本集散地</h1>
-        <p>原版 · 喵公子阅读 · Sigma · MD3 · 阅读T · 辞晨Max · 怣疯Max · Suml-1Max · Archive · 阅读R · Jingshiro · 阅读NG · 阅读🍟 · MoRealm · 书享阅读 · 轻悦时光 · 喵公子鸿蒙 · Tauri<br>✨ 正式版+测试版双通道 | 支持 APK + HAP (鸿蒙) + EXE (Windows) | 23+加速线路 | 点击标题栏折叠/展开</p>
+        <p>原版 · 喵公子阅读 · Sigma · MD3 · MD3-DIY · 阅读T · 辞晨Max · 蛋蛋Max · 怣疯Max · Suml-1Max · Archive · 阅读R · Jingshiro · 阅读NG · 阅读🍟 · MoRealm · 书享阅读 · 轻悦时光 · 喵公子鸿蒙 · Tauri<br>✨ 正式版+测试版双通道 | 支持 APK + HAP (鸿蒙) + EXE (Windows) | 23+加速线路 | 点击标题栏折叠/展开</p>
     </header>
     
     <div class="repo-container" id="repoContainer">
@@ -216,8 +218,10 @@
             <a href="https://github.com/LegadoTeam/legado" class="footer-link" target="_blank">喵公子阅读</a>
             <a href="https://github.com/Luoyacheng/legado" class="footer-link" target="_blank">阅读Sigma</a>
             <a href="https://github.com/HapeLee/legado-with-MD3" class="footer-link" target="_blank">MD3阅读</a>
+            <a href="https://github.com/325506/legado-with-MD3-DIY" class="footer-link" target="_blank">MD3阅读-DIY</a>
             <a href="https://github.com/skybbk1001/legadoT" class="footer-link" target="_blank">阅读T</a>
             <a href="https://github.com/GEd520/legados" class="footer-link" target="_blank">辞晨阅读·Max</a>
+            <a href="https://github.com/DandanLLab/Legado_Max" class="footer-link" target="_blank">蛋蛋阅读·Max</a>
             <a href="https://github.com/youfengknight/Legado_Max" class="footer-link" target="_blank">怣疯阅读·Max</a>
             <a href="https://github.com/Suml-1/Legado_Max" class="footer-link" target="_blank">Suml-1阅读·Max</a>
             <a href="https://github.com/Rimchars/legado" class="footer-link" target="_blank">阅读Archive</a>
@@ -248,8 +252,10 @@
             miaogongzi: { name:'喵公子阅读', owner:'LegadoTeam', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
             sigma: { name:'阅读Sigma', owner:'Luoyacheng', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
             md3: { name:'MD3阅读', owner:'HapeLee', repo:'legado-with-MD3', stableApi:'latest', betaApi:'tags/beta' },
+            md3diy: { name:'MD3阅读-DIY', owner:'325506', repo:'legado-with-MD3-DIY', stableApi:'latest', betaApi:'tags/beta' },
             t: { name:'阅读T', owner:'skybbk1001', repo:'legadoT', stableApi:'latest', betaApi:'tags/beta' },
             cichen: { name:'辞晨阅读·Max', owner:'GEd520', repo:'legados', stableApi:'latest', betaApi:'tags/beta' },
+            dandan: { name:'蛋蛋阅读·Max', owner:'DandanLLab', repo:'Legado_Max', stableApi:'latest', betaApi:'tags/beta' },
             youfeng: { name:'怣疯阅读·Max', owner:'youfengknight', repo:'Legado_Max', stableApi:'latest', betaApi:'tags/beta' },
             suml1: { name:'Suml-1阅读·Max', owner:'Suml-1', repo:'Legado_Max', stableApi:'latest', betaApi:'tags/beta' },
             archive: { name:'阅读Archive', owner:'Rimchars', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
@@ -371,8 +377,8 @@
         const container = document.getElementById('repoContainer');
         if(!container) return;
         container.innerHTML = '';
-        // 按新顺序排列：原版→喵公子阅读→Sigma→MD3→T→辞晨→怣疯→Suml-1→Archive→阅读R→Jingshiro→阅读NG→阅读🍟→MoRealm→书享→轻悦时光→喵公子鸿蒙→Tauri
-        const order = ['original','miaogongzi','sigma','md3','t','cichen','youfeng','suml1','archive','readingr','jingshiro','legadong','shutiao','morealm','shuxiang','qysg','hongmeng','tauri'];
+        // 按新顺序排列：原版→喵公子→Sigma→MD3→MD3DIY→T→辞晨→蛋蛋→怣疯→Suml-1→Archive→阅读R→Jingshiro→阅读NG→阅读🍟→MoRealm→书享→轻悦时光→喵公子鸿蒙→Tauri
+        const order = ['original','miaogongzi','sigma','md3','md3diy','t','cichen','dandan','youfeng','suml1','archive','readingr','jingshiro','legadong','shutiao','morealm','shuxiang','qysg','hongmeng','tauri'];
         for(const repoId of order) {
             const repoInfo = CONFIG.repos[repoId];
             if(!repoInfo) continue;
@@ -382,11 +388,13 @@
             let iconEmoji = '📖';
             if(repoId === 'sigma') iconEmoji = 'Σ';
             else if(repoId === 'md3') iconEmoji = '🎨';
+            else if(repoId === 'md3diy') iconEmoji = '🎨';
             else if(repoId === 't') iconEmoji = 'T';
             else if(repoId === 'qysg') iconEmoji = '⏱️';
             else if(repoId === 'hongmeng') iconEmoji = '🐱';
             else if(repoId === 'tauri') iconEmoji = '⚡';
             else if(repoId === 'cichen') iconEmoji = '📘';
+            else if(repoId === 'dandan') iconEmoji = '🥚';
             else if(repoId === 'youfeng') iconEmoji = '🌀';
             else if(repoId === 'suml1') iconEmoji = '🚀';
             else if(repoId === 'archive') iconEmoji = '🗃️';
