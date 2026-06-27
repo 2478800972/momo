@@ -91,11 +91,13 @@
         .archive .repo-icon { background: linear-gradient(135deg, #607d8b 0%, #455a64 100%); color: white; }
         .jingshiro .repo-icon { background: linear-gradient(135deg, #e84393 0%, #fd79a8 100%); color: white; }
         .morealm .repo-icon { background: linear-gradient(135deg, #00cec9 0%, #0984e3 100%); color: white; }
-        /* 新增仓库配色 */
         .suml1 .repo-icon { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); color: white; }
         .readingr .repo-icon { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; }
         .shutiao .repo-icon { background: linear-gradient(135deg, #f9ca24 0%, #f0932b 100%); color: white; }
         .shuxiang .repo-icon { background: linear-gradient(135deg, #6ab04c 0%, #2d7d46 100%); color: white; }
+        /* 新增配色 */
+        .miaogongzi .repo-icon { background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%); color: white; }
+        .legadong .repo-icon { background: linear-gradient(135deg, #00b894 0%, #00a86b 100%); color: white; }
 
         .repo-title h2 { font-size: 18px; font-weight: 700; color: #1e293b; }
         .repo-title p { font-size: 11px; color: #5b6e8c; margin-top: 2px; }
@@ -180,6 +182,7 @@
         .tag { display: inline-block; padding: 3px 10px; border-radius: 30px; font-size: 10px; font-weight: 600; margin-left: 6px; vertical-align: middle; background: #e9ecef; color: #2c3e50; }
         .tag-coexist { background: #ffb300; color: white; }
         .tag-hap { background: #00b4aa; color: white; }
+        .tag-exe { background: #0078d4; color: white; }
         .hidden { display: none !important; }
         @media (max-width: 767px) {
             body { padding: 10px; }
@@ -199,7 +202,7 @@
 <div class="container">
     <header class="header">
         <h1>📚 阅读APP · 全版本集散地</h1>
-        <p>原版 · Sigma · MD3 · 阅读T · 轻悦时光 · 喵公子鸿蒙 · Tauri · 辞晨Max · 怣疯Max · Suml-1Max · Archive · 阅读R · Jingshiro · MoRealm · 阅读🍟 · 书享阅读<br>✨ 正式版+测试版双通道 | 支持 APK + HAP (鸿蒙) | 23+加速线路 | 点击标题栏折叠/展开</p>
+        <p>原版 · 喵公子阅读 · Sigma · MD3 · 阅读T · 辞晨Max · 怣疯Max · Suml-1Max · Archive · 阅读R · Jingshiro · 阅读NG · 阅读🍟 · MoRealm · 书享阅读 · 轻悦时光 · 喵公子鸿蒙 · Tauri<br>✨ 正式版+测试版双通道 | 支持 APK + HAP (鸿蒙) + EXE (Windows) | 23+加速线路 | 点击标题栏折叠/展开</p>
     </header>
     
     <div class="repo-container" id="repoContainer">
@@ -207,31 +210,30 @@
     </div>
 
     <div class="footer">
-        <p>📡 数据来源于GitHub官方API · 提供APK/HAP版本管理及加速下载</p>
+        <p>📡 数据来源于GitHub官方API · 提供APK/HAP/EXE版本管理及加速下载</p>
         <div class="footer-links">
             <a href="https://github.com/gedoor/legado" class="footer-link" target="_blank">原版阅读</a>
+            <a href="https://github.com/LegadoTeam/legado" class="footer-link" target="_blank">喵公子阅读</a>
             <a href="https://github.com/Luoyacheng/legado" class="footer-link" target="_blank">阅读Sigma</a>
             <a href="https://github.com/HapeLee/legado-with-MD3" class="footer-link" target="_blank">MD3阅读</a>
             <a href="https://github.com/skybbk1001/legadoT" class="footer-link" target="_blank">阅读T</a>
+            <a href="https://github.com/GEd520/legados" class="footer-link" target="_blank">辞晨阅读·Max</a>
+            <a href="https://github.com/youfengknight/Legado_Max" class="footer-link" target="_blank">怣疯阅读·Max</a>
+            <a href="https://github.com/Suml-1/Legado_Max" class="footer-link" target="_blank">Suml-1阅读·Max</a>
+            <a href="https://github.com/Rimchars/legado" class="footer-link" target="_blank">阅读Archive</a>
+            <a href="https://github.com/refgd/legado" class="footer-link" target="_blank">阅读R</a>
+            <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro阅读</a>
+            <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">阅读NG</a>
+            <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">阅读🍟</a>
+            <a href="https://github.com/keys-cherish/morealm-reader" class="footer-link" target="_blank">MoRealm</a>
+            <a href="https://github.com/zyl140640/readbook-releases" class="footer-link" target="_blank">书享阅读</a>
             <a href="https://github.com/autobcb/qysg" class="footer-link" target="_blank">轻悦时光</a>
+            <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">喵公子鸿蒙</a>
+            <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Legado-Tauri</a>
             <a href="https://t.me/Legado_Channels" class="footer-link" target="_blank">阅读官方Telegram</a>
             <a href="https://t.me/readsigma" class="footer-link" target="_blank">阅读Sigma Telegram</a>
             <a href="https://skybook.legado1.top/" class="footer-link" target="_blank">阅读T明月书阁</a>
             <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=slk0MilJhQ0HIEaXwf2Lux6YM5YiBsrzXeR01hkVRYXiNcAVtw1Ja3yykVnzwrmG&busi_data=eyJncm91cENvZGUiOiI1MTk2MjAyMjAiLCJ0b2tlbiI6IkJmRFlnMFgvN0NWVFhNYVREdGpOZW13Zlp1UXNOMmFKcituRmVicG8wd3pXYVhZZldXTWt2Z0ZnQ2QwUWNzOFYiLCJ1aW4iOiIyNDc4ODAwOTcyIn0%3D&data=nuu2aJVGXuq5aDiFSvFJatYoK9oxGIzQoE0Bzp013-jmOazvCxvngky12T0YnFlW1esHHLn0btRX8oyBVNN6Hg&svctype=4&tempid=h5_group_info" class="footer-link" target="_blank">轻悦时光QQ群</a>
-            <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">喵公子鸿蒙</a>
-            <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Legado-Tauri</a>
-            <a href="https://github.com/GEd520/legados" class="footer-link" target="_blank">辞晨阅读·Max</a>
-            <a href="https://github.com/youfengknight/Legado_Max" class="footer-link" target="_blank">怣疯阅读·Max</a>
-            <!-- 新增：Suml-1阅读·Max (放在怣疯后面) -->
-            <a href="https://github.com/Suml-1/Legado_Max" class="footer-link" target="_blank">Suml-1阅读·Max</a>
-            <a href="https://github.com/Rimchars/legado" class="footer-link" target="_blank">阅读Archive</a>
-            <!-- 新增：阅读R (放在Archive后面) -->
-            <a href="https://github.com/refgd/legado" class="footer-link" target="_blank">阅读R</a>
-            <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro阅读</a>
-            <a href="https://github.com/keys-cherish/morealm-reader" class="footer-link" target="_blank">MoRealm</a>
-            <!-- 新增：阅读🍟 + 书享阅读 -->
-            <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">阅读🍟</a>
-            <a href="https://github.com/zyl140640/readbook-releases" class="footer-link" target="_blank">书享阅读</a>
         </div>
         <div class="last-updated" id="last-updated-time">最后更新时间：加载中...</div>
     </div>
@@ -243,24 +245,23 @@
     const CONFIG = {
         repos: {
             original: { name:'原版阅读', owner:'gedoor', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
+            miaogongzi: { name:'喵公子阅读', owner:'LegadoTeam', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
             sigma: { name:'阅读Sigma', owner:'Luoyacheng', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
             md3: { name:'MD3阅读', owner:'HapeLee', repo:'legado-with-MD3', stableApi:'latest', betaApi:'tags/beta' },
             t: { name:'阅读T', owner:'skybbk1001', repo:'legadoT', stableApi:'latest', betaApi:'tags/beta' },
-            qysg: { name:'轻悦时光', owner:'autobcb', repo:'qysg', stableApi:'latest', betaApi:'tags/beta' },
-            hongmeng: { name:'喵公子鸿蒙阅读', owner:'mgz0227', repo:'legado-Harmony', stableApi:'latest', betaApi:'tags/beta' },
-            tauri: { name:'Legado-Tauri', owner:'LegadoTeam', repo:'Legado-Tauri-Release', stableApi:'latest', betaApi:'tags/beta' },
             cichen: { name:'辞晨阅读·Max', owner:'GEd520', repo:'legados', stableApi:'latest', betaApi:'tags/beta' },
             youfeng: { name:'怣疯阅读·Max', owner:'youfengknight', repo:'Legado_Max', stableApi:'latest', betaApi:'tags/beta' },
-            // 新增：Suml-1阅读·Max (放在怣疯后面)
             suml1: { name:'Suml-1阅读·Max', owner:'Suml-1', repo:'Legado_Max', stableApi:'latest', betaApi:'tags/beta' },
             archive: { name:'阅读Archive', owner:'Rimchars', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
-            // 新增：阅读R (放在Archive后面)
             readingr: { name:'阅读R', owner:'refgd', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
             jingshiro: { name:'Jingshiro阅读', owner:'Jingshiro', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
-            morealm: { name:'MoRealm', owner:'keys-cherish', repo:'morealm-reader', stableApi:'latest', betaApi:'tags/beta' },
-            // 新增：阅读🍟 + 书享阅读
+            legadong: { name:'阅读NG', owner:'joestar817', repo:'legado_NG', stableApi:'latest', betaApi:'tags/beta' },
             shutiao: { name:'阅读🍟', owner:'huajideshutiao', repo:'legado', stableApi:'latest', betaApi:'tags/beta' },
-            shuxiang: { name:'书享阅读', owner:'zyl140640', repo:'readbook-releases', stableApi:'latest', betaApi:'tags/beta' }
+            morealm: { name:'MoRealm', owner:'keys-cherish', repo:'morealm-reader', stableApi:'latest', betaApi:'tags/beta' },
+            shuxiang: { name:'书享阅读', owner:'zyl140640', repo:'readbook-releases', stableApi:'latest', betaApi:'tags/beta' },
+            qysg: { name:'轻悦时光', owner:'autobcb', repo:'qysg', stableApi:'latest', betaApi:'tags/beta' },
+            hongmeng: { name:'喵公子鸿蒙阅读', owner:'mgz0227', repo:'legado-Harmony', stableApi:'latest', betaApi:'tags/beta' },
+            tauri: { name:'Legado-Tauri', owner:'LegadoTeam', repo:'Legado-Tauri-Release', stableApi:'latest', betaApi:'tags/beta' }
         },
         proxies: [
             { name:'原链', url:'' }, { name:'加速1', url:'https://gh-proxy.com/' }, { name:'加速2', url:'https://ghproxy.net/' },
@@ -281,6 +282,7 @@
         escapeHtml(t) { const div=document.createElement('div'); div.textContent=t; return div.innerHTML; },
         isCoexistVersion(f) { return f.includes('releaseA')||f.includes('coexist')||f.includes('共存')||f.includes('qysg')||f.includes('Coexist'); },
         isHapFile(f) { return f.toLowerCase().endsWith('.hap'); },
+        isExeFile(f) { return f.toLowerCase().endsWith('.exe'); },
         extractVersion(tag,name) { if(name) { const m=name.match(/(\d+\.\d+\.\d+)/); if(m) return m[1]; } if(tag) return tag.replace(/^v/,''); return tag||'未知'; },
         updateLastUpdatedTime() { const el=document.getElementById('last-updated-time'); if(el) el.textContent=`最后更新时间：${new Date().toLocaleTimeString('zh-CN',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})}`; }
     };
@@ -292,11 +294,20 @@
             const acceleratedLinks=this.createAcceleratedLinks(asset.browser_download_url);
             const isCoexist=Utils.isCoexistVersion(asset.name);
             const isHap=Utils.isHapFile(asset.name);
-            const extraTag = isHap ? '<span class="tag tag-hap">鸿蒙HAP</span>' : (isCoexist ? '<span class="tag tag-coexist">共存版</span>' : '');
+            const isExe=Utils.isExeFile(asset.name);
+            let extraTag = '';
+            if(isHap) extraTag = '<span class="tag tag-hap">鸿蒙HAP</span>';
+            else if(isExe) extraTag = '<span class="tag tag-exe">Windows EXE</span>';
+            else if(isCoexist) extraTag = '<span class="tag tag-coexist">共存版</span>';
+            
+            let fileTypeLabel = '安卓APK';
+            if(isHap) fileTypeLabel = '鸿蒙安装包';
+            else if(isExe) fileTypeLabel = 'Windows安装包';
+            
             const card=document.createElement('div'); card.className='file-card';
             card.innerHTML=`
                 <div class="file-name">${Utils.escapeHtml(asset.name)}${extraTag}<span class="tag" style="background:#e2e8f0;">${Utils.formatFileSize(asset.size)}</span></div>
-                <div class="file-meta"><div class="meta-item"><span>⬇️</span><span>${asset.download_count.toLocaleString()}次下载</span></div><div class="meta-item"><span>📱</span><span>${isHap ? '鸿蒙安装包' : '安卓APK'}</span></div></div>
+                <div class="file-meta"><div class="meta-item"><span>⬇️</span><span>${asset.download_count.toLocaleString()}次下载</span></div><div class="meta-item"><span>📱</span><span>${fileTypeLabel}</span></div></div>
                 <div class="download-actions"><a href="${asset.browser_download_url}" class="btn btn-primary" download="${asset.name}" target="_blank"><span>⬇️</span>直接下载</a><button class="btn btn-secondary" onclick="DownloadManager.toggleAcceleratedLinks('${cardId}', event)"><span>🚀</span>加速下载</button></div>
                 <div id="accelerated-${cardId}" class="accelerated-links"><div class="accelerated-grid">${acceleratedLinks.map(l=>`<a href="${l.url}" class="btn btn-secondary" download="${asset.name}" target="_blank">${l.name}</a>`).join('')}</div><div class="custom-download"><div style="font-size:13px;margin-bottom:8px;">🔗 自定义加速前缀：</div><div class="custom-input"><input type="text" id="custom-url-${cardId}" placeholder="例如 https://ghproxy.net/" value="https://ghproxy.net/"><button class="btn btn-primary" onclick="DownloadManager.useCustomLink('${cardId}','${Utils.escapeHtml(asset.browser_download_url)}','${Utils.escapeHtml(asset.name)}',event)">使用</button></div></div></div>
             `;
@@ -342,9 +353,10 @@
                     a.name.endsWith('.apk') || 
                     a.name.endsWith('.hap') ||   
                     a.name.endsWith('.zip') || 
+                    a.name.endsWith('.exe') ||
                     a.name.includes('release')
                 );
-                if(relevant.length===0) container.innerHTML='<div class="empty-state"><div class="empty-icon">📱</div><p>暂无可下载的APK/HAP文件</p></div>';
+                if(relevant.length===0) container.innerHTML='<div class="empty-state"><div class="empty-icon">📱</div><p>暂无可下载的APK/HAP/EXE文件</p></div>';
                 else relevant.forEach(asset=>container.appendChild(DownloadManager.createDownloadCard(asset, repoId, type)));
             }
             const noteDiv=document.getElementById(`${repoId}-${type}-release-notes`); const noteCont=document.getElementById(`${repoId}-${type}-notes-content`);
@@ -359,8 +371,8 @@
         const container = document.getElementById('repoContainer');
         if(!container) return;
         container.innerHTML = '';
-        // 按照用户指定的顺序排列
-        const order = ['original','sigma','md3','t','qysg','hongmeng','tauri','cichen','youfeng','suml1','archive','readingr','jingshiro','morealm','shutiao','shuxiang'];
+        // 按新顺序排列：原版→喵公子阅读→Sigma→MD3→T→辞晨→怣疯→Suml-1→Archive→阅读R→Jingshiro→阅读NG→阅读🍟→MoRealm→书享→轻悦时光→喵公子鸿蒙→Tauri
+        const order = ['original','miaogongzi','sigma','md3','t','cichen','youfeng','suml1','archive','readingr','jingshiro','legadong','shutiao','morealm','shuxiang','qysg','hongmeng','tauri'];
         for(const repoId of order) {
             const repoInfo = CONFIG.repos[repoId];
             if(!repoInfo) continue;
@@ -383,6 +395,8 @@
             else if(repoId === 'morealm') iconEmoji = '🌙';
             else if(repoId === 'shutiao') iconEmoji = '🍟';
             else if(repoId === 'shuxiang') iconEmoji = '📚';
+            else if(repoId === 'miaogongzi') iconEmoji = '🐱';
+            else if(repoId === 'legadong') iconEmoji = '🆕';
             else iconEmoji = '📖';
             
             cardDiv.innerHTML = `
@@ -447,7 +461,7 @@
         buildAllCards();
         Utils.updateLastUpdatedTime();
         ApiManager.initAllReleases().then(() => {
-            console.log('所有版本加载完成，支持 .hap 格式');
+            console.log('所有版本加载完成，支持 .apk / .hap / .exe 格式');
         }).catch(e=>console.warn);
         if (/iPhone|iPad|iPod/.test(navigator.userAgent)) document.body.style.WebkitOverflowScrolling = 'touch';
     });
