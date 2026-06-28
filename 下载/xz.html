@@ -124,7 +124,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             color: #fff;
         }
-        /* 仓库配色 (柔和) */
+        /* 原有配色 */
         .original .repo-icon { background: linear-gradient(135deg, #5b6abf, #7c5cbf); }
         .miaogongzi .repo-icon { background: linear-gradient(135deg, #f0938a, #e4686b); }
         .sigma .repo-icon { background: linear-gradient(135deg, #4a9ff5, #2d7bd9); }
@@ -145,6 +145,14 @@
         .qysg .repo-icon { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
         .hongmeng .repo-icon { background: linear-gradient(135deg, #00b4aa, #00897b); }
         .tauri .repo-icon { background: linear-gradient(135deg, #6c5ce7, #4834d4); }
+        /* 新增配色 */
+        .ireader .repo-icon { background: linear-gradient(135deg, #4a90e2, #2c5f8a); }
+        .lightnovelreader .repo-icon { background: linear-gradient(135deg, #27ae60, #1e8449); }
+        .zhongfanqie .repo-icon { background: linear-gradient(135deg, #f39c12, #d68910); }
+        .pofanqie .repo-icon { background: linear-gradient(135deg, #e74c3c, #b03a2e); }
+        .dlmiyfanqie .repo-icon { background: linear-gradient(135deg, #8e44ad, #6c3483); }
+        .doctoroyyfanqie .repo-icon { background: linear-gradient(135deg, #1abc9c, #148f77); }
+        .bidabrainfanqie .repo-icon { background: linear-gradient(135deg, #fd79a8, #e84393); }
 
         .repo-title h2 {
             font-size: 18px;
@@ -578,12 +586,12 @@
 <div class="container">
     <header class="header">
         <h1>📖 阅读 · 全版本集散地</h1>
-        <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · MoRealm · 书享 · 轻悦时光 · 鸿蒙 · Tauri<br>稳定版 + 测试版 · APK / HAP / EXE · 23+ 加速线路</p>
+        <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · MoRealm · 书享 · 轻悦时光 · 鸿蒙 · Tauri · IReader · LightNovelReader · 番茄系列<br>稳定版 + 测试版 · APK / HAP / EXE · 23+ 加速线路</p>
     </header>
 
     <div class="repo-container" id="repoContainer"></div>
 
-    <!-- ===== 新的页脚 ===== -->
+    <!-- ===== 页脚 ===== -->
     <div class="footer">
         <!-- 仓库链接 -->
         <div class="footer-group">
@@ -609,6 +617,14 @@
                 <a href="https://github.com/autobcb/qysg" class="footer-link" target="_blank">轻悦时光</a>
                 <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">鸿蒙</a>
                 <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Tauri</a>
+                <!-- 新增 -->
+                <a href="https://github.com/IReaderorg/IReader" class="footer-link" target="_blank">IReader</a>
+                <a href="https://github.com/dmzz-yyhyy/LightNovelReader" class="footer-link" target="_blank">LightNovelReader</a>
+                <a href="https://github.com/zhongbai2333/Tomato-Novel-Downloader" class="footer-link" target="_blank">Zhong·番茄</a>
+                <a href="https://github.com/POf-L/Fanqie-novel-Downloader" class="footer-link" target="_blank">POf·番茄</a>
+                <a href="https://github.com/Dlmily/Tomato-Novel-Downloader-Lite" class="footer-link" target="_blank">Dlmiy·番茄</a>
+                <a href="https://github.com/doctoroyy/tomato-novel-manager" class="footer-link" target="_blank">Doctoroyy·番茄</a>
+                <a href="https://github.com/bidabrain/Tomato-Novel" class="footer-link" target="_blank">Bidabrain·番茄</a>
             </div>
         </div>
 
@@ -660,7 +676,15 @@
             shuxiang: { name: '书享阅读', owner: 'zyl140640', repo: 'readbook-releases', stableApi: 'latest', betaApi: 'tags/beta' },
             qysg: { name: '轻悦时光', owner: 'autobcb', repo: 'qysg', stableApi: 'latest', betaApi: 'tags/beta' },
             hongmeng: { name: '喵公子鸿蒙阅读', owner: 'mgz0227', repo: 'legado-Harmony', stableApi: 'latest', betaApi: 'tags/beta' },
-            tauri: { name: 'Legado-Tauri', owner: 'LegadoTeam', repo: 'Legado-Tauri-Release', stableApi: 'latest', betaApi: 'tags/beta' }
+            tauri: { name: 'Legado-Tauri', owner: 'LegadoTeam', repo: 'Legado-Tauri-Release', stableApi: 'latest', betaApi: 'tags/beta' },
+            // 新增
+            ireader: { name: 'IReader', owner: 'IReaderorg', repo: 'IReader', stableApi: 'latest', betaApi: 'tags/beta' },
+            lightnovelreader: { name: 'LightNovelReader', owner: 'dmzz-yyhyy', repo: 'LightNovelReader', stableApi: 'latest', betaApi: 'tags/beta' },
+            zhongfanqie: { name: 'Zhong·番茄', owner: 'zhongbai2333', repo: 'Tomato-Novel-Downloader', stableApi: 'latest', betaApi: 'tags/beta' },
+            pofanqie: { name: 'POf·番茄', owner: 'POf-L', repo: 'Fanqie-novel-Downloader', stableApi: 'latest', betaApi: 'tags/beta' },
+            dlmiyfanqie: { name: 'Dlmiy·番茄', owner: 'Dlmily', repo: 'Tomato-Novel-Downloader-Lite', stableApi: 'latest', betaApi: 'tags/beta' },
+            doctoroyyfanqie: { name: 'Doctoroyy·番茄', owner: 'doctoroyy', repo: 'tomato-novel-manager', stableApi: 'latest', betaApi: 'tags/beta' },
+            bidabrainfanqie: { name: 'Bidabrain·番茄', owner: 'bidabrain', repo: 'Tomato-Novel', stableApi: 'latest', betaApi: 'tags/beta' }
         },
         proxies: [
             { name: '原链', url: '' }, { name: '加速1', url: 'https://gh-proxy.com/' }, { name: '加速2', url: 'https://ghproxy.net/' },
@@ -868,7 +892,15 @@
     function buildAllCards() {
         const container = document.getElementById('repoContainer');
         container.innerHTML = '';
-        const order = ['original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't', 'cichen', 'dandan', 'youfeng', 'suml1', 'archive', 'readingr', 'jingshiro', 'legadong', 'shutiao', 'morealm', 'shuxiang', 'qysg', 'hongmeng', 'tauri'];
+        const order = [
+            'original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't',
+            'cichen', 'dandan', 'youfeng', 'suml1',
+            'archive', 'readingr', 'jingshiro', 'legadong',
+            'shutiao', 'morealm', 'shuxiang', 'qysg', 'hongmeng', 'tauri',
+            // 新增追加
+            'ireader', 'lightnovelreader',
+            'zhongfanqie', 'pofanqie', 'dlmiyfanqie', 'doctoroyyfanqie', 'bidabrainfanqie'
+        ];
         for (const repoId of order) {
             const repoInfo = CONFIG.repos[repoId];
             if (!repoInfo) continue;
@@ -894,6 +926,14 @@
             else if (repoId === 'shuxiang') iconEmoji = '📚';
             else if (repoId === 'miaogongzi') iconEmoji = '🐱';
             else if (repoId === 'legadong') iconEmoji = '🆕';
+            // 新增图标
+            else if (repoId === 'ireader') iconEmoji = '📘';
+            else if (repoId === 'lightnovelreader') iconEmoji = '📙';
+            else if (repoId === 'zhongfanqie') iconEmoji = '🍅';
+            else if (repoId === 'pofanqie') iconEmoji = '🍅';
+            else if (repoId === 'dlmiyfanqie') iconEmoji = '🍅';
+            else if (repoId === 'doctoroyyfanqie') iconEmoji = '🍅';
+            else if (repoId === 'bidabrainfanqie') iconEmoji = '🍅';
             else iconEmoji = '📖';
 
             cardDiv.innerHTML = `
