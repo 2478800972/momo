@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" href="https://cdn.jsdmirror.com/gh/2478800972/boke@main/assets/img/头像.jpg">
+    <title>画廊 · 墨殇 · 白</title>
+    <style>
+        /* ===== 全局重置 & 基础（简约白） ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== 背景图层 ===== */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            z-index: -2;
+        }
+        #bgOld {
+            opacity: 1;
+        }
+        #bgNew {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* 白色半透明遮罩 — 让背景图变得极其柔和，只留一丝氛围 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.88);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ===== 背景平移动画（保留） ===== */
+        @keyframes slideInLeft {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes slideInUp {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes slideInDown {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes diagonalInTR {
+            0% { transform: translate(100%, -100%); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes diagonalInTL {
+            0% { transform: translate(-100%, -100%); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes diagonalInBR {
+            0% { transform: translate(100%, 100%); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes diagonalInBL {
+            0% { transform: translate(-100%, 100%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .animate-slide-left {
+            animation: slideInLeft 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .animate-slide-right {
+            animation: slideInRight 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .animate-slide-up {
+            animation: slideInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .animate-slide-down {
+            animation: slideInDown 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .animate-diagonal-tr {
+            animation: diagonalInTR 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .animate-diagonal-tl {
+            animation: diagonalInTL 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .animate-diagonal-br {
+            animation: diagonalInBR 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .animate-diagonal-bl {
+            animation: diagonalInBL 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* ===== 导航栏 ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(18px) saturate(1.2);
+            -webkit-backdrop-filter: blur(18px) saturate(1.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 12px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px 20px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #0f172a;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+        }
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .logo-area span {
+            opacity: 0.8;
+        }
+
+        /* 过滤器 — 浅色胶囊 */
+        .filter-bar {
+            display: flex;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(4px);
+            padding: 4px;
+            border-radius: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            border: none;
+            background: transparent;
+            padding: 6px 20px;
+            border-radius: 32px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: rgba(15, 23, 42, 0.5);
+            letter-spacing: 0.3px;
+        }
+        .filter-btn:hover {
+            color: #0f172a;
+            background: rgba(0, 0, 0, 0.04);
+        }
+        .filter-btn.active {
+            background: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        .stats-display {
+            background: rgba(0, 0, 0, 0.03);
+            backdrop-filter: blur(4px);
+            padding: 5px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 450;
+            color: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== 画廊容器 ===== */
+        .gallery-wrapper {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 28px 24px 80px;
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            margin-bottom: 32px;
+            padding: 0 4px;
+        }
+        .gallery-header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+        }
+        .gallery-header h1 small {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: rgba(15, 23, 42, 0.35);
+            margin-left: 12px;
+        }
+        .gallery-header .header-actions a {
+            color: rgba(15, 23, 42, 0.4);
+            text-decoration: none;
+            font-size: 0.8rem;
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .gallery-header .header-actions a:hover {
+            color: #0f172a;
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== 瀑布流 ===== */
+        .waterfall {
+            width: 100%;
+        }
+        .waterfall-columns {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .waterfall-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 0;
+        }
+
+        /* ===== 卡片 — 纯净白 ===== */
+        .gallery-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px) saturate(1.1);
+            -webkit-backdrop-filter: blur(8px) saturate(1.1);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.02);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            width: 100%;
+            will-change: transform;
+            position: relative;
+        }
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.02);
+            background: rgba(255, 255, 255, 0.98);
+            border-color: #ffffff;
+        }
+
+        .img-container {
+            position: relative;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+        .img-container.skeleton {
+            background: linear-gradient(90deg,
+                    rgba(0, 0, 0, 0.02) 25%,
+                    rgba(0, 0, 0, 0.06) 50%,
+                    rgba(0, 0, 0, 0.02) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease, transform 0.6s ease;
+            opacity: 0;
+        }
+        .img-container img.loaded {
+            opacity: 1;
+        }
+        .gallery-card:hover .img-container img {
+            transform: scale(1.02);
+        }
+
+        /* ===== 加载更多 ===== */
+        .load-trigger {
+            display: flex;
+            justify-content: center;
+            padding: 48px 20px 20px;
+        }
+        .loader-box {
+            background: rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(8px);
+            padding: 10px 28px;
+            border-radius: 60px;
+            display: inline-flex;
+            gap: 14px;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 450;
+            color: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(0, 0, 0, 0.06);
+            border-top-color: rgba(15, 23, 42, 0.3);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .end-message {
+            text-align: center;
+            padding: 44px 20px;
+            color: rgba(15, 23, 42, 0.2);
+            background: rgba(0, 0, 0, 0.01);
+            border-radius: 48px;
+            backdrop-filter: blur(4px);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        /* ===== 预览模态框（白色沉浸） ===== */
+        .preview-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(40px) saturate(1.2);
+            -webkit-backdrop-filter: blur(40px) saturate(1.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.25s, opacity 0.25s ease;
+        }
+        .preview-modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .preview-box {
+            max-width: 94vw;
+            max-height: 92vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .preview-box img {
+            max-width: 100%;
+            max-height: 78vh;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.06);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 14px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .preview-btn {
+            background: rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            padding: 7px 24px;
+            border-radius: 40px;
+            color: rgba(15, 23, 42, 0.6);
+            font-size: 0.8rem;
+            font-weight: 450;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+        .preview-btn:hover {
+            background: rgba(0, 0, 0, 0.06);
+            color: #0f172a;
+            transform: scale(1.02);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .close-preview {
+            position: absolute;
+            top: -48px;
+            right: -8px;
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            color: rgba(15, 23, 42, 0.4);
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            border-radius: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .close-preview:hover {
+            background: rgba(0, 0, 0, 0.06);
+            color: #0f172a;
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .preview-caption {
+            margin-top: 12px;
+            font-size: 0.75rem;
+            color: rgba(15, 23, 42, 0.2);
+            letter-spacing: 0.3px;
+            max-width: 90%;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        /* ===== 回到顶部 ===== */
+        .back-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 40px;
+            padding: 8px 18px;
+            font-size: 0.75rem;
+            color: rgba(15, 23, 42, 0.4);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            cursor: pointer;
+            z-index: 99;
+            transition: all 0.25s ease;
+            letter-spacing: 0.3px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-top:hover {
+            background: rgba(255, 255, 255, 0.95);
+            color: #0f172a;
+            transform: scale(1.03);
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ===== 空状态 ===== */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: rgba(15, 23, 42, 0.2);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 900px) {
+            .waterfall-columns {
+                gap: 16px;
+            }
+            .waterfall-col {
+                gap: 16px;
+            }
+            .nav-container {
+                padding: 10px 0;
+            }
+            .filter-btn {
+                padding: 5px 14px;
+                font-size: 0.72rem;
+            }
+            .gallery-wrapper {
+                padding: 20px 16px 60px;
+            }
+            .gallery-header h1 {
+                font-size: 1.2rem;
+            }
+            .gallery-header h1 small {
+                font-size: 0.7rem;
+                margin-left: 8px;
+                display: block;
+                margin-top: 2px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .waterfall-columns {
+                gap: 12px;
+            }
+            .waterfall-col {
+                gap: 12px;
+            }
+            .navbar {
+                padding: 0 12px;
+            }
+            .nav-container {
+                gap: 10px;
+            }
+            .logo-area {
+                font-size: 0.9rem;
+            }
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+            }
+            .filter-btn {
+                padding: 4px 12px;
+                font-size: 0.68rem;
+            }
+            .stats-display {
+                font-size: 0.65rem;
+                padding: 4px 12px;
+            }
+            .gallery-wrapper {
+                padding: 16px 12px 50px;
+            }
+            .gallery-header {
+                margin-bottom: 20px;
+            }
+            .gallery-header h1 {
+                font-size: 1.05rem;
+            }
+            .gallery-header .header-actions a {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+            .back-top {
+                bottom: 16px;
+                right: 16px;
+                padding: 6px 14px;
+                font-size: 0.65rem;
+            }
+            .preview-box img {
+                max-height: 65vh;
+            }
+            .preview-actions {
+                gap: 10px;
+                margin-top: 16px;
+            }
+            .preview-btn {
+                padding: 5px 16px;
+                font-size: 0.7rem;
+            }
+            .close-preview {
+                top: -40px;
+                right: -4px;
+                width: 34px;
+                height: 34px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .waterfall-columns {
+                gap: 8px;
+            }
+            .waterfall-col {
+                gap: 8px;
+            }
+            .filter-btn {
+                padding: 3px 10px;
+                font-size: 0.62rem;
+            }
+            .gallery-header h1 {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 双背景图层 ===== -->
+    <div id="bgOld" class="bg-layer" style="background-image: url('');"></div>
+    <div id="bgNew" class="bg-layer" style="background-image: url('');"></div>
+
+    <!-- ===== 导航栏 ===== -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo-area">
+                <span class="logo-icon">
+                    <img src="https://cdn.jsdmirror.com/gh/2478800972/boke@main/assets/img/头像.jpg" alt="logo">
+                </span>
+                <span>墨殇 · 画廊</span>
+            </a>
+
+            <div class="filter-bar" id="filterTabs">
+                <button class="filter-btn active" data-type="all">全部</button>
+                <button class="filter-btn" data-type="horizontal">横图</button>
+                <button class="filter-btn" data-type="vertical">竖图</button>
+                <button class="filter-btn" data-type="square">方图</button>
+            </div>
+
+            <div class="stats-display" id="statsDisplay">共 0 张</div>
+        </div>
+    </header>
+
+    <!-- ===== 画廊主体 ===== -->
+    <main class="gallery-wrapper">
+        <div class="gallery-header">
+            <h1>
+                🕊 影集
+                <small>点击图片预览 · 沉浸白</small>
+            </h1>
+            <div class="header-actions">
+                <a href="https://momoboke.cc.cd/" target="_blank" rel="noopener noreferrer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                    博客
+                </a>
+            </div>
+        </div>
+
+        <div id="waterfallContainer" class="waterfall">
+            <div id="waterfallColumns" class="waterfall-columns"></div>
+        </div>
+
+        <div id="scrollTrigger" class="load-trigger">
+            <div class="loader-box">
+                <div class="spinner"></div>
+                <span>滚动加载</span>
+            </div>
+        </div>
+        <div id="endMessage" style="display: none;" class="end-message">✦ 已加载全部 · 感谢欣赏 ✦</div>
+    </main>
+
+    <!-- ===== 回到顶部 ===== -->
+    <button id="backTopBtn" class="back-top">↑ 顶部</button>
+
+    <!-- ===== 预览模态框 ===== -->
+    <div id="previewModal" class="preview-modal">
+        <div class="preview-box">
+            <button class="close-preview" id="closePreviewBtn">✕</button>
+            <img id="previewImg" src="" alt="preview">
+            <div class="preview-actions">
+                <button class="preview-btn" id="downloadBtn">⬇ 下载</button>
+                <button class="preview-btn" id="openInNewBtn">↗ 新窗口</button>
+            </div>
+            <div class="preview-caption" id="previewCaption"></div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            //  1. 背景切换（柔和氛围）
+            // ============================================================
+            const BG_API_URL = 'https://api.lqay.cn/api/zxsjt/?cat=heng';
+            let bgInterval = null;
+            let isSwitching = false;
+
+            const bgOld = document.getElementById('bgOld');
+            const bgNew = document.getElementById('bgNew');
+
+            const animations = [
+                'animate-slide-left', 'animate-slide-right',
+                'animate-slide-up', 'animate-slide-down',
+                'animate-diagonal-tr', 'animate-diagonal-tl',
+                'animate-diagonal-br', 'animate-diagonal-bl'
+            ];
+
+            function getRandomAnimation() {
+                return animations[Math.floor(Math.random() * animations.length)];
+            }
+
+            function preloadImage(url) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => resolve(url);
+                    img.onerror = () => reject(new Error('预加载失败'));
+                    img.src = url;
+                });
+            }
+
+            async function switchBackground(imageUrl) {
+                if (isSwitching) return;
+                isSwitching = true;
+                try {
+                    await preloadImage(imageUrl);
+                    const animClass = getRandomAnimation();
+                    bgNew.style.backgroundImage = `url(${imageUrl})`;
+                    bgNew.style.transform = 'translate(0, 0)';
+                    bgNew.classList.remove(...animations);
+                    void bgNew.offsetHeight;
+                    bgNew.classList.add(animClass);
+                    await new Promise(r => setTimeout(r, 720));
+                    bgOld.style.backgroundImage = `url(${imageUrl})`;
+                    bgNew.style.backgroundImage = '';
+                    bgNew.style.transform = 'translate(0, 0)';
+                    bgNew.classList.remove(animClass);
+                } catch (err) {
+                    console.warn('背景切换失败:', err);
+                } finally {
+                    isSwitching = false;
+                }
+            }
+
+            async function fetchRandomBackground() {
+                try {
+                    const resp = await fetch(BG_API_URL);
+                    if (!resp.ok) throw new Error('API请求失败');
+                    const blob = await resp.blob();
+                    const url = URL.createObjectURL(blob);
+                    await switchBackground(url);
+                    setTimeout(() => URL.revokeObjectURL(url), 3000);
+                } catch (err) {
+                    console.error('获取背景图失败:', err);
+                }
+            }
+
+            function startBackgroundRotation() {
+                fetchRandomBackground();
+                if (bgInterval) clearInterval(bgInterval);
+                bgInterval = setInterval(fetchRandomBackground, 6000);
+            }
+
+            // ============================================================
+            //  2. 画廊核心 — 图片加载 & 规格判断 & 瀑布流
+            // ============================================================
+            const IMG_TXT_FILE = './img.txt';
+            const BATCH_SIZE = 24;
+            let allImageUrls = [];
+            let currentFilter = 'all';
+            let filteredUrls = [];
+            let renderedCount = 0;
+            let isLoading = false;
+            let finished = false;
+
+            let columnElements = [];
+            let observer = null;
+            let currentPreviewUrl = '';
+
+            const columnsContainer = document.getElementById('waterfallColumns');
+            const triggerDiv = document.getElementById('scrollTrigger');
+            const endDiv = document.getElementById('endMessage');
+            const statsSpan = document.getElementById('statsDisplay');
+            const modalEl = document.getElementById('previewModal');
+            const previewImg = document.getElementById('previewImg');
+            const previewCaption = document.getElementById('previewCaption');
+
+            // ---- 2-a. 图片规格判断（通过实际宽高比） ----
+            function classifyImage(naturalWidth, naturalHeight) {
+                if (!naturalWidth || !naturalHeight) return 'square';
+                const ratio = naturalWidth / naturalHeight;
+                if (ratio > 1.25) return 'horizontal';
+                if (ratio < 0.8) return 'vertical';
+                return 'square';
+            }
+
+            function getDefaultPadding(type) {
+                if (type === 'horizontal') return '66%';
+                if (type === 'vertical') return '140%';
+                return '100%';
+            }
+
+            // ---- 2-b. 列数 ----
+            function getColumnCount() {
+                const w = window.innerWidth;
+                if (w <= 480) return 2;
+                if (w <= 820) return 3;
+                return 4;
+            }
+
+            function initColumns() {
+                const count = getColumnCount();
+                columnsContainer.innerHTML = '';
+                columnElements = [];
+                for (let i = 0; i < count; i++) {
+                    const col = document.createElement('div');
+                    col.className = 'waterfall-col';
+                    columnsContainer.appendChild(col);
+                    columnElements.push(col);
+                }
+            }
+
+            // ---- 2-c. 构建卡片 ----
+            const imageTypeCache = new Map();
+
+            function buildCard(url) {
+                const card = document.createElement('div');
+                card.className = 'gallery-card';
+
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'img-container skeleton';
+                imgWrap.style.paddingBottom = '100%';
+
+                const img = document.createElement('img');
+                img.loading = 'lazy';
+                img.src = url;
+                img.dataset.url = url;
+
+                img.onload = function() {
+                    const w = this.naturalWidth;
+                    const h = this.naturalHeight;
+                    if (w && h) {
+                        const type = classifyImage(w, h);
+                        imageTypeCache.set(url, type);
+                        card.dataset.type = type;
+                        const pad = getDefaultPadding(type);
+                        imgWrap.style.paddingBottom = pad;
+                    }
+                    this.classList.add('loaded');
+                    imgWrap.classList.remove('skeleton');
+                };
+
+                img.onerror = function() {
+                    imgWrap.classList.remove('skeleton');
+                    imgWrap.style.background = 'rgba(0,0,0,0.02)';
+                    this.classList.add('loaded');
+                    card.dataset.type = 'square';
+                };
+
+                imgWrap.appendChild(img);
+                card.appendChild(imgWrap);
+
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentPreviewUrl = url;
+                    previewImg.src = url;
+                    modalEl.classList.add('active');
+                    const filename = url.split('/').pop().split('?')[0] || 'image';
+                    previewCaption.textContent = filename.length > 48 ? filename.slice(0, 48) + '…' : filename;
+                });
+
+                return card;
+            }
+
+            // ---- 2-d. 添加到最短列 ----
+            function addToShortestColumn(card) {
+                if (!columnElements.length) return;
+                let minCol = columnElements[0];
+                let minH = minCol.offsetHeight || Infinity;
+                for (let i = 1; i < columnElements.length; i++) {
+                    const h = columnElements[i].offsetHeight || 0;
+                    if (h < minH) {
+                        minH = h;
+                        minCol = columnElements[i];
+                    }
+                }
+                minCol.appendChild(card);
+            }
+
+            // ---- 2-e. 渲染批次 ----
+            function renderBatch(urls) {
+                if (!urls || !urls.length) return;
+                urls.forEach(url => {
+                    addToShortestColumn(buildCard(url));
+                });
+            }
+
+            // ---- 2-f. 加载更多 ----
+            async function loadMore() {
+                if (isLoading || finished || renderedCount >= filteredUrls.length) return;
+                isLoading = true;
+                const loadText = triggerDiv?.querySelector('span');
+                if (loadText) loadText.textContent = '加载中…';
+
+                await new Promise(r => setTimeout(r, 40));
+
+                const end = Math.min(renderedCount + BATCH_SIZE, filteredUrls.length);
+                const batch = filteredUrls.slice(renderedCount, end);
+                renderBatch(batch);
+                renderedCount = end;
+
+                isLoading = false;
+                if (loadText) loadText.textContent = '滚动加载';
+
+                if (renderedCount >= filteredUrls.length) {
+                    finished = true;
+                }
+                updateUI();
+            }
+
+            // ---- 2-g. 切换分类 ----
+            function switchFilter(type) {
+                if (type === currentFilter) return;
+
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-type') === type);
+                });
+
+                currentFilter = type;
+
+                if (currentFilter === 'all') {
+                    filteredUrls = [...allImageUrls];
+                } else {
+                    filteredUrls = allImageUrls.filter(url => {
+                        const cachedType = imageTypeCache.get(url);
+                        if (cachedType) return cachedType === type;
+                        // 如果还没加载，用 URL 路径猜测
+                        if (url.includes('/h/')) return type === 'horizontal';
+                        if (url.includes('/s/')) return type === 'vertical';
+                        if (url.includes('/f/')) return type === 'square';
+                        return type === 'square';
+                    });
+                }
+
+                renderedCount = 0;
+                finished = false;
+                initColumns();
+
+                if (filteredUrls.length === 0) {
+                    columnsContainer.innerHTML = `<div class="empty-state">✦ 暂无此类图片 ✦</div>`;
+                    if (triggerDiv) triggerDiv.style.display = 'none';
+                    if (endDiv) endDiv.style.display = 'block';
+                    endDiv.textContent = '✦ 没有匹配的图片 ✦';
+                } else {
+                    if (triggerDiv) triggerDiv.style.display = 'flex';
+                    if (endDiv) endDiv.style.display = 'none';
+                    const firstBatch = filteredUrls.slice(0, BATCH_SIZE);
+                    renderBatch(firstBatch);
+                    renderedCount = Math.min(BATCH_SIZE, filteredUrls.length);
+                    if (renderedCount >= filteredUrls.length) finished = true;
+                }
+                updateUI();
+                rebindObserver();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // ---- 2-h. UI 更新 ----
+            function updateUI() {
+                const total = allImageUrls.length;
+                statsSpan.textContent = `共 ${total} 张`;
+
+                if (finished || renderedCount >= filteredUrls.length) {
+                    if (triggerDiv && filteredUrls.length > 0) {
+                        triggerDiv.style.display = 'none';
+                    }
+                    if (endDiv && filteredUrls.length > 0) {
+                        endDiv.style.display = 'block';
+                        endDiv.textContent = '✦ 已加载全部 · 感谢欣赏 ✦';
+                    }
+                } else {
+                    if (triggerDiv && filteredUrls.length) {
+                        triggerDiv.style.display = 'flex';
+                    }
+                    if (endDiv) endDiv.style.display = 'none';
+                }
+            }
+
+            // ---- 2-i. 观察器 ----
+            function rebindObserver() {
+                if (observer) observer.disconnect();
+                if (!triggerDiv) return;
+                observer = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && !isLoading && !finished && renderedCount < filteredUrls.length) {
+                            loadMore();
+                            break;
+                        }
+                    }
+                }, { rootMargin: '0px 0px 200px 0px', threshold: 0.05 });
+                observer.observe(triggerDiv);
+            }
+
+            // ---- 2-j. 加载 URL 列表 ----
+            async function loadUrlList() {
+                try {
+                    const resp = await fetch(IMG_TXT_FILE, { cache: 'no-store' });
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    const text = await resp.text();
+                    const urls = text.split(/\r?\n/)
+                        .map(l => l.trim())
+                        .filter(l => l.length > 0 && !l.startsWith('#'));
+                    if (urls.length === 0) throw new Error('img.txt 无有效URL');
+                    allImageUrls = urls;
+                    filteredUrls = [...allImageUrls];
+                    initColumns();
+                    const firstBatch = filteredUrls.slice(0, BATCH_SIZE);
+                    renderBatch(firstBatch);
+                    renderedCount = Math.min(BATCH_SIZE, filteredUrls.length);
+                    if (renderedCount >= filteredUrls.length) finished = true;
+                    updateUI();
+                    rebindObserver();
+                } catch (err) {
+                    console.error(err);
+                    columnsContainer.innerHTML =
+                        `<div class="empty-state">❌ 加载失败: ${err.message}<br>请确认 img.txt 存在且可访问</div>`;
+                    if (triggerDiv) triggerDiv.style.display = 'none';
+                }
+            }
+
+            // ============================================================
+            //  3. 事件绑定
+            // ============================================================
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchFilter(btn.getAttribute('data-type'));
+                });
+            });
+
+            document.getElementById('closePreviewBtn').addEventListener('click', () => {
+                modalEl.classList.remove('active');
+            });
+            modalEl.addEventListener('click', (e) => {
+                if (e.target === modalEl) modalEl.classList.remove('active');
+            });
+
+            document.getElementById('downloadBtn').addEventListener('click', () => {
+                if (currentPreviewUrl) {
+                    const a = document.createElement('a');
+                    a.href = currentPreviewUrl;
+                    a.download = currentPreviewUrl.split('/').pop().split('?')[0] || 'image';
+                    a.click();
+                }
+            });
+
+            document.getElementById('openInNewBtn').addEventListener('click', () => {
+                if (currentPreviewUrl) window.open(currentPreviewUrl, '_blank');
+            });
+
+            const backTopBtn = document.getElementById('backTopBtn');
+            backTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            window.addEventListener('scroll', () => {
+                backTopBtn.style.display = window.scrollY > 500 ? 'flex' : 'none';
+            });
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (filteredUrls.length) {
+                        const currentUrls = filteredUrls.slice(0, renderedCount);
+                        initColumns();
+                        currentUrls.forEach(url => {
+                            addToShortestColumn(buildCard(url));
+                        });
+                        rebindObserver();
+                    }
+                }, 200);
+            });
+
+            // ============================================================
+            //  4. 启动
+            // ============================================================
+            startBackgroundRotation();
+            loadUrlList();
+
+        })();
+    </script>
+
+</body>
+</html>
