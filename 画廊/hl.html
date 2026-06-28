@@ -900,19 +900,23 @@
             }
 
             // ---- 2-d. 添加到最短列 ----
-            function addToShortestColumn(card) {
-                if (!columnElements.length) return;
-                let minCol = columnElements[0];
-                let minH = minCol.offsetHeight || Infinity;
-                for (let i = 1; i < columnElements.length; i++) {
-                    const h = columnElements[i].offsetHeight || 0;
-                    if (h < minH) {
-                        minH = h;
-                        minCol = columnElements[i];
-                    }
-                }
-                minCol.appendChild(card);
-            }
+            // ---- 2-d. 添加到最短列 ----
+function addToShortestColumn(card) {
+    if (!columnElements.length) return;
+    
+    // 找到当前高度最小的列（空的列优先）
+    let minCol = columnElements[0];
+    let minH = Infinity;
+    
+    for (let i = 0; i < columnElements.length; i++) {
+        const h = columnElements[i].offsetHeight || 0;
+        if (h < minH) {
+            minH = h;
+            minCol = columnElements[i];
+        }
+    }
+    minCol.appendChild(card);
+}
 
             // ---- 2-e. 渲染批次 ----
             function renderBatch(urls) {
