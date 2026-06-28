@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="icon" href="https://cdn.jsdmirror.com/gh/2478800972/boke@main/assets/img/头像.jpg">
-    <title>画廊 · 墨殇 · 白</title>
+    <title>画廊 · 墨殇</title>
     <style>
         /* ===== 全局重置 & 基础（简约白） ===== */
         * {
@@ -829,10 +829,11 @@
             // ---- 2-b. 列数 ----
             function getColumnCount() {
                 const w = window.innerWidth;
-                if (w <= 480) return 2;
-                if (w <= 820) return 3;
+                // 更稳健的列数判断
+                if (w < 600) return 2;
+                if (w < 1024) return 3;
                 return 4;
-            }
+                }
 
             function initColumns() {
                 const count = getColumnCount();
