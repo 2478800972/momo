@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <link rel="icon" href="https://cdn.jsdmirror.com/gh/2478800972/boke@main/assets/img/头像.jpg">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <link rel="icon" href="https://cdn.jsdmirror.com/gh/2478800972/boke@main/assets/img/头像.jpg" />
     <title>画廊</title>
     <style>
-        /* ===== 全局重置 & 基础（简约白） ===== */
+        /* ===== 全局重置 & 基础 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -42,7 +42,6 @@
             transform: translate(0, 0);
         }
 
-        /* 白色半透明遮罩 — 让背景图变得极其柔和，只留一丝氛围 */
         body::before {
             content: '';
             position: fixed;
@@ -55,38 +54,70 @@
             pointer-events: none;
         }
 
-        /* ===== 背景平移动画（保留） ===== */
+        /* ===== 背景动画 ===== */
         @keyframes slideInLeft {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(0); }
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
         }
         @keyframes slideInRight {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(0); }
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
         }
         @keyframes slideInUp {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
         @keyframes slideInDown {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
         @keyframes diagonalInTR {
-            0% { transform: translate(100%, -100%); }
-            100% { transform: translate(0, 0); }
+            0% {
+                transform: translate(100%, -100%);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
         }
         @keyframes diagonalInTL {
-            0% { transform: translate(-100%, -100%); }
-            100% { transform: translate(0, 0); }
+            0% {
+                transform: translate(-100%, -100%);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
         }
         @keyframes diagonalInBR {
-            0% { transform: translate(100%, 100%); }
-            100% { transform: translate(0, 0); }
+            0% {
+                transform: translate(100%, 100%);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
         }
         @keyframes diagonalInBL {
-            0% { transform: translate(-100%, 100%); }
-            100% { transform: translate(0, 0); }
+            0% {
+                transform: translate(-100%, 100%);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
         }
 
         .animate-slide-left {
@@ -166,7 +197,7 @@
             opacity: 0.8;
         }
 
-        /* 过滤器 — 浅色胶囊 */
+        /* 比例筛选 — 浅色胶囊 */
         .filter-bar {
             display: flex;
             gap: 4px;
@@ -221,12 +252,17 @@
 
         .gallery-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 16px 24px;
-            margin-bottom: 32px;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
             padding: 0 4px;
+        }
+        .gallery-header .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px 20px;
         }
         .gallery-header h1 {
             font-size: 1.5rem;
@@ -259,6 +295,58 @@
             border-color: rgba(0, 0, 0, 0.08);
         }
 
+        /* ===== 主题分类栏 ===== */
+        .theme-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 10px;
+            padding: 4px 0 2px;
+            border-top: 1px solid rgba(0, 0, 0, 0.03);
+            padding-top: 14px;
+        }
+        .theme-bar .theme-label {
+            font-size: 0.7rem;
+            font-weight: 450;
+            color: rgba(15, 23, 42, 0.25);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-right: 4px;
+        }
+        .theme-btn {
+            border: none;
+            background: transparent;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.78rem;
+            font-weight: 450;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: rgba(15, 23, 42, 0.4);
+            letter-spacing: 0.2px;
+            border: 1px solid transparent;
+        }
+        .theme-btn:hover {
+            color: #0f172a;
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.04);
+        }
+        .theme-btn.active {
+            background: rgba(0, 0, 0, 0.05);
+            color: #0f172a;
+            border-color: rgba(0, 0, 0, 0.06);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+        }
+        .theme-btn .count {
+            font-size: 0.6rem;
+            opacity: 0.5;
+            margin-left: 4px;
+            font-weight: 400;
+        }
+        .theme-bar-empty {
+            display: none;
+        }
+
         /* ===== 瀑布流 ===== */
         .waterfall {
             width: 100%;
@@ -278,7 +366,7 @@
             min-width: 0;
         }
 
-        /* ===== 卡片 — 纯净白 ===== */
+        /* ===== 卡片 ===== */
         .gallery-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px) saturate(1.1);
@@ -386,7 +474,16 @@
             border: 1px solid rgba(0, 0, 0, 0.02);
         }
 
-        /* ===== 预览模态框（白色沉浸） ===== */
+        /* ===== 空状态 ===== */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: rgba(15, 23, 42, 0.2);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 预览模态框 ===== */
         .preview-modal {
             position: fixed;
             top: 0;
@@ -518,15 +615,6 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
         }
 
-        /* ===== 空状态 ===== */
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
-            color: rgba(15, 23, 42, 0.2);
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-        }
-
         /* ===== 响应式 ===== */
         @media (max-width: 900px) {
             .waterfall-columns {
@@ -553,6 +641,10 @@
                 margin-left: 8px;
                 display: block;
                 margin-top: 2px;
+            }
+            .theme-btn {
+                font-size: 0.7rem;
+                padding: 3px 12px;
             }
         }
 
@@ -588,7 +680,11 @@
                 padding: 16px 12px 50px;
             }
             .gallery-header {
-                margin-bottom: 20px;
+                margin-bottom: 16px;
+                gap: 10px;
+            }
+            .gallery-header .top-row {
+                gap: 8px 12px;
             }
             .gallery-header h1 {
                 font-size: 1.05rem;
@@ -596,6 +692,17 @@
             .gallery-header .header-actions a {
                 font-size: 0.7rem;
                 padding: 4px 12px;
+            }
+            .theme-bar {
+                gap: 4px 8px;
+                padding-top: 10px;
+            }
+            .theme-btn {
+                font-size: 0.65rem;
+                padding: 2px 10px;
+            }
+            .theme-btn .count {
+                font-size: 0.5rem;
             }
             .back-top {
                 bottom: 16px;
@@ -637,6 +744,10 @@
             .gallery-header h1 {
                 font-size: 0.95rem;
             }
+            .theme-btn {
+                font-size: 0.6rem;
+                padding: 2px 8px;
+            }
         }
     </style>
 </head>
@@ -651,16 +762,17 @@
         <div class="nav-container">
             <a href="#" class="logo-area">
                 <span class="logo-icon">
-                    <img src="https://cdn.jsdmirror.com/gh/2478800972/boke@main/assets/img/头像.jpg" alt="logo">
+                    <img src="https://cdn.jsdmirror.com/gh/2478800972/boke@main/assets/img/头像.jpg" alt="logo" />
                 </span>
                 <span>墨殇 · 画廊</span>
             </a>
 
-            <div class="filter-bar" id="filterTabs">
-                <button class="filter-btn active" data-type="all">全部</button>
-                <button class="filter-btn" data-type="horizontal">横图</button>
-                <button class="filter-btn" data-type="vertical">竖图</button>
-                <button class="filter-btn" data-type="square">方图</button>
+            <!-- 比例筛选（横 / 竖 / 方） -->
+            <div class="filter-bar" id="ratioFilterBar">
+                <button class="filter-btn active" data-ratio="all">全部</button>
+                <button class="filter-btn" data-ratio="horizontal">横图</button>
+                <button class="filter-btn" data-ratio="vertical">竖图</button>
+                <button class="filter-btn" data-ratio="square">方图</button>
             </div>
 
             <div class="stats-display" id="statsDisplay">共 0 张</div>
@@ -670,16 +782,21 @@
     <!-- ===== 画廊主体 ===== -->
     <main class="gallery-wrapper">
         <div class="gallery-header">
-            <h1>
-                🕊 影集
-                <small>点击图片预览 · 沉浸白</small>
-            </h1>
-            <div class="header-actions">
-                <a href="https://momoboke.cc.cd/" target="_blank" rel="noopener noreferrer">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-                    博客
-                </a>
+            <div class="top-row">
+                <h1>
+                    🕊 影集
+                    <small>点击预览 · 主题分类</small>
+                </h1>
+                <div class="header-actions">
+                    <a href="https://momoboke.cc.cd/" target="_blank" rel="noopener noreferrer">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                        博客
+                    </a>
+                </div>
             </div>
+
+            <!-- ===== 主题分类栏（动态生成） ===== -->
+            <div id="themeBar" class="theme-bar theme-bar-empty"></div>
         </div>
 
         <div id="waterfallContainer" class="waterfall">
@@ -702,7 +819,7 @@
     <div id="previewModal" class="preview-modal">
         <div class="preview-box">
             <button class="close-preview" id="closePreviewBtn">✕</button>
-            <img id="previewImg" src="" alt="preview">
+            <img id="previewImg" src="" alt="preview" />
             <div class="preview-actions">
                 <button class="preview-btn" id="downloadBtn">⬇ 下载</button>
                 <button class="preview-btn" id="openInNewBtn">↗ 新窗口</button>
@@ -715,9 +832,9 @@
         (function() {
             'use strict';
 
-            // ============================================================
-            //  1. 背景切换（柔和氛围）
-            // ============================================================
+            // ================================================================
+            //  1. 背景切换（保留原有功能）
+            // ================================================================
             const BG_API_URL = 'https://api.lqay.cn/api/zxsjt/?cat=heng';
             let bgInterval = null;
             let isSwitching = false;
@@ -761,9 +878,7 @@
                     bgNew.style.backgroundImage = '';
                     bgNew.style.transform = 'translate(0, 0)';
                     bgNew.classList.remove(animClass);
-                } catch (err) {
-                    console.warn('背景切换失败:', err);
-                } finally {
+                } catch (_) { /* 静默 */ } finally {
                     isSwitching = false;
                 }
             }
@@ -776,9 +891,7 @@
                     const url = URL.createObjectURL(blob);
                     await switchBackground(url);
                     setTimeout(() => URL.revokeObjectURL(url), 3000);
-                } catch (err) {
-                    console.error('获取背景图失败:', err);
-                }
+                } catch (_) { /* 静默 */ }
             }
 
             function startBackgroundRotation() {
@@ -787,14 +900,22 @@
                 bgInterval = setInterval(fetchRandomBackground, 6000);
             }
 
-            // ============================================================
-            //  2. 画廊核心 — 图片加载 & 规格判断 & 瀑布流
-            // ============================================================
+            // ================================================================
+            //  2. 核心数据 & 状态
+            // ================================================================
             const IMG_TXT_FILE = './img.txt';
             const BATCH_SIZE = 24;
-            let allImageUrls = [];
-            let currentFilter = 'all';
-            let filteredUrls = [];
+
+            // 原始数据：每个图片对象 { url, theme, ratio }
+            let imageItems = [];
+            // 当前筛选后的数据（引用，不修改原数据）
+            let filteredItems = [];
+            // 主题列表
+            let themeList = [];
+            // 当前筛选状态
+            let currentTheme = 'all'; // 'all' 或具体主题名
+            let currentRatio = 'all'; // 'all' | 'horizontal' | 'vertical' | 'square'
+
             let renderedCount = 0;
             let isLoading = false;
             let finished = false;
@@ -807,12 +928,13 @@
             const triggerDiv = document.getElementById('scrollTrigger');
             const endDiv = document.getElementById('endMessage');
             const statsSpan = document.getElementById('statsDisplay');
+            const themeBarEl = document.getElementById('themeBar');
             const modalEl = document.getElementById('previewModal');
             const previewImg = document.getElementById('previewImg');
             const previewCaption = document.getElementById('previewCaption');
 
-            // ---- 2-a. 图片规格判断（通过实际宽高比） ----
-            function classifyImage(naturalWidth, naturalHeight) {
+            // ---- 2-a. 比例分类（通过实际宽高比） ----
+            function classifyRatio(naturalWidth, naturalHeight) {
                 if (!naturalWidth || !naturalHeight) return 'square';
                 const ratio = naturalWidth / naturalHeight;
                 if (ratio > 1.25) return 'horizontal';
@@ -829,11 +951,10 @@
             // ---- 2-b. 列数 ----
             function getColumnCount() {
                 const w = window.innerWidth;
-                // 更稳健的列数判断
                 if (w < 600) return 2;
                 if (w < 1024) return 3;
                 return 4;
-                }
+            }
 
             function initColumns() {
                 const count = getColumnCount();
@@ -848,11 +969,11 @@
             }
 
             // ---- 2-c. 构建卡片 ----
-            const imageTypeCache = new Map();
-
-            function buildCard(url) {
+            function buildCard(item) {
+                const url = item.url;
                 const card = document.createElement('div');
                 card.className = 'gallery-card';
+                card.dataset.theme = item.theme || '默认';
 
                 const imgWrap = document.createElement('div');
                 imgWrap.className = 'img-container skeleton';
@@ -867,10 +988,10 @@
                     const w = this.naturalWidth;
                     const h = this.naturalHeight;
                     if (w && h) {
-                        const type = classifyImage(w, h);
-                        imageTypeCache.set(url, type);
-                        card.dataset.type = type;
-                        const pad = getDefaultPadding(type);
+                        const ratio = classifyRatio(w, h);
+                        item.ratio = ratio;
+                        card.dataset.ratio = ratio;
+                        const pad = getDefaultPadding(ratio);
                         imgWrap.style.paddingBottom = pad;
                     }
                     this.classList.add('loaded');
@@ -881,7 +1002,8 @@
                     imgWrap.classList.remove('skeleton');
                     imgWrap.style.background = 'rgba(0,0,0,0.02)';
                     this.classList.add('loaded');
-                    card.dataset.type = 'square';
+                    card.dataset.ratio = 'square';
+                    item.ratio = 'square';
                 };
 
                 imgWrap.appendChild(img);
@@ -893,136 +1015,157 @@
                     previewImg.src = url;
                     modalEl.classList.add('active');
                     const filename = url.split('/').pop().split('?')[0] || 'image';
-                    previewCaption.textContent = filename.length > 48 ? filename.slice(0, 48) + '…' : filename;
+                    const themeLabel = item.theme && item.theme !== '默认' ? ` · ${item.theme}` : '';
+                    previewCaption.textContent = (filename.length > 40 ? filename.slice(0, 40) + '…' : filename) +
+                    themeLabel;
                 });
 
                 return card;
             }
 
             // ---- 2-d. 添加到最短列 ----
-            // ---- 2-d. 添加到最短列 ----
-function addToShortestColumn(card) {
-    if (!columnElements.length) return;
-    
-    // 找到当前高度最小的列（空的列优先）
-    let minCol = columnElements[0];
-    let minH = Infinity;
-    
-    for (let i = 0; i < columnElements.length; i++) {
-        const h = columnElements[i].offsetHeight || 0;
-        if (h < minH) {
-            minH = h;
-            minCol = columnElements[i];
-        }
-    }
-    minCol.appendChild(card);
-}
+            function addToShortestColumn(card) {
+                if (!columnElements.length) return;
+                let minCol = columnElements[0];
+                let minH = Infinity;
+                for (let i = 0; i < columnElements.length; i++) {
+                    const h = columnElements[i].offsetHeight || 0;
+                    if (h < minH) {
+                        minH = h;
+                        minCol = columnElements[i];
+                    }
+                }
+                minCol.appendChild(card);
+            }
 
             // ---- 2-e. 渲染批次 ----
-            function renderBatch(urls) {
-                if (!urls || !urls.length) return;
-                urls.forEach(url => {
-                    addToShortestColumn(buildCard(url));
+            function renderBatch(items) {
+                if (!items || !items.length) return;
+                items.forEach(item => {
+                    addToShortestColumn(buildCard(item));
                 });
             }
 
-            // ---- 2-f. 加载更多 ----
-            async function loadMore() {
-                if (isLoading || finished || renderedCount >= filteredUrls.length) return;
-                isLoading = true;
-                const loadText = triggerDiv?.querySelector('span');
-                if (loadText) loadText.textContent = '加载中…';
+            // ---- 2-f. 核心筛选逻辑 ----
+            function applyFilters() {
+                let result = [...imageItems];
 
-                await new Promise(r => setTimeout(r, 40));
-
-                const end = Math.min(renderedCount + BATCH_SIZE, filteredUrls.length);
-                const batch = filteredUrls.slice(renderedCount, end);
-                renderBatch(batch);
-                renderedCount = end;
-
-                isLoading = false;
-                if (loadText) loadText.textContent = '滚动加载';
-
-                if (renderedCount >= filteredUrls.length) {
-                    finished = true;
+                // 主题筛选
+                if (currentTheme !== 'all') {
+                    result = result.filter(item => item.theme === currentTheme);
                 }
-                updateUI();
+
+                // 比例筛选（只筛选已经加载并确定了比例的项目）
+                if (currentRatio !== 'all') {
+                    result = result.filter(item => item.ratio === currentRatio);
+                }
+
+                return result;
             }
 
-            // ---- 2-g. 切换分类 ----
-            function switchFilter(type) {
-                if (type === currentFilter) return;
-
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.getAttribute('data-type') === type);
-                });
-
-                currentFilter = type;
-
-                if (currentFilter === 'all') {
-                    filteredUrls = [...allImageUrls];
-                } else {
-                    filteredUrls = allImageUrls.filter(url => {
-                        const cachedType = imageTypeCache.get(url);
-                        if (cachedType) return cachedType === type;
-                        // 如果还没加载，用 URL 路径猜测
-                        if (url.includes('/h/')) return type === 'horizontal';
-                        if (url.includes('/s/')) return type === 'vertical';
-                        if (url.includes('/f/')) return type === 'square';
-                        return type === 'square';
-                    });
-                }
-
+            // ---- 2-g. 刷新视图 ----
+            function refreshGallery(resetScroll = true) {
+                filteredItems = applyFilters();
                 renderedCount = 0;
                 finished = false;
+
                 initColumns();
 
-                if (filteredUrls.length === 0) {
-                    columnsContainer.innerHTML = `<div class="empty-state">✦ 暂无此类图片 ✦</div>`;
+                if (filteredItems.length === 0) {
+                    columnsContainer.innerHTML =
+                        `<div class="empty-state">✦ 没有匹配的图片 · 试试其他分类 ✦</div>`;
                     if (triggerDiv) triggerDiv.style.display = 'none';
                     if (endDiv) endDiv.style.display = 'block';
                     endDiv.textContent = '✦ 没有匹配的图片 ✦';
                 } else {
                     if (triggerDiv) triggerDiv.style.display = 'flex';
                     if (endDiv) endDiv.style.display = 'none';
-                    const firstBatch = filteredUrls.slice(0, BATCH_SIZE);
+                    const firstBatch = filteredItems.slice(0, BATCH_SIZE);
                     renderBatch(firstBatch);
-                    renderedCount = Math.min(BATCH_SIZE, filteredUrls.length);
-                    if (renderedCount >= filteredUrls.length) finished = true;
+                    renderedCount = Math.min(BATCH_SIZE, filteredItems.length);
+                    if (renderedCount >= filteredItems.length) finished = true;
                 }
+
                 updateUI();
                 rebindObserver();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (resetScroll) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             }
 
-            // ---- 2-h. UI 更新 ----
-            function updateUI() {
-                const total = allImageUrls.length;
-                statsSpan.textContent = `共 ${total} 张`;
+            // ---- 2-h. 加载更多 ----
+            async function loadMore() {
+                if (isLoading || finished || renderedCount >= filteredItems.length) return;
+                isLoading = true;
+                const loadText = triggerDiv?.querySelector('span');
+                if (loadText) loadText.textContent = '加载中…';
 
-                if (finished || renderedCount >= filteredUrls.length) {
-                    if (triggerDiv && filteredUrls.length > 0) {
+                await new Promise(r => setTimeout(r, 40));
+
+                const end = Math.min(renderedCount + BATCH_SIZE, filteredItems.length);
+                const batch = filteredItems.slice(renderedCount, end);
+                renderBatch(batch);
+                renderedCount = end;
+
+                isLoading = false;
+                if (loadText) loadText.textContent = '滚动加载';
+
+                if (renderedCount >= filteredItems.length) {
+                    finished = true;
+                }
+                updateUI();
+            }
+
+            // ---- 2-i. UI 更新 ----
+            function updateUI() {
+                const total = imageItems.length;
+                const showing = filteredItems.length;
+                statsSpan.textContent = `共 ${total} 张${showing !== total ? ` · 显示 ${showing}` : ''}`;
+
+                if (finished || renderedCount >= filteredItems.length) {
+                    if (triggerDiv && filteredItems.length > 0) {
                         triggerDiv.style.display = 'none';
                     }
-                    if (endDiv && filteredUrls.length > 0) {
+                    if (endDiv && filteredItems.length > 0) {
                         endDiv.style.display = 'block';
                         endDiv.textContent = '✦ 已加载全部 · 感谢欣赏 ✦';
                     }
                 } else {
-                    if (triggerDiv && filteredUrls.length) {
+                    if (triggerDiv && filteredItems.length) {
                         triggerDiv.style.display = 'flex';
                     }
                     if (endDiv) endDiv.style.display = 'none';
                 }
+
+                // 更新主题按钮的计数
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    const theme = btn.dataset.theme;
+                    const count = theme === 'all' ?
+                        imageItems.length :
+                        imageItems.filter(item => item.theme === theme).length;
+                    const countEl = btn.querySelector('.count');
+                    if (countEl) countEl.textContent = `(${count})`;
+                });
+
+                // 更新主题按钮激活状态
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.theme === currentTheme);
+                });
+
+                // 更新比例按钮激活状态
+                document.querySelectorAll('#ratioFilterBar .filter-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.ratio === currentRatio);
+                });
             }
 
-            // ---- 2-i. 观察器 ----
+            // ---- 2-j. 观察器 ----
             function rebindObserver() {
                 if (observer) observer.disconnect();
                 if (!triggerDiv) return;
                 observer = new IntersectionObserver((entries) => {
                     for (const entry of entries) {
-                        if (entry.isIntersecting && !isLoading && !finished && renderedCount < filteredUrls.length) {
+                        if (entry.isIntersecting && !isLoading && !finished && renderedCount < filteredItems
+                            .length) {
                             loadMore();
                             break;
                         }
@@ -1031,43 +1174,169 @@ function addToShortestColumn(card) {
                 observer.observe(triggerDiv);
             }
 
-            // ---- 2-j. 加载 URL 列表 ----
+            // ================================================================
+            //  3. 加载 img.txt 并解析分类
+            // ================================================================
             async function loadUrlList() {
                 try {
                     const resp = await fetch(IMG_TXT_FILE, { cache: 'no-store' });
                     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
                     const text = await resp.text();
-                    const urls = text.split(/\r?\n/)
-                        .map(l => l.trim())
-                        .filter(l => l.length > 0 && !l.startsWith('#'));
-                    if (urls.length === 0) throw new Error('img.txt 无有效URL');
-                    allImageUrls = urls;
-                    filteredUrls = [...allImageUrls];
+                    const lines = text.split(/\r?\n/);
+
+                    let currentTheme = '默认';
+                    let hasThemeMarker = false;
+                    const items = [];
+
+                    for (let line of lines) {
+                        line = line.trim();
+                        if (!line) continue;
+                        // 注释行忽略
+                        if (line.startsWith('//') || line.startsWith(';')) continue;
+
+                        // 检查是否为分类标记：# 分类名
+                        if (line.startsWith('#')) {
+                            const themeName = line.replace(/^#\s*/, '').trim();
+                            if (themeName) {
+                                currentTheme = themeName;
+                                hasThemeMarker = true;
+                            }
+                            continue;
+                        }
+
+                        // 否则作为图片 URL
+                        if (line.startsWith('http://') || line.startsWith('https://')) {
+                            items.push({
+                                url: line,
+                                theme: currentTheme,
+                                ratio: 'square' // 占位，加载后更新
+                            });
+                        }
+                    }
+
+                    if (items.length === 0) throw new Error('img.txt 无有效图片 URL');
+
+                    imageItems = items;
+
+                    // 提取主题列表（排除"默认"如果没有任何 # 标记）
+                    const themeSet = new Set();
+                    imageItems.forEach(item => {
+                        if (item.theme && item.theme !== '默认') {
+                            themeSet.add(item.theme);
+                        }
+                    });
+
+                    // 如果存在明确的主题标记，且"默认"分类下有图片，也加入主题列表
+                    if (hasThemeMarker) {
+                        const hasDefault = imageItems.some(item => item.theme === '默认');
+                        if (hasDefault) themeSet.add('默认');
+                    }
+
+                    // 如果没有主题标记，全部归入"默认"，但不在主题栏显示
+                    if (!hasThemeMarker) {
+                        // 所有图片 theme 设为 '默认'，但主题栏只显示"全部"
+                        imageItems.forEach(item => item.theme = '默认');
+                        themeList = [];
+                    } else {
+                        // 有主题标记，将"默认"也加入列表（如果有）
+                        themeList = Array.from(themeSet).sort();
+                        // 确保"默认"排在最后
+                        const idx = themeList.indexOf('默认');
+                        if (idx > -1) {
+                            themeList.splice(idx, 1);
+                            themeList.push('默认');
+                        }
+                    }
+
+                    // 初始化筛选
+                    currentTheme = 'all';
+                    currentRatio = 'all';
+
+                    // 生成主题按钮
+                    renderThemeButtons();
+
+                    // 第一次渲染
+                    filteredItems = applyFilters();
                     initColumns();
-                    const firstBatch = filteredUrls.slice(0, BATCH_SIZE);
+                    const firstBatch = filteredItems.slice(0, BATCH_SIZE);
                     renderBatch(firstBatch);
-                    renderedCount = Math.min(BATCH_SIZE, filteredUrls.length);
-                    if (renderedCount >= filteredUrls.length) finished = true;
+                    renderedCount = Math.min(BATCH_SIZE, filteredItems.length);
+                    if (renderedCount >= filteredItems.length) finished = true;
+
                     updateUI();
                     rebindObserver();
+
                 } catch (err) {
                     console.error(err);
                     columnsContainer.innerHTML =
-                        `<div class="empty-state">❌ 加载失败: ${err.message}<br>请确认 img.txt 存在且可访问</div>`;
+                        `<div class="empty-state">❌ 加载失败: ${err.message}<br>请确认 img.txt 存在且格式正确</div>`;
                     if (triggerDiv) triggerDiv.style.display = 'none';
+                    if (themeBarEl) themeBarEl.classList.add('theme-bar-empty');
                 }
             }
 
-            // ============================================================
-            //  3. 事件绑定
-            // ============================================================
+            // ================================================================
+            //  4. 渲染主题按钮
+            // ================================================================
+            function renderThemeButtons() {
+                themeBarEl.innerHTML = '';
+                themeBarEl.classList.remove('theme-bar-empty');
 
-            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (themeList.length === 0) {
+                    // 没有主题分类，隐藏主题栏
+                    themeBarEl.classList.add('theme-bar-empty');
+                    return;
+                }
+
+                // 添加"全部"按钮
+                const allBtn = document.createElement('button');
+                allBtn.className = 'theme-btn active';
+                allBtn.dataset.theme = 'all';
+                allBtn.innerHTML = '全部 <span class="count">(' + imageItems.length + ')</span>';
+                allBtn.addEventListener('click', () => {
+                    if (currentTheme === 'all') return;
+                    currentTheme = 'all';
+                    refreshGallery(true);
+                });
+                themeBarEl.appendChild(allBtn);
+
+                // 添加各个主题按钮
+                themeList.forEach(theme => {
+                    const count = imageItems.filter(item => item.theme === theme).length;
+                    const btn = document.createElement('button');
+                    btn.className = 'theme-btn';
+                    btn.dataset.theme = theme;
+                    btn.innerHTML = theme + ' <span class="count">(' + count + ')</span>';
+                    btn.addEventListener('click', () => {
+                        if (currentTheme === theme) return;
+                        currentTheme = theme;
+                        refreshGallery(true);
+                    });
+                    themeBarEl.appendChild(btn);
+                });
+
+                // 添加标签
+                const label = document.createElement('span');
+                label.className = 'theme-label';
+                label.textContent = '主题';
+                themeBarEl.prepend(label);
+            }
+
+            // ================================================================
+            //  5. 事件绑定
+            // ================================================================
+
+            // ---- 5-a. 比例筛选 ----
+            document.querySelectorAll('#ratioFilterBar .filter-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    switchFilter(btn.getAttribute('data-type'));
+                    const ratio = btn.dataset.ratio;
+                    if (currentRatio === ratio) return;
+                    currentRatio = ratio;
+                    refreshGallery(true);
                 });
             });
 
+            // ---- 5-b. 预览 ----
             document.getElementById('closePreviewBtn').addEventListener('click', () => {
                 modalEl.classList.remove('active');
             });
@@ -1088,6 +1357,7 @@ function addToShortestColumn(card) {
                 if (currentPreviewUrl) window.open(currentPreviewUrl, '_blank');
             });
 
+            // ---- 5-c. 回到顶部 ----
             const backTopBtn = document.getElementById('backTopBtn');
             backTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1096,24 +1366,25 @@ function addToShortestColumn(card) {
                 backTopBtn.style.display = window.scrollY > 500 ? 'flex' : 'none';
             });
 
+            // ---- 5-d. 响应式重排 ----
             let resizeTimer;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(() => {
-                    if (filteredUrls.length) {
-                        const currentUrls = filteredUrls.slice(0, renderedCount);
+                    if (filteredItems.length) {
+                        const currentItems = filteredItems.slice(0, renderedCount);
                         initColumns();
-                        currentUrls.forEach(url => {
-                            addToShortestColumn(buildCard(url));
+                        currentItems.forEach(item => {
+                            addToShortestColumn(buildCard(item));
                         });
                         rebindObserver();
                     }
                 }, 200);
             });
 
-            // ============================================================
-            //  4. 启动
-            // ============================================================
+            // ================================================================
+            //  6. 启动
+            // ================================================================
             startBackgroundRotation();
             loadUrlList();
 
