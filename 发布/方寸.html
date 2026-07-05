@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>方寸·阅读导航</title>
+    <style>
+        * {
+            line-height: 1.5em;
+            margin: 0;
+            padding: 0;
+            text-underline-offset: .2em;
+            word-break: break-all;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f4f5f7;
+            color: #001944;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 20px 15px;
+            min-height: 100vh;
+        }
+        /* 头部 */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .header svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 10px;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #4360b7;
+        }
+        .header p {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+        /* 分类导航 */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            font-size: 15px;
+            font-weight: 700;
+            color: #4360b7;
+            background-color: #e7eeff;
+            padding: 10px 22px;
+            border-radius: 2em;
+            border: none;
+            cursor: pointer;
+            transition: .3s;
+        }
+        .tab-btn.active {
+            background-color: #4360b7;
+            color: white;
+        }
+        .tab-btn:active {
+            background-color: #d6ddee;
+        }
+        .tab-btn.active:active {
+            background-color: #365099;
+        }
+        /* 内容卡片容器 */
+        .content-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .category-content {
+            display: none;
+        }
+        .category-content.active {
+            display: block;
+        }
+        /* 条目卡片 */
+        .card-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .item-card {
+            border-top: 0.5px solid rgba(255,255,255,.7);
+            border-radius: 24px;
+            background-color: rgba(255,255,255,.6);
+            box-shadow: 0 10px 20px rgba(0,0,0,.05);
+            padding: 25px;
+            width: 260px;
+            transition: transform .3s, box-shadow .3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .item-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0,0,0,.08);
+        }
+        .item-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #4360b7;
+            margin-bottom: 8px;
+        }
+        .item-card p {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.4em;
+        }
+        /* 工具页面容器 */
+        .tool-page {
+            display: none;
+        }
+        .tool-page.active {
+            display: block;
+        }
+        .back-btn {
+            font-size: 14px;
+            font-weight: 700;
+            color: #4360b7;
+            background-color: #e7eeff;
+            padding: 8px 18px;
+            border-radius: 2em;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        /* 原工具页面样式兼容 */
+        .tool-container {
+            display: flex;
+            flex-wrap: wrap;
+            place-content: center;
+            place-items: start;
+        }
+        .card {
+            border-top: .5px solid rgba(255,255,255,.7);
+            border-radius: 24px;
+            background-color: rgba(255,255,255,.6);
+            box-shadow: 0 10px 20px rgba(0,0,0,.05);
+            padding: 30px;
+            margin: 12.5px;
+            width: 250px;
+            height: auto;
+        }
+        .card > details + div {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: .6s;
+        }
+        .card > [open] + div {
+            max-height: 888px;
+            opacity: 1;
+        }
+        .card > details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .card > details > summary::-moz-list-bullet {
+            display: none;
+        }
+        .card > details > summary {
+            font-size: 24px;
+            font-weight: 700;
+            user-select: none;
+            outline: 0;
+            opacity: .4;
+            transition: .6s;
+            display: block;
+            cursor: pointer;
+        }
+        .card > [open] > summary {
+            opacity: 1;
+            margin-bottom: 6px;
+            font-size: 20.5px;
+        }
+        .card > b {
+            margin-bottom: 6px;
+            font-size: 20.5px;
+            display: block;
+        }
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .text {
+            line-height: 1.4em;
+            display: inline-block;
+            margin-top: 9px;
+        }
+        a:not([href]) {
+            margin-top: 9px;
+            margin-right: 9px;
+            display: inline-block;
+        }
+        a:not([href]) span {
+            margin-left: 9px;
+        }
+        a[href] {
+            color: #4360b7;
+            text-decoration: none;
+            margin: .2em;
+        }
+        a[href]:hover {
+            text-decoration: underline;
+        }
+        span {
+            background-color: rgba(0,0,0,.04);
+            padding: .15em .3em;
+            border-radius: .5em;
+            margin-left: .2em;
+            font-family: monospace;
+            opacity: .75;
+        }
+        button {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #4360b7;
+            background-color: #e7eeff;
+            padding: .65em .9em;
+            margin-top: 9px;
+            margin-right: 10px;
+            border-radius: 2em;
+            border: none;
+            transition: .3s;
+            cursor: pointer;
+        }
+        button:active {
+            background-color: #d6ddee;
+        }
+        textarea {
+            margin-top: 9px;
+            padding: 9px;
+            width: 100%;
+            box-sizing: border-box;
+            line-height: 1.2em;
+            font-size: 13px;
+            min-height: 37.6px;
+            max-height: 115.6px;
+            resize: vertical;
+            border-radius: 9px;
+            color: #333;
+            border: 2px solid rgba(0,0,0,.1);
+            background-color: rgba(0,0,0,.006);
+            font-family: inherit;
+        }
+        input[type="text"] {
+            vertical-align: middle;
+            appearance: none;
+            margin: -2px 2.25px 0 0;
+            width: 15px;
+            height: 15px;
+            box-sizing: border-box;
+            background-color: rgba(0,0,0,.006);
+            border: 2px solid rgba(0,0,0,.1);
+            border-radius: 9px;
+            transition: .15s;
+        }
+        input:checked {
+            border-color: #4360b7;
+        }
+        label {
+            display: inline-block;
+            margin-top: 9px;
+            margin-right: 9px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        fieldset {
+            border: 2px solid rgba(0,0,0,.1);
+            background-color: rgba(0,0,0,.006);
+            border-radius: 9px;
+            margin-top: 9px;
+            padding: 5px 18px 18px 18px;
+        }
+        legend {
+            background-color: rgba(0,0,0,.04);
+            padding: .15em .3em;
+            border-radius: .5em;
+            margin-left: .2em;
+            font-family: monospace;
+            opacity: .75;
+        }
+        #temp {
+            display: none;
+        }
+        #tip {
+            margin-top: 9px;
+            font-size: 13px;
+        }
+        /* 移动端适配 */
+        @media (max-width: 600px) {
+            .item-card {
+                width: 100%;
+            }
+            .card {
+                width: 100%;
+                margin: 12.5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 主页面 -->
+    <div id="main-page">
+        <div class="header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path fill="#4360b7" d="M8.422 20.618C10.178 21.54 11.056 22 12 22V12L2.638 7.073a3.196 3.196 0 0 0-.04.067C2 8.154 2 9.417 2 11.942v.117c0 2.524 0 3.787.597 4.801c.598 1.015 1.674 1.58 3.825 2.709z"/>
+                <path fill="#4360b7" d="m17.577 4.432l-2-1.05C13.822 2.461 12.944 2 12 2c-.945 0-1.822.46-3.578 1.382l-2 1.05C4.318 5.536 3.242 6.1 2.638 7.072L12 12l9.362-4.927c-.606-.973-1.68-1.537-3.785-2.641" opacity=".7"/>
+                <path fill="#4360b7" d="M21.403 7.14a3.153 3.153 0 0 0-.041-.067L12 12v10c.944 0 1.822-.46 3.578-1.382l2-1.05c2.151-1.129 3.227-1.693 3.825-2.708c.597-1.014.597-2.277.597-4.8v-.117c0-2.525 0-3.788-.597-4.802" opacity=".5"/>
+            </svg>
+            <h1>方寸</h1>
+            <p>阅读导航 · 寻书找源工具合集</p>
+        </div>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="book">寻书</button>
+            <button class="tab-btn" data-tab="source">找源</button>
+            <button class="tab-btn" data-tab="tool">工具</button>
+        </div>
+
+        <div class="content-wrap">
+            <!-- 寻书分类 -->
+            <div class="category-content active" id="tab-book">
+                <div class="card-list">
+                    <a href="https://quark.sm.cn/api/rest?method=Novelnew.home&format=html&schema=v2&cate=全部&rank=rank_hot&gender=male" class="item-card" target="_blank">
+                        <h3>夸克热搜</h3>
+                        <p>大家都在搜的热点</p>
+                    </a>
+                    <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzYzMTI0NzI2MQ==&action=getalbum&album_id=4383314332189638657&scene=126#wechat_redirect" class="item-card" target="_blank">
+                        <h3>书荒推荐</h3>
+                        <p>拾光推文书斋</p>
+                    </a>
+                    <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzYzMTI0NzI2MQ==&action=getalbum&album_id=4386334480295297025&scene=126#wechat_redirect" class="item-card" target="_blank">
+                        <h3>网文大神列传</h3>
+                        <p>拾光推文书斋</p>
+                    </a>
+                    <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzI2MDg2NjAwMg==&action=getalbum&album_id=1319668267623170050&scene=126#wechat_redirect" class="item-card" target="_blank">
+                        <h3>近期完结小说推荐</h3>
+                        <p>小说拾遗</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 找源分类 -->
+            <div class="category-content" id="tab-source">
+                <div class="card-list">
+                    <a href="https://yckceo.vip/" class="item-card" target="_blank">
+                        <h3>源仓库</h3>
+                        <p>最新地址发布页</p>
+                    </a>
+                    <a href="https://link3.cc/yckceo" class="item-card" target="_blank">
+                        <h3>源仓库</h3>
+                        <p>link3最新地址发布页</p>
+                    </a>
+                    <a href="https://yuancang.cc/" class="item-card" target="_blank">
+                        <h3>源仓</h3>
+                        <p>阅读爱好者</p>
+                    </a>
+                    <a href="https://mtzs.cloud/yuedu/index/index.html" class="item-card" target="_blank">
+                        <h3>香色源仓</h3>
+                        <p>阅读爱好者</p>
+                    </a>                                       
+                    <a href="https://shuyuan.yiove.com/" class="item-card" target="_blank">
+                        <h3>Yiove书源仓库</h3>
+                        <p>阅读爱好者</p>
+                    </a>
+                    <a href="https://legado.aoaostar.com" class="item-card" target="_blank">
+                        <h3>阅读APP源</h3>
+                        <p>@AOAOSTAR</p>
+                    </a>
+                    <a href="https://yolo52.github.io/Yuedu/" class="item-card" target="_blank">
+                        <h3>Yuedu</h3>
+                        <p>@Yolo52</p>
+                    </a>
+                    <a href="https://source.zgqinc.gq/" class="item-card" target="_blank">
+                        <h3>ZGQ</h3>
+                        <p>@ZGQ-inc</p>
+                    </a>                   
+                    <a href="http://yuedu.miaogongzi.net/gx.html" class="item-card" target="_blank">
+                        <h3>阅读书源</h3>
+                        <p>@喵公子</p>
+                    </a>
+                    <a href="https://novel.tickmao.com/" class="item-card" target="_blank">
+                        <h3>Novel</h3>
+                        <p>@tickmao</p>
+                    </a>                   
+                    <a href="https://qyyuapi.com" class="item-card" target="_blank">
+                        <h3>xiaohan231书源发布页</h3>
+                        <p>@xiaohan231</p>
+                    </a>
+                    <a href="https://zq.vv9v.cn/index.html" class="item-card" target="_blank">
+                        <h3>知秋书源发布页</h3>
+                        <p>@知秋</p>
+                    </a>
+                    <a href="https://gedem.yeoi.me/workold/syfby.html" class="item-card" target="_blank">
+                        <h3>辞晨书源发布页</h3>
+                        <p>@辞晨</p>
+                    </a>
+                    <a href="https://rensr.site/shuyuan" class="item-card" target="_blank">
+                        <h3>玄蛋秘阁</h3>
+                        <p>@天天的鸟蛋蛋</p>
+                    </a>
+                    <a href="https://source.jwyihao.top/" class="item-card" target="_blank">
+                        <h3>吉的书源集</h3>
+                        <p>@吉王义昊</p>
+                    </a>
+                    <a href="https://yuedu.xiu2.xyz/" class="item-card" target="_blank">
+                        <h3>XIU2</h3>
+                        <p>@XIU2</p>
+                    </a>                               
+                    <a href="https://pixivsource.pages.dev/" class="item-card" target="_blank">
+                        <h3>Pixiv书源</h3>
+                        <p>@唐尼瑞姆</p>
+                    </a>
+                    <a href="https://skybook.legado1.top/" class="item-card" target="_blank">
+                        <h3>明月书阁</h3>
+                        <p>@明月照大江</p>
+                    </a>
+                    <a href="https://momo-b5a.pages.dev/发布/书源发布" class="item-card" target="_blank">
+                        <h3>墨迹染流年</h3>
+                        <p>@墨迹染流年</p>
+                    </a>
+                    <a href="https://novel.tickmao.com/" class="item-card" target="_blank">
+                        <h3>关耳·guaner</h3>
+                        <p>@关耳</p>
+                    </a>         
+                </div>
+            </div>
+
+            <!-- 工具分类 -->
+            <div class="category-content" id="tab-tool">
+                <div class="card-list">
+                    <a href="javascript:void(0)" class="item-card" onclick="showTool('writer')">
+                        <h3>写源助手</h3>
+                        <p>会有用喔(大概)</p>
+                    </a>
+                    <a href="javascript:void(0)" class="item-card" onclick="showTool('import')">
+                        <h3>快捷导入</h3>
+                        <p>各种格式！</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 写源助手工具页 -->
+    <div class="tool-page" id="tool-writer">
+        <button class="back-btn" onclick="hideTool()">← 返回导航</button>
+        <div class="tool-container">
+            <div class="card">
+                <details>
+                    <summary>发现格式工具</summary>
+                </details>
+                <div>
+                    <textarea id="text" rows="3" placeholder="请输入要处理的内容"></textarea>
+                    <a>格式转换</a>
+                    <div class="flex">
+                        <button onclick="Format()">html转旧发现</button>
+                        <button onclick="Switch()">新旧发现互转</button>
+                    </div>
+                    <a>每行列数<span>仅新发现</span></a>
+                    <div class="flex">
+                        <button onclick="Add(1)">1</button>
+                        <button onclick="Add(.4)">2</button>
+                        <button onclick="Add(.25)">3</button>
+                        <button onclick="Add(.2)">4</button>
+                        <button onclick="Add(.15)">5</button>
+                    </div>
+                    <a>快捷功能</a>
+                    <div class="flex">
+                        <button onclick="Copy('#text')">复制全文</button>
+                        <button onclick="Cut('#text')">剪切全文</button>
+                        <button onclick="Empty('#text')">清空</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <details>
+                    <summary>正则匹配替换</summary>
+                </details>
+                <div>
+                    <textarea id="text1" rows="3" placeholder="请输入要处理的内容"></textarea>
+                    <a>正则匹配</a>
+                    <textarea id="matchText" rows="1" placeholder="正则表达式"></textarea>
+                    <label><input id="global" type="checkbox" checked>全局搜索</label>
+                    <label><input id="ignoreCase" type="checkbox">忽略大小写</label>
+                    <div class="flex">
+                        <button onclick="Match()">进行匹配</button>
+                        <button onclick="Copy('#matchResult')">复制结果</button>
+                        <button onclick="Reset()">清空</button>
+                    </div>
+                    <div id="tip"></div>
+                    <textarea id="matchResult" rows="3" placeholder="匹配结果"></textarea>
+                    <a>正则替换</a>
+                    <textarea id="replaceText" rows="1" placeholder="想要替换成什么"></textarea>
+                    <div class="flex">
+                        <button onclick="Add1('{{page}}')">{{page}}</button>
+                        <button onclick="Add1('\\')">\</button>
+                        <button onclick="Add1('<')">&lt;</button>
+                        <button onclick="Add1('>')">&gt;</button>
+                    </div>
+                    <div class="flex">
+                        <button onclick="Replace()">进行替换</button>
+                        <button onclick="Copy('#replaceResult')">复制结果</button>
+                    </div>
+                    <textarea id="replaceResult" rows="3" placeholder="替换结果"></textarea>
+                </div>
+            </div>
+            <div class="card">
+                <details>
+                    <summary>编码格式转换</summary>
+                </details>
+                <div>
+                    <textarea id="text2" rows="3" placeholder="请输入要处理的内容"></textarea>
+                    <a>url编码</a>
+                    <label><input id="ignoreComponent" type="checkbox">编码<span>@#$&=:/,;?+</span></label>
+                    <div class="flex">
+                        <button onclick="Encode()">进行编码</button>
+                        <button onclick="Decode()">进行解码</button>
+                    </div>
+                    <a>html转义</a>
+                    <label><input id="super" type="checkbox">转义全部字符</label>
+                    <div id="temp" hidden></div>
+                    <div class="flex">
+                        <button onclick="EncodeHtml()">进行转义</button>
+                        <button onclick="DecodeHtml()">进行反转义</button>
+                    </div>
+                    <a>快捷功能</a>
+                    <div class="flex">
+                        <button onclick="Copy('#text2')">复制全文</button>
+                        <button onclick="Cut('#text2')">剪切全文</button>
+                        <button onclick="Empty('#text2')">清空</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <details>
+                    <summary>外部在线工具</summary>
+                </details>
+                <div>
+                    <div class="flex">
+                        <button onclick="window.open('https://tool.lu/zhconvert')">简繁转换</button>
+                        <button onclick="window.open('https://www.yuque.com/legado/yuan')">写源教程</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快捷导入工具页 -->
+    <div class="tool-page" id="tool-import">
+        <button class="back-btn" onclick="hideTool()">← 返回导航</button>
+        <div class="tool-container">
+            <div class="card">
+                <b>快捷导入</b>
+                <textarea id="url" rows="4" placeholder="请输入资源链接"></textarea>
+                <fieldset>
+                    <legend>导入格式</legend>
+                    <label><input type="radio" name="path" value="auto" checked>自动识别</label>
+                    <label><input type="radio" name="path" value="bookSource">书源</label>
+                    <label><input type="radio" name="path" value="rssSource">订阅源</label>
+                    <label><input type="radio" name="path" value="replaceRule">替换规则</label>
+                    <label><input type="radio" name="path" value="textTocRule">TXT目录规则</label>
+                    <label><input type="radio" name="path" value="httpTTS">TTS</label>
+                    <label><input type="radio" name="path" value="theme">主题</label>
+                    <label><input type="radio" name="path" value="readConfig">排版</label>
+                    <label><input type="radio" name="path" value="dictRule">字典规则</label>
+                </fieldset>
+                <div class="flex">
+                    <button onclick="Import()">点击导入</button>
+                    <button onclick="CopyImport()">复制</button>
+                    <button onclick="EmptyImport()">清空</button>
+                </div>
+            </div>
+            <div class="card">
+                <details>
+                    <summary>长期链接</summary>
+                </details>
+                <div>
+                    <fieldset>
+                        <legend>书源</legend>
+                        <button onclick="SetUrl('https://cdn.jsdelivr.net/gh/bushixuanqi/book-source/书源合集.json★1')">不世玄奇</button>
+                        <button onclick="SetUrl('https://ghproxy.net/https://raw.githubusercontent.com/shidahuilang/shuyuan-bak/refs/heads/main/安卓阅读app-大灰狼融合4.0(完全版).json★1')">大灰狼</button>
+                        <button onclick="SetUrl('https://ghproxy.net/https://raw.githubusercontent.com/zmn001125/booksources/master/sources/guaner.txt★1')">关耳</button>
+                        <button onclick="SetUrl('https://ghproxy.net/https://raw.githubusercontent.com/cyao2q/yuedu/master/shuyuan★1')">漠星曜</button>
+                        <button onclick="SetUrl('https://ghproxy.net/https://raw.githubusercontent.com/PB-pobing/pobing/pb/sy.json★1')">破冰</button>
+                        <button onclick="SetUrl('https://ghproxy.net/https://raw.githubusercontent.com/XIU2/Yuedu/master/shuyuan★1')">XIU2</button>
+                        <button onclick="SetUrl('https://qyyuapi.com/sy/hx/V3.0.json★1')">小韩</button>
+                    </fieldset>
+                    <fieldset>
+                        <legend>订阅源</legend>
+                        <button onclick="SetUrl('https://qyyuapi.com/dy/hx/V2.0.d.json★2')">小韩</button>
+                    </fieldset>
+                    <fieldset>
+                        <legend>替换规则</legend>
+                        <button onclick="SetUrl('http://yuedu.miaogongzi.net/shuyuan/1125jh.json★3')">乌云</button>
+                    </fieldset>
+                    <fieldset>
+                        <legend>TTS</legend>
+                        <button onclick="SetUrl('https://d.kstore.dev/download/5475/书源/httpTts.json★5')">明月照大江Deno</button>
+                        <button onclick="SetUrl('https://skybook.legado1.top/staic/纳米Plus_v2.json★5')">明月照大江纳米Plus</button>
+                        <button onclick="SetUrl('https://skybook.legado1.top/staic/Next朗读引擎.json★5')">明月照大江Next</button>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="temp"></div>
+
+    <script>
+        // 分类切换
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.category-content');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + tab).classList.add('active');
+            });
+        });
+
+        // 工具页面切换
+        function showTool(type) {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('tool-' + type).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        function hideTool() {
+            document.querySelectorAll('.tool-page').forEach(p => p.classList.remove('active'));
+            document.getElementById('main-page').style.display = 'block';
+        }
+
+        // 写源助手JS
+        const $ = (t => document.querySelector(t));
+        const $$ = (t => document.execCommand(t));
+        const Copy = (t => { $(t).select(); $$("copy"); });
+        const Empty = (t => { x = $(t); x.value = ""; x.focus(); });
+        const Cut = (t => { $(t).select(); $$("cut"); });
+
+        const Format = (() => {
+            if (t = $("#text"), list = t.value.match(/<[^<]*?(href|open)[=\(]['"]([\s\S]*?)['"][\s\S]*?>([\s\S]*?)</g), list) {
+                for (html = "", i = 0; i < list.length; ++i)
+                    a = list[i].match(/<[^<]*?(href|open)[=\(]['"]([\s\S]*?)['"][\s\S]*?>([\s\S]*?)</),
+                    html += a[3].trim().replace(/\n/g, " ") + "::" + a[2] + "\r\n";
+                t.value = html.replace(/\r\n$/, "")
+            }
+        });
+        const Switch = (() => {
+            t = $("#text");
+            try {
+                for (html = "", json = JSON.parse(t.value), i = 0; i < json.length; ++i)
+                    html += json[i].title + "::" + json[i].url + "\r\n";
+                t.value = html.replace(/\r\n$/, "")
+            } catch (e) {
+                if (t.value.match(/\&\&|::/g)) {
+                    for (text = t.value.replace(/\&\&/g, "\r\n"), list = text.match(/.*?::.*/g), html = [], i = 0; i < list.length; ++i)
+                        a = list[i].match(/(.*?)::(.*)/),
+                        html.push({ title: a[1], url: a[2], style: { layout_flexGrow: 1, layout_flexBasisPercent: null } });
+                    t.value = JSON.stringify(html)
+                }
+            }
+        });
+        const Add = (t => {
+            x = $("#text");
+            try {
+                for (json = JSON.parse(x.value), i = 0; i < json.length; ++i)
+                    json[i].style = { layout_flexGrow: 1, layout_flexBasisPercent: t };
+                x.value = JSON.stringify(json)
+            } catch (t) { }
+        });
+        const BuildRegex = (() => (
+            text = $("#text1"),
+            text.value ? (
+                match = $("#matchText"),
+                match.value ? (
+                    op = $("#global").checked ? "g" : "",
+                    op = $("#ignoreCase").checked ? op + "i" : op,
+                    new RegExp(match.value, op)
+                ) : (match.focus(), !1)
+            ) : (text.focus(), !1)
+        ));
+        const Match = (() => {
+            if (regex = BuildRegex(), t = $("#tip"), x = $("#matchResult"), tip = text = t.textContent = t.style = x.value = "", match = $("#text1").value.match(regex), $("#global").checked) {
+                for (i = 0; i < match.length; ++i)
+                    text += match[i] + "\r\n";
+                tip = "共找到 " + match.length + " 处匹配：\r\n",
+                text = text.replace(/\r\n$/, "")
+            } else
+                tip = "匹配位置：" + regex.lastIndex,
+                text = match[0];
+            return t.textContent = tip, t.style.marginTop = "9px", x.value = text, !0
+        });
+        const Reset = (() => {
+            $("#text1").value = $("#matchText").value = $("#tip").textContent = t.style = $("#matchResult").value = $("#replaceText").value = $("#replaceResult").value = "",
+            $("#text1").focus()
+        });
+        const Add1 = (t => {
+            x = $("#replaceText"),
+            start = x.selectionStart,
+            length = x.selectionEnd - start,
+            json = x.value.split(""),
+            json.splice(start, length, t),
+            x.value = json.join(""),
+            x.focus(),
+            x.selectionStart = t.length + start,
+            x.selectionEnd = t.length + start
+        });
+        const Replace = (() => {
+            regex = BuildRegex(),
+            $("#replaceResult").value = $("#text1").value.replace(regex, $("#replaceText").value)
+        });
+        const Encode = (() => {
+            t = $("#text2"),
+            text = t.value,
+            t.value = $("#ignoreComponent").checked ? encodeURIComponent(text) : encodeURI(text)
+        });
+        const Decode = (() => {
+            t = $("#text2"),
+            text = t.value,
+            t.value = decodeURIComponent(text)
+        });
+        const EncodeHtml = (() => {
+            if (t = $("#text2"), text = t.value, $("#super").checked)
+                for (u = "", i = 0; i < text.length; ++i)
+                    u += "&#" + text.charCodeAt(i) + ";";
+            else
+                x = $("#temp"),
+                x.textContent = text,
+                u = x.innerHTML;
+            t.value = u
+        });
+        const DecodeHtml = (() => {
+            t = $("#text2"),
+            text = t.value,
+            x = $("#temp"),
+            x.innerHTML = text.replace(/<br>/g, "\r\n").replace(/</g, "&#60;").replace(/>/g, "&#62;"),
+            t.value = x.textContent
+        });
+
+        // 快捷导入JS
+        const CopyImport = (() => {
+            $("#url").select();
+            document.execCommand("copy");
+        });
+        const EmptyImport = (() => {
+            x = $("#url");
+            x.value = "";
+            x.focus();
+            document.querySelector('[value="auto"]').checked = true;
+        });
+        const Import = (() => {
+            if (t = $("#url"), !t.value) return t.focus(), false;
+            path = document.querySelector('[name="path"]:checked').value;
+            location = `yuedu://import/${path}?src=` + encodeURIComponent(t.value);
+        });
+        const SetUrl = (e => {
+            x = $("#url");
+            arr = e.split("★");
+            x.value = arr[0];
+            document.querySelectorAll('[name="path"]')[arr[1]].checked = true;
+            x.focus();
+        });
+    </script>
+</body>
+</html>
