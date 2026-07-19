@@ -153,6 +153,8 @@
         .dlmiyfanqie .repo-icon { background: linear-gradient(135deg, #8e44ad, #6c3483); }
         .doctoroyyfanqie .repo-icon { background: linear-gradient(135deg, #1abc9c, #148f77); }
         .bidabrainfanqie .repo-icon { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        /* 阅读MR */
+        .mr .repo-icon { background: linear-gradient(135deg, #8b5cf6, #d946ef); }
 
         .repo-title h2 {
             font-size: 18px;
@@ -426,6 +428,18 @@
             background: #60a5fa;
             color: #fff;
         }
+        .tag-ipa {
+            background: #a78bfa;
+            color: #fff;
+        }
+        .tag-dmg {
+            background: #f472b6;
+            color: #fff;
+        }
+        .tag-msix {
+            background: #34d399;
+            color: #0f172a;
+        }
 
         /* ===== 更新日志 ===== */
         .release-notes {
@@ -586,7 +600,7 @@
 <div class="container">
     <header class="header">
         <h1>📖 阅读 · 全版本集散地</h1>
-        <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · MoRealm · 书享 · 轻悦时光 · 鸿蒙 · Tauri · IReader · LightNovelReader · 番茄系列<br>稳定版 + 测试版 · APK / HAP / EXE · 37+ 加速线路</p>
+        <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 阅读MR · MoRealm · 书享 · 轻悦时光 · 鸿蒙 · Tauri · IReader · LightNovelReader · 番茄系列<br>稳定版 + 测试版 · APK / HAP / EXE / IPA / DMG / MSIX · 37+ 加速线路</p>
     </header>
 
     <div class="repo-container" id="repoContainer"></div>
@@ -612,6 +626,7 @@
                 <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro</a>
                 <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>
                 <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">🍟</a>
+                <a href="https://github.com/DandanLLab/mr" class="footer-link" target="_blank">阅读MR</a>
                 <a href="https://github.com/keys-cherish/morealm-reader" class="footer-link" target="_blank">MoRealm</a>
                 <a href="https://github.com/zyl140640/readbook-releases" class="footer-link" target="_blank">书享</a>
                 <a href="https://github.com/autobcb/qysg" class="footer-link" target="_blank">轻悦时光</a>
@@ -648,7 +663,7 @@
 
         <div class="footer-divider"></div>
 
-        <p style="opacity:0.5; font-size:11px; margin-bottom:8px;">📡 数据来自 GitHub API · 支持 APK / HAP / EXE 下载</p>
+        <p style="opacity:0.5; font-size:11px; margin-bottom:8px;">📡 数据来自 GitHub API · 支持 APK / HAP / EXE / IPA / DMG / MSIX 下载</p>
         <div class="last-updated" id="last-updated-time">最后更新：加载中...</div>
     </div>
 </div>
@@ -672,6 +687,7 @@
             jingshiro: { name: 'Jingshiro阅读', owner: 'Jingshiro', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
             legadong: { name: '阅读NG', owner: 'joestar817', repo: 'legado_NG', stableApi: 'latest', betaApi: 'tags/beta' },
             shutiao: { name: '阅读🍟', owner: 'huajideshutiao', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
+            mr: { name: '阅读MR', owner: 'DandanLLab', repo: 'mr', stableApi: 'latest', betaApi: 'tags/beta' },
             morealm: { name: 'MoRealm', owner: 'keys-cherish', repo: 'morealm-reader', stableApi: 'latest', betaApi: 'tags/beta' },
             shuxiang: { name: '书享阅读', owner: 'zyl140640', repo: 'readbook-releases', stableApi: 'latest', betaApi: 'tags/beta' },
             qysg: { name: '轻悦时光', owner: 'autobcb', repo: 'qysg', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -756,6 +772,10 @@
         isCoexistVersion(f) { return f.includes('releaseA') || f.includes('coexist') || f.includes('共存') || f.includes('qysg') || f.includes('Coexist'); },
         isHapFile(f) { return f.toLowerCase().endsWith('.hap'); },
         isExeFile(f) { return f.toLowerCase().endsWith('.exe'); },
+        // 新增格式判断
+        isIpaFile(f) { return f.toLowerCase().endsWith('.ipa'); },
+        isDmgFile(f) { return f.toLowerCase().endsWith('.dmg'); },
+        isMsixFile(f) { return f.toLowerCase().endsWith('.msix'); },
         extractVersion(tag, name) {
             if (name) { const m = name.match(/(\d+\.\d+\.\d+)/); if (m) return m[1]; }
             if (tag) return tag.replace(/^v/, '');
@@ -778,13 +798,31 @@
             const isCoexist = Utils.isCoexistVersion(asset.name);
             const isHap = Utils.isHapFile(asset.name);
             const isExe = Utils.isExeFile(asset.name);
+            const isIpa = Utils.isIpaFile(asset.name);
+            const isDmg = Utils.isDmgFile(asset.name);
+            const isMsix = Utils.isMsixFile(asset.name);
+
             let extraTag = '';
-            if (isHap) extraTag = '<span class="tag tag-hap">鸿蒙HAP</span>';
-            else if (isExe) extraTag = '<span class="tag tag-exe">Windows EXE</span>';
-            else if (isCoexist) extraTag = '<span class="tag tag-coexist">共存版</span>';
             let fileTypeLabel = '安卓APK';
-            if (isHap) fileTypeLabel = '鸿蒙安装包';
-            else if (isExe) fileTypeLabel = 'Windows安装包';
+            if (isHap) {
+                extraTag = '<span class="tag tag-hap">鸿蒙HAP</span>';
+                fileTypeLabel = '鸿蒙安装包';
+            } else if (isExe) {
+                extraTag = '<span class="tag tag-exe">Windows EXE</span>';
+                fileTypeLabel = 'Windows安装包';
+            } else if (isIpa) {
+                extraTag = '<span class="tag tag-ipa">iOS IPA</span>';
+                fileTypeLabel = 'iOS安装包';
+            } else if (isDmg) {
+                extraTag = '<span class="tag tag-dmg">macOS DMG</span>';
+                fileTypeLabel = 'macOS安装包';
+            } else if (isMsix) {
+                extraTag = '<span class="tag tag-msix">Windows MSIX</span>';
+                fileTypeLabel = 'Windows MSIX';
+            } else if (isCoexist) {
+                extraTag = '<span class="tag tag-coexist">共存版</span>';
+                // 保持APK
+            }
 
             const card = document.createElement('div');
             card.className = 'file-card';
@@ -873,11 +911,14 @@
             if (!release.assets || release.assets.length === 0) {
                 container.innerHTML = '<div class="empty-state">📭 暂无安装包文件</div>';
             } else {
+                // 支持更多格式：apk, hap, zip, exe, ipa, dmg, msix, 以及包含"release"的文件
                 const relevant = release.assets.filter(a =>
-                    a.name.endsWith('.apk') || a.name.endsWith('.hap') || a.name.endsWith('.zip') || a.name.endsWith('.exe') || a.name.includes('release')
+                    a.name.endsWith('.apk') || a.name.endsWith('.hap') || a.name.endsWith('.zip') ||
+                    a.name.endsWith('.exe') || a.name.endsWith('.ipa') || a.name.endsWith('.dmg') ||
+                    a.name.endsWith('.msix') || a.name.includes('release')
                 );
                 if (relevant.length === 0) {
-                    container.innerHTML = '<div class="empty-state">📱 暂无可下载的 APK/HAP/EXE 文件</div>';
+                    container.innerHTML = '<div class="empty-state">📱 暂无可下载的 APK/HAP/EXE/IPA/DMG/MSIX 文件</div>';
                 } else {
                     relevant.forEach(asset => container.appendChild(DownloadManager.createDownloadCard(asset, repoId, type)));
                 }
@@ -926,7 +967,7 @@
             'original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't',
             'cichen', 'dandan', 'youfeng', 'suml1',
             'archive', 'readingr', 'jingshiro', 'legadong',
-            'shutiao', 'morealm', 'shuxiang', 'qysg', 'hongmeng', 'tauri',
+            'shutiao', 'mr', 'morealm', 'shuxiang', 'qysg', 'hongmeng', 'tauri',
             // 新增追加
             'ireader', 'lightnovelreader',
             'zhongfanqie', 'pofanqie', 'dlmiyfanqie', 'doctoroyyfanqie', 'bidabrainfanqie'
@@ -953,6 +994,7 @@
             else if (repoId === 'jingshiro') iconEmoji = '✨';
             else if (repoId === 'morealm') iconEmoji = '🌙';
             else if (repoId === 'shutiao') iconEmoji = '🍟';
+            else if (repoId === 'mr') iconEmoji = '📗';
             else if (repoId === 'shuxiang') iconEmoji = '📚';
             else if (repoId === 'miaogongzi') iconEmoji = '🐱';
             else if (repoId === 'legadong') iconEmoji = '🆕';
