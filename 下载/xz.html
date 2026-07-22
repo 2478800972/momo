@@ -182,6 +182,9 @@
         .qysg .repo-icon {
             background: linear-gradient(135deg, #4caf50, #2e7d32);
         }
+        .manxia .repo-icon {
+            background: linear-gradient(135deg, #e17055, #d63031);
+        }
         .hongmeng .repo-icon {
             background: linear-gradient(135deg, #00b4aa, #00897b);
         }
@@ -662,7 +665,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 鸿蒙 · Tauri · IReader · LightNovelReader · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · IReader · LightNovelReader · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -692,6 +695,7 @@
                     <a href="https://github.com/zyl140640/readbook-releases" class="footer-link" target="_blank">书享</a>
                     <a href="https://github.com/miloquinn/open-reading" class="footer-link" target="_blank">开元</a>
                     <a href="https://github.com/autobcb/qysg" class="footer-link" target="_blank">轻悦时光</a>
+                    <a href="https://github.com/DaLongZhuaZi/manxia" class="footer-link" target="_blank">漫匣</a>
                     <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">鸿蒙</a>
                     <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Tauri</a>
                     <a href="https://github.com/IReaderorg/IReader" class="footer-link" target="_blank">IReader</a>
@@ -752,6 +756,7 @@
                 shuxiang: { name: '书享阅读', owner: 'zyl140640', repo: 'readbook-releases', stableApi: 'latest', betaApi: 'tags/beta' },
                 kaiyuan: { name: '开元阅读', owner: 'miloquinn', repo: 'open-reading', stableApi: 'latest', betaApi: 'tags/beta' },
                 qysg: { name: '轻悦时光', owner: 'autobcb', repo: 'qysg', stableApi: 'latest', betaApi: 'tags/beta' },
+                manxia: { name: '漫匣阅读', owner: 'DaLongZhuaZi', repo: 'manxia', stableApi: 'latest', betaApi: 'tags/beta' },
                 hongmeng: { name: '喵公子鸿蒙阅读', owner: 'mgz0227', repo: 'legado-Harmony', stableApi: 'latest', betaApi: 'tags/beta' },
                 tauri: { name: 'Legado-Tauri', owner: 'LegadoTeam', repo: 'Legado-Tauri-Release', stableApi: 'latest', betaApi: 'tags/beta' },
                 ireader: { name: 'IReader', owner: 'IReaderorg', repo: 'IReader', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1098,7 +1103,7 @@
                 'original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't',
                 'cichen', 'dandan', 'youfeng', 'suml1',
                 'archive', 'readingr', 'jingshiro', 'legadong',
-                'shutiao', 'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg', 'hongmeng', 'tauri',
+                'shutiao', 'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg', 'manxia', 'hongmeng', 'tauri',
                 'ireader', 'lightnovelreader',
                 'zhongfanqie', 'pofanqie', 'dlmiyfanqie', 'doctoroyyfanqie', 'bidabrainfanqie'
             ];
@@ -1128,6 +1133,7 @@
                 else if (repoId === 'mr') iconEmoji = '📗';
                 else if (repoId === 'shuxiang') iconEmoji = '📚';
                 else if (repoId === 'kaiyuan') iconEmoji = '🌟';
+                else if (repoId === 'manxia') iconEmoji = '📦';
                 else if (repoId === 'miaogongzi') iconEmoji = '🐱';
                 else if (repoId === 'legadong') iconEmoji = '🆕';
                 else if (repoId === 'ireader') iconEmoji = '📘';
