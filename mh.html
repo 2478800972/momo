@@ -5,145 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>兮心阅读主题合集</title>
     <style>
-        /* ===== 全局重置 ===== */
+        /* ----- 全局重置 & 基础 ----- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "华康圆体", "Microsoft YaHei", sans-serif;
         }
-
         body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 1200px;
+            font-family: "华康圆体", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+            background: #faf9f8; /* 极浅暖灰 */
+            color: #2c2c2c;
+            line-height: 1.7;
+            padding: 24px 20px 40px;
+            max-width: 1120px;
             margin: 0 auto;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== 头部 ===== */
+        /* ----- 头部 ----- */
         header {
             text-align: center;
-            padding: 30px 0;
-            background: linear-gradient(135deg, #fdf2f8 0%, #fef7fb 100%);
-            border-radius: 12px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 48px 20px 40px;
+            background: rgba(255, 255, 255, 0.70);
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
+            margin-bottom: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
         h1 {
-            color: #2d3748;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: #3d3d3d;
+            margin-bottom: 8px;
         }
         .subtitle {
-            color: #718096;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            color: #9a9a9a;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
 
-        /* ===== 通用卡片 ===== */
+        /* ----- 卡片通用 ----- */
         .section {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.80);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            padding: 32px 30px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: box-shadow 0.25s ease;
+        }
+        .section:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
         }
 
-        /* ===== 标题 ===== */
+        /* ----- 标题 & 折叠按钮 ----- */
         h2 {
-            color: #2d3748;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
             display: flex;
             align-items: center;
+            font-size: 1.65rem;
+            font-weight: 450;
+            color: #3a3a3a;
+            letter-spacing: 0.5px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            margin-bottom: 18px;
         }
         h2::before {
-            content: "📒";
-            margin-right: 10px;
+            margin-right: 12px;
+            font-size: 1.4rem;
         }
-        .night-theme h2::before {
-            content: "📓";
-        }
-        .background h2::before {
-            content: "📜";
-        }
-        .links h2::before {
-            content: "🔗";
-        }
-        .note h2::before {
-            content: "⚠️";
-        }
+        .night-theme h2::before { content: "🌙"; }
+        .background h2::before { content: "🖼️"; }
+        .links h2::before { content: "🔗"; }
+        .note h2::before { content: "📌"; }
+        /* 日间主题图标 */
+        .day-theme h2::before { content: "☀️"; }
 
-        /* ===== 折叠按钮 ===== */
         .collapse-btn {
             margin-left: auto;
             background: transparent;
             border: none;
-            color: #718096;
+            color: #b0b0b0;
             font-size: 1.2rem;
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.2s;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
         }
         .collapse-btn:hover {
-            color: #2b6cb0;
-            background: #f0f8fb;
+            background: rgba(0, 0, 0, 0.04);
+            color: #6b6b6b;
         }
 
-        /* ===== 折叠容器 ===== */
+        .link-title {
+            font-size: 0.95rem;
+            color: #a8a8a8;
+            font-weight: 300;
+            margin-bottom: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        /* ----- 折叠容器 ----- */
         .collapse-container {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             overflow: hidden;
-            transition: height 0.5s ease, opacity 0.3s ease;
+            transition: height 0.4s ease, opacity 0.3s ease, margin 0.3s;
             height: auto;
             opacity: 1;
         }
         .collapse-container.collapsed {
-            height: 0;
+            height: 0 !important;
             opacity: 0;
             margin-bottom: 0;
+            pointer-events: none;
         }
 
-        /* ===== 标签 ===== */
+        /* ----- 标签（主题 & 资源）----- */
         .tag,
         .resource-tag {
-            background: #f8f9fa;
-            color: #4a5568;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid #e8e8e8;
+            background: #f4f2f0;
+            color: #4a4a4a;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 400;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
             display: inline-block;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
         }
         .tag:hover,
         .resource-tag:hover {
-            background: #f0f8fb;
-            color: #2b6cb0;
+            background: #ece8e5;
             transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-            text-decoration: none;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.04);
         }
         .tag.has-both {
-            background: #fef7fb;
-            color: #9f7aea;
-            border-color: #fce7f3;
+            background: #f7f0f2;
+            color: #9b7b8c;
         }
         .tag.has-both:hover {
-            background: #fcf1f7;
-            color: #805ad5;
+            background: #f0e6ea;
+            color: #7d5f6e;
         }
-
         .tag-link,
         .resource-link {
             color: inherit;
@@ -153,142 +169,184 @@
             height: 100%;
         }
 
-        /* ===== 链接分组 ===== */
+        /* ----- 资源链接组（垂直排列）----- */
         .links .collapse-container {
             flex-direction: column;
-            gap: 25px;
+            gap: 28px;
         }
         .link-group {
-            margin-bottom: 0;
             width: 100%;
         }
         .link-title {
-            color: #4a5568;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            font-weight: 600;
+            font-size: 1.05rem;
+            font-weight: 450;
+            color: #5a5a5a;
+            margin-bottom: 14px;
+            letter-spacing: 0.3px;
         }
         .group-list {
             list-style: none;
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: stretch;
         }
         .group-list .resource-tag {
-            margin: 0;
             flex: 1 1 calc(50% - 6px);
-            min-width: 140px;
+            min-width: 150px;
             max-width: 100%;
-            min-height: 70px;
-            padding: 16px 12px;
-            word-break: break-word;
+            min-height: 64px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            word-break: break-word;
+            background: #f6f4f2;
+        }
+        .group-list .resource-tag:hover {
+            background: #ede9e6;
         }
 
-        /* ===== 注意事项 ===== */
+        /* ----- 注意事项卡片 ----- */
         .note-content {
-            background: #fffaf0;
-            border-left: 4px solid #ed8936;
-            padding: 15px 20px;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 20px;
+            background: #f9f6f3;
+            border-left: 3px solid #d9c8bc;
+            padding: 18px 24px;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 18px;
+            color: #4d4d4d;
+        }
+        .note-content p {
+            margin-bottom: 6px;
+        }
+        .note-content p:last-child {
+            margin-bottom: 0;
         }
         .tip {
-            background: #e8f4f8;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            color: #2d3748;
+            background: #f2f0ee;
+            border-radius: 16px;
+            padding: 16px 20px;
+            color: #4a4a4a;
+            font-size: 0.95rem;
         }
         .tip strong {
-            color: #2b6cb0;
+            color: #6b6b6b;
+            font-weight: 500;
         }
 
-        /* ===== 页脚 ===== */
+        /* ----- 底部 & 运行天数 ----- */
         footer {
             text-align: center;
-            margin-top: 50px;
-            /* ★★★ 统一文字颜色为 #718096（与 .runtime 一致） ★★★ */
-            color: #718096;
+            margin-top: 48px;
+            padding: 32px 0 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            color: #b0b0b0;
             font-size: 0.9rem;
-            padding: 20px 0;
-            border-top: 1px solid #f0f0f0;
+            line-height: 1.8;
         }
-
-        /* ===== 运行天数（统一文字颜色） ===== */
         .runtime {
-            font-size: 1rem;
-            color: #718096;
-            /* 与 footer 一致 */
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
+            font-size: 0.9rem;  /* 与访问统计字号一致 */
+            color: #b8b8b8;   /* 与访问统计颜色一致 */
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
         }
-        /* 数字部分保留温柔粉（设计特色） */
         .runtime .num {
-            font-weight: 700;
-            color: #c37f82;
-            min-width: 20px;
+            font-weight: 550;
+            color: #C37F82;   /* 温柔粉 */
+            min-width: 22px;
             display: inline-block;
             text-align: center;
         }
-        /* 标签（年、天、小时、分钟、秒）统一为 #4a5568 */
         .runtime .label {
-            color: #718096;
-            margin: 0 2px;
+            color: #b5b5b5;
+            margin: 0 3px;
+            font-weight: 300;
         }
 
-        /* ===== 响应式 ===== */
+        /* ----- 响应式 ----- */
         @media (max-width: 768px) {
             body {
-                padding: 15px;
+                padding: 16px 12px;
+            }
+            header {
+                padding: 32px 16px 28px;
+                border-radius: 24px;
             }
             h1 {
-                font-size: 2rem;
+                font-size: 2.0rem;
             }
             .section {
-                padding: 20px;
+                padding: 24px 18px;
+                border-radius: 24px;
             }
             h2 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             .tag,
             .resource-tag {
-                padding: 6px 12px;
-                font-size: 0.9rem;
+                font-size: 0.88rem;
+                padding: 6px 14px;
+            }
+            .group-list .resource-tag {
+                flex: 1 1 calc(50% - 6px);  /* 恢复两列 */
+                min-height: 56px;
             }
             .runtime {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
+                padding: 8px 18px;
             }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            .section {
+                padding: 20px 14px;
+            }
+            .runtime .num {
+                min-width: 16px;
+            }
+        }
+
+        /* 辅助 — 更沉浸的滚动条（可选） */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dcd8d4;
+            border-radius: 12px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cbc4be;
         }
     </style>
 </head>
 <body>
-
-    <!-- ===== 头部 ===== -->
     <header>
         <h1>兮心阅读主题合集</h1>
-        <p class="subtitle">纸质护眼模式优化 | 全部分类可折叠 | 点击跳转</p>
+        <p class="subtitle">纸质护眼 · 简约沉浸 · 点击跳转</p>
     </header>
 
-    <!-- ===== 注意事项 ===== -->
+    <!-- 注意事项 -->
     <section class="section note">
         <h2>注意事项</h2>
         <div class="note-content">
-            <p>✅ 所有主题均在<span style="color:#e53e3e;">纸质护眼模式</span>下制作，开启系统护眼模式体验更佳</p>
+            <p>✅ 所有主题均在 <span style="color:#b57a6a;">纸质护眼模式</span> 下制作，开启系统护眼体验更佳</p>
             <p>✅ 部分背景图未展示预览，建议下载主题查看完整内容</p>
-            <p>✅ 本页面由墨殇整理（酷安@墨迹染流年），主题和背景均为原创制作</p>
+            <p>✅ 本页面由墨殇整理（酷安 @墨迹染流年），主题和背景均为原创</p>
         </div>
         <div class="tip">
-            <strong>温馨提示：</strong>预览图从「执子之手」主题开始不再存放于 Flowus（会员到期），完整预览可查看主题总预览链接
+            <strong>💡 提示：</strong> 预览图从「执子之手」主题起不再存放于 Flowus（会员到期），完整预览可查看主题总预览链接。
         </div>
     </section>
 
-    <!-- ===== 日间主题 ===== -->
+    <!-- 日间主题 -->
     <section class="section day-theme">
         <h2>
             日间主题
@@ -397,7 +455,7 @@
         </div>
     </section>
 
-    <!-- ===== 夜间主题 ===== -->
+    <!-- 夜间主题 -->
     <section class="section night-theme">
         <h2>
             夜间主题
@@ -420,7 +478,7 @@
         </div>
     </section>
 
-    <!-- ===== 阅读背景 ===== -->
+    <!-- 阅读背景 -->
     <section class="section background">
         <h2>
             阅读背景
@@ -437,29 +495,24 @@
         </div>
     </section>
 
-    <!-- ===== 相关链接与资源 ===== -->
+    <!-- 相关链接与资源 -->
     <section class="section links">
         <h2>
             相关链接与资源
             <button class="collapse-btn" data-target="links-container">▼</button>
         </h2>
         <div id="links-container" class="collapse-container">
-
-            <!-- 字体与教程 -->
             <div class="link-group">
                 <h3 class="link-title">字体与教程</h3>
                 <ul class="group-list">
-                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/ipmjQ02c7esj" class="resource-link" target="_blank">华康圆体W7.ttf - 蓝奏云</a></li>
+                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/ipmjQ02c7esj" class="resource-link" target="_blank">华康圆体W7.ttf</a></li>
                     <li class="resource-tag"><a href="/momo/教程/更换阅读字体.html" class="resource-link" target="_blank">更换阅读字体教程</a></li>
-                    <li class="resource-tag"><a href="http://image.coolapk.com/feed/2022/0402/14/3385629_7f289f5f_2525_1621_869@720x5666.png" class="resource-link" target="_blank">更换主题教程 - 酷安@我晓得啦</a></li>
+                    <li class="resource-tag"><a href="http://image.coolapk.com/feed/2022/0402/14/3385629_7f289f5f_2525_1621_869@720x5666.png" class="resource-link" target="_blank">更换主题教程</a></li>
                     <li class="resource-tag"><a href="https://moshanging.lanzout.com/b01jbc42f" class="resource-link" target="_blank">阅读界面配置（密码：momo）</a></li>
                     <li class="resource-tag"><a href="/momo/教程/阅读排版导入导出.html" class="resource-link" target="_blank">排版导入导出教程</a></li>
-                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/b01jbc42f" class="resource-link" target="_blank">阅读界面配置（密码：momo）</a></li>
                     <li class="resource-tag"><a href="https://flowus.cn/moshang/share/3d76e1ce-55ca-4cd4-ab99-8f8b486c56ae" class="resource-link" target="_blank">阅读基础使用教程</a></li>
                 </ul>
             </div>
-
-            <!-- 交流平台 -->
             <div class="link-group">
                 <h3 class="link-title">交流平台</h3>
                 <ul class="group-list">
@@ -469,11 +522,9 @@
                     <li class="resource-tag"><a href="https://jq.qq.com/?_wv=1027&k=pR18WEgM" class="resource-link" target="_blank">兮心③群：812708436</a></li>
                     <li class="resource-tag"><a href="https://cdn.jsdmirror.com/gh/2478800972/pic@main/lx/wx.png" class="resource-link" target="_blank">微信群聊</a></li>
                     <li class="resource-tag"><a href="/momo/" class="resource-link" target="_blank">兮心官网</a></li>
-                    <li class="resource-tag"><a href="https://pd.qq.com/g/464zg10wzf/text/5636096" class="resource-link" target="_blank">主题总预览链接（未登录限看部分）</a></li>
+                    <li class="resource-tag"><a href="https://pd.qq.com/g/464zg10wzf/text/5636096" class="resource-link" target="_blank">主题总预览链接</a></li>
                 </ul>
             </div>
-
-            <!-- 其他平台 -->
             <div class="link-group">
                 <h3 class="link-title">其他平台</h3>
                 <ul class="group-list">
@@ -481,44 +532,37 @@
                     <li class="resource-tag"><a href="https://space.bilibili.com/636013591" class="resource-link" target="_blank">哔哩</a></li>
                 </ul>
             </div>
-
-            <!-- 推荐资源 -->
             <div class="link-group">
                 <h3 class="link-title">推荐资源</h3>
                 <ul class="group-list">
-                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/b01jak5de" class="resource-link" target="_blank">文艺网页·挖沙（密码：momo）</a></li>
-                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/i94cy175dcnc" class="resource-link" target="_blank">文艺网页·海纳一文（密码：momo）</a></li>
-                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/b01jbpbzi" class="resource-link" target="_blank">网页打包软件·起点（网页版）（密码：momo）</a></li>
-                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/b01jab65i" class="resource-link" target="_blank">网页打包软件·凉墨（资源合集）（密码：momo）</a></li>
+                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/b01jak5de " class="resource-link" target="_blank">文艺网页·挖沙（momo）</a></li>
+                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/i94cy175dcnc" class="resource-link" target="_blank">文艺网页·海纳一文（momo）</a></li>
+                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/b01jbpbzi" class="resource-link" target="_blank">网页打包·起点（momo）</a></li>
+                    <li class="resource-tag"><a href="https://moshanging.lanzout.com/b01jab65i" class="resource-link" target="_blank">网页打包·凉墨（momo）</a></li>
                     <li class="resource-tag"><a href="/momo/发布/书源发布.html" class="resource-link" target="_blank">书源发布页</a></li>
                     <li class="resource-tag"><a href="/momo/发布/方寸.html" class="resource-link" target="_blank">方寸·阅读导航</a></li>
                     <li class="resource-tag"><a href="/momo/下载/xz.html" class="resource-link" target="_blank">阅读APP全版本下载</a></li>
                 </ul>
             </div>
-
-            <!-- 友链 -->
             <div class="link-group">
                 <h3 class="link-title">友链</h3>
                 <ul class="group-list">
-                    <li class="resource-tag"><a href="https://2478800972.github.io/boke/" class="resource-link" target="_blank">墨殇博客</a></li>
-                    <li class="resource-tag"><a href="https://boke-9u8.pages.dev/" class="resource-link" target="_blank">墨殇博客『Cloudflare Pages』</a></li>
+                    <li class="resource-tag"><a href="/boke/" class="resource-link" target="_blank">墨殇博客</a></li>
+                    <li class="resource-tag"><a href="https://boke-9u8.pages.dev/" class="resource-link" target="_blank">墨殇博客 『Cloudflare Pages』</a></li>
                     <li class="resource-tag"><a href="https://momoboke.cc.cd/" class="resource-link" target="_blank">墨殇博客『域名』</a></li>
                     <li class="resource-tag"><a href="/momo/画廊/hl.html" class="resource-link" target="_blank">画廊</a></li>
                 </ul>
             </div>
-
-            <!-- 赞赏 -->
             <div class="link-group">
                 <h3 class="link-title">赞赏</h3>
                 <ul class="group-list">
                     <li class="resource-tag"><a href="/momo/赞赏/zs.html" class="resource-link" target="_blank">赞赏页面</a></li>
                 </ul>
             </div>
-
         </div>
     </section>
 
-    <!-- ===== 页脚 ===== -->
+    <!-- 底部 -->
     <footer>
         <p>整理者：墨殇（酷安@墨迹染流年）· 所有主题均为原创制作</p>
         <p>温馨提示：加群仅提供交流平台，主要分享书籍资源及主题讨论</p>
@@ -559,79 +603,72 @@
         
     <script src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer>
     </script>
-    
-    <!-- ===== 交互脚本 ===== -->
+
     <script>
-        // 平滑滚动
+        // 平滑锚点滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
         });
 
         // 折叠按钮
-        const collapseBtns = document.querySelectorAll('.collapse-btn');
-        collapseBtns.forEach(btn => {
+        document.querySelectorAll('.collapse-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                const targetContainer = document.getElementById(targetId);
-                targetContainer.classList.toggle('collapsed');
-                this.textContent = targetContainer.classList.contains('collapsed') ? '▲' : '▼';
+                const container = document.getElementById(this.dataset.target);
+                if (!container) return;
+                container.classList.toggle('collapsed');
+                this.textContent = container.classList.contains('collapsed') ? '▲' : '▼';
             });
         });
 
-        // ---- 运行天数更新（含“年”） ----
+        // 运行天数计时（含年）
         (function() {
-            const runtimeEl = document.getElementById('site-runtime');
-            if (!runtimeEl) return;
-            const sinceStr = runtimeEl.getAttribute('data-since');
-            if (!sinceStr) return;
-            const startDate = new Date(sinceStr + 'T00:00:00');
-            if (isNaN(startDate.getTime())) return;
+            const el = document.getElementById('site-runtime');
+            if (!el) return;
+            const since = el.dataset.since;
+            if (!since) return;
+            const start = new Date(since + 'T00:00:00');
+            if (isNaN(start.getTime())) return;
 
-            const yearsEl = document.getElementById('runtime-years');
-            const daysEl = document.getElementById('runtime-days');
-            const hoursEl = document.getElementById('runtime-hours');
-            const minutesEl = document.getElementById('runtime-minutes');
-            const secondsEl = document.getElementById('runtime-seconds');
+            const yEl = document.getElementById('runtime-years');
+            const dEl = document.getElementById('runtime-days');
+            const hEl = document.getElementById('runtime-hours');
+            const mEl = document.getElementById('runtime-minutes');
+            const sEl = document.getElementById('runtime-seconds');
 
-            function padZero(num) {
-                return String(num).padStart(2, '0');
-            }
+            const pad = n => String(n).padStart(2, '0');
 
-            function updateRuntime() {
+            function update() {
                 const now = new Date();
-                const diffMs = now.getTime() - startDate.getTime();
-                if (diffMs < 0) {
-                    yearsEl.textContent = '0';
-                    daysEl.textContent = '0';
-                    hoursEl.textContent = '00';
-                    minutesEl.textContent = '00';
-                    secondsEl.textContent = '00';
+                let diff = (now - start) / 1000;
+                if (diff < 0) {
+                    yEl.textContent = '0';
+                    dEl.textContent = '0';
+                    hEl.textContent = '00';
+                    mEl.textContent = '00';
+                    sEl.textContent = '00';
                     return;
                 }
-                const diffSec = Math.floor(diffMs / 1000);
-                const totalDays = Math.floor(diffSec / 86400);
+                const totalDays = Math.floor(diff / 86400);
                 const years = Math.floor(totalDays / 365);
                 const days = totalDays % 365;
-                const hours = Math.floor((diffSec % 86400) / 3600);
-                const minutes = Math.floor((diffSec % 3600) / 60);
-                const seconds = diffSec % 60;
+                const hours = Math.floor((diff % 86400) / 3600);
+                const minutes = Math.floor((diff % 3600) / 60);
+                const seconds = Math.floor(diff % 60);
 
-                yearsEl.textContent = years;
-                daysEl.textContent = days;
-                hoursEl.textContent = padZero(hours);
-                minutesEl.textContent = padZero(minutes);
-                secondsEl.textContent = padZero(seconds);
+                yEl.textContent = years;
+                dEl.textContent = days;
+                hEl.textContent = pad(hours);
+                mEl.textContent = pad(minutes);
+                sEl.textContent = pad(seconds);
             }
 
-            updateRuntime();
-            setInterval(updateRuntime, 1000);
+            update();
+            setInterval(update, 1000);
         })();
     </script>
-
 </body>
 </html>
