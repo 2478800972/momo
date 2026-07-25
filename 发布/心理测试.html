@@ -448,7 +448,7 @@ class TestEngine {
     this.progressText = null;
     this.submitBtn = null;
     this.liveRegion = document.getElementById('liveRegion');
-    this.isShareMode = false;  // 标记是否从分享链接进入
+    this.isShareMode = false;
     this.initTestSelector();
     this.handleUrlParams();
   }
@@ -459,7 +459,6 @@ class TestEngine {
     const resultParam = params.get('result');
     if (resultParam) {
       try {
-        // 格式: testId|typeKey|confidence
         const parts = resultParam.split('|');
         if (parts.length >= 2) {
           const testId = parts[0];
@@ -469,11 +468,9 @@ class TestEngine {
             this.currentTestId = testId;
             this.config = TEST_REGISTRY[testId];
             this.isShareMode = true;
-            // 直接显示结果（无需答题）
             this.submitted = true;
             this.updateTestSelector();
             this.updateHero();
-            // 构造结果数据
             const type = this.config.typeProfiles.find(p => p.key === typeKey);
             if (type) {
               const scores = {};
@@ -481,7 +478,6 @@ class TestEngine {
                 scores[d] = type.target[d] || 50;
               });
               this.renderResultFromType(type, scores, confidence);
-              // 清除URL参数，避免刷新再次触发
               if (window.history && window.history.replaceState) {
                 const cleanUrl = window.location.href.split('?')[0];
                 window.history.replaceState({}, document.title, cleanUrl);
@@ -494,7 +490,6 @@ class TestEngine {
         console.warn('解析分享参数失败', e);
       }
     }
-    // 正常启动：加载默认测试（或从localStorage恢复）
     const firstId = Object.keys(TEST_REGISTRY)[0];
     if (firstId) this.switchTest(firstId);
   }
@@ -515,12 +510,10 @@ class TestEngine {
       else label = TEST_REGISTRY[id].title;
       btn.textContent = label;
       btn.onclick = () => {
-        // 如果当前是分享模式，切换测试时退出分享模式
         if (this.isShareMode) {
           this.isShareMode = false;
           this.submitted = false;
           this.answers = {};
-          // 清除可能残留的URL参数
           if (window.history && window.history.replaceState) {
             const cleanUrl = window.location.href.split('?')[0];
             window.history.replaceState({}, document.title, cleanUrl);
@@ -552,6 +545,30 @@ class TestEngine {
     this.announce('已切换到 ' + this.config.title);
   }
 
+  // ---- 动态更新分享卡片 meta 标签 ----
+  updateMetaTags(title, desc) {
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (!ogTitle) {
+      ogTitle = document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      document.head.appendChild(ogTitle);
+    }
+    ogTitle.setAttribute('content', title);
+
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    if (!ogDesc) {
+      ogDesc = document.createElement('meta');
+      ogDesc.setAttribute('property', 'og:description');
+      document.head.appendChild(ogDesc);
+    }
+    ogDesc.setAttribute('content', desc);
+
+    let descMeta = document.querySelector('meta[name="description"]');
+    if (descMeta) {
+      descMeta.setAttribute('content', desc);
+    }
+  }
+
   // ---- 更新按钮高亮 ----
   updateTestSelector() {
     document.querySelectorAll('.test-btn').forEach(btn => {
@@ -569,6 +586,10 @@ class TestEngine {
     if (h1) h1.textContent = this.config.title;
     if (p) p.textContent = this.config.subtitle;
     document.title = this.config.title + '｜多选心理测试';
+    // 答题页更新卡片为默认信息
+    if (!this.submitted || this.isShareMode === false) {
+      this.updateMetaTags(this.config.title, this.config.subtitle);
+    }
   }
 
   // ---- 本地存储 ----
@@ -700,6 +721,10 @@ class TestEngine {
       if (this.submitBtn) {
         this.submitBtn.disabled = (completed !== total);
       }
+      // 更新分享卡片为默认信息
+      if (!this.isShareMode) {
+        this.updateMetaTags(this.config.title, this.config.subtitle);
+      }
       return;
     }
 
@@ -780,6 +805,11 @@ class TestEngine {
         }
       };
     }
+
+    // 更新分享卡片为默认信息（非分享模式）
+    if (!this.isShareMode) {
+      this.updateMetaTags(this.config.title, this.config.subtitle);
+    }
   }
 
   updateProgress(completed, total) {
@@ -814,6 +844,11 @@ class TestEngine {
 
     const top = Object.entries(scores).sort((a, b) => b[1] - a[1]).slice(0, 4);
     document.title = result.name + '｜' + this.config.title;
+
+    // 更新分享卡片为结果信息
+    const metaTitle = result.name + '｜' + this.config.title;
+    const metaDesc = result.summary;
+    this.updateMetaTags(metaTitle, metaDesc);
 
     const shareBadge = this.isShareMode ? '<div class="share-badge">📎 好友分享的结果</div>' : '';
 
@@ -914,7 +949,6 @@ class TestEngine {
       }
     };
 
-    // ---- 分享功能 ----
     document.getElementById('shareBtn').onclick = () => {
       const shareData = {
         title: this.config.title,
@@ -927,7 +961,6 @@ class TestEngine {
       if (navigator.share) {
         navigator.share(shareData).catch(() => {});
       } else {
-        // 降级：复制链接
         const url = shareData.url;
         if (navigator.clipboard && location.protocol === 'https:') {
           navigator.clipboard.writeText(url).then(() => {
