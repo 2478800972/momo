@@ -448,6 +448,8 @@ class TestEngine {
     this.submitBtn = null;
     this.liveRegion = document.getElementById('liveRegion');
     this.isShareMode = false;
+    // 新增：记录上次渲染的测试ID，用于判断是否需要重新生成题目
+    this._lastRenderedTestId = null;
     this.initTestSelector();
     this.handleUrlParams();
   }
@@ -723,16 +725,15 @@ class TestEngine {
     return '<div class="bar"><div class="bar-fill ' + (white ? 'white-fill' : '') + '" style="width:' + v + '%"></div></div>';
   }
 
-  // ---- 渲染题目（增量更新） ----
+  // ---- 渲染题目（增量更新，增加测试ID判断） ----
   renderQuestions() {
-    // 确保 hero 显示当前测试的标题和副标题
     this.updateHero();
-
     const app = document.getElementById('app');
     const total = this.config.questions.length;
     const completed = Object.keys(this.answers).length;
 
-    if (this.questionsContainer && app.contains(this.questionsContainer)) {
+    // 只有容器存在、当前测试ID与上次渲染一致时才做增量更新
+    if (this.questionsContainer && app.contains(this.questionsContainer) && this._lastRenderedTestId === this.currentTestId) {
       this.updateProgress(completed, total);
       document.querySelectorAll('.opt').forEach(btn => {
         const qId = Number(btn.dataset.q);
@@ -747,6 +748,9 @@ class TestEngine {
       }
       return;
     }
+
+    // 需要重新生成题目
+    this._lastRenderedTestId = this.currentTestId;
 
     const html = `
       <section class="progress-card card" id="progressCard">
@@ -857,9 +861,10 @@ class TestEngine {
   }
 
   _renderResultDirect(result, scores) {
-    // 确保 hero 显示
-    this.updateHero();
+    // 进入结果页时，清空上次渲染的测试ID，以便从结果切回题目时重新渲染
+    this._lastRenderedTestId = null;
 
+    this.updateHero();
     const app = document.getElementById('app');
     const dims = this.config.dimensions;
     const hints = this.config.dimensionHints || {};
