@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>多选心理测试平台</title>
+  <meta name="description" content="自选测试：女同关系气场、16型人格，更多敬请期待。">
+  <!-- Open Graph 基础 -->
+  <meta property="og:title" content="多选心理测试平台">
+  <meta property="og:description" content="探索你的关系气质或人格类型。">
+  <meta property="og:type" content="website">
+  <style>
+    /* ===== 全局样式 ===== */
+    :root{
+      --bg:#0f0f14;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.68);
+      --card:rgba(255,255,255,.075);
+      --card2:rgba(255,255,255,.055);
+      --line:rgba(255,255,255,.11);
+      --pink:#f472b6;
+      --violet:#a78bfa;
+      --focus-ring:0 0 0 3px rgba(244,114,182,0.6);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+      line-height:1.6;
+    }
+    button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+    .page{min-height:100vh;position:relative;overflow-x:hidden}
+    .glow{position:fixed;border-radius:999px;filter:blur(72px);pointer-events:none;opacity:.7}
+    .g1{width:18rem;height:18rem;left:25%;top:0;background:rgba(236,72,153,.20)}
+    .g2{width:24rem;height:24rem;right:20%;top:10rem;background:rgba(139,92,246,.20)}
+    .g3{width:24rem;height:24rem;left:33%;bottom:0;background:rgba(6,182,212,.10)}
+    main{position:relative;max-width:1024px;margin:0 auto;padding:42px 16px 64px}
+    .hero{text-align:center;margin-bottom:38px;animation:up .45s ease both}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.08);
+      padding:8px 16px;border-radius:999px;
+      color:rgba(255,255,255,.75);
+      font-size:14px;backdrop-filter:blur(12px)
+    }
+    h1{
+      font-size:clamp(36px,7vw,64px);
+      line-height:1.05;margin:24px 0 0;
+      font-weight:650;letter-spacing:-.04em
+    }
+    .hero p{max-width:700px;margin:20px auto 0;line-height:2;color:var(--muted);font-size:clamp(16px,2vw,18px)}
+    .card{
+      border:1px solid var(--line);
+      background:var(--card);
+      border-radius:28px;
+      color:white;
+      backdrop-filter:blur(16px);
+      box-shadow:0 20px 70px rgba(0,0,0,.18)
+    }
+    .card-inner{padding:22px}
+    .progress-card{margin-bottom:20px}
+    .progress-top{display:flex;justify-content:space-between;gap:14px;align-items:center}
+    .progress-top h2{font-size:20px;margin:0}
+    .progress-top p{margin:6px 0 0;color:rgba(255,255,255,.58);font-size:14px}
+    .bar{height:8px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden}
+    .bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#f472b6,#a78bfa);transition:width .35s ease}
+    .white-fill{background:rgba(255,255,255,.82)}
+    .questions{display:grid;gap:18px}
+    .q-card{animation:up .35s ease both}
+    .q-flex{display:flex;gap:16px}
+    .q-num{flex:0 0 auto;width:36px;height:36px;border-radius:999px;background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;font-weight:650;font-size:14px}
+    .q-text{font-size:17px;line-height:1.75;margin:0;font-weight:550}
+    .opts{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:18px}
+    .opt{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.055);
+      color:rgba(255,255,255,.72);
+      border-radius:18px;
+      padding:12px 6px;
+      font-size:13px;
+      cursor:pointer;
+      transition:.18s ease;
+      min-height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    .opt:hover{background:rgba(255,255,255,.10)}
+    .opt.active{
+      border-color:#f9a8d4;
+      background:rgba(244,114,182,.26);
+      color:white;
+      box-shadow:0 10px 26px rgba(236,72,153,.12)
+    }
+    .opt:focus-visible{outline:2px solid var(--pink); outline-offset:2px}
+    .scale-help{display:flex;justify-content:space-between;color:rgba(255,255,255,.35);font-size:11px;margin-top:8px;padding:0 4px}
+    .sticky{position:sticky;bottom:16px;z-index:20;display:flex;justify-content:center;padding-top:8px}
+    .btn{
+      border:0;border-radius:999px;padding:16px 28px;font-size:16px;
+      cursor:pointer;transition:.18s ease;display:inline-flex;
+      align-items:center;justify-content:center;gap:8px
+    }
+    .btn-white{background:white;color:#09090b}
+    .btn-white:hover{background:rgba(255,255,255,.9)}
+    .btn-white:disabled{background:rgba(255,255,255,.20);color:rgba(255,255,255,.45);cursor:not-allowed}
+    .btn-outline{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.20);color:white}
+    .btn-outline:hover{background:rgba(255,255,255,.10)}
+    .result-wrap{display:grid;gap:22px;animation:up .45s ease both}
+    .result-hero{overflow:hidden;border-radius:32px;border:1px solid rgba(255,255,255,.10);box-shadow:0 24px 90px rgba(0,0,0,.25)}
+    .result-gradient{padding:30px;background:linear-gradient(135deg,var(--c1),var(--c2),var(--c3));text-shadow:0 1px 4px rgba(0,0,0,0.3)}
+    .result-grid{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start}
+    .result-title{font-size:clamp(52px,8vw,76px);line-height:1;margin:24px 0 8px;font-weight:680;letter-spacing:-.05em}
+    .english{font-size:20px;color:rgba(255,255,255,.78);margin:0}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+    .tag{border-radius:999px;background:rgba(255,255,255,.16);padding:6px 12px;font-size:14px}
+    .topdims{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:28px}
+    .dimtile{background:rgba(0,0,0,.18);border-radius:20px;padding:14px}
+    .dimrow{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:9px}
+    .score-panel{background:rgba(255,255,255,.13);border-radius:24px;padding:22px;backdrop-filter:blur(12px)}
+    .confidence{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:rgba(255,255,255,.76);font-size:14px}
+    .confidence b{font-size:26px;color:white}
+    .compact-bars{display:grid;gap:12px;margin-top:20px}
+    .compact-row{display:grid;grid-template-columns:92px 1fr 42px;gap:10px;align-items:center;font-size:13px}
+    .compact-row span:first-child{color:rgba(255,255,255,.75)}
+    .compact-row span:last-child{text-align:right;font-weight:650}
+    .two-col{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .section-title{font-size:20px;margin:0 0 14px;font-weight:650}
+    .body-text{color:rgba(255,255,255,.72);line-height:2;margin:12px 0}
+    .alt-list{display:grid;gap:12px}
+    .alt{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.06);border-radius:18px;padding:14px}
+    .alt-left{display:flex;align-items:center;gap:12px}
+    .alt-icon{width:40px;height:40px;border-radius:999px;background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center}
+    .alt-name{font-weight:600}
+    .alt-en{font-size:12px;color:rgba(255,255,255,.45);margin-top:3px}
+    .dimension-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .dimension-box{background:rgba(255,255,255,.06);border-radius:18px;padding:14px}
+    .hint{font-size:12px;color:rgba(255,255,255,.40);line-height:1.65;margin:8px 0 0}
+    .reward-card{
+      overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.11);
+      background:radial-gradient(circle at 15% 10%, rgba(244,114,182,.16), transparent 35%),
+                radial-gradient(circle at 85% 35%, rgba(167,139,250,.16), transparent 38%),
+                rgba(255,255,255,.075);
+      border-radius:28px;backdrop-filter:blur(16px)
+    }
+    .reward-inner{padding:24px;display:grid;grid-template-columns:1fr 220px;gap:24px;align-items:center}
+    .reward-eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(249,168,212,.22);background:rgba(249,168,212,.10);color:rgba(255,228,240,.95);padding:7px 12px;border-radius:999px;font-size:14px}
+    .reward-title{font-size:24px;margin:18px 0 10px}
+    .reward-text{color:rgba(255,255,255,.68);line-height:1.9;margin:0}
+    .reward-note{color:rgba(255,255,255,.42);font-size:13px;line-height:1.8;margin:10px 0 0}
+    .qr-box{background:#fff;color:#111;border-radius:24px;padding:12px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.22)}
+    .qr-img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;display:block}
+    .qr-fallback{width:100%;aspect-ratio:1/1;border-radius:16px;background:#f4f4f5;color:#71717a;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:14px}
+    .qr-fallback .qr-icon{font-size:44px;line-height:1}
+    .qr-fallback p{font-size:12px;line-height:1.55;margin:12px 0 0}
+    .qr-caption{font-size:14px;font-weight:650;margin:10px 0 0}
+    .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .share-badge{display:inline-block;background:rgba(255,215,0,0.2);border:1px solid gold;border-radius:999px;padding:4px 12px;font-size:12px;color:gold;margin-bottom:10px;}
+    footer{text-align:center;margin-top:54px;color:rgba(255,255,255,.40);font-size:12px;line-height:1.8}
+    @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:760px){
+      main{padding-top:34px}
+      .card-inner{padding:18px}
+      .q-flex{gap:12px}
+      .q-text{font-size:16px}
+      .opts{gap:5px}
+      .opt{font-size:13px;padding:12px 2px;border-radius:14px}
+      .opt .full{display:none}
+      .scale-help{display:none}
+      .result-grid,.two-col,.dimension-grid,.reward-inner{grid-template-columns:1fr}
+      .result-gradient{padding:22px}
+      .score-panel{width:100%}
+      .topdims{grid-template-columns:1fr}
+      .compact-row{grid-template-columns:86px 1fr 38px}
+      .qr-box{max-width:220px;margin:0 auto}
+      .g1{left:-20%;top:0}.g2{right:-30%;top:15rem}
+    }
+    @media(min-width:761px){.opt .short{display:none}}
+
+    .test-selector{
+      display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:28px;
+    }
+    .test-btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.7);padding:10px 22px;border-radius:999px;
+      cursor:pointer;font-size:15px;transition:.2s;backdrop-filter:blur(8px);
+    }
+    .test-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+    .test-btn.active{
+      background:rgba(244,114,182,.25);border-color:#f472b6;color:#fff;
+      box-shadow:0 0 20px rgba(244,114,182,.15);
+    }
+    .test-btn:focus-visible{outline:2px solid var(--pink); outline-offset:2px}
+    #liveRegion {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="glow g3"></div>
+  <main>
+    <div class="test-selector" id="testSelector" role="tablist" aria-label="选择测试类型"></div>
+    <div id="app" role="main"></div>
+    <footer>本测试仅用于娱乐与自我探索，不构成专业心理评估。</footer>
+  </main>
+  <div id="liveRegion" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script>
+// ============================================================
+// 1. 配置定义
+// ============================================================
+const SCALE_LABELS = ['完全不符合','很不符合','有点不符合','不确定 / 看情况','有点符合','比较符合','非常符合'];
+
+// ---- 女同关系气场 ----
+const lesbianConfig = {
+  id: 'lesbian',
+  title: '女同关系气场测评',
+  subtitle: '不再只判断你是 0 还是 1，而是从主导感、照顾倾向、交出控制、精神恋爱、依恋模式、撩拨张力、边界感、占有欲与社交显性度中，测出更细的关系气质类型。',
+  dimensions: {
+    dominance:"主导感",
+    caretaker:"照顾倾向",
+    surrender:"交出控制",
+    romantic:"精神恋爱",
+    attachment:"依恋强度",
+    teasing:"撩拨张力",
+    avoidance:"回避边界",
+    softness:"妹感柔软度",
+    initiative:"行动推进力",
+    possessive:"占有欲表达",
+    socialHeat:"社交显性度",
+    security:"安全感需求"
+  },
+  dimensionHints: {
+    dominance:"你在关系中是否自然控场、定节奏、做决定。",
+    caretaker:"你是否倾向于照顾、安抚、托住对方情绪。",
+    surrender:"你是否愿意在信任关系里交出控制权。",
+    romantic:"你是否更重视精神共鸣、氛围、灵魂感。",
+    attachment:"你对亲密连接、持续回应、关系绑定的需求强度。",
+    teasing:"你是否享受暧昧、拉扯、危险甜感与张力。",
+    avoidance:"你在亲密关系里保留空间、边界和逃跑机制的强度。",
+    softness:"你是否容易表现出柔软、撒娇、被宠、妹感的一面。",
+    initiative:"你是否会主动推进聊天、见面、确认关系和解决问题。",
+    possessive:"你是否喜欢明确偏爱、占有表达和排他感。",
+    socialHeat:"你在群体场域里的外放程度、可见度和吸引力。",
+    security:"你对稳定、确定性、承诺和可预期回应的需要。"
+  },
+  questions: [
+    [1,"在一群人里，我通常会自然接管节奏和决定。",{dominance:2,initiative:1}],
+    [2,"如果对方太强势，我会本能地想“压回去”。",{dominance:2,teasing:1,surrender:-1}],
+    [3,"比起被照顾，我更习惯照顾别人。",{caretaker:2,dominance:1,softness:-1}],
+    [4,"我很容易对“脆弱感”产生保护欲。",{caretaker:2,attachment:1}],
+    [5,"别人过度安排我时，我会明显不舒服。",{avoidance:2,dominance:1,surrender:-1}],
+    [6,"我会下意识观察对方情绪变化，并调整自己。",{caretaker:1,attachment:1,security:1}],
+    [7,"我喜欢关系里那种“被偏爱”的感觉。",{softness:2,attachment:1,possessive:1}],
+    [8,"如果对象很会撒娇，我大概率会心软。",{caretaker:2,softness:1}],
+    [9,"我其实很享受被强势的人拿捏。",{surrender:2,softness:1,dominance:-1}],
+    [10,"比起热烈推进关系，我更喜欢慢慢靠近。",{romantic:2,avoidance:1,initiative:-1}],
+    [11,"我更容易被“气场”吸引，而不是外貌。",{romantic:1,teasing:1}],
+    [12,"我喜欢关系里存在明显的张力感和拉扯感。",{teasing:2,attachment:1}],
+    [13,"如果对象一直很乖，我反而会想逗她、欺负她。",{teasing:2,dominance:1}],
+    [14,"我喜欢被对方主动、坚定地表达占有欲。",{surrender:2,attachment:1,possessive:1}],
+    [15,"亲密关系中，“精神共鸣”对我来说比形式更重要。",{romantic:2}],
+    [16,"我对“制服感”“反差感”“危险感”会有明显心动。",{teasing:2,romantic:1}],
+    [17,"吵架时，我更容易先冷静下来处理问题。",{caretaker:1,dominance:1,avoidance:1,security:1}],
+    [18,"我其实挺喜欢被哄。",{softness:2,surrender:1,security:1}],
+    [19,"我更容易喜欢需要引导、需要被带着走的人。",{caretaker:2,dominance:1}],
+    [20,"如果对象太黏，我会想逃。",{avoidance:2,attachment:-1,security:-1}],
+    [21,"关系里我很难完全失控。",{dominance:2,avoidance:1,surrender:-1}],
+    [22,"我会通过一些小动作故意撩拨对方反应。",{teasing:2,socialHeat:1}],
+    [23,"我很容易被“温柔但危险”的人吸引。",{surrender:1,romantic:1,teasing:1}],
+    [24,"我理想中的关系，更像“灵魂绑定”而不是普通恋爱模板。",{romantic:2,attachment:1,security:1}],
+    [25,"我喜欢主动开启聊天、约见面、推进关系，而不是一直等。",{initiative:2,dominance:1}],
+    [26,"我嘴上说随便，但心里其实很在意对方有没有把我放在第一位。",{attachment:2,possessive:1,security:1}],
+    [27,"我可以很会照顾人，但不喜欢对方把我的照顾当理所当然。",{caretaker:2,avoidance:1,security:1}],
+    [28,"我在暧昧期容易上头，会反复解读对方的每句话。",{attachment:2,romantic:1,security:1}],
+    [29,"我更喜欢对方直接一点，不要让我猜。",{security:2,initiative:1,romantic:-1}],
+    [30,"我表面看起来淡，其实内心戏很多。",{romantic:1,attachment:1,avoidance:1}],
+    [31,"我不介意在关系里显得黏人，只要对方也给我回应。",{attachment:2,softness:1,security:1}],
+    [32,"我可以接受暧昧很久，但不能接受对方没有态度。",{romantic:1,security:2,possessive:1}],
+    [33,"我在喜欢的人面前会明显变软，甚至和平时很不一样。",{softness:2,surrender:1}],
+    [34,"我喜欢那种“她只对我不一样”的感觉。",{possessive:2,attachment:1,romantic:1}],
+    [35,"如果我真的喜欢一个人，我会愿意为她安排很多细节。",{caretaker:2,initiative:1}],
+    [36,"我对边界很敏感，哪怕很喜欢也需要自己的空间。",{avoidance:2,security:1}],
+    [37,"我在社交场合容易被人注意到，哪怕我不是故意表现。",{socialHeat:2,dominance:1}],
+    [38,"我喜欢高调一点的互动，比如公开偏爱、明显站队、给足排面。",{socialHeat:1,possessive:2,attachment:1}],
+    [39,"我更喜欢低调稳定的关系，不太喜欢被围观。",{avoidance:1,security:2,socialHeat:-1}],
+    [40,"我会被那种“冷脸但只对我温柔”的人击中。",{romantic:1,possessive:1,surrender:1}],
+    [41,"我有时会故意装作不在意，看对方会不会追上来。",{teasing:2,avoidance:1,attachment:1}],
+    [42,"我不太会撒娇，但我会用行动证明我在乎。",{caretaker:1,initiative:1,softness:-1}],
+    [43,"我很吃姐姐感、成熟感、能稳住场面的气质。",{surrender:1,security:1,romantic:1}],
+    [44,"我很吃妹妹感、直球感、可爱但有点小作的气质。",{caretaker:1,teasing:1,softness:1}],
+    [45,"我越喜欢一个人，越容易嘴硬。",{avoidance:1,teasing:1,attachment:1}],
+    [46,"我喜欢关系里有明确的位置感：你是我的，我也是你的。",{possessive:2,attachment:1,security:1}],
+    [47,"我能在关系里切换状态：有时很强势，有时又很想被抱住。",{dominance:1,surrender:1,softness:1,attachment:1}],
+    [48,"我不喜欢被简单归类成0或1，我的状态要看人、看阶段、看氛围。",{romantic:1,avoidance:1,teasing:1}]
+  ],
+  typeProfiles: [
+    {key:"steelTop",name:"钢铁纯1",english:"Commander Type",icon:"Crown",colors:["#09090b","#292524","#3f3f46"],target:{dominance:90,caretaker:62,surrender:18,romantic:45,attachment:45,teasing:45,avoidance:55,softness:18,initiative:82,possessive:42,socialHeat:55,security:48},weights:{dominance:1.35,surrender:1.25,softness:1.15,initiative:1.2},tags:["控场","不爱失控","行动派","顶级定心丸"],summary:"你的人际核心能量是控场。你不一定外放强势，但很容易成为推进关系、稳定局面和决定节奏的人。",detail:"你不是没有柔软面，而是不会轻易把失控交给别人。你会被真诚、清醒、能接住你强度的人吸引。你适合的不是完全依附型对象，而是既能被你照顾，也能与你并肩的人。"},
+    {key:"gentleTop",name:"温柔铁T",english:"Soft Commander",icon:"Shield",colors:["#0f172a","#1e40af","#6366f1"],target:{dominance:78,caretaker:82,surrender:24,romantic:58,attachment:56,teasing:36,avoidance:42,softness:32,initiative:74,possessive:48,socialHeat:42,security:65},weights:{dominance:1.1,caretaker:1.35,surrender:1,security:1.1},tags:["温柔主导","会托底","低攻击性","安全感制造机"],summary:"你的主导感不是压迫式的，而是稳定、细致、可靠。你更像关系里的锚点：不一定说很多狠话，但会把事情做稳。",detail:"你很适合需要稳定回应的人。你的危险点是过度承担，容易把对方的问题也变成自己的责任。真正适合你的人，会珍惜你的照顾，而不是消耗你的耐心。"},
+    {key:"devotionalTop",name:"M1",english:"Devotional Top",icon:"HandHeart",colors:["#b91c1c","#db2777","#f43f5e"],target:{dominance:68,caretaker:92,surrender:38,romantic:56,attachment:68,teasing:42,avoidance:24,softness:42,initiative:72,possessive:62,socialHeat:36,security:76},weights:{caretaker:1.45,attachment:1.1,avoidance:1},tags:["奉献型主导","保护欲","服务型强势","爱得很实用"],summary:"你喜欢主导，但你的主导本质是投入和照顾。你享受对方依赖你，也享受为对方创造安全感。",detail:"你是那种会记住细节、安排细节、用行动表达喜欢的人。你最需要警惕的是：别把单向付出误以为是稳定关系。你值得被同等认真地回应。"},
+    {key:"princessTop",name:"妹感姐",english:"Princess Top",icon:"Sparkles",colors:["#db2777","#f43f5e","#fdba74"],target:{dominance:68,caretaker:48,surrender:28,romantic:58,attachment:66,teasing:62,avoidance:34,softness:82,initiative:62,possessive:68,socialHeat:70,security:58},weights:{softness:1.25,dominance:1.15,teasing:1.05},tags:["软性掌控","被宠型主导","甜味控制","反差感"],summary:"你看起来像需要被宠的人，但节奏经常在你手里。你不是压迫型人格，而是甜味控制型人格。",detail:"你的主导方式通常不是命令，而是情绪牵引、撒娇、试探和让对方主动靠近。你适合能看懂你小心思、又愿意给你排面的人。"},
+    {key:"queenBee",name:"钓系女王",english:"Queen Bee Flirt",icon:"Gem",colors:["#86198f","#db2777","#facc15"],target:{dominance:74,caretaker:35,surrender:22,romantic:52,attachment:48,teasing:92,avoidance:48,softness:56,initiative:68,possessive:62,socialHeat:92,security:38},weights:{teasing:1.45,socialHeat:1.25,dominance:1.05},tags:["钓系","高吸引力","会拉扯","不轻易交底"],summary:"你很懂氛围，也很懂人的反应。你不是单纯暧昧，而是能精准制造心动和不确定感。",detail:"你的魅力在于可见但不可完全掌控。你适合高自信、边界稳定、不会被你一点小拉扯就失衡的人。否则关系容易从好玩变成消耗。"},
+    {key:"dangerBottom",name:"危险甜0",english:"Dangerous Bottom",icon:"Flame",colors:["#0c0a09","#7f1d1d","#be123c"],target:{dominance:38,caretaker:42,surrender:78,romantic:62,attachment:68,teasing:88,avoidance:42,softness:68,initiative:45,possessive:74,socialHeat:58,security:58},weights:{surrender:1.25,teasing:1.35,possessive:1.1},tags:["表面温顺","心理控制","危险甜感","拉扯高手"],summary:"你未必拥有名义上的主导权，但经常拥有真正的心理控制权。",detail:"你擅长让对方产生保护欲、占有欲和失控感。你的魅力来自柔软与危险之间的摇摆。你适合有定力、有表达、也能承受张力的人。"},
+    {key:"goldenBottom",name:"金毛直球0",english:"Golden Retriever Bottom",icon:"PawPrint",colors:["#f59e0b","#fb923c","#fde047"],target:{dominance:28,caretaker:48,surrender:72,romantic:48,attachment:88,teasing:34,avoidance:14,softness:86,initiative:58,possessive:68,socialHeat:48,security:86},weights:{attachment:1.3,softness:1.25,avoidance:1.1,security:1.1},tags:["贴贴","直给","被偏爱","安全感优先"],summary:"你的人格核心是情感连接。比起权力关系，你更在意稳定回应、明确偏爱和被坚定选择。",detail:"你适合情绪稳定、表达清楚、行动持续的人。你的可爱不是幼稚，而是愿意把喜欢表达得很具体。你的雷区是被冷处理和被吊着。"},
+    {key:"catBottom",name:"猫系嘴硬0",english:"Tsundere Cat Bottom",icon:"Cat",colors:["#171717","#7e22ce","#06b6d4"],target:{dominance:36,caretaker:36,surrender:66,romantic:62,attachment:74,teasing:70,avoidance:76,softness:62,initiative:34,possessive:70,socialHeat:42,security:58},weights:{avoidance:1.3,attachment:1.1,teasing:1.1,surrender:1.05},tags:["嘴硬","要哄","口是心非","越喜欢越装"],summary:"你不是不需要爱，你只是很难直接说。你越在意，越可能表现得像“不在意”。",detail:"你需要的是能看懂你别扭的人，但也要小心别让对方一直猜。真正成熟的亲密关系不是谁赢谁输，而是你可以逐渐安全地表达需要。"},
+    {key:"caretakerBottom",name:"姐感0",english:"Caretaker Bottom",icon:"Coffee",colors:["#1e293b","#4338ca","#8b5cf6"],target:{dominance:52,caretaker:86,surrender:66,romantic:58,attachment:72,teasing:38,avoidance:32,softness:58,initiative:64,possessive:62,socialHeat:34,security:82},weights:{caretaker:1.25,surrender:1.2,security:1.1},tags:["成熟","会照顾人","选择性交控","高信任门槛"],summary:"你不是弱，而是愿意让。你有很强的情绪稳定能力，但只会在真正信任的人面前交出控制权。",detail:"你的矛盾感很明显：外部世界里你能扛事、能处理问题、能照顾别人；进入亲密关系后，你也渴望被坚定选择、被强势安放。"},
+    {key:"phantomRomantic",name:"柏拉图幽灵",english:"Phantom Romantic",icon:"Moon",colors:["#2e1065","#7e22ce","#d946ef"],target:{dominance:34,caretaker:46,surrender:42,romantic:96,attachment:70,teasing:34,avoidance:62,softness:54,initiative:28,possessive:48,socialHeat:22,security:64},weights:{romantic:1.55,teasing:1,socialHeat:.9},tags:["精神恋爱","高理想化","灵魂共振","慢热"],summary:"你寻找的不是普通恋爱模板，而是灵魂共振。你会因为一句话、一个眼神、一段氛围而长久心动。",detail:"你对关系的要求不是低，而是精神密度很高。你的心动往往不靠猛烈推进，而靠不可言说的默契。你需要小心把想象中的对方看得比真实的对方更清晰。"},
+    {key:"icebergSapphic",name:"冰山长发h",english:"Iceberg Sapphic",icon:"Snowflake",colors:["#020617","#164e63","#0ea5e9"],target:{dominance:58,caretaker:42,surrender:28,romantic:72,attachment:42,teasing:44,avoidance:88,softness:28,initiative:36,possessive:34,socialHeat:34,security:52},weights:{avoidance:1.45,romantic:1.15,attachment:.9},tags:["冷感","慢热","高边界","只给特殊通行证"],summary:"你不是没有情绪，而是不轻易开放入口。你对亲密关系的边界感很强，喜欢慢慢确认对方是否值得进入。",detail:"你最容易被稳定、耐心、不逼迫的人打动。一旦你真的确认了安全感，你的偏爱会非常明显。但如果对方过度推进，你会迅速退回自己的壳里。"},
+    {key:"sunnyFemme",name:"阳光甜妹0.5",english:"Sunny Femme",icon:"Sun",colors:["#facc15","#f472b6","#fb923c"],target:{dominance:42,caretaker:54,surrender:58,romantic:62,attachment:82,teasing:50,avoidance:18,softness:92,initiative:72,possessive:64,socialHeat:76,security:78},weights:{softness:1.3,socialHeat:1.1,initiative:1,attachment:1},tags:["甜妹","直球","明亮感","喜欢就靠近"],summary:"你的喜欢通常很有生命力：会表达、会靠近、会给回应，也需要对方同样真诚。",detail:"你适合和表达稳定、情绪透明的人在一起。你不是没脾气，而是不喜欢长期冷战、猜谜和阴暗拉扯。你的关系关键词是明亮、具体、回应。"},
+    {key:"boundaryWitch",name:"边界感太强的那种姐",english:"Boundary Witch",icon:"Wand2",colors:["#022c22","#0f766e","#84cc16"],target:{dominance:62,caretaker:54,surrender:24,romantic:74,attachment:44,teasing:48,avoidance:92,softness:30,initiative:46,possessive:22,socialHeat:38,security:70},weights:{avoidance:1.55,possessive:.9,security:1.1},tags:["高边界","清醒","不被拿捏","独立恋爱脑绝缘体"],summary:"你有很强的自我边界和关系识别能力。你可以喜欢一个人，但很难因为喜欢就放弃自己的秩序。",detail:"你适合尊重空间、沟通成熟、不会用情绪勒索逼你表态的人。你的优点是清醒，风险是过度防御，可能在真正值得靠近的人面前也启动保护机制。"},
+    {key:"possessivePuppy",name:"占有欲小狗拉",english:"Possessive Puppy",icon:"LockKeyhole",colors:["#be123c","#ec4899","#f59e0b"],target:{dominance:38,caretaker:42,surrender:62,romantic:56,attachment:92,teasing:56,avoidance:18,softness:78,initiative:64,possessive:94,socialHeat:56,security:88},weights:{possessive:1.55,attachment:1.25,security:1.1},tags:["要名分","要偏爱","小狗占有欲","不接受模糊"],summary:"你需要的是明确位置感：你是我的，我也是你的。暧昧可以甜，但长期不确定会让你很难受。",detail:"你适合表达直接、边界清晰、愿意给你确定性的人。你不是控制狂，你只是很在意排他性和稳定承诺。要注意别用试探代替表达。"},
+    {key:"chaoticSwitch",name:"猫系0.5",english:"Chaotic Switch",icon:"Sparkles",colors:["#0e7490","#9333ea","#ec4899"],target:{dominance:72,caretaker:56,surrender:72,romantic:64,attachment:72,teasing:76,avoidance:50,softness:72,initiative:58,possessive:66,socialHeat:58,security:62},weights:{dominance:1.2,surrender:1.25,teasing:1.15,softness:1.1,attachment:1.05},tags:["看对象","看心情","高切换","反差人格"],summary:"你不是没有类型，而是关系状态真的会被对象强烈激发。你既有主导的一面，也有想被抱住、被拿捏、被哄住的一面。",detail:"遇到柔软的人，你可能变得强势；遇到强势的人，你又可能愿意交出节奏。你的关键词不是普通中间值，而是高流动、高反差和高对象依赖。你适合能接受复杂性、不急着给你贴死标签的人。"}
+  ],
+  icons: { Crown:"👑", Shield:"🛡️", HandHeart:"🤍", Sparkles:"✨", Gem:"💎", Flame:"🔥", PawPrint:"🐾", Cat:"🐈", Coffee:"☕", Moon:"🌙", Snowflake:"❄️", Sun:"☀️", Wand2:"🪄", LockKeyhole:"🔒" }
+};
+
+// ---- 16型人格 ----
+const mbtiConfig = {
+  id: 'mbti',
+  title: '16型人格气质测评',
+  subtitle: '基于荣格心理类型理论，从精力来源、认知方式、决策方式、生活态度四个维度，测出你的16型人格类型。请根据直觉作答，不要过度分析。',
+  dimensions: {
+    extraversion: "外向性 (E)",
+    introversion: "内向性 (I)",
+    intuition: "直觉 (N)",
+    sensing: "实感 (S)",
+    thinking: "思维 (T)",
+    feeling: "情感 (F)",
+    judging: "判断 (J)",
+    perceiving: "感知 (P)"
+  },
+  dimensionHints: {
+    extraversion: "你从外部世界获取能量的强度，喜欢人群和主动表达。",
+    introversion: "你从内心世界获取能量的强度，喜欢独处和深度思考。",
+    intuition: "你更关注抽象概念、未来可能性和事物之间的关联。",
+    sensing: "你更关注具体事实、当下细节和可验证的经验。",
+    thinking: "你倾向于用逻辑、客观标准和因果分析来做决定。",
+    feeling: "你倾向于用共情、个人价值观和人际和谐来做决定。",
+    judging: "你喜欢计划、条理和确定性，倾向于快速做出决策。",
+    perceiving: "你喜欢灵活、开放和随性，倾向于保持多种可能性。"
+  },
+  questions: [
+    [1,"参加社交活动后，我会感到精力充沛而不是疲惫。",{extraversion:2,introversion:-1}],
+    [2,"在人群中待久了，我迫切需要一个独处空间来充电。",{introversion:2,extraversion:-1}],
+    [3,"我喜欢主动和陌生人攀谈，甚至享受这种破冰过程。",{extraversion:2,introversion:-1}],
+    [4,"比起热闹的派对，我更喜欢待在家里或安静的角落。",{introversion:2,extraversion:-1}],
+    [5,"在团队讨论中，我往往是发言最多的那几个人之一。",{extraversion:1,introversion:-1}],
+    [6,"我更倾向于先听完所有人的观点，再决定是否发言。",{introversion:1,extraversion:-1}],
+    [7,"我很享受成为人群中的焦点或被大家注目。",{extraversion:2,introversion:-1}],
+    [8,"我不太喜欢被太多人关注，那会让我觉得不自在。",{introversion:2,extraversion:-1}],
+    [9,"线上聊天时我喜欢发语音或秒回，互动感强。",{extraversion:1,introversion:-1}],
+    [10,"线上聊天我经常已读不回，或者隔很久才回复。",{introversion:1,extraversion:-1}],
+    [11,"和朋友约饭或出去玩，能瞬间扫光我的坏心情。",{extraversion:2,introversion:-1}],
+    [12,"如果周末要被迫参加社交局，我会提前感到心累。",{introversion:2,extraversion:-1}],
+    [13,"我更喜欢思考未来的各种可能性，而不是眼前的细节。",{intuition:2,sensing:-1}],
+    [14,"我更容易记住具体的画面、颜色和事实数据。",{sensing:2,intuition:-1}],
+    [15,"我脑子里经常充满对未来的幻想和宏大计划。",{intuition:2,sensing:-1}],
+    [16,"我更关心此时此刻正在发生的具体事情。",{sensing:2,intuition:-1}],
+    [17,"看书或电影时，我更关注隐喻、象征和深层寓意。",{intuition:1,sensing:-1}],
+    [18,"看书或电影时，我更关注剧情逻辑和现实设定。",{sensing:1,intuition:-1}],
+    [19,"我更喜欢讨论抽象的理论概念，而不是实用操作手册。",{intuition:2,sensing:-1}],
+    [20,"我更喜欢学习能立刻用到生活或工作中的技能。",{sensing:2,intuition:-1}],
+    [21,"我的大脑总是同时运转着很多新奇的念头。",{intuition:2,sensing:-1}],
+    [22,"我做事习惯脚踏实地，非常看重现实条件的限制。",{sensing:2,intuition:-1}],
+    [23,"我看问题习惯先看整体轮廓和全景。",{intuition:1,sensing:-1}],
+    [24,"我看问题习惯先关注眼下具体的任务和步骤。",{sensing:1,intuition:-1}],
+    [25,"做决定时，逻辑分析和客观标准是我的第一依据。",{thinking:2,feeling:-1}],
+    [26,"做决定时，我非常在意这个决定对他人情绪的影响。",{feeling:2,thinking:-1}],
+    [27,"即使可能会伤感情，我也倾向于说出事实和真相。",{thinking:2,feeling:-1}],
+    [28,"为了维护气氛和谐，我会委婉包装自己的不同意见。",{feeling:2,thinking:-1}],
+    [29,"我认为理性思考比情感共鸣更能解决实际问题。",{thinking:1,feeling:-1}],
+    [30,"我认为共情能力比逻辑分析在人际中更重要。",{feeling:1,thinking:-1}],
+    [31,"处理人际矛盾时，我习惯列优缺点来分析对策。",{thinking:2,feeling:-1}],
+    [32,"处理人际矛盾时，我习惯用将心比心的方式去理解。",{feeling:2,thinking:-1}],
+    [33,"我不太容易被煽情或悲情的内容打动。",{thinking:1,feeling:-1}],
+    [34,"我非常容易被艺术、音乐或他人故事触动到落泪。",{feeling:1,thinking:-1}],
+    [35,"争论时，我关注的核心是谁的观点更正确。",{thinking:2,feeling:-1}],
+    [36,"争论时，我关注的核心是如何让双方都舒服地收场。",{feeling:2,thinking:-1}],
+    [37,"我喜欢提前制定详细的时间表并按部就班执行。",{judging:2,perceiving:-1}],
+    [38,"我更喜欢随遇而安，不喜欢被僵化的计划束缚。",{perceiving:2,judging:-1}],
+    [39,"把待办清单上的事项一项项划掉让我很有成就感。",{judging:2,perceiving:-1}],
+    [40,"我经常在临近截止日期时才匆忙把事情完成。",{perceiving:2,judging:-1}],
+    [41,"我喜欢生活井井有条，事情有始有终。",{judging:1,perceiving:-1}],
+    [42,"我喜欢保持灵活弹性，随时应对新变化。",{perceiving:1,judging:-1}],
+    [43,"我习惯了按部就班，不太喜欢计划被打乱。",{judging:2,perceiving:-1}],
+    [44,"我习惯了随机应变，常常不按常理出牌。",{perceiving:2,judging:-1}],
+    [45,"杂乱无章的环境会让我感到焦虑和烦躁。",{judging:1,perceiving:-1}],
+    [46,"即使在混乱中我依然能保持高效，不介意无序。",{perceiving:1,judging:-1}],
+    [47,"做项目时我喜欢尽早收尾，不喜欢拖泥带水。",{judging:2,perceiving:-1}],
+    [48,"做项目时我享受反复调整、不断完善的过程。",{perceiving:2,judging:-1}]
+  ],
+  typeProfiles: [
+    {key:"INTJ",name:"建筑师",english:"Architect",icon:"Crown",colors:["#0f172a","#1e293b","#334155"],target:{extraversion:20,introversion:80,intuition:80,sensing:20,thinking:80,feeling:20,judging:80,perceiving:20},weights:{intuition:1.1,thinking:1.1,judging:1.1},tags:["独立","战略性思维","高目标","冷静"],summary:"你拥有强大的战略思维和独立精神。你擅长将复杂系统拆解并构建长期蓝图，不依赖外界认可。",detail:"你习惯独处思考，对肤浅社交缺乏耐心。你追求能力和深度，喜欢与同样清醒、理性的人交锋。对你而言，关系的前提是尊重彼此独立的人格边界。"},
+    {key:"INTP",name:"逻辑学家",english:"Logician",icon:"Gem",colors:["#1a1a2e","#16213e","#0f3460"],target:{extraversion:20,introversion:80,intuition:80,sensing:20,thinking:80,feeling:20,judging:20,perceiving:80},weights:{intuition:1.1,thinking:1.1,perceiving:1.1},tags:["好奇","理论家","非传统","理性"],summary:"你对抽象理论和逻辑谜题有近乎本能的兴趣。你享受纯粹的智力探索，不喜欢被规则和情感裹挟。",detail:"你总是试图理解事物背后的运行原理。在关系中，你渴望智力层面的对话和精神共鸣，而非琐碎的日常陪伴。你需要能跟上你思维跳跃速度的人。"},
+    {key:"ENTJ",name:"指挥官",english:"Commander",icon:"Sun",colors:["#0b1120","#1e3a5f","#2563eb"],target:{extraversion:80,introversion:20,intuition:80,sensing:20,thinking:80,feeling:20,judging:80,perceiving:20},weights:{extraversion:1.1,thinking:1.1,judging:1.1},tags:["领导力","果断","高效","鼓舞人心"],summary:"你天生具备领导气质和远见。你能迅速看清局面并做出果断决策，激励他人跟随你的步伐。",detail:"你不怕冲突，擅长将混乱变为有序。你寻求的是同样有野心、能与你并肩的伴侣，而非一味顺从的追随者。对你来说，共同成长比浪漫仪式更重要。"},
+    {key:"ENTP",name:"辩论家",english:"Debater",icon:"Flame",colors:["#1c1917","#44403c","#d97706"],target:{extraversion:80,introversion:20,intuition:80,sensing:20,thinking:80,feeling:20,judging:20,perceiving:80},weights:{extraversion:1.1,intuition:1.1,perceiving:1.1},tags:["机智","挑战者","创新","善于辩论"],summary:"你聪明、好奇心强，喜欢从不同角度挑战既有的观念。你的思维敏捷，总能发现别人忽略的逻辑漏洞。",detail:"你享受思想交锋的快感，但这常被误解为抬杠。你适合内心强大、不玻璃心、能跟你一起头脑风暴的人。无聊是你最无法忍受的关系状态。"},
+    {key:"INFJ",name:"提倡者",english:"Advocate",icon:"Moon",colors:["#2e1065","#5b21b6","#8b5cf6"],target:{extraversion:20,introversion:80,intuition:80,sensing:20,thinking:20,feeling:80,judging:80,perceiving:20},weights:{intuition:1.2,feeling:1.2,judging:1.1},tags:["理想主义","深刻","洞察力","有原则"],summary:"你拥有深刻的直觉和强烈的道德感。你不仅看到事物的表面，更能感知背后的情感暗流和未来走向。",detail:"你追求有意义的深度连接，而非泛泛之交。你容易被真诚、纯粹的灵魂吸引。你适合能理解你复杂内心世界、并且同样认真对待承诺的人。"},
+    {key:"INFP",name:"调停者",english:"Mediator",icon:"Sparkles",colors:["#422006","#a16207","#eab308"],target:{extraversion:20,introversion:80,intuition:80,sensing:20,thinking:20,feeling:80,judging:20,perceiving:80},weights:{intuition:1.1,feeling:1.3,perceiving:1.1},tags:["理想化","诗意","真诚","高度共情"],summary:"你内心有一个丰富的诗性世界。你对他人的感受极其敏感，追求真实和一致性，厌恶伪装。",detail:"你容易被艺术、文字和深刻的情感触动。在关系中，你渴望被完全理解，但不擅长主动索取。你适合温和、耐心、能读懂你沉默背后千言万语的人。"},
+    {key:"ENFJ",name:"主人公",english:"Protagonist",icon:"HandHeart",colors:["#831843","#be185d","#f43f5e"],target:{extraversion:80,introversion:20,intuition:80,sensing:20,thinking:20,feeling:80,judging:80,perceiving:20},weights:{extraversion:1.1,feeling:1.2,judging:1.1},tags:["感染力","利他","鼓舞","敏锐"],summary:"你有一种天然的魅力能鼓舞和引导他人。你善于察觉别人的需求，并真心实意地想帮他们成为更好的自己。",detail:"你是人群中的灯塔。你需要伴侣能欣赏你的付出，同时也能在你低落时成为你的支撑。你最怕的不是冲突，而是冷漠和无回应。"},
+    {key:"ENFP",name:"竞选者",english:"Campaigner",icon:"PawPrint",colors:["#a21caf","#db2777","#f472b6"],target:{extraversion:80,introversion:20,intuition:80,sensing:20,thinking:20,feeling:80,judging:20,perceiving:80},weights:{extraversion:1.1,intuition:1.1,feeling:1.1,perceiving:1.1},tags:["热情","创造力","社交蝴蝶","好奇心"],summary:"你充满热情和创造力，善于发现人和事物之间的奇妙连接。你的快乐和感染力具有极强的传染性。",detail:"你对世界抱有孩童般的好奇。在关系中，你追求灵魂火花和精神探险。你需要既能陪你疯闹，又能在你注意力飘忽时温柔拉住你手的人。"},
+    {key:"ISTJ",name:"物流师",english:"Logistician",icon:"LockKeyhole",colors:["#0c0a09","#1c1917","#292524"],target:{extraversion:20,introversion:80,intuition:20,sensing:80,thinking:80,feeling:20,judging:80,perceiving:20},weights:{sensing:1.1,thinking:1.1,judging:1.2},tags:["可靠","务实","责任感","守诺"],summary:"你言出必行，脚踏实地。你重视秩序和规则，是他人眼中最值得信赖的坚实后盾。",detail:"你不喜欢花哨的承诺，更看重行动和结果。在关系中，你表达爱的方式是默默承担和长期付出。你需要能理解你沉默背后厚重安全感的伴侣。"},
+    {key:"ISFJ",name:"守护者",english:"Defender",icon:"Shield",colors:["#064e3b","#0d9488","#2dd4bf"],target:{extraversion:20,introversion:80,intuition:20,sensing:80,thinking:20,feeling:80,judging:80,perceiving:20},weights:{sensing:1.1,feeling:1.2,judging:1.1},tags:["温暖","奉献","细致","保护欲"],summary:"你有一种细腻而温柔的守护本能。你记得关于在乎的人的一切细节，并默默地为他们铺平道路。",detail:"你是典型的幕后奉献者。你需要伴侣能看到并珍惜你那些不声张的付出。对你来说，爱不是浪漫情话，是下班回家那碗热汤和记得你所有习惯。"},
+    {key:"ESTJ",name:"总经理",english:"Executive",icon:"Coffee",colors:["#0f0e0c","#26221c","#57534e"],target:{extraversion:80,introversion:20,intuition:20,sensing:80,thinking:80,feeling:20,judging:80,perceiving:20},weights:{extraversion:1.1,sensing:1.1,judging:1.2},tags:["务实","决断","组织","高效"],summary:"你天生适合管理和组织。你果断、高效，善于制定规则并推动事情落地，是现实世界的中流砥柱。",detail:"你讨厌拖泥带水和模棱两可。在关系中，你希望双方角色清晰、互相支撑。你适合尊重你的决策力、且同样坦诚直接的伴侣。"},
+    {key:"ESFJ",name:"执政官",english:"Consul",icon:"Sun",colors:["#451a03","#b45309","#f59e0b"],target:{extraversion:80,introversion:20,intuition:20,sensing:80,thinking:20,feeling:80,judging:80,perceiving:20},weights:{extraversion:1.1,feeling:1.2,judging:1.1},tags:["共情","社交","利他","责任"],summary:"你是社群里的黏合剂，天生懂得如何让人们感到被欢迎和关照。你慷慨、热情，重视传统与和谐。",detail:"你通过照顾他人来获得能量。你需要伴侣能欣赏你的付出，并用同样热烈的爱意回馈你。你无法忍受冷漠和忘恩负义。"},
+    {key:"ISTP",name:"鉴赏家",english:"Virtuoso",icon:"Wand2",colors:["#171717","#3f3f46","#71717a"],target:{extraversion:20,introversion:80,intuition:20,sensing:80,thinking:80,feeling:20,judging:20,perceiving:80},weights:{sensing:1.1,thinking:1.1,perceiving:1.2},tags:["大胆","实践","即兴","冷静"],summary:"你拥有绝佳的动手能力和临场应变力。你喜欢通过亲身体验来探索世界，而不是纸上谈兵。",detail:"你话不多，但行动力极强。在关系中，你讨厌被束缚和过度情绪化。你需要独立、有趣、能和你一起体验新鲜事物而不作天作地的伴侣。"},
+    {key:"ISFP",name:"探险家",english:"Adventurer",icon:"Cat",colors:["#1e1b4b","#4c1d95","#8b5cf6"],target:{extraversion:20,introversion:80,intuition:20,sensing:80,thinking:20,feeling:80,judging:20,perceiving:80},weights:{sensing:1.1,feeling:1.2,perceiving:1.1},tags:["温和","审美","敏感","灵活"],summary:"你对美和情感有着非常敏锐的触觉。你低调、谦逊，但内心世界极其丰富且色彩斑斓。",detail:"你习惯用艺术和行动表达情感，而非言语。你需要伴侣能细心品味你的温柔，而不是催促你快速表态。尊重你节奏的人，才能看见你内心的瑰丽风景。"},
+    {key:"ESTP",name:"企业家",english:"Entrepreneur",icon:"Gem",colors:["#451a03","#b45309","#f59e0b"],target:{extraversion:80,introversion:20,intuition:20,sensing:80,thinking:80,feeling:20,judging:20,perceiving:80},weights:{extraversion:1.1,sensing:1.2,perceiving:1.1},tags:["精力旺盛","敏锐","冒险","社交"],summary:"你是行动派和冒险家，拥有极强的观察力和临场反应力。你总能抓住当下的机会，让事情变得有趣。",detail:"你无法忍受无聊和沉闷。在关系中，你需要同样充满活力、能和你在街头巷尾创造惊喜的人。你不喜欢被查岗和情感绑架，崇尚自由呼吸的亲密感。"},
+    {key:"ESFP",name:"表演者",english:"Entertainer",icon:"Snowflake",colors:["#831843","#db2777","#f472b6"],target:{extraversion:80,introversion:20,intuition:20,sensing:80,thinking:20,feeling:80,judging:20,perceiving:80},weights:{extraversion:1.1,sensing:1.1,feeling:1.1,perceiving:1.1},tags:["自发性","热情","幽默","感染力"],summary:"你天生属于舞台和派对。你乐观、幽默，能用最纯粹的快乐感染身边的每一个人。",detail:"你活在当下，喜欢身体力行的快乐。在关系中，你需要真实、不装、能陪你一起疯一起笑的人。你最怕的是严肃、压抑和无休止的批评。"}
+  ],
+  icons: { Crown:"👑", Shield:"🛡️", HandHeart:"🤍", Sparkles:"✨", Gem:"💎", Flame:"🔥", PawPrint:"🐾", Cat:"🐈", Coffee:"☕", Moon:"🌙", Snowflake:"❄️", Sun:"☀️", Wand2:"🪄", LockKeyhole:"🔒" }
+};
+
+// ============================================================
+// 2. 注册所有测试
+// ============================================================
+const TEST_REGISTRY = {
+  lesbian: lesbianConfig,
+  mbti: mbtiConfig,
+};
+
+// ============================================================
+// 3. 核心引擎（单例）
+// ============================================================
+class TestEngine {
+  constructor() {
+    this.currentTestId = null;
+    this.answers = {};
+    this.submitted = false;
+    this.copied = false;
+    this.config = null;
+    this.questionsContainer = null;
+    this.progressFill = null;
+    this.progressText = null;
+    this.submitBtn = null;
+    this.liveRegion = document.getElementById('liveRegion');
+    this.isShareMode = false;  // 标记是否从分享链接进入
+    this.initTestSelector();
+    this.handleUrlParams();
+  }
+
+  // ---- 处理URL参数 ----
+  handleUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    const resultParam = params.get('result');
+    if (resultParam) {
+      try {
+        // 格式: testId|typeKey|confidence
+        const parts = resultParam.split('|');
+        if (parts.length >= 2) {
+          const testId = parts[0];
+          const typeKey = parts[1];
+          const confidence = parseInt(parts[2]) || 85;
+          if (TEST_REGISTRY[testId]) {
+            this.currentTestId = testId;
+            this.config = TEST_REGISTRY[testId];
+            this.isShareMode = true;
+            // 直接显示结果（无需答题）
+            this.submitted = true;
+            this.updateTestSelector();
+            this.updateHero();
+            // 构造结果数据
+            const type = this.config.typeProfiles.find(p => p.key === typeKey);
+            if (type) {
+              const scores = {};
+              Object.keys(this.config.dimensions).forEach(d => {
+                scores[d] = type.target[d] || 50;
+              });
+              this.renderResultFromType(type, scores, confidence);
+              // 清除URL参数，避免刷新再次触发
+              if (window.history && window.history.replaceState) {
+                const cleanUrl = window.location.href.split('?')[0];
+                window.history.replaceState({}, document.title, cleanUrl);
+              }
+              return;
+            }
+          }
+        }
+      } catch(e) {
+        console.warn('解析分享参数失败', e);
+      }
+    }
+    // 正常启动：加载默认测试（或从localStorage恢复）
+    const firstId = Object.keys(TEST_REGISTRY)[0];
+    if (firstId) this.switchTest(firstId);
+  }
+
+  // ---- 初始化测试选择按钮 ----
+  initTestSelector() {
+    const container = document.getElementById('testSelector');
+    container.innerHTML = '';
+    Object.keys(TEST_REGISTRY).forEach(id => {
+      const btn = document.createElement('button');
+      btn.className = 'test-btn';
+      btn.dataset.test = id;
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', 'false');
+      let label = TEST_REGISTRY[id].title;
+      if (id === 'lesbian') label = '🌈 女同关系气场';
+      else if (id === 'mbti') label = '🧠 16型人格';
+      else label = TEST_REGISTRY[id].title;
+      btn.textContent = label;
+      btn.onclick = () => {
+        // 如果当前是分享模式，切换测试时退出分享模式
+        if (this.isShareMode) {
+          this.isShareMode = false;
+          this.submitted = false;
+          this.answers = {};
+          // 清除可能残留的URL参数
+          if (window.history && window.history.replaceState) {
+            const cleanUrl = window.location.href.split('?')[0];
+            window.history.replaceState({}, document.title, cleanUrl);
+          }
+        }
+        this.switchTest(id);
+      };
+      container.appendChild(btn);
+    });
+  }
+
+  // ---- 切换测试 ----
+  switchTest(testId) {
+    if (!TEST_REGISTRY[testId]) return;
+    if (this.currentTestId && this.answers) {
+      this.saveState();
+    }
+    this.currentTestId = testId;
+    this.config = TEST_REGISTRY[testId];
+    this.restoreState();
+    this.updateTestSelector();
+    this.updateHero();
+    if (this.submitted && !this.isShareMode) {
+      this.renderResult();
+    } else {
+      this.renderQuestions();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.announce('已切换到 ' + this.config.title);
+  }
+
+  // ---- 更新按钮高亮 ----
+  updateTestSelector() {
+    document.querySelectorAll('.test-btn').forEach(btn => {
+      const id = btn.dataset.test;
+      const isActive = id === this.currentTestId;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+  }
+
+  // ---- 更新hero ----
+  updateHero() {
+    const h1 = document.querySelector('.hero h1');
+    const p = document.querySelector('.hero p');
+    if (h1) h1.textContent = this.config.title;
+    if (p) p.textContent = this.config.subtitle;
+    document.title = this.config.title + '｜多选心理测试';
+  }
+
+  // ---- 本地存储 ----
+  saveState() {
+    if (!this.currentTestId) return;
+    const key = `test_${this.currentTestId}_answers`;
+    localStorage.setItem(key, JSON.stringify(this.answers));
+    localStorage.setItem(`test_${this.currentTestId}_submitted`, String(this.submitted));
+  }
+
+  restoreState() {
+    const key = `test_${this.currentTestId}_answers`;
+    const stored = localStorage.getItem(key);
+    if (stored) {
+      try {
+        this.answers = JSON.parse(stored);
+      } catch(e) { this.answers = {}; }
+    } else {
+      this.answers = {};
+    }
+    const submittedKey = `test_${this.currentTestId}_submitted`;
+    this.submitted = localStorage.getItem(submittedKey) === 'true';
+    this.copied = false;
+  }
+
+  // ---- 辅助 ----
+  announce(msg) {
+    if (this.liveRegion) {
+      this.liveRegion.textContent = msg;
+    }
+  }
+
+  // ---- 计算分数 ----
+  computeScores() {
+    const dims = this.config.dimensions;
+    const raw = {}, maxAbs = {};
+    Object.keys(dims).forEach(k => { raw[k] = 0; maxAbs[k] = 0; });
+    this.config.questions.forEach(([id, text, scores]) => {
+      const selected = this.answers[id];
+      if (!selected) return;
+      const centered = selected - 4;
+      Object.entries(scores).forEach(([dim, w]) => {
+        raw[dim] += centered * w;
+        maxAbs[dim] += 3 * Math.abs(w);
+      });
+    });
+    const out = {};
+    Object.keys(dims).forEach(k => {
+      out[k] = maxAbs[k] ? Math.round(this.clamp(50 + (raw[k] / maxAbs[k]) * 50)) : 50;
+    });
+    return out;
+  }
+
+  clamp(v, min = 0, max = 100) { return Math.min(max, Math.max(min, v)); }
+  esc(s) { return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;" }[m])); }
+
+  // ---- 惩罚函数 ----
+  consistencyPenalty(scores, p) {
+    let x = 0;
+    if (this.currentTestId === 'mbti') {
+      const ei = Math.min(scores.extraversion, scores.introversion);
+      if (ei > 65) x += (ei - 65) * 1.2;
+      const ns = Math.min(scores.intuition, scores.sensing);
+      if (ns > 65) x += (ns - 65) * 1.2;
+      const tf = Math.min(scores.thinking, scores.feeling);
+      if (tf > 65) x += (tf - 65) * 1.2;
+      const jp = Math.min(scores.judging, scores.perceiving);
+      if (jp > 65) x += (jp - 65) * 1.2;
+      if (ei > 60 && ns > 60 && tf > 60 && jp > 60) x += 50;
+    } else {
+      const both = Math.min(scores.dominance, scores.surrender);
+      if (!["chaoticSwitch","caretakerBottom"].includes(p.key) && both > 68) x += (both - 68) * 0.75;
+      const aa = Math.min(scores.attachment, scores.avoidance);
+      if (!["catBottom","dangerBottom","phantomRomantic","chaoticSwitch"].includes(p.key) && aa > 66) x += (aa - 66) * 0.7;
+      const bp = Math.min(scores.avoidance, scores.possessive);
+      if (!["catBottom","chaoticSwitch","boundaryWitch"].includes(p.key) && bp > 70) x += (bp - 70) * 0.65;
+      if (p.key === "chaoticSwitch") {
+        const switchCore = Math.min(scores.dominance, scores.surrender);
+        const fluidity = (scores.teasing + scores.softness + scores.attachment) / 3;
+        if (switchCore < 66) x += (66 - switchCore) * 1.15;
+        if (fluidity < 64) x += (64 - fluidity) * 0.75;
+        if (scores.avoidance > 78) x += (scores.avoidance - 78) * 0.45;
+      }
+    }
+    return x;
+  }
+
+  distance(scores, p) {
+    let sum = 0, wt = 0;
+    Object.keys(scores).forEach(d => {
+      const w = (p.weights && p.weights[d]) || 1;
+      const diff = scores[d] - p.target[d];
+      sum += w * diff * diff;
+      wt += w;
+    });
+    return Math.sqrt(sum / wt) + this.consistencyPenalty(scores, p);
+  }
+
+  chooseType(scores) {
+    const ranked = this.config.typeProfiles
+      .map(p => Object.assign({}, p, { distance: this.distance(scores, p) }))
+      .sort((a, b) => a.distance - b.distance);
+    const best = ranked[0];
+    const second = ranked[1];
+    const margin = second ? second.distance - best.distance : 0;
+    return Object.assign({}, best, {
+      confidence: Math.round(this.clamp(100 - best.distance * 2.05 + margin * 1.2, 42, 96)),
+      alternatives: ranked.slice(1, 4)
+    });
+  }
+
+  bar(v, white) {
+    return '<div class="bar"><div class="bar-fill ' + (white ? 'white-fill' : '') + '" style="width:' + v + '%"></div></div>';
+  }
+
+  // ---- 渲染题目（增量更新） ----
+  renderQuestions() {
+    const app = document.getElementById('app');
+    const total = this.config.questions.length;
+    const completed = Object.keys(this.answers).length;
+
+    if (this.questionsContainer && app.contains(this.questionsContainer)) {
+      this.updateProgress(completed, total);
+      document.querySelectorAll('.opt').forEach(btn => {
+        const qId = Number(btn.dataset.q);
+        const val = Number(btn.dataset.v);
+        btn.classList.toggle('active', this.answers[qId] === val);
+      });
+      if (this.submitBtn) {
+        this.submitBtn.disabled = (completed !== total);
+      }
+      return;
+    }
+
+    const html = `
+      <section class="progress-card card" id="progressCard">
+        <div class="card-inner">
+          <div class="progress-top">
+            <div><h2>答题进度</h2><p>请选择最符合你真实状态的答案。不要按理想人设选。</p></div>
+            <div style="color:rgba(255,255,255,.7);font-size:14px" id="progressText">${completed}/${total}</div>
+          </div>
+          <div style="margin-top:16px">
+            <div class="bar"><div class="bar-fill" id="progressFill" style="width:${(completed/total*100)}%"></div></div>
+          </div>
+        </div>
+      </section>
+      <section class="questions" id="questionsContainer">
+        ${this.config.questions.map(([id, text]) => `
+          <div class="q-card card">
+            <div class="card-inner">
+              <div class="q-flex">
+                <div class="q-num">${id}</div>
+                <div style="flex:1;min-width:0">
+                  <p class="q-text">${this.esc(text)}</p>
+                  <div class="opts">
+                    ${[1,2,3,4,5,6,7].map(val => {
+                      const label = SCALE_LABELS[val-1];
+                      const active = this.answers[id] === val ? 'active' : '';
+                      return `<button class="opt ${active}" data-q="${id}" data-v="${val}" title="${this.esc(label)}">
+                        <span class="full">${this.esc(label)}</span><span class="short">${val}</span>
+                      </button>`;
+                    }).join('')}
+                  </div>
+                  <div class="scale-help"><span>完全不符合</span><span>看情况</span><span>非常符合</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </section>
+      <div class="sticky">
+        <button id="submitBtn" class="btn btn-white" ${completed === total ? '' : 'disabled'}>查看我的结果</button>
+      </div>
+    `;
+
+    app.innerHTML = html;
+
+    this.questionsContainer = document.getElementById('questionsContainer');
+    this.progressFill = document.getElementById('progressFill');
+    this.progressText = document.getElementById('progressText');
+    this.submitBtn = document.getElementById('submitBtn');
+
+    document.querySelectorAll('.opt').forEach(btn => {
+      btn.onclick = () => {
+        const qId = Number(btn.dataset.q);
+        const val = Number(btn.dataset.v);
+        this.answers[qId] = val;
+        const parentOpts = btn.closest('.opts');
+        parentOpts.querySelectorAll('.opt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const completedNow = Object.keys(this.answers).length;
+        this.updateProgress(completedNow, total);
+        if (this.submitBtn) {
+          this.submitBtn.disabled = (completedNow !== total);
+        }
+        this.saveState();
+        this.announce(`已选择第${qId}题，当前进度${completedNow}/${total}`);
+      };
+    });
+
+    if (this.submitBtn) {
+      this.submitBtn.onclick = () => {
+        if (Object.keys(this.answers).length === total) {
+          this.submitted = true;
+          this.copied = false;
+          this.saveState();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          this.renderResult();
+        }
+      };
+    }
+  }
+
+  updateProgress(completed, total) {
+    if (this.progressFill) {
+      this.progressFill.style.width = (completed / total * 100) + '%';
+    }
+    if (this.progressText) {
+      this.progressText.textContent = `${completed}/${total}`;
+    }
+  }
+
+  // ---- 渲染结果（支持预设类型和分数，用于分享模式） ----
+  renderResultFromType(type, scores, confidence) {
+    const result = Object.assign({}, type, {
+      confidence: confidence || 85,
+      alternatives: this.config.typeProfiles.filter(p => p.key !== type.key).slice(0, 3)
+    });
+    this._renderResultDirect(result, scores);
+  }
+
+  renderResult() {
+    const scores = this.computeScores();
+    const result = this.chooseType(scores);
+    this._renderResultDirect(result, scores);
+  }
+
+  _renderResultDirect(result, scores) {
+    const app = document.getElementById('app');
+    const dims = this.config.dimensions;
+    const hints = this.config.dimensionHints || {};
+    const icons = this.config.icons || {};
+
+    const top = Object.entries(scores).sort((a, b) => b[1] - a[1]).slice(0, 4);
+    document.title = result.name + '｜' + this.config.title;
+
+    const shareBadge = this.isShareMode ? '<div class="share-badge">📎 好友分享的结果</div>' : '';
+
+    const html = `
+      <section class="result-wrap">
+        <div class="result-hero">
+          <div class="result-gradient" style="--c1:${result.colors[0]};--c2:${result.colors[1]};--c3:${result.colors[2]}">
+            <div class="result-grid">
+              <div>
+                ${shareBadge}
+                <div class="pill" style="background:rgba(255,255,255,.16);border:0">${icons[result.icon] || '✨'} 你的测试结果是</div>
+                <h2 class="result-title">${this.esc(result.name)}</h2>
+                <p class="english">${this.esc(result.english)}</p>
+                <div class="tags">${result.tags.map(t => `<span class="tag">${this.esc(t)}</span>`).join('')}</div>
+                <div class="topdims">${top.map(([k, v]) =>
+                  `<div class="dimtile"><div class="dimrow"><span>${this.esc(dims[k])}</span><b>${v}</b></div>${this.bar(v, true)}</div>`
+                ).join('')}</div>
+              </div>
+              <div class="score-panel">
+                <div class="confidence"><span>匹配置信度</span><b>${result.confidence}%</b></div>
+                ${this.bar(result.confidence, true)}
+                <div class="compact-bars">${Object.entries(dims).map(([k, label]) =>
+                  `<div class="compact-row"><span>${this.esc(label)}</span>${this.bar(scores[k], true)}<span>${scores[k]}</span></div>`
+                ).join('')}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card"><div class="card-inner"><h3 class="section-title">核心解析</h3><p class="body-text">${this.esc(result.summary)}</p><p class="body-text">${this.esc(result.detail)}</p></div></div>
+          <div class="card"><div class="card-inner"><h3 class="section-title">你的相邻人格</h3><p class="body-text" style="font-size:14px;line-height:1.8;color:rgba(255,255,255,.55)">如果你觉得结果有一点点偏差，通常会落在这几个相邻类型之间。</p>
+            <div class="alt-list">${result.alternatives.map(item =>
+              `<div class="alt"><div class="alt-left"><div class="alt-icon">${icons[item.icon] || '✨'}</div><div><div class="alt-name">${this.esc(item.name)}</div><div class="alt-en">${this.esc(item.english)}</div></div></div><div>${Math.round(this.clamp(100 - item.distance * 2.05, 30, 92))}%</div></div>`
+            ).join('')}</div>
+          </div></div>
+        </div>
+
+        <div class="card"><div class="card-inner"><h3 class="section-title">完整维度分数</h3><div class="dimension-grid">
+          ${Object.entries(dims).map(([k, label]) =>
+            `<div class="dimension-box"><div class="dimrow"><span>${this.esc(label)}</span><b>${scores[k]}</b></div>${this.bar(scores[k], true)}<p class="hint">${this.esc(hints[k] || '')}</p></div>`
+          ).join('')}
+        </div></div></div>
+
+        <div class="card"><div class="card-inner"><h3 class="section-title">温馨提示</h3><p class="body-text">本测试结果仅供参考，不构成专业心理评估。每个人都是复杂的，测试只是帮助你更好地认识自己。</p></div></div>
+
+        <div class="reward-card">
+          <div class="reward-inner">
+            <div>
+              <div class="reward-eyebrow">🍓 投喂开发者</div>
+              <h3 class="reward-title">愿意支持一下吗？</h3>
+              <p class="reward-text">如果这个测试对你有启发，可以请开发者喝杯奶茶。后续会不断更新更多有趣的测试。</p>
+              <p class="reward-note">完全自愿，感谢每一位支持者。</p>
+            </div>
+            <div class="qr-box">
+              <img src="https://cloudflare-imgbed-1t9.pages.dev/file/赞赏/1773752330180_赞赏码.png" alt="投喂收款码" class="qr-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="qr-fallback" style="display:none"><div class="qr-icon">▦</div><p>将收款码图片命名为 <b>reward-qrcode.png</b><br>放在同一目录下</p></div>
+              <p class="qr-caption">投喂一点点灵感基金</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="copyBtn" class="btn btn-white">${this.copied ? '✓ 已复制结果' : '📋 复制我的结果'}</button>
+          <button id="shareBtn" class="btn btn-outline">🔗 链接分享结果</button>
+          <button id="resetBtn" class="btn btn-outline">↻ 重新测试</button>
+        </div>
+      </section>
+    `;
+
+    app.innerHTML = html;
+
+    document.getElementById('resetBtn').onclick = () => {
+      this.answers = {};
+      this.submitted = false;
+      this.copied = false;
+      this.isShareMode = false;
+      this.saveState();
+      document.title = this.config.title;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      this.renderQuestions();
+      this.announce('已重置测试');
+    };
+
+    document.getElementById('copyBtn').onclick = () => {
+      const text = '我的测试结果：' + result.name + '｜' + result.english +
+        '\n关键词：' + result.tags.join('、') +
+        '\n匹配置信度：' + result.confidence + '%' +
+        '\n' + result.summary;
+      if (navigator.clipboard && location.protocol === 'https:') {
+        navigator.clipboard.writeText(text).then(() => {
+          this.copied = true;
+          this.renderResult();
+          this.announce('结果已复制到剪贴板');
+        }).catch(() => this.fallbackCopy(text));
+      } else {
+        this.fallbackCopy(text);
+      }
+    };
+
+    // ---- 分享功能 ----
+    document.getElementById('shareBtn').onclick = () => {
+      const shareData = {
+        title: this.config.title,
+        text: `我的测试结果：${result.name}（${result.english}）\n关键词：${result.tags.join('、')}\n匹配置信度：${result.confidence}%\n${result.summary}`,
+        url: window.location.href.split('?')[0] + '?result=' + encodeURIComponent(
+          this.currentTestId + '|' + result.key + '|' + result.confidence
+        )
+      };
+
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+      } else {
+        // 降级：复制链接
+        const url = shareData.url;
+        if (navigator.clipboard && location.protocol === 'https:') {
+          navigator.clipboard.writeText(url).then(() => {
+            this.announce('分享链接已复制，可发送给好友');
+            alert('分享链接已复制到剪贴板，您可粘贴发送给朋友。');
+          }).catch(() => {
+            this.fallbackCopy(url);
+          });
+        } else {
+          this.fallbackCopy(url);
+        }
+      }
+    };
+  }
+
+  fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      this.copied = true;
+      this.renderResult();
+      this.announce('结果已复制到剪贴板');
+    } catch(e) {
+      alert('复制失败，请手动复制以下内容：\n' + text);
+    }
+    document.body.removeChild(ta);
+  }
+
+  // ---- 配置校验 ----
+  validateConfig(config) {
+    if (!config.id || !config.title || !config.dimensions || !config.questions || !config.typeProfiles) {
+      console.error('配置不完整', config);
+      return false;
+    }
+    const dims = Object.keys(config.dimensions);
+    config.typeProfiles.forEach(p => {
+      dims.forEach(d => {
+        if (!(d in p.target)) {
+          console.warn(`类型 ${p.key} 缺少维度 ${d}，将使用默认值50`);
+          p.target[d] = 50;
+        }
+      });
+    });
+    return true;
+  }
+}
+
+// ============================================================
+// 4. 初始化
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  Object.values(TEST_REGISTRY).forEach(cfg => {
+    if (!window.engine) {
+      window.engine = new TestEngine();
+    }
+    window.engine.validateConfig(cfg);
+  });
+  if (!window.engine) {
+    window.engine = new TestEngine();
+  }
+});
+</script>
+</body>
+</html>
