@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>多选心理测试平台</title>
   <meta name="description" content="自选测试：女同关系气场、16型人格，更多敬请期待。">
-  <!-- Open Graph 基础 -->
   <meta property="og:title" content="多选心理测试平台">
   <meta property="og:description" content="探索你的关系气质或人格类型。">
   <meta property="og:type" content="website">
   <style>
-    /* ===== 全局样式 ===== */
+    /* ===== 完整样式（与您原来一致） ===== */
     :root{
       --bg:#0f0f14;
       --text:#ffffff;
@@ -160,7 +159,7 @@
     .qr-caption{font-size:14px;font-weight:650;margin:10px 0 0}
     .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
     .share-badge{display:inline-block;background:rgba(255,215,0,0.2);border:1px solid gold;border-radius:999px;padding:4px 12px;font-size:12px;color:gold;margin-bottom:10px;}
-    footer{text-align:center;margin-top:54px;color:rgba(255,255,255,.40);font-size:12px;line-height:1.8}
+    .app-footer{text-align:center;margin-top:54px;color:rgba(255,255,255,.40);font-size:12px;line-height:1.8}
     @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
     @media(max-width:760px){
       main{padding-top:34px}
@@ -215,14 +214,14 @@
   <main>
     <div class="test-selector" id="testSelector" role="tablist" aria-label="选择测试类型"></div>
     <div id="app" role="main"></div>
-    <footer>本测试仅用于娱乐与自我探索，不构成专业心理评估。</footer>
+    <!-- footer 已移至动态渲染 -->
   </main>
   <div id="liveRegion" aria-live="polite" aria-atomic="true"></div>
 </div>
 
 <script>
 // ============================================================
-// 1. 配置定义
+// 1. 配置定义（完整保留）
 // ============================================================
 const SCALE_LABELS = ['完全不符合','很不符合','有点不符合','不确定 / 看情况','有点符合','比较符合','非常符合'];
 
@@ -579,14 +578,33 @@ class TestEngine {
     });
   }
 
-  // ---- 更新hero ----
+  // ---- 更新hero（增强版：确保元素存在） ----
   updateHero() {
-    const h1 = document.querySelector('.hero h1');
-    const p = document.querySelector('.hero p');
-    if (h1) h1.textContent = this.config.title;
-    if (p) p.textContent = this.config.subtitle;
+    // 确保 hero 容器存在
+    let hero = document.querySelector('.hero');
+    if (!hero) {
+      hero = document.createElement('section');
+      hero.className = 'hero';
+      const testSelector = document.getElementById('testSelector');
+      testSelector.parentNode.insertBefore(hero, testSelector.nextSibling);
+    }
+    // 确保 h1 存在
+    let h1 = hero.querySelector('h1');
+    if (!h1) {
+      h1 = document.createElement('h1');
+      hero.prepend(h1);
+    }
+    h1.textContent = this.config.title;
+
+    // 确保 p 存在
+    let p = hero.querySelector('p');
+    if (!p) {
+      p = document.createElement('p');
+      hero.appendChild(p);
+    }
+    p.textContent = this.config.subtitle;
+
     document.title = this.config.title + '｜多选心理测试';
-    // 答题页更新卡片为默认信息
     if (!this.submitted || this.isShareMode === false) {
       this.updateMetaTags(this.config.title, this.config.subtitle);
     }
@@ -707,6 +725,9 @@ class TestEngine {
 
   // ---- 渲染题目（增量更新） ----
   renderQuestions() {
+    // 确保 hero 显示当前测试的标题和副标题
+    this.updateHero();
+
     const app = document.getElementById('app');
     const total = this.config.questions.length;
     const completed = Object.keys(this.answers).length;
@@ -721,7 +742,6 @@ class TestEngine {
       if (this.submitBtn) {
         this.submitBtn.disabled = (completed !== total);
       }
-      // 更新分享卡片为默认信息
       if (!this.isShareMode) {
         this.updateMetaTags(this.config.title, this.config.subtitle);
       }
@@ -767,6 +787,7 @@ class TestEngine {
       <div class="sticky">
         <button id="submitBtn" class="btn btn-white" ${completed === total ? '' : 'disabled'}>查看我的结果</button>
       </div>
+      <footer class="app-footer">本测试仅用于娱乐与自我探索，不构成专业心理评估。</footer>
     `;
 
     app.innerHTML = html;
@@ -806,7 +827,6 @@ class TestEngine {
       };
     }
 
-    // 更新分享卡片为默认信息（非分享模式）
     if (!this.isShareMode) {
       this.updateMetaTags(this.config.title, this.config.subtitle);
     }
@@ -837,6 +857,9 @@ class TestEngine {
   }
 
   _renderResultDirect(result, scores) {
+    // 确保 hero 显示
+    this.updateHero();
+
     const app = document.getElementById('app');
     const dims = this.config.dimensions;
     const hints = this.config.dimensionHints || {};
@@ -845,7 +868,6 @@ class TestEngine {
     const top = Object.entries(scores).sort((a, b) => b[1] - a[1]).slice(0, 4);
     document.title = result.name + '｜' + this.config.title;
 
-    // 更新分享卡片为结果信息
     const metaTitle = result.name + '｜' + this.config.title;
     const metaDesc = result.summary;
     this.updateMetaTags(metaTitle, metaDesc);
@@ -917,6 +939,7 @@ class TestEngine {
           <button id="resetBtn" class="btn btn-outline">↻ 重新测试</button>
         </div>
       </section>
+      <footer class="app-footer">本测试仅用于娱乐与自我探索，不构成专业心理评估。</footer>
     `;
 
     app.innerHTML = html;
