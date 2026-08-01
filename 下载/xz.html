@@ -234,6 +234,10 @@
         .nightreader .repo-icon {
             background: linear-gradient(135deg, #2d3436, #636e72);
         }
+        /* ===== 新增配色：Kototoro ===== */
+        .kototoro .repo-icon {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+        }
 
         .repo-title h2 {
             font-size: 18px;
@@ -684,7 +688,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 墨听 · 墨水 · 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · IReader · LightNovelReader · Lumi · 番茄系列 · 夜读<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 墨听 · 墨水 · 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · Kototoro · IReader · LightNovelReader · Lumi · 番茄系列 · 夜读<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -725,6 +729,8 @@
                     <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Tauri</a>
                     <!-- 彩读（新增） -->
                     <a href="https://github.com/ssnangua/ColorTxt" class="footer-link" target="_blank">彩读ColorTxt</a>
+                    <!-- Kototoro（新增） -->
+                    <a href="https://github.com/Kototoro-app/Kototoro" class="footer-link" target="_blank">Kototoro</a>
                     <a href="https://github.com/IReaderorg/IReader" class="footer-link" target="_blank">IReader</a>
                     <a href="https://github.com/dmzz-yyhyy/LightNovelReader" class="footer-link" target="_blank">LightNovelReader</a>
                     <!-- Lumi 仓库链接 -->
@@ -798,6 +804,8 @@
                 tauri: { name: 'Legado-Tauri', owner: 'LegadoTeam', repo: 'Legado-Tauri-Release', stableApi: 'latest', betaApi: 'tags/beta' },
                 // 彩读（新增）
                 colortxt: { name: '彩读ColorTxt', owner: 'ssnangua', repo: 'ColorTxt', stableApi: 'latest', betaApi: 'tags/beta' },
+                // Kototoro（新增）
+                kototoro: { name: 'Kototoro', owner: 'Kototoro-app', repo: 'Kototoro', stableApi: 'latest', betaApi: 'tags/beta' },
                 ireader: { name: 'IReader', owner: 'IReaderorg', repo: 'IReader', stableApi: 'latest', betaApi: 'tags/beta' },
                 lightnovelreader: { name: 'LightNovelReader', owner: 'dmzz-yyhyy', repo: 'LightNovelReader', stableApi: 'latest', betaApi: 'tags/beta' },
                 // Lumi 仓库配置
@@ -1140,7 +1148,7 @@
         function buildAllCards() {
             const container = document.getElementById('repoContainer');
             container.innerHTML = '';
-            // 注意顺序：tauri 后面紧跟 colortxt，inkwell 后面紧跟 nightreader
+            // 注意顺序：colortxt 后面紧跟 kototoro，然后才是 ireader
             const order = [
                 'original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't',
                 'cichen', 'dandan', 'youfeng', 'suml1',
@@ -1156,6 +1164,8 @@
                 'tauri',
                 // 彩读（新增）
                 'colortxt',
+                // Kototoro（新增）
+                'kototoro',
                 'ireader', 'lightnovelreader',
                 // Lumi 在 LightNovelReader 后面
                 'lumi',
@@ -1188,6 +1198,7 @@
                 else if (repoId === 'inkwell') iconEmoji = '🖋️';
                 else if (repoId === 'nightreader') iconEmoji = '🌙';   // 夜读
                 else if (repoId === 'colortxt') iconEmoji = '🌈';      // 彩读
+                else if (repoId === 'kototoro') iconEmoji = '📘';      // Kototoro
                 else if (repoId === 'mr') iconEmoji = '📗';
                 else if (repoId === 'shuxiang') iconEmoji = '📚';
                 else if (repoId === 'kaiyuan') iconEmoji = '🌟';
