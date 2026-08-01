@@ -226,6 +226,15 @@
             background: linear-gradient(135deg, #8b5cf6, #d946ef);
         }
 
+        /* ===== 新增配色：彩读 ===== */
+        .colortxt .repo-icon {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+        /* ===== 新增配色：夜读 ===== */
+        .nightreader .repo-icon {
+            background: linear-gradient(135deg, #2d3436, #636e72);
+        }
+
         .repo-title h2 {
             font-size: 18px;
             font-weight: 600;
@@ -675,7 +684,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 墨听 · 墨水 · 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 墨听 · 墨水 · 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · IReader · LightNovelReader · Lumi · 番茄系列 · 夜读<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -704,6 +713,8 @@
                     <a href="https://github.com/jwoo1982217-eng/MoTing-Releases" class="footer-link" target="_blank">墨听</a>
                     <!-- 墨水 -->
                     <a href="https://github.com/radiumCN/inkwell" class="footer-link" target="_blank">墨水</a>
+                    <!-- 夜读（新增） -->
+                    <a href="https://github.com/bennytsai1234/Night-Reader" class="footer-link" target="_blank">夜读</a>
                     <a href="https://github.com/DandanLLab/mr" class="footer-link" target="_blank">阅读MR</a>
                     <a href="https://github.com/keys-cherish/morealm-reader" class="footer-link" target="_blank">MoRealm</a>
                     <a href="https://github.com/zyl140640/readbook-releases" class="footer-link" target="_blank">书享</a>
@@ -712,6 +723,8 @@
                     <a href="https://github.com/DaLongZhuaZi/manxia" class="footer-link" target="_blank">漫匣</a>
                     <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">鸿蒙</a>
                     <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Tauri</a>
+                    <!-- 彩读（新增） -->
+                    <a href="https://github.com/ssnangua/ColorTxt" class="footer-link" target="_blank">彩读ColorTxt</a>
                     <a href="https://github.com/IReaderorg/IReader" class="footer-link" target="_blank">IReader</a>
                     <a href="https://github.com/dmzz-yyhyy/LightNovelReader" class="footer-link" target="_blank">LightNovelReader</a>
                     <!-- Lumi 仓库链接 -->
@@ -773,6 +786,8 @@
                 moting: { name: '墨听', owner: 'jwoo1982217-eng', repo: 'MoTing-Releases', stableApi: 'latest', betaApi: 'tags/beta' },
                 // 墨水
                 inkwell: { name: '墨水', owner: 'radiumCN', repo: 'inkwell', stableApi: 'latest', betaApi: 'tags/beta' },
+                // 夜读（新增）
+                nightreader: { name: '夜读', owner: 'bennytsai1234', repo: 'Night-Reader', stableApi: 'latest', betaApi: 'tags/beta' },
                 mr: { name: '阅读MR', owner: 'DandanLLab', repo: 'mr', stableApi: 'latest', betaApi: 'tags/beta' },
                 morealm: { name: 'MoRealm', owner: 'keys-cherish', repo: 'morealm-reader', stableApi: 'latest', betaApi: 'tags/beta' },
                 shuxiang: { name: '书享阅读', owner: 'zyl140640', repo: 'readbook-releases', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -781,6 +796,8 @@
                 manxia: { name: '漫匣阅读', owner: 'DaLongZhuaZi', repo: 'manxia', stableApi: 'latest', betaApi: 'tags/beta' },
                 hongmeng: { name: '喵公子鸿蒙阅读', owner: 'mgz0227', repo: 'legado-Harmony', stableApi: 'latest', betaApi: 'tags/beta' },
                 tauri: { name: 'Legado-Tauri', owner: 'LegadoTeam', repo: 'Legado-Tauri-Release', stableApi: 'latest', betaApi: 'tags/beta' },
+                // 彩读（新增）
+                colortxt: { name: '彩读ColorTxt', owner: 'ssnangua', repo: 'ColorTxt', stableApi: 'latest', betaApi: 'tags/beta' },
                 ireader: { name: 'IReader', owner: 'IReaderorg', repo: 'IReader', stableApi: 'latest', betaApi: 'tags/beta' },
                 lightnovelreader: { name: 'LightNovelReader', owner: 'dmzz-yyhyy', repo: 'LightNovelReader', stableApi: 'latest', betaApi: 'tags/beta' },
                 // Lumi 仓库配置
@@ -1123,6 +1140,7 @@
         function buildAllCards() {
             const container = document.getElementById('repoContainer');
             container.innerHTML = '';
+            // 注意顺序：tauri 后面紧跟 colortxt，inkwell 后面紧跟 nightreader
             const order = [
                 'original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't',
                 'cichen', 'dandan', 'youfeng', 'suml1',
@@ -1132,7 +1150,12 @@
                 'moting',
                 // 墨水
                 'inkwell',
-                'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg', 'manxia', 'hongmeng', 'tauri',
+                // 夜读（新增）
+                'nightreader',
+                'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg', 'manxia', 'hongmeng',
+                'tauri',
+                // 彩读（新增）
+                'colortxt',
                 'ireader', 'lightnovelreader',
                 // Lumi 在 LightNovelReader 后面
                 'lumi',
@@ -1163,6 +1186,8 @@
                 else if (repoId === 'shutiao') iconEmoji = '🍟';
                 else if (repoId === 'moting') iconEmoji = '🎵';
                 else if (repoId === 'inkwell') iconEmoji = '🖋️';
+                else if (repoId === 'nightreader') iconEmoji = '🌙';   // 夜读
+                else if (repoId === 'colortxt') iconEmoji = '🌈';      // 彩读
                 else if (repoId === 'mr') iconEmoji = '📗';
                 else if (repoId === 'shuxiang') iconEmoji = '📚';
                 else if (repoId === 'kaiyuan') iconEmoji = '🌟';
