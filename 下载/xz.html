@@ -170,6 +170,9 @@
         .shutiao .repo-icon {
             background: linear-gradient(135deg, #fdcb6e, #e17055);
         }
+        .moting .repo-icon {
+            background: linear-gradient(135deg, #8e44ad, #6c3483);
+        }
         .morealm .repo-icon {
             background: linear-gradient(135deg, #00cec9, #0984e3);
         }
@@ -669,7 +672,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 墨听 · 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -694,6 +697,8 @@
                     <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro</a>
                     <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>
                     <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">🍟</a>
+                    <!-- 墨听 -->
+                    <a href="https://github.com/jwoo1982217-eng/MoTing-Releases" class="footer-link" target="_blank">墨听</a>
                     <a href="https://github.com/DandanLLab/mr" class="footer-link" target="_blank">阅读MR</a>
                     <a href="https://github.com/keys-cherish/morealm-reader" class="footer-link" target="_blank">MoRealm</a>
                     <a href="https://github.com/zyl140640/readbook-releases" class="footer-link" target="_blank">书享</a>
@@ -759,6 +764,8 @@
                 jingshiro: { name: 'Jingshiro阅读', owner: 'Jingshiro', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadong: { name: '阅读NG', owner: 'joestar817', repo: 'legado_NG', stableApi: 'latest', betaApi: 'tags/beta' },
                 shutiao: { name: '阅读🍟', owner: 'huajideshutiao', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
+                // 墨听
+                moting: { name: '墨听', owner: 'jwoo1982217-eng', repo: 'MoTing-Releases', stableApi: 'latest', betaApi: 'tags/beta' },
                 mr: { name: '阅读MR', owner: 'DandanLLab', repo: 'mr', stableApi: 'latest', betaApi: 'tags/beta' },
                 morealm: { name: 'MoRealm', owner: 'keys-cherish', repo: 'morealm-reader', stableApi: 'latest', betaApi: 'tags/beta' },
                 shuxiang: { name: '书享阅读', owner: 'zyl140640', repo: 'readbook-releases', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1113,7 +1120,10 @@
                 'original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't',
                 'cichen', 'dandan', 'youfeng', 'suml1',
                 'archive', 'readingr', 'jingshiro', 'legadong',
-                'shutiao', 'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg', 'manxia', 'hongmeng', 'tauri',
+                'shutiao',
+                // 墨听
+                'moting',
+                'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg', 'manxia', 'hongmeng', 'tauri',
                 'ireader', 'lightnovelreader',
                 // Lumi 在 LightNovelReader 后面
                 'lumi',
@@ -1142,6 +1152,7 @@
                 else if (repoId === 'jingshiro') iconEmoji = '✨';
                 else if (repoId === 'morealm') iconEmoji = '🌙';
                 else if (repoId === 'shutiao') iconEmoji = '🍟';
+                else if (repoId === 'moting') iconEmoji = '🎵';
                 else if (repoId === 'mr') iconEmoji = '📗';
                 else if (repoId === 'shuxiang') iconEmoji = '📚';
                 else if (repoId === 'kaiyuan') iconEmoji = '🌟';
@@ -1230,7 +1241,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             buildAllCards();
             Utils.updateLastUpdatedTime();
-            // 不再自动加载任何数据
             if (/iPhone|iPad|iPod/.test(navigator.userAgent)) document.body.style.WebkitOverflowScrolling = 'touch';
         });
     </script>
