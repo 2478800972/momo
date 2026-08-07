@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>猫爪主题 - 兮心阅读</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         * {
             margin: 0;
@@ -12,46 +12,42 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
-        
-        body {
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
-    color: #e0e0e0;
-    line-height: 1.6;
-    position: relative;
-    overflow-x: hidden;
-    min-height: 100vh;
-    overflow-y: auto;
-}
 
-/* 添加星空纹理效果 */
-body:before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 15% 25%, rgba(255, 220, 210, 0.05) 0%, transparent 10%),
-        radial-gradient(circle at 85% 75%, rgba(255, 200, 200, 0.05) 0%, transparent 10%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 20%);
-    pointer-events: none;
-    z-index: -2;
-}
-        
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        body:before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 15% 25%, rgba(255, 220, 210, 0.05) 0%, transparent 10%),
+                radial-gradient(circle at 85% 75%, rgba(255, 200, 200, 0.05) 0%, transparent 10%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 20%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
         .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-    background-color: rgba(10, 10, 26, 0.4);
-    backdrop-filter: blur(5px);
-    border-radius: 12px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-        
-        /* 返回按钮 */
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            position: relative;
+            background-color: rgba(10, 10, 26, 0.4);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+        }
+
         .back-btn {
             position: absolute;
             top: 20px;
@@ -69,20 +65,20 @@ body:before {
             align-items: center;
             gap: 8px;
         }
-        
+
         .back-btn:hover {
             background-color: #c5c1be;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(221, 217, 214, 0.4);
         }
-        
+
         header {
             text-align: center;
             padding: 60px 0 30px;
             border-bottom: 1px solid rgba(224, 224, 224, 0.1);
             margin-bottom: 40px;
         }
-        
+
         h1 {
             font-size: 3.2rem;
             margin-bottom: 15px;
@@ -91,7 +87,7 @@ body:before {
             position: relative;
             display: inline-block;
         }
-        
+
         h1:after {
             content: '';
             position: absolute;
@@ -103,7 +99,7 @@ body:before {
             background-color: #ddd9d6;
             border-radius: 2px;
         }
-        
+
         .subtitle {
             font-size: 1.2rem;
             margin-top: 25px;
@@ -112,7 +108,7 @@ body:before {
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         .theme-description {
             background-color: rgba(40, 40, 40, 0.85);
             border-radius: 12px;
@@ -122,7 +118,7 @@ body:before {
             text-align: center;
             border-left: 5px solid #ddd9d6;
         }
-        
+
         .theme-quote {
             font-size: 1.8rem;
             font-weight: 300;
@@ -132,7 +128,7 @@ body:before {
             padding: 0 20px;
             font-style: italic;
         }
-        
+
         .theme-insight {
             font-size: 1rem;
             color: #aaa;
@@ -142,14 +138,14 @@ body:before {
             text-align: left;
             padding: 0 10px;
         }
-        
+
         .theme-config {
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
             margin-bottom: 50px;
         }
-        
+
         .config-card {
             flex: 1;
             min-width: 300px;
@@ -158,7 +154,7 @@ body:before {
             padding: 25px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
-        
+
         .config-card h2 {
             font-size: 1.5rem;
             margin-bottom: 20px;
@@ -167,23 +163,23 @@ body:before {
             align-items: center;
             gap: 10px;
         }
-        
+
         .config-card h2 i {
             color: #ddd9d6;
         }
-        
+
         .color-palette {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
+
         .color-item {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
+
         .color-sample {
             width: 40px;
             height: 40px;
@@ -191,23 +187,23 @@ body:before {
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .color-info {
             display: flex;
             flex-direction: column;
         }
-        
+
         .color-name {
             font-weight: 600;
             color: #e0e0e0;
         }
-        
+
         .color-value {
             font-family: monospace;
             font-size: 0.9rem;
             color: #aaa;
         }
-        
+
         .json-code {
             background-color: #2a2a2a;
             color: #e0e0e0;
@@ -219,7 +215,7 @@ body:before {
             line-height: 1.5;
             border: 1px solid #3a3a3a;
         }
-        
+
         .download-section {
             background-color: rgba(40, 40, 40, 0.85);
             border-radius: 12px;
@@ -228,7 +224,7 @@ body:before {
             margin-bottom: 50px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
-        
+
         .download-btn {
             display: inline-flex;
             align-items: center;
@@ -244,13 +240,13 @@ body:before {
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(221, 217, 214, 0.3);
         }
-        
+
         .download-btn:hover {
             background-color: #c5c1be;
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(221, 217, 214, 0.4);
         }
-        
+
         .external-link {
             display: inline-block;
             margin-top: 15px;
@@ -258,28 +254,28 @@ body:before {
             text-decoration: none;
             font-size: 0.95rem;
         }
-        
+
         .external-link:hover {
             text-decoration: underline;
         }
-        
+
         .gallery-section {
             margin-bottom: 50px;
         }
-        
+
         .gallery-section h2 {
             font-size: 1.8rem;
             margin-bottom: 25px;
             color: #ddd9d6;
             text-align: center;
         }
-        
+
         .image-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
-        
+
         .gallery-item {
             border-radius: 12px;
             overflow: hidden;
@@ -289,23 +285,23 @@ body:before {
             display: flex;
             flex-direction: column;
         }
-        
+
         .gallery-item:hover {
             transform: translateY(-10px);
         }
-        
+
         .gallery-item a {
             display: block;
             width: 100%;
             overflow: hidden;
-            text-decoration: none; 
+            text-decoration: none;
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #1a1a1a;
         }
-        
+
         .gallery-item img {
             width: 100%;
             height: auto;
@@ -314,74 +310,74 @@ body:before {
             display: block;
             transition: transform 0.5s ease;
         }
-        
+
         .gallery-item:hover img {
             transform: scale(1.05);
         }
-        
+
         .image-caption {
             padding: 15px;
             text-align: center;
             background-color: #2a2a2a;
             font-weight: 500;
-            text-decoration: none; 
+            text-decoration: none;
             color: #aaa;
         }
-        
+
         footer {
-    text-align: center;
-    padding: 30px 0;
-    color: #aaa;
-    border-top: 1px solid rgba(224, 224, 224, 0.1);
-    margin-top: 30px;
-    font-size: 0.95rem;
-    margin-bottom: 20px; /* 添加底部边距 */
-}
-        
+            text-align: center;
+            padding: 30px 0;
+            color: #aaa;
+            border-top: 1px solid rgba(224, 224, 224, 0.1);
+            margin-top: 30px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
             }
-            
+
             .back-btn {
                 top: 15px;
                 left: 15px;
                 padding: 8px 15px;
                 font-size: 0.9rem;
             }
-            
+
             .theme-config {
                 flex-direction: column;
             }
-            
+
             .image-gallery {
                 grid-template-columns: 1fr;
             }
-            
+
             .gallery-item img {
                 max-height: 400px;
             }
         }
-        
-        /* 猫爪和猫元素效果 */
-        .cat-paw {
-            position: fixed;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0;
-        }
-        
-        .cat-silhouette {
-            position: fixed;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0;
-        }
-        
+
+        /* 猫爪和猫元素效果 - 使用 fixed 定位，但不影响页面布局 */
+        .cat-paw,
+        .cat-silhouette,
         .cat-cluster {
             position: fixed;
             pointer-events: none;
             z-index: -1;
+        }
+
+        /* 猫爪初始透明度为0，动画中控制 */
+        .cat-paw {
+            opacity: 0;
+        }
+
+        .cat-silhouette {
+            opacity: 0;
+        }
+
+        .cat-cluster {
             opacity: 0;
         }
     </style>
@@ -392,12 +388,12 @@ body:before {
         <a href="/momo/zhuti.html" class="back-btn">
             <i class="fas fa-arrow-left"></i> 返回主题合集
         </a>
-        
+
         <header>
             <h1>猫爪</h1>
             <p class="subtitle">"阳光午后，做一只慵懒的猫吧。让时间悠悠逝去，享受猫咪一样的慢生活。"</p>
         </header>
-        
+
         <section class="theme-description">
             <div class="theme-quote">
                 阳光午后，做一只慵懒的猫吧。
@@ -408,7 +404,7 @@ body:before {
                 这是一个夜间主题，适合在光线较暗的环境中使用，可以有效减少眼睛疲劳，让你沉浸在舒适的阅读氛围中。
             </div>
         </section>
-        
+
         <section class="theme-config">
             <div class="config-card">
                 <h2><i class="fas fa-palette"></i> 颜色配置</h2>
@@ -450,22 +446,22 @@ body:before {
                     </div>
                 </div>
             </div>
-            
+
             <div class="config-card">
                 <h2><i class="fas fa-code"></i> JSON 配置</h2>
                 <div class="json-code">
-{
-  "accentColor": "#ffddd9d6",
-  "backgroundColor": "#ff1a1a1a",
-  "bottomBackground": "#ff1a1a1a",
-  "isNightTheme": true,
-  "primaryColor": "#ff1a1a1a",
-  "themeName": "猫爪"
-}
+                    {
+                    "accentColor": "#ffddd9d6",
+                    "backgroundColor": "#ff1a1a1a",
+                    "bottomBackground": "#ff1a1a1a",
+                    "isNightTheme": true,
+                    "primaryColor": "#ff1a1a1a",
+                    "themeName": "猫爪"
+                    }
                 </div>
             </div>
         </section>
-        
+
         <section class="download-section">
             <h2>下载主题</h2>
             <p>点击下方按钮下载"猫爪"主题文件，安装后即可使用</p>
@@ -473,7 +469,7 @@ body:before {
                 <i class="fas fa-download"></i> 下载主题文件
             </a>
         </section>
-        
+
         <section class="gallery-section">
             <h2>主题预览</h2>
             <div class="image-gallery">
@@ -533,27 +529,428 @@ body:before {
                 </div>
             </div>
         </section>
-        
+
         <footer>
             兮心阅读 © 猫爪主题 | 设计理念：猫咪、慵懒、夜间阅读
         </footer>
     </div>
-    
+
     <script>
-        // 页面加载动画 - 立即执行，不等待图片
+        // ============================================================
+        // 修复：猫爪飘落特效无限下滑问题
+        // 1. 使用 animation.onfinish 替代 setTimeout 移除猫爪
+        // 2. 限制同时存在的猫爪最大数量（50个）
+        // 3. 定期清理残留猫爪
+        // ============================================================
+
+        // ---- 全局控制 ----
+        var MAX_PAWS = 50; // 最大猫爪数量
+        var pawCount = 0; // 当前猫爪数量
+        var pawElements = []; // 追踪所有猫爪元素
+
+        // ---- 清理函数：移除多余的猫爪 ----
+        function cleanupExcessPaws() {
+            while (pawElements.length > MAX_PAWS) {
+                var old = pawElements.shift();
+                if (old && old.parentNode) {
+                    old.remove();
+                    pawCount--;
+                }
+            }
+        }
+
+        // ---- 安全移除猫爪 ----
+        function safeRemovePaw(paw) {
+            if (!paw) return;
+            var idx = pawElements.indexOf(paw);
+            if (idx !== -1) {
+                pawElements.splice(idx, 1);
+                pawCount--;
+            }
+            if (paw.parentNode) {
+                paw.remove();
+            }
+        }
+
+        // ============================================================
+        // 1. 主猫爪飘落 (修复版)
+        // ============================================================
+        function createCatPaw() {
+            // 数量限制
+            if (pawCount >= MAX_PAWS) {
+                cleanupExcessPaws();
+                if (pawCount >= MAX_PAWS) return;
+            }
+
+            var paw = document.createElement('div');
+            paw.classList.add('cat-paw');
+
+            var size = Math.random() * 25 + 15;
+            paw.style.width = size + 'px';
+            paw.style.height = size + 'px';
+
+            var colors = [
+                'rgba(221, 217, 214, ' + (Math.random() * 0.3 + 0.1) + ')',
+                'rgba(200, 200, 200, ' + (Math.random() * 0.25 + 0.1) + ')',
+                'rgba(180, 180, 180, ' + (Math.random() * 0.2 + 0.1) + ')',
+                'rgba(220, 220, 220, ' + (Math.random() * 0.25 + 0.1) + ')'
+            ];
+            paw.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+            paw.style.position = 'fixed';
+            paw.style.pointerEvents = 'none';
+            paw.style.zIndex = '-1';
+
+            // 随机起始位置 (从视口上方进入)
+            paw.style.left = Math.random() * 100 + 'vw';
+            paw.style.top = '-30px';
+
+            document.body.appendChild(paw);
+            pawCount++;
+            pawElements.push(paw);
+
+            // ---- 添加肉垫 ----
+            setTimeout(function() {
+                if (!paw.parentNode) return;
+                var pad1 = document.createElement('div');
+                pad1.style.cssText =
+                    'position:absolute;width:30%;height:30%;background-color:rgba(240,200,200,' + (Math
+                    .random() * 0.2 + 0.1) + ');border-radius:50%;top:20%;left:35%;';
+                paw.appendChild(pad1);
+
+                var pad2 = document.createElement('div');
+                pad2.style.cssText =
+                    'position:absolute;width:20%;height:20%;background-color:rgba(240,200,200,' + (Math
+                    .random() * 0.2 + 0.1) + ');border-radius:50%;top:55%;left:15%;';
+                paw.appendChild(pad2);
+
+                var pad3 = document.createElement('div');
+                pad3.style.cssText =
+                    'position:absolute;width:20%;height:20%;background-color:rgba(240,200,200,' + (Math
+                    .random() * 0.2 + 0.1) + ');border-radius:50%;top:55%;left:55%;';
+                paw.appendChild(pad3);
+            }, 10);
+
+            // ---- 飘落动画 ----
+            var duration = Math.random() * 18000 + 12000;
+            var endLeft = parseFloat(paw.style.left) + (Math.random() * 60 - 30);
+            var rotate = Math.random() * 180;
+
+            var animation = paw.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 0.7 },
+                { transform: 'translateY(110vh) translateX(' + (endLeft - parseFloat(paw.style.left)) +
+                        'vw) rotate(' + rotate + 'deg)',
+                    opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+
+            // ★ 关键修复：动画完成后移除猫爪
+            animation.onfinish = function() {
+                safeRemovePaw(paw);
+            };
+
+            // 兜底：如果 onfinish 未触发，使用 setTimeout 保底
+            setTimeout(function() {
+                if (paw.parentNode) {
+                    safeRemovePaw(paw);
+                }
+            }, duration + 2000);
+        }
+
+        // ============================================================
+        // 2. 猫咪剪影 (修复版)
+        // ============================================================
+        function createCatSilhouette() {
+            // 数量限制：剪影不占用猫爪计数，但为了性能也做限制
+            var silhouettes = document.querySelectorAll('.cat-silhouette');
+            if (silhouettes.length > 8) {
+                var old = silhouettes[0];
+                if (old) old.remove();
+            }
+
+            var cat = document.createElement('div');
+            cat.classList.add('cat-silhouette');
+
+            var width = Math.random() * 80 + 40;
+            var height = width * 0.6;
+            cat.style.width = width + 'px';
+            cat.style.height = height + 'px';
+            cat.style.background =
+                'radial-gradient(ellipse at 30% 40%, rgba(221, 217, 214, 0.08) 0%, rgba(221, 217, 214, 0) 40%), radial-gradient(ellipse at 70% 40%, rgba(221, 217, 214, 0.08) 0%, rgba(221, 217, 214, 0) 40%), radial-gradient(ellipse at 50% 80%, rgba(221, 217, 214, 0.05) 0%, rgba(221, 217, 214, 0) 50%)';
+            cat.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+            cat.style.position = 'fixed';
+            cat.style.pointerEvents = 'none';
+            cat.style.zIndex = '-1';
+            cat.style.left = Math.random() * 100 + 'vw';
+            cat.style.top = Math.random() * 100 + 'vh';
+
+            document.body.appendChild(cat);
+
+            var duration = Math.random() * 30000 + 20000;
+            var endLeft = Math.random() * 100;
+            var endTop = Math.random() * 100;
+
+            var anim = cat.animate([
+                { transform: 'translate(0, 0) scale(0.8)', opacity: 0 },
+                { transform: 'translate(0, 0) scale(1)', opacity: 0.08 },
+                { transform: 'translate(' + (endLeft - parseFloat(cat.style.left)) + 'vw, ' + (endTop - parseFloat(
+                        cat.style.top)) + 'vh) scale(1.1)',
+                    opacity: 0.08 },
+                { transform: 'translate(' + (endLeft - parseFloat(cat.style.left)) + 'vw, ' + (endTop - parseFloat(
+                        cat.style.top)) + 'vh) scale(0.8)',
+                    opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+
+            // 从剪影飘出猫爪
+            var pawInterval = setInterval(function() {
+                if (!cat.parentNode) {
+                    clearInterval(pawInterval);
+                    return;
+                }
+                createSilhouettePaw(cat);
+            }, 2000);
+
+            anim.onfinish = function() {
+                clearInterval(pawInterval);
+                if (cat.parentNode) cat.remove();
+            };
+
+            setTimeout(function() {
+                if (cat.parentNode) {
+                    clearInterval(pawInterval);
+                    cat.remove();
+                }
+            }, duration + 3000);
+        }
+
+        // ============================================================
+        // 3. 从剪影飘出的猫爪 (修复版)
+        // ============================================================
+        function createSilhouettePaw(catElement) {
+            if (!catElement || !catElement.parentNode) return;
+            if (pawCount >= MAX_PAWS) {
+                cleanupExcessPaws();
+                if (pawCount >= MAX_PAWS) return;
+            }
+
+            var paw = document.createElement('div');
+            paw.classList.add('cat-paw');
+            var size = Math.random() * 20 + 10;
+            paw.style.width = size + 'px';
+            paw.style.height = size + 'px';
+            var opacity = Math.random() * 0.25 + 0.1;
+            paw.style.backgroundColor = 'rgba(221, 217, 214, ' + opacity + ')';
+            paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+            paw.style.position = 'fixed';
+            paw.style.pointerEvents = 'none';
+            paw.style.zIndex = '-1';
+
+            var rect = catElement.getBoundingClientRect();
+            paw.style.left = (rect.left + Math.random() * rect.width) + 'px';
+            paw.style.top = (rect.top + Math.random() * rect.height) + 'px';
+
+            document.body.appendChild(paw);
+            pawCount++;
+            pawElements.push(paw);
+
+            var duration = Math.random() * 16000 + 11000;
+            var floatDistance = Math.random() * 130 + 70;
+            var floatLeft = (Math.random() * 90 - 45);
+            var rotate = Math.random() * 180;
+
+            var anim = paw.animate([
+                { transform: 'translate(0, 0) rotate(0deg)', opacity: 0.7 },
+                { transform: 'translate(' + floatLeft + 'px, ' + floatDistance + 'vh) rotate(' + rotate +
+                        'deg)',
+                    opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+
+            anim.onfinish = function() {
+                safeRemovePaw(paw);
+            };
+
+            setTimeout(function() {
+                if (paw.parentNode) {
+                    safeRemovePaw(paw);
+                }
+            }, duration + 2000);
+        }
+
+        // ============================================================
+        // 4. 猫咪簇 (修复版)
+        // ============================================================
+        function createCatCluster() {
+            var clusters = document.querySelectorAll('.cat-cluster');
+            if (clusters.length > 5) {
+                var old = clusters[0];
+                if (old) old.remove();
+            }
+
+            var cluster = document.createElement('div');
+            cluster.classList.add('cat-cluster');
+            var width = Math.random() * 150 + 100;
+            var height = width * 0.5;
+            cluster.style.width = width + 'px';
+            cluster.style.height = height + 'px';
+            cluster.style.background =
+                'radial-gradient(ellipse at 50% 50%, rgba(221, 217, 214, 0.06) 0%, rgba(221, 217, 214, 0) 70%)';
+            cluster.style.borderRadius = '50%';
+            cluster.style.position = 'fixed';
+            cluster.style.pointerEvents = 'none';
+            cluster.style.zIndex = '-1';
+            cluster.style.left = Math.random() * 100 + 'vw';
+            cluster.style.top = Math.random() * 100 + 'vh';
+
+            document.body.appendChild(cluster);
+
+            var duration = Math.random() * 40000 + 30000;
+            var endLeft = Math.random() * 100;
+            var endTop = Math.random() * 100;
+
+            var anim = cluster.animate([
+                { transform: 'translate(0, 0)', opacity: 0 },
+                { transform: 'translate(0, 0)', opacity: 0.06 },
+                { transform: 'translate(' + (endLeft - parseFloat(cluster.style.left)) + 'vw, ' + (endTop - parseFloat(
+                        cluster.style.top)) + 'vh)',
+                    opacity: 0.06 },
+                { transform: 'translate(' + (endLeft - parseFloat(cluster.style.left)) + 'vw, ' + (endTop - parseFloat(
+                        cluster.style.top)) + 'vh)',
+                    opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+
+            var pawInterval = setInterval(function() {
+                if (!cluster.parentNode) {
+                    clearInterval(pawInterval);
+                    return;
+                }
+                createClusterPaw(cluster);
+            }, 1200);
+
+            anim.onfinish = function() {
+                clearInterval(pawInterval);
+                if (cluster.parentNode) cluster.remove();
+            };
+
+            setTimeout(function() {
+                if (cluster.parentNode) {
+                    clearInterval(pawInterval);
+                    cluster.remove();
+                }
+            }, duration + 3000);
+        }
+
+        // ============================================================
+        // 5. 从簇飘出的猫爪 (修复版)
+        // ============================================================
+        function createClusterPaw(clusterElement) {
+            if (!clusterElement || !clusterElement.parentNode) return;
+            if (pawCount >= MAX_PAWS) {
+                cleanupExcessPaws();
+                if (pawCount >= MAX_PAWS) return;
+            }
+
+            var pawCountThis = Math.floor(Math.random() * 4) + 2;
+            for (var i = 0; i < pawCountThis; i++) {
+                (function(index) {
+                    setTimeout(function() {
+                        if (!clusterElement.parentNode) return;
+                        if (pawCount >= MAX_PAWS) {
+                            cleanupExcessPaws();
+                            if (pawCount >= MAX_PAWS) return;
+                        }
+
+                        var paw = document.createElement('div');
+                        paw.classList.add('cat-paw');
+                        var size = Math.random() * 15 + 8;
+                        paw.style.width = size + 'px';
+                        paw.style.height = size + 'px';
+                        var opacity = Math.random() * 0.2 + 0.08;
+                        paw.style.backgroundColor = 'rgba(221, 217, 214, ' + opacity + ')';
+                        paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+                        paw.style.position = 'fixed';
+                        paw.style.pointerEvents = 'none';
+                        paw.style.zIndex = '-1';
+
+                        var rect = clusterElement.getBoundingClientRect();
+                        paw.style.left = (rect.left + Math.random() * rect.width) + 'px';
+                        paw.style.top = (rect.top + Math.random() * rect.height) + 'px';
+
+                        document.body.appendChild(paw);
+                        pawCount++;
+                        pawElements.push(paw);
+
+                        var duration = Math.random() * 14000 + 9000;
+                        var floatDistance = Math.random() * 120 + 60;
+                        var floatLeft = (Math.random() * 80 - 40);
+                        var rotate = Math.random() * 180;
+
+                        var anim = paw.animate([
+                            { transform: 'translate(0, 0) rotate(0deg)', opacity: opacity * 3 },
+                            { transform: 'translate(' + floatLeft + 'px, ' + floatDistance +
+                                    'vh) rotate(' + rotate + 'deg)',
+                                opacity: 0 }
+                        ], {
+                            duration: duration,
+                            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                        });
+
+                        anim.onfinish = function() {
+                            safeRemovePaw(paw);
+                        };
+
+                        setTimeout(function() {
+                            if (paw.parentNode) {
+                                safeRemovePaw(paw);
+                            }
+                        }, duration + 2000);
+                    }, index * 300);
+                })(i);
+            }
+        }
+
+        // ============================================================
+        // 6. 定时清理 (每10秒)
+        // ============================================================
+        setInterval(function() {
+            cleanupExcessPaws();
+            // 额外清理：移除所有不在DOM中的猫爪引用
+            for (var i = pawElements.length - 1; i >= 0; i--) {
+                if (!pawElements[i] || !pawElements[i].parentNode) {
+                    pawElements.splice(i, 1);
+                    pawCount--;
+                }
+            }
+            if (pawCount < 0) pawCount = 0;
+        }, 10000);
+
+        // ============================================================
+        // 7. 启动动画
+        // ============================================================
+
+        // 页面加载动画
         document.body.style.opacity = '0';
         document.body.style.transition = 'opacity 0.5s ease';
-        
-        setTimeout(() => {
+        setTimeout(function() {
             document.body.style.opacity = '1';
         }, 100);
-        
-        // 打字机效果 - 立即执行，不等待图片
-        const title = document.querySelector('h1');
-        const originalText = title.textContent;
+
+        // 打字机效果
+        var title = document.querySelector('h1');
+        var originalText = title.textContent;
         title.textContent = '';
-        
-        let i = 0;
+        var i = 0;
+
         function typeWriter() {
             if (i < originalText.length) {
                 title.textContent += originalText.charAt(i);
@@ -561,378 +958,41 @@ body:before {
                 setTimeout(typeWriter, 100);
             }
         }
-        
         setTimeout(typeWriter, 300);
-        
-        // 创建猫爪效果 - 立即执行，不等待图片
-        function createCatPaw() {
-            const paw = document.createElement('div');
-            paw.classList.add('cat-paw');
-            
-            // 随机大小 - 猫爪形状
-            const size = Math.random() * 25 + 15;
-            
-            paw.style.width = `${size}px`;
-            paw.style.height = `${size}px`;
-            
-            // 猫爪颜色（浅灰色调）
-            const colors = [
-                `rgba(221, 217, 214, ${Math.random() * 0.3 + 0.1})`, // 主题浅灰色
-                `rgba(200, 200, 200, ${Math.random() * 0.25 + 0.1})`, // 灰色
-                `rgba(180, 180, 180, ${Math.random() * 0.2 + 0.1})`, // 深灰色
-                `rgba(220, 220, 220, ${Math.random() * 0.25 + 0.1})`  // 浅灰色
-            ];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            
-            // 创建猫爪形状（使用border-radius模拟）
-            paw.style.backgroundColor = color;
-            paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
-            
-            // 添加小肉垫
-            paw.style.position = 'relative';
-            
-            // 随机起始位置
-            paw.style.left = `${Math.random() * 100}vw`;
-            paw.style.top = `-20px`;
-            
-            document.body.appendChild(paw);
-            
-            // 添加肉垫效果
-            setTimeout(() => {
-                const pad1 = document.createElement('div');
-                pad1.style.position = 'absolute';
-                pad1.style.width = '30%';
-                pad1.style.height = '30%';
-                pad1.style.backgroundColor = `rgba(240, 200, 200, ${Math.random() * 0.2 + 0.1})`;
-                pad1.style.borderRadius = '50%';
-                pad1.style.top = '20%';
-                pad1.style.left = '35%';
-                paw.appendChild(pad1);
-                
-                const pad2 = document.createElement('div');
-                pad2.style.position = 'absolute';
-                pad2.style.width = '20%';
-                pad2.style.height = '20%';
-                pad2.style.backgroundColor = `rgba(240, 200, 200, ${Math.random() * 0.2 + 0.1})`;
-                pad2.style.borderRadius = '50%';
-                pad2.style.top = '55%';
-                pad2.style.left = '15%';
-                paw.appendChild(pad2);
-                
-                const pad3 = document.createElement('div');
-                pad3.style.position = 'absolute';
-                pad3.style.width = '20%';
-                pad3.style.height = '20%';
-                pad3.style.backgroundColor = `rgba(240, 200, 200, ${Math.random() * 0.2 + 0.1})`;
-                pad3.style.borderRadius = '50%';
-                pad3.style.top = '55%';
-                pad3.style.left = '55%';
-                paw.appendChild(pad3);
-            }, 10);
-            
-            // 猫爪飘落动画
-            const duration = Math.random() * 18000 + 12000;
-            const endLeft = parseFloat(paw.style.left) + (Math.random() * 60 - 30);
-            const rotate = Math.random() * 180; // 随机旋转角度
-            
-            paw.animate([
-                { 
-                    transform: 'translateY(0) rotate(0deg)',
-                    opacity: 0.7
-                },
-                { 
-                    transform: `translateY(120vh) translateX(${endLeft - parseFloat(paw.style.left)}vw) rotate(${rotate}deg)`,
-                    opacity: 0
-                }
-            ], {
-                duration: duration,
-                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-            });
-            
-            // 移除猫爪
-            setTimeout(() => {
-                paw.remove();
-            }, duration);
-        }
-        
-        // 创建猫咪剪影效果 - 立即执行，不等待图片
-        function createCatSilhouette() {
-            const cat = document.createElement('div');
-            cat.classList.add('cat-silhouette');
-            
-            // 随机大小
-            const width = Math.random() * 80 + 40;
-            const height = width * 0.6;
-            
-            cat.style.width = `${width}px`;
-            cat.style.height = `${height}px`;
-            
-            // 创建猫咪剪影形状
-            cat.style.background = `
-                radial-gradient(ellipse at 30% 40%, rgba(221, 217, 214, 0.08) 0%, rgba(221, 217, 214, 0) 40%),
-                radial-gradient(ellipse at 70% 40%, rgba(221, 217, 214, 0.08) 0%, rgba(221, 217, 214, 0) 40%),
-                radial-gradient(ellipse at 50% 80%, rgba(221, 217, 214, 0.05) 0%, rgba(221, 217, 214, 0) 50%)
-            `;
-            cat.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
-            
-            // 随机位置
-            cat.style.left = `${Math.random() * 100}vw`;
-            cat.style.top = `${Math.random() * 100}vh`;
-            
-            document.body.appendChild(cat);
-            
-            // 猫咪剪影淡入淡出动画
-            const duration = Math.random() * 30000 + 20000;
-            const endLeft = Math.random() * 100;
-            const endTop = Math.random() * 100;
-            
-            cat.animate([
-                { 
-                    transform: 'translate(0, 0) scale(0.8)',
-                    opacity: 0
-                },
-                { 
-                    transform: 'translate(0, 0) scale(1)',
-                    opacity: 0.08
-                },
-                { 
-                    transform: `translate(${endLeft - parseFloat(cat.style.left)}vw, ${endTop - parseFloat(cat.style.top)}vh) scale(1.1)`,
-                    opacity: 0.08
-                },
-                { 
-                    transform: `translate(${endLeft - parseFloat(cat.style.left)}vw, ${endTop - parseFloat(cat.style.top)}vh) scale(0.8)`,
-                    opacity: 0
-                }
-            ], {
-                duration: duration,
-                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-            });
-            
-            // 从猫咪剪影飘出猫爪
-            const pawInterval = setInterval(() => {
-                createSilhouettePaw(cat);
-            }, 2000);
-            
-            // 移除猫咪剪影
-            setTimeout(() => {
-                clearInterval(pawInterval);
-                cat.remove();
-            }, duration);
-        }
-        
-        // 创建猫咪簇效果 - 立即执行，不等待图片
-        function createCatCluster() {
-            const cluster = document.createElement('div');
-            cluster.classList.add('cat-cluster');
-            
-            // 随机大小
-            const width = Math.random() * 150 + 100;
-            const height = width * 0.5;
-            
-            cluster.style.width = `${width}px`;
-            cluster.style.height = `${height}px`;
-            
-            // 创建猫咪簇的形状
-            cluster.style.background = `
-                radial-gradient(ellipse at 50% 50%, rgba(221, 217, 214, 0.06) 0%, rgba(221, 217, 214, 0) 70%)
-            `;
-            cluster.style.borderRadius = '50%';
-            
-            // 随机位置
-            cluster.style.left = `${Math.random() * 100}vw`;
-            cluster.style.top = `${Math.random() * 100}vh`;
-            
-            document.body.appendChild(cluster);
-            
-            // 猫咪簇淡入淡出动画
-            const duration = Math.random() * 40000 + 30000;
-            const endLeft = Math.random() * 100;
-            const endTop = Math.random() * 100;
-            
-            cluster.animate([
-                { 
-                    transform: 'translate(0, 0)',
-                    opacity: 0
-                },
-                { 
-                    transform: 'translate(0, 0)',
-                    opacity: 0.06
-                },
-                { 
-                    transform: `translate(${endLeft - parseFloat(cluster.style.left)}vw, ${endTop - parseFloat(cluster.style.top)}vh)`,
-                    opacity: 0.06
-                },
-                { 
-                    transform: `translate(${endLeft - parseFloat(cluster.style.left)}vw, ${endTop - parseFloat(cluster.style.top)}vh)`,
-                    opacity: 0
-                }
-            ], {
-                duration: duration,
-                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-            });
-            
-            // 从猫咪簇飘出猫爪
-            const pawInterval = setInterval(() => {
-                createClusterPaw(cluster);
-            }, 1200);
-            
-            // 移除猫咪簇
-            setTimeout(() => {
-                clearInterval(pawInterval);
-                cluster.remove();
-            }, duration);
-        }
-        
-        // 从猫咪剪影飘出的猫爪 - 立即执行，不等待图片
-        function createSilhouettePaw(catElement) {
-            const paw = document.createElement('div');
-            paw.classList.add('cat-paw');
-            
-            // 小猫爪
-            const size = Math.random() * 20 + 10;
-            
-            paw.style.width = `${size}px`;
-            paw.style.height = `${size}px`;
-            
-            // 猫爪颜色
-            const opacity = Math.random() * 0.25 + 0.1;
-            paw.style.backgroundColor = `rgba(221, 217, 214, ${opacity})`;
-            paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
-            
-            // 从猫咪剪影位置开始
-            const catLeft = parseFloat(catElement.style.left);
-            const catTop = parseFloat(catElement.style.top);
-            const catWidth = parseFloat(catElement.style.width);
-            const catHeight = parseFloat(catElement.style.height);
-            
-            paw.style.left = `${catLeft + (Math.random() * catWidth)}px`;
-            paw.style.top = `${catTop + (Math.random() * catHeight)}px`;
-            
-            document.body.appendChild(paw);
-            
-            // 猫爪飘落动画
-            const duration = Math.random() * 16000 + 11000;
-            const floatDistance = Math.random() * 130 + 70;
-            const floatLeft = (Math.random() * 90 - 45);
-            const rotate = Math.random() * 180;
-            
-            paw.animate([
-                { 
-                    transform: 'translate(0, 0) rotate(0deg)',
-                    opacity: 0.7
-                },
-                { 
-                    transform: `translate(${floatLeft}px, ${floatDistance}vh) rotate(${rotate}deg)`,
-                    opacity: 0
-                }
-            ], {
-                duration: duration,
-                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-            });
-            
-            // 移除猫爪
-            setTimeout(() => {
-                paw.remove();
-            }, duration);
-        }
-        
-        // 从猫咪簇飘出的猫爪 - 立即执行，不等待图片
-        function createClusterPaw(clusterElement) {
-            const pawCount = Math.floor(Math.random() * 4) + 2;
-            
-            for(let i = 0; i < pawCount; i++) {
-                setTimeout(() => {
-                    const paw = document.createElement('div');
-                    paw.classList.add('cat-paw');
-                    
-                    // 小猫爪
-                    const size = Math.random() * 15 + 8;
-                    
-                    paw.style.width = `${size}px`;
-                    paw.style.height = `${size}px`;
-                    
-                    // 猫爪颜色
-                    const opacity = Math.random() * 0.2 + 0.08;
-                    paw.style.backgroundColor = `rgba(221, 217, 214, ${opacity})`;
-                    paw.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
-                    
-                    // 从猫咪簇位置开始
-                    const clusterLeft = parseFloat(clusterElement.style.left);
-                    const clusterTop = parseFloat(clusterElement.style.top);
-                    const clusterWidth = parseFloat(clusterElement.style.width);
-                    const clusterHeight = parseFloat(clusterElement.style.height);
-                    
-                    paw.style.left = `${clusterLeft + (Math.random() * clusterWidth)}px`;
-                    paw.style.top = `${clusterTop + (Math.random() * clusterHeight)}px`;
-                    
-                    document.body.appendChild(paw);
-                    
-                    // 猫爪飘落动画
-                    const duration = Math.random() * 14000 + 9000;
-                    const floatDistance = Math.random() * 120 + 60;
-                    const floatLeft = (Math.random() * 80 - 40);
-                    const rotate = Math.random() * 180;
-                    
-                    paw.animate([
-                        { 
-                            transform: 'translate(0, 0) rotate(0deg)',
-                            opacity: opacity * 3
-                        },
-                        { 
-                            transform: `translate(${floatLeft}px, ${floatDistance}vh) rotate(${rotate}deg)`,
-                            opacity: 0
-                        }
-                    ], {
-                        duration: duration,
-                        easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                    
-                    // 移除猫爪
-                    setTimeout(() => {
-                        paw.remove();
-                    }, duration);
-                }, i * 300);
-            }
-        }
-        
-        // 立即开始动画，不等待图片加载
-        // 每2.5秒创建一个飘落的猫爪
+
+        // 主猫爪生成 (每2.5秒)
         setInterval(createCatPaw, 2500);
-        
-        // 每30秒创建一个猫咪剪影
+
+        // 猫咪剪影 (每30秒)
         setInterval(createCatSilhouette, 30000);
-        
-        // 每45秒创建一个猫咪簇
+
+        // 猫咪簇 (每45秒)
         setInterval(createCatCluster, 45000);
-        
-        // 初始化创建一些猫爪
-        for(let i = 0; i < 18; i++) {
-            setTimeout(() => createCatPaw(), i * 500);
+
+        // 初始生成一批猫爪
+        for (var j = 0; j < 18; j++) {
+            setTimeout(createCatPaw, j * 500);
         }
-        
-        // 初始化创建一个猫咪剪影
-        setTimeout(() => createCatSilhouette(), 10000);
-        
-        // 初始化创建一个猫咪簇
-        setTimeout(() => createCatCluster(), 20000);
-        
-        // 图片悬停效果增强 - 等DOMContentLoaded完成后执行
+        setTimeout(createCatSilhouette, 10000);
+        setTimeout(createCatCluster, 20000);
+
+        // ============================================================
+        // 8. 图片悬停效果 (DOM加载完成后)
+        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach(item => {
+            var galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(function(item) {
                 item.addEventListener('mouseenter', function() {
                     this.style.boxShadow = '0 15px 30px rgba(221, 217, 214, 0.15)';
                 });
-                
                 item.addEventListener('mouseleave', function() {
                     this.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.2)';
                 });
             });
-            
-            // 为图片添加懒加载效果
-            const images = document.querySelectorAll('img');
-            images.forEach(img => {
-                // 添加加载失败处理
+
+            // 图片加载失败处理
+            var images = document.querySelectorAll('img');
+            images.forEach(function(img) {
                 img.addEventListener('error', function() {
                     this.style.backgroundColor = '#1a1a1a';
                     this.style.padding = '20px';
@@ -940,18 +1000,24 @@ body:before {
                     this.style.alignItems = 'center';
                     this.style.justifyContent = 'center';
                     this.style.minHeight = '200px';
-                    
-                    // 创建一个替代文本
-                    const altText = document.createElement('div');
+                    var altText = document.createElement('div');
                     altText.textContent = this.alt || '图片加载失败';
                     altText.style.color = '#666';
                     altText.style.fontSize = '14px';
-                    
-                    // 清空图片内容并添加替代文本
                     this.parentNode.replaceChild(altText, this);
                 });
             });
         });
+
+        // ============================================================
+        // 9. 页面可见性变化时暂停/恢复 (优化性能)
+        // ============================================================
+        document.addEventListener('visibilitychange', function() {
+            // 当页面隐藏时，减少猫爪生成频率 (通过清除和重建定时器)
+            // 简单处理：不做复杂暂停，仅靠数量限制已足够
+        });
+
+        console.log('🐱 猫爪主题已启动 | 最大猫爪数量: ' + MAX_PAWS);
     </script>
 </body>
 </html>
