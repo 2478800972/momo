@@ -161,6 +161,10 @@
         .readingr .repo-icon {
             background: linear-gradient(135deg, #ff7675, #d63031);
         }
+        /* ===== 阅读C 配色 ===== */
+        .readingc .repo-icon {
+            background: linear-gradient(135deg, #00b894, #00a86b);
+        }
         .jingshiro .repo-icon {
             background: linear-gradient(135deg, #fd79a8, #e84393);
         }
@@ -688,7 +692,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · Jingshiro · NG · 🍟 · 墨听 · 墨水 · 夜读· 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · Kototoro · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · 阅读C · Jingshiro · NG · 🍟 · 墨听 · 墨水 · 夜读· 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · Kototoro · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -710,6 +714,8 @@
                     <a href="https://github.com/Suml-1/Legado_Max" class="footer-link" target="_blank">Suml-1</a>
                     <a href="https://github.com/Rimchars/legado" class="footer-link" target="_blank">Archive</a>
                     <a href="https://github.com/refgd/legado" class="footer-link" target="_blank">阅读R</a>
+                    <!-- 新增阅读C -->
+                    <a href="https://github.com/CCSSNE/legadoC" class="footer-link" target="_blank">阅读C</a>
                     <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro</a>
                     <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>
                     <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">🍟</a>
@@ -759,6 +765,7 @@
                     <a href="https://qm.qq.com/q/tuSKs7cpGw" class="footer-link" target="_blank">轻悦时光 QQ</a>
                     <a href="https://qm.qq.com/q/Vc6hPezoyY" class="footer-link" target="_blank">书享阅读 QQ</a>
                     <a href="https://qm.qq.com/q/eqwEoX0hdC" class="footer-link" target="_blank">开元阅读 QQ</a>
+                    <a href="https://qm.qq.com/q/qisz9OhQek" class="footer-link" target="_blank">阅读C QQ</a>
                 </div>
             </div>
 
@@ -785,6 +792,8 @@
                 suml1: { name: 'Suml-1阅读·Max', owner: 'Suml-1', repo: 'Legado_Max', stableApi: 'latest', betaApi: 'tags/beta' },
                 archive: { name: '阅读Archive', owner: 'Rimchars', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 readingr: { name: '阅读R', owner: 'refgd', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
+                // 新增阅读C
+                readingc: { name: '阅读C', owner: 'CCSSNE', repo: 'legadoC', stableApi: 'latest', betaApi: 'tags/beta' },
                 jingshiro: { name: 'Jingshiro阅读', owner: 'Jingshiro', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadong: { name: '阅读NG', owner: 'joestar817', repo: 'legado_NG', stableApi: 'latest', betaApi: 'tags/beta' },
                 shutiao: { name: '阅读🍟', owner: 'huajideshutiao', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1152,7 +1161,10 @@
             const order = [
                 'original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't',
                 'cichen', 'dandan', 'youfeng', 'suml1',
-                'archive', 'readingr', 'jingshiro', 'legadong',
+                'archive', 'readingr',
+                // 阅读C（新增）
+                'readingc',
+                'jingshiro', 'legadong',
                 'shutiao',
                 // 墨听
                 'moting',
@@ -1191,6 +1203,8 @@
                 else if (repoId === 'suml1') iconEmoji = '🚀';
                 else if (repoId === 'archive') iconEmoji = '🗃️';
                 else if (repoId === 'readingr') iconEmoji = '📕';
+                // 新增阅读C 图标
+                else if (repoId === 'readingc') iconEmoji = '📗';
                 else if (repoId === 'jingshiro') iconEmoji = '✨';
                 else if (repoId === 'morealm') iconEmoji = '🌙';
                 else if (repoId === 'shutiao') iconEmoji = '🍟';
