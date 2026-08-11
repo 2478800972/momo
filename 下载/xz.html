@@ -171,6 +171,10 @@
         .legadong .repo-icon {
             background: linear-gradient(135deg, #00b894, #00a86b);
         }
+        /* ===== 阅读PP 配色（新增） ===== */
+        .legadopp .repo-icon {
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
+        }
         .shutiao .repo-icon {
             background: linear-gradient(135deg, #fdcb6e, #e17055);
         }
@@ -692,7 +696,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · 阅读C · Jingshiro · NG · 🍟 · 墨听 · 墨水 · 夜读· 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · Kototoro · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · 阅读R · 阅读C · Jingshiro · NG · 阅读PP · 🍟 · 墨听 · 墨水 · 夜读· 阅读MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · Kototoro · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -714,16 +718,14 @@
                     <a href="https://github.com/Suml-1/Legado_Max" class="footer-link" target="_blank">Suml-1</a>
                     <a href="https://github.com/Rimchars/legado" class="footer-link" target="_blank">Archive</a>
                     <a href="https://github.com/refgd/legado" class="footer-link" target="_blank">阅读R</a>
-                    <!-- 新增阅读C -->
                     <a href="https://github.com/CCSSNE/legadoC" class="footer-link" target="_blank">阅读C</a>
                     <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro</a>
                     <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>
+                    <!-- 新增阅读PP -->
+                    <a href="https://github.com/damifan3/legadoPP" class="footer-link" target="_blank">阅读PP</a>
                     <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">🍟</a>
-                    <!-- 墨听 -->
                     <a href="https://github.com/jwoo1982217-eng/MoTing-Releases" class="footer-link" target="_blank">墨听</a>
-                    <!-- 墨水 -->
                     <a href="https://github.com/radiumCN/inkwell" class="footer-link" target="_blank">墨水</a>
-                    <!-- 夜读（新增） -->
                     <a href="https://github.com/bennytsai1234/Night-Reader" class="footer-link" target="_blank">夜读</a>
                     <a href="https://github.com/DandanLLab/mr" class="footer-link" target="_blank">阅读MR</a>
                     <a href="https://github.com/keys-cherish/morealm-reader" class="footer-link" target="_blank">MoRealm</a>
@@ -733,13 +735,10 @@
                     <a href="https://github.com/DaLongZhuaZi/manxia" class="footer-link" target="_blank">漫匣</a>
                     <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">鸿蒙</a>
                     <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Tauri</a>
-                    <!-- 彩读（新增） -->
                     <a href="https://github.com/ssnangua/ColorTxt" class="footer-link" target="_blank">彩读ColorTxt</a>
-                    <!-- Kototoro（新增） -->
                     <a href="https://github.com/Kototoro-app/Kototoro" class="footer-link" target="_blank">Kototoro</a>
                     <a href="https://github.com/IReaderorg/IReader" class="footer-link" target="_blank">IReader</a>
                     <a href="https://github.com/dmzz-yyhyy/LightNovelReader" class="footer-link" target="_blank">LightNovelReader</a>
-                    <!-- Lumi 仓库链接 -->
                     <a href="https://github.com/huangder/Lumi_Books" class="footer-link" target="_blank">Lumi</a>
                     <a href="https://github.com/zhongbai2333/Tomato-Novel-Downloader" class="footer-link" target="_blank">Zhong·番茄</a>
                     <a href="https://github.com/POf-L/Fanqie-novel-Downloader" class="footer-link" target="_blank">POf·番茄</a>
@@ -792,16 +791,14 @@
                 suml1: { name: 'Suml-1阅读·Max', owner: 'Suml-1', repo: 'Legado_Max', stableApi: 'latest', betaApi: 'tags/beta' },
                 archive: { name: '阅读Archive', owner: 'Rimchars', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 readingr: { name: '阅读R', owner: 'refgd', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
-                // 新增阅读C
                 readingc: { name: '阅读C', owner: 'CCSSNE', repo: 'legadoC', stableApi: 'latest', betaApi: 'tags/beta' },
                 jingshiro: { name: 'Jingshiro阅读', owner: 'Jingshiro', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadong: { name: '阅读NG', owner: 'joestar817', repo: 'legado_NG', stableApi: 'latest', betaApi: 'tags/beta' },
+                // 新增阅读PP
+                legadopp: { name: '阅读PP', owner: 'damifan3', repo: 'legadoPP', stableApi: 'latest', betaApi: 'tags/beta' },
                 shutiao: { name: '阅读🍟', owner: 'huajideshutiao', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
-                // 墨听
                 moting: { name: '墨听', owner: 'jwoo1982217-eng', repo: 'MoTing-Releases', stableApi: 'latest', betaApi: 'tags/beta' },
-                // 墨水
                 inkwell: { name: '墨水', owner: 'radiumCN', repo: 'inkwell', stableApi: 'latest', betaApi: 'tags/beta' },
-                // 夜读（新增）
                 nightreader: { name: '夜读', owner: 'bennytsai1234', repo: 'Night-Reader', stableApi: 'latest', betaApi: 'tags/beta' },
                 mr: { name: '阅读MR', owner: 'DandanLLab', repo: 'mr', stableApi: 'latest', betaApi: 'tags/beta' },
                 morealm: { name: 'MoRealm', owner: 'keys-cherish', repo: 'morealm-reader', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -811,13 +808,10 @@
                 manxia: { name: '漫匣阅读', owner: 'DaLongZhuaZi', repo: 'manxia', stableApi: 'latest', betaApi: 'tags/beta' },
                 hongmeng: { name: '喵公子鸿蒙阅读', owner: 'mgz0227', repo: 'legado-Harmony', stableApi: 'latest', betaApi: 'tags/beta' },
                 tauri: { name: 'Legado-Tauri', owner: 'LegadoTeam', repo: 'Legado-Tauri-Release', stableApi: 'latest', betaApi: 'tags/beta' },
-                // 彩读（新增）
                 colortxt: { name: '彩读ColorTxt', owner: 'ssnangua', repo: 'ColorTxt', stableApi: 'latest', betaApi: 'tags/beta' },
-                // Kototoro（新增）
                 kototoro: { name: 'Kototoro', owner: 'Kototoro-app', repo: 'Kototoro', stableApi: 'latest', betaApi: 'tags/beta' },
                 ireader: { name: 'IReader', owner: 'IReaderorg', repo: 'IReader', stableApi: 'latest', betaApi: 'tags/beta' },
                 lightnovelreader: { name: 'LightNovelReader', owner: 'dmzz-yyhyy', repo: 'LightNovelReader', stableApi: 'latest', betaApi: 'tags/beta' },
-                // Lumi 仓库配置
                 lumi: { name: 'Lumi', owner: 'huangder', repo: 'Lumi_Books', stableApi: 'latest', betaApi: 'tags/beta' },
                 zhongfanqie: { name: 'Zhong·番茄', owner: 'zhongbai2333', repo: 'Tomato-Novel-Downloader', stableApi: 'latest', betaApi: 'tags/beta' },
                 pofanqie: { name: 'POf·番茄', owner: 'POf-L', repo: 'Fanqie-novel-Downloader', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -989,7 +983,6 @@
         const ApiManager = {
             loadedSet: new Set(),
 
-            // 获取最新预发布版本（当 tags/beta 返回 404 时作为 fallback）
             async fetchLatestPrerelease(repoId) {
                 const cfg = CONFIG.repos[repoId];
                 const url = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/releases`;
@@ -1009,7 +1002,6 @@
                 const cacheKey = `gh_${repoId}_${type}`;
                 const timeKey = `time_${cacheKey}`;
 
-                // 1. 尝试读取缓存
                 let cachedData = null;
                 let etag = null;
                 try {
@@ -1021,7 +1013,6 @@
                     }
                 } catch (e) {}
 
-                // 2. 如果缓存存在且距存储时间 < 5 分钟，直接返回（减少网络请求）
                 const timeStr = localStorage.getItem(timeKey);
                 if (cachedData && timeStr) {
                     const elapsed = Date.now() - parseInt(timeStr);
@@ -1031,25 +1022,21 @@
                     }
                 }
 
-                // 3. 发起请求
                 const headers = { 'Accept': 'application/vnd.github.v3+json' };
                 if (etag) headers['If-None-Match'] = etag;
 
                 const res = await fetch(url, { headers, ...CONFIG.apiConfig });
 
-                // 4. 处理 304（资源未变，更新缓存时间）
                 if (res.status === 304 && cachedData) {
                     localStorage.setItem(timeKey, String(Date.now()));
                     console.log(`✅ 缓存命中 (304): ${repoId} - ${type}`);
                     return cachedData;
                 }
 
-                // 5. 处理 404 + beta → 尝试获取最新预发布
                 if (res.status === 404 && type === 'beta') {
                     console.warn(`⚠️ beta标签404，尝试获取最新预发布: ${repoId}`);
                     try {
                         const preRelease = await this.fetchLatestPrerelease(repoId);
-                        // 存入缓存（无 ETag）
                         localStorage.setItem(cacheKey, JSON.stringify({ data: preRelease, etag: null }));
                         localStorage.setItem(timeKey, String(Date.now()));
                         return preRelease;
@@ -1058,9 +1045,7 @@
                     }
                 }
 
-                // 6. 其他失败情况
                 if (!res.ok) {
-                    // 如果有缓存，降级使用（即便过期）
                     if (cachedData) {
                         console.warn(`⚠️ 请求失败 (${res.status})，使用过期缓存: ${repoId} - ${type}`);
                         return cachedData;
@@ -1068,7 +1053,6 @@
                     throw new Error(`HTTP ${res.status}`);
                 }
 
-                // 7. 成功获取新数据
                 const newData = await res.json();
                 const newEtag = res.headers.get('ETag');
                 if (newEtag) {
@@ -1138,7 +1122,6 @@
 
             async loadRelease(repoId, type, force = false) {
                 if (force) {
-                    // 强制刷新：清除缓存时间
                     const timeKey = `time_gh_${repoId}_${type}`;
                     localStorage.removeItem(timeKey);
                 }
@@ -1157,29 +1140,23 @@
         function buildAllCards() {
             const container = document.getElementById('repoContainer');
             container.innerHTML = '';
-            // 注意顺序：colortxt 后面紧跟 kototoro，然后才是 ireader
             const order = [
                 'original', 'miaogongzi', 'sigma', 'md3', 'md3diy', 't',
                 'cichen', 'dandan', 'youfeng', 'suml1',
                 'archive', 'readingr',
-                // 阅读C（新增）
                 'readingc',
                 'jingshiro', 'legadong',
+                // 新增阅读PP（放在NG后面）
+                'legadopp',
                 'shutiao',
-                // 墨听
                 'moting',
-                // 墨水
                 'inkwell',
-                // 夜读（新增）
                 'nightreader',
                 'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg', 'manxia', 'hongmeng',
                 'tauri',
-                // 彩读（新增）
                 'colortxt',
-                // Kototoro（新增）
                 'kototoro',
                 'ireader', 'lightnovelreader',
-                // Lumi 在 LightNovelReader 后面
                 'lumi',
                 'zhongfanqie', 'pofanqie', 'dlmiyfanqie', 'doctoroyyfanqie', 'bidabrainfanqie'
             ];
@@ -1203,22 +1180,23 @@
                 else if (repoId === 'suml1') iconEmoji = '🚀';
                 else if (repoId === 'archive') iconEmoji = '🗃️';
                 else if (repoId === 'readingr') iconEmoji = '📕';
-                // 新增阅读C 图标
                 else if (repoId === 'readingc') iconEmoji = '📗';
                 else if (repoId === 'jingshiro') iconEmoji = '✨';
                 else if (repoId === 'morealm') iconEmoji = '🌙';
                 else if (repoId === 'shutiao') iconEmoji = '🍟';
                 else if (repoId === 'moting') iconEmoji = '🎵';
                 else if (repoId === 'inkwell') iconEmoji = '🖋️';
-                else if (repoId === 'nightreader') iconEmoji = '🌙';   // 夜读
-                else if (repoId === 'colortxt') iconEmoji = '🌈';      // 彩读
-                else if (repoId === 'kototoro') iconEmoji = '📘';      // Kototoro
+                else if (repoId === 'nightreader') iconEmoji = '🌙';
+                else if (repoId === 'colortxt') iconEmoji = '🌈';
+                else if (repoId === 'kototoro') iconEmoji = '📘';
                 else if (repoId === 'mr') iconEmoji = '📗';
                 else if (repoId === 'shuxiang') iconEmoji = '📚';
                 else if (repoId === 'kaiyuan') iconEmoji = '🌟';
                 else if (repoId === 'manxia') iconEmoji = '📦';
                 else if (repoId === 'miaogongzi') iconEmoji = '🐱';
                 else if (repoId === 'legadong') iconEmoji = '🆕';
+                // 新增阅读PP 图标
+                else if (repoId === 'legadopp') iconEmoji = '📒';
                 else if (repoId === 'ireader') iconEmoji = '📘';
                 else if (repoId === 'lightnovelreader') iconEmoji = '📙';
                 else if (repoId === 'lumi') iconEmoji = '💡';
