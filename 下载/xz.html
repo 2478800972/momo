@@ -171,7 +171,11 @@
         .legadong .repo-icon {
             background: linear-gradient(135deg, #00b894, #00a86b);
         }
-        /* ===== 阅读PP 配色（新增） ===== */
+        /* ===== 阅融 配色（新增） ===== */
+        .yuerong .repo-icon {
+            background: linear-gradient(135deg, #ff9a56, #f56a3b);
+        }
+        /* ===== 阅读PP 配色 ===== */
         .legadopp .repo-icon {
             background: linear-gradient(135deg, #a78bfa, #7c3aed);
         }
@@ -696,7 +700,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · Jingshiro · NG · PP · 🍟 · 墨听 · 墨水 · 夜读· MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · Kototoro · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · Jingshiro · NG · 阅融 · PP · 🍟 · 墨听 · 墨水 · 夜读· MR · MoRealm · 书享 · 开元 · 轻悦时光 · 漫匣 · 鸿蒙 · Tauri · 彩读 · Kototoro · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -720,7 +724,8 @@
                     <a href="https://github.com/refgd/legado" class="footer-link" target="_blank">R</a>
                     <a href="https://github.com/CCSSNE/legadoC" class="footer-link" target="_blank">C</a>
                     <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro</a>
-                    <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>                    
+                    <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>
+                    <a href="https://github.com/h166278/legado_FU" class="footer-link" target="_blank">阅融</a>
                     <a href="https://github.com/damifan3/legadoPP" class="footer-link" target="_blank">PP</a>
                     <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">🍟</a>
                     <a href="https://github.com/jwoo1982217-eng/MoTing-Releases" class="footer-link" target="_blank">墨听</a>
@@ -793,7 +798,9 @@
                 readingc: { name: '阅读C', owner: 'CCSSNE', repo: 'legadoC', stableApi: 'latest', betaApi: 'tags/beta' },
                 jingshiro: { name: 'Jingshiro阅读', owner: 'Jingshiro', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadong: { name: '阅读NG', owner: 'joestar817', repo: 'legado_NG', stableApi: 'latest', betaApi: 'tags/beta' },
-                // 新增阅读PP
+                // 新增 阅融
+                yuerong: { name: '阅融FU', owner: 'h166278', repo: 'legado_FU', stableApi: 'latest', betaApi: 'tags/beta' },
+                // 阅读PP
                 legadopp: { name: '阅读PP', owner: 'damifan3', repo: 'legadoPP', stableApi: 'latest', betaApi: 'tags/beta' },
                 shutiao: { name: '阅读🍟', owner: 'huajideshutiao', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 moting: { name: '墨听', owner: 'jwoo1982217-eng', repo: 'MoTing-Releases', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1145,7 +1152,8 @@
                 'archive', 'readingr',
                 'readingc',
                 'jingshiro', 'legadong',
-                // 新增阅读PP（放在NG后面）
+                // 新增 阅融
+                'yuerong',
                 'legadopp',
                 'shutiao',
                 'moting',
@@ -1194,7 +1202,7 @@
                 else if (repoId === 'manxia') iconEmoji = '📦';
                 else if (repoId === 'miaogongzi') iconEmoji = '🐱';
                 else if (repoId === 'legadong') iconEmoji = '🆕';
-                // 新增阅读PP 图标
+                else if (repoId === 'yuerong') iconEmoji = '📕';
                 else if (repoId === 'legadopp') iconEmoji = '📒';
                 else if (repoId === 'ireader') iconEmoji = '📘';
                 else if (repoId === 'lightnovelreader') iconEmoji = '📙';
