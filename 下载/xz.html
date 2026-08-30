@@ -215,6 +215,10 @@
         .lumi .repo-icon {
             background: linear-gradient(135deg, #667eea, #764ba2);
         }
+        /* ===== 新增 Aidoku 配色 ===== */
+        .aidoku .repo-icon {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
         .zhongfanqie .repo-icon {
             background: linear-gradient(135deg, #f39c12, #d68910);
         }
@@ -251,7 +255,6 @@
         .yida .repo-icon {
             background: linear-gradient(135deg, #fdcb6e, #e17055);
         }
-        /* ===== 新增配色 ===== */
         .mreading .repo-icon {
             background: linear-gradient(135deg, #a855f7, #7c3aed);
         }
@@ -708,7 +711,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · Jingshiro · NG · 阅融 · PP · 🍟 · M · 墨听 · 墨水 · 夜读 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 你的益达 · 亦搜ESO · 漫匣 · 鸿蒙 · Tauri · 彩读 · ReadCat · Reader · Kototoro · IReader · LightNovelReader · Lumi · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · Jingshiro · NG · 阅融 · PP · 🍟 · M · 墨听 · 墨水 · 夜读 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 你的益达 · 亦搜ESO · 漫匣 · 鸿蒙 · Tauri · 彩读 · ReadCat · Reader · Kototoro · IReader · LightNovelReader · Lumi · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -736,7 +739,6 @@
                     <a href="https://github.com/h166278/legado_FU" class="footer-link" target="_blank">阅融</a>
                     <a href="https://github.com/damifan3/legadoPP" class="footer-link" target="_blank">PP</a>
                     <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">🍟</a>
-                    <!-- 新增 阅读M -->
                     <a href="https://github.com/syq17496152/legado" class="footer-link" target="_blank">M</a>
                     <a href="https://github.com/jwoo1982217-eng/MoTing-Releases" class="footer-link" target="_blank">墨听</a>
                     <a href="https://github.com/radiumCN/inkwell" class="footer-link" target="_blank">墨水</a>
@@ -747,7 +749,6 @@
                     <a href="https://github.com/miloquinn/open-reading" class="footer-link" target="_blank">开元</a>
                     <a href="https://github.com/autobcb/qysg" class="footer-link" target="_blank">轻悦时光</a>
                     <a href="https://github.com/xiaohucode/yidaRule" class="footer-link" target="_blank">你的益达</a>
-                    <!-- 新增 亦搜ESO -->
                     <a href="https://github.com/mabDc/eso" class="footer-link" target="_blank">亦搜ESO</a>
                     <a href="https://github.com/DaLongZhuaZi/manxia" class="footer-link" target="_blank">漫匣</a>
                     <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">鸿蒙</a>
@@ -759,6 +760,8 @@
                     <a href="https://github.com/IReaderorg/IReader" class="footer-link" target="_blank">IReader</a>
                     <a href="https://github.com/dmzz-yyhyy/LightNovelReader" class="footer-link" target="_blank">LightNovelReader</a>
                     <a href="https://github.com/huangder/Lumi_Books" class="footer-link" target="_blank">Lumi</a>
+                    <!-- ===== 新增 Aidoku 仓库 ===== -->
+                    <a href="https://github.com/Aidoku/Aidoku" class="footer-link" target="_blank">Aidoku</a>
                     <a href="https://github.com/zhongbai2333/Tomato-Novel-Downloader" class="footer-link" target="_blank">Zhong·番茄</a>
                     <a href="https://github.com/POf-L/Fanqie-novel-Downloader" class="footer-link" target="_blank">POf·番茄</a>
                     <a href="https://github.com/Dlmily/Tomato-Novel-Downloader-Lite" class="footer-link" target="_blank">Dlmiy·番茄</a>
@@ -819,7 +822,6 @@
                 yuerong: { name: '阅融FU', owner: 'h166278', repo: 'legado_FU', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadopp: { name: '阅读PP', owner: 'damifan3', repo: 'legadoPP', stableApi: 'latest', betaApi: 'tags/beta' },
                 shutiao: { name: '阅读🍟', owner: 'huajideshutiao', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
-                // ===== 新增 阅读M =====
                 mreading: { name: '阅读M', owner: 'syq17496152', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 moting: { name: '墨听', owner: 'jwoo1982217-eng', repo: 'MoTing-Releases', stableApi: 'latest', betaApi: 'tags/beta' },
                 inkwell: { name: '墨水', owner: 'radiumCN', repo: 'inkwell', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -830,7 +832,6 @@
                 kaiyuan: { name: '开元阅读', owner: 'miloquinn', repo: 'open-reading', stableApi: 'latest', betaApi: 'tags/beta' },
                 qysg: { name: '轻悦时光', owner: 'autobcb', repo: 'qysg', stableApi: 'latest', betaApi: 'tags/beta' },
                 yida: { name: '你的益达', owner: 'xiaohucode', repo: 'yidaRule', stableApi: 'latest', betaApi: 'tags/beta' },
-                // ===== 新增 亦搜ESO =====
                 eso: { name: '亦搜ESO', owner: 'mabDc', repo: 'eso', stableApi: 'latest', betaApi: 'tags/beta' },
                 manxia: { name: '漫匣阅读', owner: 'DaLongZhuaZi', repo: 'manxia', stableApi: 'latest', betaApi: 'tags/beta' },
                 hongmeng: { name: '喵公子鸿蒙阅读', owner: 'mgz0227', repo: 'legado-Harmony', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -842,6 +843,8 @@
                 ireader: { name: 'IReader', owner: 'IReaderorg', repo: 'IReader', stableApi: 'latest', betaApi: 'tags/beta' },
                 lightnovelreader: { name: 'LightNovelReader', owner: 'dmzz-yyhyy', repo: 'LightNovelReader', stableApi: 'latest', betaApi: 'tags/beta' },
                 lumi: { name: 'Lumi', owner: 'huangder', repo: 'Lumi_Books', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增 Aidoku 仓库配置 =====
+                aidoku: { name: 'Aidoku', owner: 'Aidoku', repo: 'Aidoku', stableApi: 'latest', betaApi: 'tags/beta' },
                 zhongfanqie: { name: 'Zhong·番茄', owner: 'zhongbai2333', repo: 'Tomato-Novel-Downloader', stableApi: 'latest', betaApi: 'tags/beta' },
                 pofanqie: { name: 'POf·番茄', owner: 'POf-L', repo: 'Fanqie-novel-Downloader', stableApi: 'latest', betaApi: 'tags/beta' },
                 dlmiyfanqie: { name: 'Dlmiy·番茄', owner: 'Dlmily', repo: 'Tomato-Novel-Downloader-Lite', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1178,14 +1181,12 @@
                 'yuerong',
                 'legadopp',
                 'shutiao',
-                // ===== 新增 阅读M =====
                 'mreading',
                 'moting',
                 'inkwell',
                 'nightreader',
                 'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg',
                 'yida',
-                // ===== 新增 亦搜ESO =====
                 'eso',
                 'manxia', 'hongmeng',
                 'tauri',
@@ -1195,6 +1196,8 @@
                 'kototoro',
                 'ireader', 'lightnovelreader',
                 'lumi',
+                // ===== 新增Aidoku =====
+                'aidoku',
                 'zhongfanqie', 'pofanqie', 'dlmiyfanqie', 'doctoroyyfanqie', 'bidabrainfanqie'
             ];
             for (const repoId of order) {
@@ -1237,11 +1240,12 @@
                 else if (repoId === 'ireader') iconEmoji = '📘';
                 else if (repoId === 'lightnovelreader') iconEmoji = '📙';
                 else if (repoId === 'lumi') iconEmoji = '💡';
+                // ===== 新增 Aidoku 图标 =====
+                else if (repoId === 'aidoku') iconEmoji = '📘';
                 else if (repoId.startsWith('fanqie') || repoId.includes('fanqie')) iconEmoji = '🍅';
                 else if (repoId === 'readcat') iconEmoji = '🐱';
                 else if (repoId === 'yida') iconEmoji = '🍬';
                 else if (repoId === 'reader') iconEmoji = '📓';
-                // ===== 新增图标 =====
                 else if (repoId === 'mreading') iconEmoji = '📘';
                 else if (repoId === 'eso') iconEmoji = '🔍';
                 else iconEmoji = '📖';
