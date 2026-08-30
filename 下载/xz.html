@@ -164,10 +164,6 @@
         .readingc .repo-icon {
             background: linear-gradient(135deg, #00b894, #00a86b);
         }
-        /* ===== 新增 阅读X 配色 ===== */
-        .readingx .repo-icon {
-            background: linear-gradient(135deg, #7c3aed, #4f46e5);
-        }
         .jingshiro .repo-icon {
             background: linear-gradient(135deg, #fd79a8, #e84393);
         }
@@ -264,11 +260,16 @@
         .eso .repo-icon {
             background: linear-gradient(135deg, #06b6d4, #0891b2);
         }
+        /* ===== 新增配色 ===== */
         .legadomac .repo-icon {
             background: linear-gradient(135deg, #a0a0a0, #4a4a4a);
         }
         .sanmu .repo-icon {
             background: linear-gradient(135deg, #2196f3, #0d47a1);
+        }
+        /* ===== 阅读X 配色 ===== */
+        .legadox .repo-icon {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
         }
 
         .repo-title h2 {
@@ -720,7 +721,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · X · Jingshiro · NG · 阅融 · PP · 🍟 · M · 墨听 · 墨水 · 夜读 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 漫匣 · 鸿蒙 · Tauri · Legado macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · LightNovelReader · Lumi · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨水 · 夜读 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 漫匣 · 鸿蒙 · Tauri · Legado macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · LightNovelReader · Lumi · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -743,13 +744,13 @@
                     <a href="https://github.com/Rimchars/legado" class="footer-link" target="_blank">Archive</a>
                     <a href="https://github.com/refgd/legado" class="footer-link" target="_blank">R</a>
                     <a href="https://github.com/CCSSNE/legadoC" class="footer-link" target="_blank">C</a>
-                    <!-- ===== 新增 阅读X 仓库 ===== -->
-                    <a href="https://github.com/XziXmn/legado-X" class="footer-link" target="_blank">X</a>
                     <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro</a>
                     <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>
                     <a href="https://github.com/h166278/legado_FU" class="footer-link" target="_blank">阅融</a>
                     <a href="https://github.com/damifan3/legadoPP" class="footer-link" target="_blank">PP</a>
                     <a href="https://github.com/huajideshutiao/legado" class="footer-link" target="_blank">🍟</a>
+                    <!-- 阅读X -->
+                    <a href="https://github.com/XziXmn/legado-X" class="footer-link" target="_blank">X</a>
                     <a href="https://github.com/syq17496152/legado" class="footer-link" target="_blank">M</a>
                     <a href="https://github.com/jwoo1982217-eng/MoTing-Releases" class="footer-link" target="_blank">墨听</a>
                     <a href="https://github.com/radiumCN/inkwell" class="footer-link" target="_blank">墨水</a>
@@ -829,13 +830,13 @@
                 archive: { name: '阅读Archive', owner: 'Rimchars', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 readingr: { name: '阅读R', owner: 'refgd', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 readingc: { name: '阅读C', owner: 'CCSSNE', repo: 'legadoC', stableApi: 'latest', betaApi: 'tags/beta' },
-                // ===== 新增 阅读X =====
-                readingx: { name: '阅读X', owner: 'XziXmn', repo: 'legado-X', stableApi: 'latest', betaApi: 'tags/beta' },
                 jingshiro: { name: 'Jingshiro阅读', owner: 'Jingshiro', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadong: { name: '阅读NG', owner: 'joestar817', repo: 'legado_NG', stableApi: 'latest', betaApi: 'tags/beta' },
                 yuerong: { name: '阅融FU', owner: 'h166278', repo: 'legado_FU', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadopp: { name: '阅读PP', owner: 'damifan3', repo: 'legadoPP', stableApi: 'latest', betaApi: 'tags/beta' },
                 shutiao: { name: '阅读🍟', owner: 'huajideshutiao', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增 阅读X =====
+                legadox: { name: '阅读X', owner: 'XziXmn', repo: 'legado-X', stableApi: 'latest', betaApi: 'tags/beta' },
                 mreading: { name: '阅读M', owner: 'syq17496152', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 moting: { name: '墨听', owner: 'jwoo1982217-eng', repo: 'MoTing-Releases', stableApi: 'latest', betaApi: 'tags/beta' },
                 inkwell: { name: '墨水', owner: 'radiumCN', repo: 'inkwell', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1192,12 +1193,12 @@
                 'cichen', 'dandan', 'youfeng', 'suml1',
                 'archive', 'readingr',
                 'readingc',
-                // ===== 新增 阅读X =====
-                'readingx',
                 'jingshiro', 'legadong',
                 'yuerong',
                 'legadopp',
                 'shutiao',
+                // ===== 阅读X =====
+                'legadox',
                 'mreading',
                 'moting',
                 'inkwell',
@@ -1239,8 +1240,6 @@
                 else if (repoId === 'archive') iconEmoji = '🗃️';
                 else if (repoId === 'readingr') iconEmoji = '📕';
                 else if (repoId === 'readingc') iconEmoji = '📗';
-                // ===== 新增 阅读X 图标 =====
-                else if (repoId === 'readingx') iconEmoji = '❌';
                 else if (repoId === 'jingshiro') iconEmoji = '✨';
                 else if (repoId === 'morealm') iconEmoji = '🌙';
                 else if (repoId === 'shutiao') iconEmoji = '🍟';
@@ -1269,6 +1268,8 @@
                 else if (repoId === 'eso') iconEmoji = '🔍';
                 else if (repoId === 'legadomac') iconEmoji = '💻';
                 else if (repoId === 'sanmu') iconEmoji = '👁️';
+                // ===== 阅读X 图标 =====
+                else if (repoId === 'legadox') iconEmoji = '❌';
                 else iconEmoji = '📖';
 
                 cardDiv.innerHTML = `
