@@ -219,6 +219,10 @@
         .mozhi .repo-icon {
             background: linear-gradient(135deg, #2c3e50, #4a6741);
         }
+        /* ===== 新增：墨本 ===== */
+        .moben .repo-icon {
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+        }
         .aidoku .repo-icon {
             background: linear-gradient(135deg, #ff6b6b, #ee5a24);
         }
@@ -747,7 +751,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨水 · 夜读 · 玄卷 · 爱看书 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 爱看阅读 · 漫匣 · 鸿蒙 · Tauri · Legado macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · Cmbok · Nexhub · LightRead · LightNovelReader · Lumi · 墨知 · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨本 · 墨水 · 夜读 · 玄卷 · 爱看书 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 爱看阅读 · 漫匣 · 鸿蒙 · Tauri · Legado macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · Cmbok · Nexhub · LightRead · LightNovelReader · Lumi · 墨知 · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -778,6 +782,7 @@
                     <a href="https://github.com/XziXmn/legado-X" class="footer-link" target="_blank">X</a>
                     <a href="https://github.com/syq17496152/legado" class="footer-link" target="_blank">M</a>
                     <a href="https://github.com/jwoo1982217-eng/MoTing-Releases" class="footer-link" target="_blank">墨听</a>
+                    <a href="https://github.com/Mupceet/EssentialReader" class="footer-link" target="_blank">墨本</a>
                     <a href="https://github.com/radiumCN/inkwell" class="footer-link" target="_blank">墨水</a>
                     <a href="https://github.com/bennytsai1234/Night-Reader" class="footer-link" target="_blank">夜读</a>
                     <a href="https://github.com/24257/novel-helper" class="footer-link" target="_blank">玄卷</a>
@@ -875,6 +880,8 @@
                 legadox: { name: '阅读X', owner: 'XziXmn', repo: 'legado-X', stableApi: 'latest', betaApi: 'tags/beta' },
                 mreading: { name: '阅读M', owner: 'syq17496152', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 moting: { name: '墨听', owner: 'jwoo1982217-eng', repo: 'MoTing-Releases', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增：墨本 =====
+                moben: { name: '墨本', owner: 'Mupceet', repo: 'EssentialReader', stableApi: 'latest', betaApi: 'tags/beta' },
                 inkwell: { name: '墨水', owner: 'radiumCN', repo: 'inkwell', stableApi: 'latest', betaApi: 'tags/beta' },
                 nightreader: { name: '夜读', owner: 'bennytsai1234', repo: 'Night-Reader', stableApi: 'latest', betaApi: 'tags/beta' },
                 xuanjuan: { name: '玄卷', owner: '24257', repo: 'novel-helper', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1244,6 +1251,7 @@
                 'legadox',
                 'mreading',
                 'moting',
+                'moben',
                 'inkwell',
                 'nightreader',
                 'xuanjuan',
@@ -1295,6 +1303,7 @@
                 else if (repoId === 'morealm') iconEmoji = '🌙';
                 else if (repoId === 'shutiao') iconEmoji = '🍟';
                 else if (repoId === 'moting') iconEmoji = '🎵';
+                else if (repoId === 'moben') iconEmoji = '📓';
                 else if (repoId === 'inkwell') iconEmoji = '🖋️';
                 else if (repoId === 'nightreader') iconEmoji = '🌙';
                 else if (repoId === 'xuanjuan') iconEmoji = '📜';
