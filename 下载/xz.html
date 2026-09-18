@@ -164,6 +164,10 @@
         .readingc .repo-icon {
             background: linear-gradient(135deg, #00b894, #00a86b);
         }
+        /* ===== 新增：阅读SK ===== */
+        .readingsk .repo-icon {
+            background: linear-gradient(135deg, #48cae4, #0077b6);
+        }
         .jingshiro .repo-icon {
             background: linear-gradient(135deg, #fd79a8, #e84393);
         }
@@ -751,7 +755,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨本 · 墨水 · 夜读 · 玄卷 · 爱看书 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 爱看阅读 · 漫匣 · 鸿蒙 · Tauri · Legado macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · Cmbok · Nexhub · LightRead · LightNovelReader · Lumi · 墨知 · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · SK · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨本 · 墨水 · 夜读 · 玄卷 · 爱看书 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 爱看阅读 · 漫匣 · 鸿蒙 · Tauri · Legado macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · Cmbok · Nexhub · LightRead · LightNovelReader · Lumi · 墨知 · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -774,6 +778,7 @@
                     <a href="https://github.com/Rimchars/legado" class="footer-link" target="_blank">Archive</a>
                     <a href="https://github.com/refgd/legado" class="footer-link" target="_blank">R</a>
                     <a href="https://github.com/CCSSNE/legadoC" class="footer-link" target="_blank">C</a>
+                    <a href="https://github.com/skxingyu/legado-sk" class="footer-link" target="_blank">SK</a>
                     <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro</a>
                     <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>
                     <a href="https://github.com/h166278/legado_FU" class="footer-link" target="_blank">阅融</a>
@@ -872,6 +877,8 @@
                 archive: { name: '阅读Archive', owner: 'Rimchars', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 readingr: { name: '阅读R', owner: 'refgd', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 readingc: { name: '阅读C', owner: 'CCSSNE', repo: 'legadoC', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增：阅读SK =====
+                readingsk: { name: '阅读SK', owner: 'skxingyu', repo: 'legado-sk', stableApi: 'latest', betaApi: 'tags/beta' },
                 jingshiro: { name: 'Jingshiro阅读', owner: 'Jingshiro', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadong: { name: '阅读NG', owner: 'joestar817', repo: 'legado_NG', stableApi: 'latest', betaApi: 'tags/beta' },
                 yuerong: { name: '阅融FU', owner: 'h166278', repo: 'legado_FU', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1244,6 +1251,7 @@
                 'cichen', 'dandan', 'youfeng', 'suml1',
                 'archive', 'readingr',
                 'readingc',
+                'readingsk',
                 'jingshiro', 'legadong',
                 'yuerong',
                 'legadopp',
@@ -1299,6 +1307,7 @@
                 else if (repoId === 'archive') iconEmoji = '🗃️';
                 else if (repoId === 'readingr') iconEmoji = '📕';
                 else if (repoId === 'readingc') iconEmoji = '📗';
+                else if (repoId === 'readingsk') iconEmoji = '📘';
                 else if (repoId === 'jingshiro') iconEmoji = '✨';
                 else if (repoId === 'morealm') iconEmoji = '🌙';
                 else if (repoId === 'shutiao') iconEmoji = '🍟';
