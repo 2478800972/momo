@@ -309,6 +309,14 @@
         .legadowindows .repo-icon {
             background: linear-gradient(135deg, #00b4d8, #023e8a);
         }
+        /* 新增：阅读Vox */
+        .vox .repo-icon {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+        }
+        /* 新增：樱读 */
+        .sakura .repo-icon {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
 
         .repo-title h2 {
             font-size: 18px;
@@ -759,7 +767,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · SK · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨本 · 墨水 · 夜读 · 玄卷 · 爱看书 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 爱看阅读 · 漫匣 · 鸿蒙 · Tauri · Windows · macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · Cmbok · Nexhub · LightRead · LightNovelReader · Lumi · 墨知 · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · SK · Vox · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨本 · 墨水 · 夜读 · 玄卷 · 樱读 · 爱看书 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 爱看阅读 · 漫匣 · 鸿蒙 · Tauri · Windows · macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · Cmbok · Nexhub · LightRead · LightNovelReader · Lumi · 墨知 · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -783,6 +791,7 @@
                     <a href="https://github.com/refgd/legado" class="footer-link" target="_blank">R</a>
                     <a href="https://github.com/CCSSNE/legadoC" class="footer-link" target="_blank">C</a>
                     <a href="https://github.com/skxingyu/legado-sk" class="footer-link" target="_blank">SK</a>
+                    <a href="https://github.com/Autsunset/legado-vox" class="footer-link" target="_blank">Vox</a>
                     <a href="https://github.com/Jingshiro/legado" class="footer-link" target="_blank">Jingshiro</a>
                     <a href="https://github.com/joestar817/legado_NG" class="footer-link" target="_blank">NG</a>
                     <a href="https://github.com/h166278/legado_FU" class="footer-link" target="_blank">阅融</a>
@@ -795,6 +804,7 @@
                     <a href="https://github.com/radiumCN/inkwell" class="footer-link" target="_blank">墨水</a>
                     <a href="https://github.com/bennytsai1234/Night-Reader" class="footer-link" target="_blank">夜读</a>
                     <a href="https://github.com/24257/novel-helper" class="footer-link" target="_blank">玄卷</a>
+                    <a href="https://github.com/akira399/sakura-read" class="footer-link" target="_blank">樱读</a>
                     <a href="https://github.com/leetomlee123/book" class="footer-link" target="_blank">爱看书</a>
                     <a href="https://github.com/DandanLLab/mr" class="footer-link" target="_blank">MR</a>
                     <a href="https://github.com/keys-cherish/morealm-reader" class="footer-link" target="_blank">MoRealm</a>
@@ -884,6 +894,8 @@
                 readingc: { name: '阅读C', owner: 'CCSSNE', repo: 'legadoC', stableApi: 'latest', betaApi: 'tags/beta' },
                 // ===== 新增：阅读SK =====
                 readingsk: { name: '阅读SK', owner: 'skxingyu', repo: 'legado-sk', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增：阅读Vox =====
+                vox: { name: '阅读Vox', owner: 'Autsunset', repo: 'legado-vox', stableApi: 'latest', betaApi: 'tags/beta' },
                 jingshiro: { name: 'Jingshiro阅读', owner: 'Jingshiro', repo: 'legado', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadong: { name: '阅读NG', owner: 'joestar817', repo: 'legado_NG', stableApi: 'latest', betaApi: 'tags/beta' },
                 yuerong: { name: '阅融FU', owner: 'h166278', repo: 'legado_FU', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -897,6 +909,8 @@
                 inkwell: { name: '墨水', owner: 'radiumCN', repo: 'inkwell', stableApi: 'latest', betaApi: 'tags/beta' },
                 nightreader: { name: '夜读', owner: 'bennytsai1234', repo: 'Night-Reader', stableApi: 'latest', betaApi: 'tags/beta' },
                 xuanjuan: { name: '玄卷', owner: '24257', repo: 'novel-helper', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增：樱读 =====
+                sakura: { name: '樱读', owner: 'akira399', repo: 'sakura-read', stableApi: 'latest', betaApi: 'tags/beta' },
                 aikanshu: { name: '爱看书', owner: 'leetomlee123', repo: 'book', stableApi: 'latest', betaApi: 'tags/beta' },
                 mr: { name: '阅读MR', owner: 'DandanLLab', repo: 'mr', stableApi: 'latest', betaApi: 'tags/beta' },
                 morealm: { name: 'MoRealm', owner: 'keys-cherish', repo: 'morealm-reader', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1258,6 +1272,7 @@
                 'archive', 'readingr',
                 'readingc',
                 'readingsk',
+                'vox',
                 'jingshiro', 'legadong',
                 'yuerong',
                 'legadopp',
@@ -1269,6 +1284,7 @@
                 'inkwell',
                 'nightreader',
                 'xuanjuan',
+                'sakura',
                 'aikanshu',
                 'mr', 'morealm', 'shuxiang', 'kaiyuan', 'qysg',
                 'sanmu',
@@ -1316,6 +1332,8 @@
                 else if (repoId === 'readingr') iconEmoji = '📕';
                 else if (repoId === 'readingc') iconEmoji = '📗';
                 else if (repoId === 'readingsk') iconEmoji = '📘';
+                else if (repoId === 'vox') iconEmoji = '🌅';
+                else if (repoId === 'sakura') iconEmoji = '🌸';
                 else if (repoId === 'jingshiro') iconEmoji = '✨';
                 else if (repoId === 'morealm') iconEmoji = '🌙';
                 else if (repoId === 'shutiao') iconEmoji = '🍟';
