@@ -204,6 +204,13 @@
         .manxia .repo-icon {
             background: linear-gradient(135deg, #e17055, #d63031);
         }
+        /* ===== 新增：随身听书 & 阿B听书 ===== */
+        .ssts .repo-icon {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+        .abts .repo-icon {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+        }
         .hongmeng .repo-icon {
             background: linear-gradient(135deg, #00b4aa, #00897b);
         }
@@ -229,6 +236,10 @@
         }
         .aidoku .repo-icon {
             background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+        /* ===== 新增：小铺·番茄 ===== */
+        .xiaopufanqie .repo-icon {
+            background: linear-gradient(135deg, #e53935, #b71c1c);
         }
         .zhongfanqie .repo-icon {
             background: linear-gradient(135deg, #f39c12, #d68910);
@@ -767,7 +778,7 @@
     <div class="container">
         <header class="header">
             <h1>📖 阅读 · 全版本集散地</h1>
-            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · SK · Vox · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨本 · 墨水 · 夜读 · 玄卷 · 樱读 · 爱看书 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 爱看阅读 · 漫匣 · 鸿蒙 · Tauri · Windows · macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · Cmbok · Nexhub · LightRead · LightNovelReader · Lumi · 墨知 · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
+            <p>原版 · 喵公子 · Sigma · MD3 · DIY · T · 辞晨 · 蛋蛋 · 怣疯 · Suml-1 · Archive · R · C · SK · Vox · Jingshiro · NG · 阅融 · PP · 🍟 · X · M · 墨听 · 墨本 · 墨水 · 夜读 · 玄卷 · 樱读 · 爱看书 · MR · MoRealm · 书享 · 开元 · 轻悦时光 · 三目阅读 · 你的益达 · 亦搜ESO · 爱看阅读 · 漫匣 · 随身听书 · 阿B听书 · 鸿蒙 · Tauri · Windows · macOS · 彩读 · ReadCat · Reader · Kototoro · IReader · Cmbok · Nexhub · LightRead · LightNovelReader · Lumi · 墨知 · Aidoku · 番茄系列<br>点击展开卡片加载 · 支持 ETag 缓存 · 稳定版 + 测试版</p>
         </header>
 
         <div class="repo-container" id="repoContainer"></div>
@@ -816,6 +827,8 @@
                     <a href="https://github.com/mabDc/eso" class="footer-link" target="_blank">亦搜ESO</a>
                     <a href="https://github.com/qucomic/ikan_source" class="footer-link" target="_blank">爱看阅读</a>
                     <a href="https://github.com/DaLongZhuaZi/manxia" class="footer-link" target="_blank">漫匣</a>
+                    <a href="https://github.com/whykang/ssts--Android" class="footer-link" target="_blank">随身听书</a>
+                    <a href="https://github.com/fengqiao57/abts" class="footer-link" target="_blank">阿B听书</a>
                     <a href="https://github.com/mgz0227/legado-Harmony" class="footer-link" target="_blank">鸿蒙</a>
                     <a href="https://github.com/LegadoTeam/Legado-Tauri-Release" class="footer-link" target="_blank">Tauri</a>
                     <a href="https://github.com/TttXxx36/legado-windows" class="footer-link" target="_blank">Legado Windows</a>
@@ -832,6 +845,7 @@
                     <a href="https://github.com/huangder/Lumi_Books" class="footer-link" target="_blank">Lumi</a>
                     <a href="https://github.com/ovo066/MoRead" class="footer-link" target="_blank">墨知</a>
                     <a href="https://github.com/Aidoku/Aidoku" class="footer-link" target="_blank">Aidoku</a>
+                    <a href="https://github.com/ch6vip/fqapp" class="footer-link" target="_blank">小铺·番茄</a>
                     <a href="https://github.com/zhongbai2333/Tomato-Novel-Downloader" class="footer-link" target="_blank">Zhong·番茄</a>
                     <a href="https://github.com/POf-L/Fanqie-novel-Downloader" class="footer-link" target="_blank">POf·番茄</a>
                     <a href="https://github.com/Dlmily/Tomato-Novel-Downloader-Lite" class="footer-link" target="_blank">Dlmiy·番茄</a>
@@ -922,6 +936,10 @@
                 eso: { name: '亦搜ESO', owner: 'mabDc', repo: 'eso', stableApi: 'latest', betaApi: 'tags/beta' },
                 aikan: { name: '爱看阅读', owner: 'qucomic', repo: 'ikan_source', stableApi: 'latest', betaApi: 'tags/beta' },
                 manxia: { name: '漫匣阅读', owner: 'DaLongZhuaZi', repo: 'manxia', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增：随身听书 =====
+                ssts: { name: '随身听书', owner: 'whykang', repo: 'ssts--Android', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增：阿B听书 =====
+                abts: { name: '阿B听书', owner: 'fengqiao57', repo: 'abts', stableApi: 'latest', betaApi: 'tags/beta' },
                 hongmeng: { name: '喵公子鸿蒙阅读', owner: 'mgz0227', repo: 'legado-Harmony', stableApi: 'latest', betaApi: 'tags/beta' },
                 tauri: { name: 'Legado-Tauri', owner: 'LegadoTeam', repo: 'Legado-Tauri-Release', stableApi: 'latest', betaApi: 'tags/beta' },
                 legadowindows: { name: 'Legado Windows', owner: 'TttXxx36', repo: 'legado-windows', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -939,6 +957,8 @@
                 // ===== 新增：墨知 =====
                 mozhi: { name: '墨知', owner: 'ovo066', repo: 'MoRead', stableApi: 'latest', betaApi: 'tags/beta' },
                 aidoku: { name: 'Aidoku', owner: 'Aidoku', repo: 'Aidoku', stableApi: 'latest', betaApi: 'tags/beta' },
+                // ===== 新增：小铺·番茄 =====
+                xiaopufanqie: { name: '小铺·番茄', owner: 'ch6vip', repo: 'fqapp', stableApi: 'latest', betaApi: 'tags/beta' },
                 zhongfanqie: { name: 'Zhong·番茄', owner: 'zhongbai2333', repo: 'Tomato-Novel-Downloader', stableApi: 'latest', betaApi: 'tags/beta' },
                 pofanqie: { name: 'POf·番茄', owner: 'POf-L', repo: 'Fanqie-novel-Downloader', stableApi: 'latest', betaApi: 'tags/beta' },
                 dlmiyfanqie: { name: 'Dlmiy·番茄', owner: 'Dlmily', repo: 'Tomato-Novel-Downloader-Lite', stableApi: 'latest', betaApi: 'tags/beta' },
@@ -1291,7 +1311,10 @@
                 'yida',
                 'eso',
                 'aikan',
-                'manxia', 'hongmeng',
+                'manxia',
+                'ssts',
+                'abts',
+                'hongmeng',
                 'tauri',
                 'legadowindows',
                 'legadomac',
@@ -1307,6 +1330,7 @@
                 'lumi',
                 'mozhi',
                 'aidoku',
+                'xiaopufanqie',
                 'zhongfanqie', 'pofanqie', 'dlmiyfanqie', 'doctoroyyfanqie', 'bidabrainfanqie'
             ];
             for (const repoId of order) {
@@ -1348,6 +1372,8 @@
                 else if (repoId === 'shuxiang') iconEmoji = '📚';
                 else if (repoId === 'kaiyuan') iconEmoji = '🌟';
                 else if (repoId === 'manxia') iconEmoji = '📦';
+                else if (repoId === 'ssts') iconEmoji = '🎧';
+                else if (repoId === 'abts') iconEmoji = '🎧';
                 else if (repoId === 'miaogongzi') iconEmoji = '🐱';
                 else if (repoId === 'legadong') iconEmoji = '🆕';
                 else if (repoId === 'yuerong') iconEmoji = '📕';
@@ -1362,6 +1388,7 @@
                 else if (repoId === 'lightread') iconEmoji = '💡';
                 else if (repoId === 'aikanshu') iconEmoji = '📚';
                 else if (repoId === 'aikan') iconEmoji = '👀';
+                else if (repoId === 'xiaopufanqie') iconEmoji = '🍅';
                 else if (repoId.startsWith('fanqie') || repoId.includes('fanqie')) iconEmoji = '🍅';
                 else if (repoId === 'readcat') iconEmoji = '🐱';
                 else if (repoId === 'yida') iconEmoji = '🍬';
